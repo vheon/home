@@ -1,3 +1,6 @@
 [submodule "bundle/a"]
 	path = bundle/a
 	url = https://github.com/vim-scripts/a.vim.git
+[submodule "bundle/delimitMate"]
+	path = bundle/delimitMate
+	url = https://github.com/vim-scripts/delimitMate.vim.git
