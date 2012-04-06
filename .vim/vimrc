@@ -6,6 +6,14 @@ set nocompatible
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+if has("gui_running")
+	if has("gui_gtk2")
+		set guifont=ProggyCleanTTSZ\ 12
+	else
+		set guifont=Courier\ New:h12
+	endif
+endif
+
 syntax on
 
 set nobackup
@@ -14,6 +22,7 @@ set showmode
 
 set noerrorbells
 set novisualbell
+set vb t_vb=
 
 set hidden
 set mouse=a
@@ -48,15 +57,18 @@ set shortmess=a
 set wildmode=longest:full
 set wildmenu
 
-"load ftplugins and indent files
-filetype plugin on
-filetype indent on
-
 "turn on syntax highlighting
 syntax on
 
+"load ftplugins and indent files
+filetype on
+filetype plugin on
+filetype indent on
+
 set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
 set laststatus=2
+
+let mapleader=","
 
 "Mappings for save and quit
 nmap q :q<CR>
