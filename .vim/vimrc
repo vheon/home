@@ -79,7 +79,7 @@ nmap W :wq<CR>
 " Remap ESC to a better shortcut. I've never type 'jj' anyway
 imap jj <ESC>
 
-function ColorColumnToggle()
+function! ColorColumnToggle()
 	if &colorcolumn
 		set colorcolumn=
 	else
