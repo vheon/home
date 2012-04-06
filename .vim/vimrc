@@ -17,6 +17,8 @@ endif
 syntax on
 
 set nobackup
+set noswapfile
+
 set showcmd
 set showmode
 
@@ -28,17 +30,23 @@ set hidden
 set mouse=a
 
 set autoindent
+set copyindent
 set smartindent
 set smarttab
 set smartcase
 
 set showmatch
 
+set nowrap
+set backspace=indent,eol,start
+
 
 set hlsearch
 set incsearch
+set ignorecase
 
 set history=1000
+set undolevels=1000
 
 set number
 set ruler
@@ -68,13 +76,38 @@ filetype indent on
 set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
 set laststatus=2
 
+" change the mapleader from \ to ,
 let mapleader=","
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+let Tlist_WinWidth = 35
+let Tlist_Display_Tag_Scope = 1
+let Tlist_Use_Right_Window = 1
+let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_Show_One_File = 1
+let Tlist_Process_File_Always = 1
+let Tlist_Show_Menu = 1
 
 "Mappings for save and quit
 nmap q :q<CR>
 nmap Q :q!<CR>
 nmap w :w<CR>
 nmap W :wq<CR>
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Clean the last search
+nmap <silent> <leader>z :nohlsearch<CR>
+
+" Sudo to write
+cmap w!! w !sudo tee % >/dev/null
 
 " Remap ESC to a better shortcut. I've never type 'jj' anyway
 imap jj <ESC>
