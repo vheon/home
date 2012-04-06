@@ -8,13 +8,15 @@ call pathogen#helptags()
 
 if has("gui_running")
 	if has("gui_gtk2")
-		set guifont=ProggyCleanTTSZ\ 12
+		set guifont=ProggyCleanTTSZ\ for\ Powerline\ 12
 	else
 		set guifont=Courier\ New:h12
 	endif
 endif
 
 syntax on
+
+set encoding=utf-8
 
 set nobackup
 set noswapfile
@@ -56,14 +58,17 @@ set tabstop=4
 set softtabstop=4
 set noexpandtab
 
-set scrolloff=3
+set scrolloff=8
 set sidescrolloff=7
 
 set autochdir
 set shortmess=a
+set autoread
 
 set wildmode=longest:full
 set wildmenu
+
+set cursorline
 
 "turn on syntax highlighting
 syntax on
@@ -91,6 +96,8 @@ let Tlist_Show_One_File = 1
 let Tlist_Process_File_Always = 1
 let Tlist_Show_Menu = 1
 
+let g:Powerline_symbols = 'fancy'
+
 "Mappings for save and quit
 nmap q :q<CR>
 nmap Q :q!<CR>
@@ -108,6 +115,10 @@ nmap <silent> <leader>z :nohlsearch<CR>
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
+
+" Underline the current lines with '=' or '-'
+nmap <silent> ,u= :t.\|s/./=/g\|:nohls<cr>
+nmap <silent> ,u- :t.\|s/./-/g\|:nohls<cr>
 
 " Remap ESC to a better shortcut. I've never type 'jj' anyway
 imap jj <ESC>
