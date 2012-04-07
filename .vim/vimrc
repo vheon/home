@@ -6,6 +6,8 @@ set nocompatible
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+syntax on
+
 if has("gui_running")
 	if has("gui_gtk2")
 		set guifont=ProggyCleanTTSZ\ for\ Powerline\ 12
@@ -14,7 +16,12 @@ if has("gui_running")
 	endif
 endif
 
-syntax on
+set background=dark
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+colorscheme solarized
 
 set encoding=utf-8
 
