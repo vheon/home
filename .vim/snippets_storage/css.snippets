@@ -1,0 +1,277 @@
+# CSS snippets
+# Combo of TextMate default, mCSS and personal helpers
+
+# backgrounds
+snippet background All
+	background: #${1:DDD} url(${2:path}) ${3:repeat/repeat-x/repeat-y/no-repeat} ${4:scroll/fixed} ${5:top left/top center/top right/center left/center center/center right/bottom left/bottom center/bottom right/x-% y-%/x-pos y-pos};${6}
+snippet background Color Hex
+	background-color: #${1:DDD};${2}
+snippet background Color RGB
+	background-color: rgb(${1:255}, ${2:255}, ${3:255});${4}
+snippet background Color RGBA
+	background-color: rgba(${1:255}, ${2:255}, ${3:255}, ${4:0.5});${5}
+snippet background Color Name
+	background-color: ${1:magenta};${2}
+snippet background Color Transparent
+	background-color: transparent;${1}
+snippet background Image URL
+	background-image: url(${1:path});${2}
+snippet background Image None
+	background-image: none;${1}
+snippet background Attachment
+	background-attachment: ${1:scroll/fixed};$2
+snippet background Position
+	background-position: ${1:top left/top center/top right/center left/center center/center right/bottom left/bottom center/bottom right/x-% y-%/x-pos y-pos};${2}
+snippet background Repeat
+	background-repeat: ${1:repeat/repeat-x/repeat-y/no-repeat};${2}
+# background shortcuts
+snippet bg
+	background: #${1:DDD} url(${2:path}) ${3:repeat/repeat-x/repeat-y/no-repeat} ${4:scroll/fixed} ${5:top left/top center/top right/center left/center center/center right/bottom left/bottom center/bottom right/x-% y-%/x-pos y-pos};${6}
+snippet bgc
+	background-color: ${1:color};${2}
+# borders
+snippet border All
+	border: ${1:1px} ${2:solid} #${3:999};${4}
+snippet border Color
+	border-color: #${1:999};${2}
+snippet border Style
+	border-style: ${1:none/hidden/dotted/dashed/solid/double/groove/ridge/inset/outset};${2}
+snippet border Size
+	border-width: ${1:1px};${2}
+snippet border Bottom Full
+	border-bottom: ${1:1}px ${2:solid} #${3:999};${4}
+snippet border Bottom Color
+	border-bottom-color: #${1:999};${2}
+snippet border Bottom Style
+	border-bottom-style: ${1:none/hidden/dotted/dashed/solid/double/groove/ridge/inset/outset};${2}
+snippet border Bottom Size
+	border-bottom-width: ${1:1}px;${4}
+snippet border Top Full
+	border-top: ${1:1}px ${2:solid} #${3:999};${4}
+snippet border Top Color
+	border-top-color: #${1:999};${2}
+snippet border Top Style
+	border-top-style: ${1:none/hidden/dotted/dashed/solid/double/groove/ridge/inset/outset};${2}
+snippet border Top Size
+	border-top-width: ${1:1}px;${4}
+snippet border Right Full
+	border-right: ${1:1}px ${2:solid} #${3:999};${4}
+snippet border Right Color
+	border-right-color: #${1:999};${2}
+snippet border Right Style
+	border-right-style: ${1:none/hidden/dotted/dashed/solid/double/groove/ridge/inset/outset};${2}
+snippet border Right Size
+	border-right-width: ${1:1}px;${4}
+snippet border Left Full
+	border-left: ${1:1}px ${2:solid} #${3:999};${4}
+snippet border Left Color
+	border-left-color: #${1:999};${2}
+snippet border Left Style
+	border-left-style: ${1:none/hidden/dotted/dashed/solid/double/groove/ridge/inset/outset};${2}
+snippet border Left Size
+	border-left-width: ${1:1}px;${4}
+# border shortcuts
+snippet b
+	border: ${1:1px} ${2:solid} #${3:999};${4}
+# border collapse
+snippet collapse
+	border-collapse: ${1:collapse/separate};${2}
+# clear
+snippet clear
+	clear: ${1:left/right/both/none};${2}
+# cursor
+snippet cursor Type
+	cursor: ${1:default/auto/crosshair/pointer/move/*-resize/text/wait/help};${2}
+snippet cursor URL
+	cursor: url(${1:path});${2}
+# color
+snippet color Hex
+	color: #${1:DDD};${2}
+snippet color RGB
+	color: rgb(${1:255}, ${2:255}, ${3:255});${4}
+snippet color RGBA
+	color: rgba(${1:255}, ${2:255}, ${3:255}, ${4:0.5});${5}
+snippet color Name
+	color: ${1:magenta};${2}
+# color shortcuts
+snippet c
+	color: ${1:color};${2}
+# direction
+snippet direction
+	direction: ${1:ltr|rtl};${2}
+# display
+snippet display
+	display: ${1:none/inline/block/list-item/run-in/compact/marker};${2}
+snippet displayt
+	display: ${1:table/inline-table/table-row-group/table-header-group/table-footer-group/table-row/table-column-group/table-column/table-cell/table-caption};${2}
+# float	
+snippet float
+	float: ${1:left/right/none};${2}
+# fonts
+snippet font All
+	font: ${1:style normal/italic/oblique} ${2:variant normal/small-caps} ${3:weight normal/bold} ${4:size/line-height} ${5:Helvetica, Arial, sans-serif};${6}
+snippet font Style Variant Weight Size/Line-
+	font: ${1:normal/italic/oblique} ${2:normal/small-caps} ${3:normal/bold} ${4:1em/1.5em} ${5:Helvetica, Arial, sans-serif};${6}
+snippet font Family
+	font-family: ${1:Helvetica, Arial, sans-serif};${2}
+snippet font Size
+	font-size: ${1:100%};${2}
+snippet font Style
+	font-style: ${1:normal/italic/oblique};${2}
+snippet font Variant
+	font-variant: ${1:normal/small-caps};${2}
+snippet font Weight
+	font-weight: ${1:normal/bold};${2}
+# font shortcut
+snippet f
+	font: ${1:style normal/italic/oblique} ${2:variant normal/small-caps} ${3:weight normal/bold} ${4:size/line-height} ${5:Helvetica, Arial, sans-serif};${6}
+# letter
+snippet letter
+	letter-spacing: ${1:distance};${2}
+# line height
+snippet lh
+	line-height: ${1:normal/1.5em};${2}
+# list
+snippet list All
+	list-style: ${1:none/disc/circle/square/decimal/zero} ${2:inside/outside} url($3);${4}
+snippet list Position
+	list-style-position: ${1:inside/outside};${2}
+snippet list Markers
+	list-style-type: ${1:none/disc/circle/square};${2}
+snippet list Numeric
+	list-style-type: ${1:decimal/decimal-leading-zero/zero};${2}
+snippet list Image
+	list-style-image: url($1);${2}
+# margin
+snippet margin All
+	margin: ${1:20px};${2}
+snippet margin TRBL
+	margin: ${1:10px} ${2:10px} ${3:10px} ${4:10px};${5}
+snippet margin VH
+	margin: ${1:20px} ${2:10px};${3}
+snippet margin Top
+	margin-top: ${1:20px};${2}
+snippet margin Right
+	margin-right: ${1:20px};${2}
+snippet margin Bottom
+	margin-bottom: ${1:20px};${2}
+snippet margin Left
+	margin-left: ${1:20px};${2}
+snippet margin Center
+	margin: 0 auto;${1}
+# margin shortcut
+snippet m
+	margin: ${1:10px} ${2:10px} ${3:10px} ${4:10px};${5}
+# padding
+snippet padding All
+	padding: ${1:20px};${2}
+snippet padding TRBL
+	padding: ${1:10px} ${2:10px} ${3:10px} ${4:10px};${5}
+snippet padding VH
+	padding: ${1:20px} ${2:10px};${3}
+snippet padding Top
+	padding-top: ${1:20px};${2}
+snippet padding Right
+	padding-right: ${1:20px};${2}
+snippet padding Bottom
+	padding-bottom: ${1:20px};${2}
+snippet padding Left
+	padding-left: ${1:20px};${2}
+# padding shortcut
+snippet p
+	padding: ${1:10px} ${2:10px} ${3:10px} ${4:10px};${5}
+# marker
+snippet marker
+	marker-offset: ${1:10px/auto};${2}
+# overflow
+snippet overflow
+	overflow: ${1:visible/hidden/scroll/auto};${2}
+# opacity
+snippet opacity
+	opacity: ${1:0.5};${2}
+# position
+snippet position
+	position: ${1:static/relative/absolute/fixed};${2}
+# text
+snippet text Align
+	text-align: ${1:left/right/center/justify};${2}
+snippet text Decoration
+	text-decoration: ${1:none/underline/overline/line-through/blink};${2}
+snippet text Indent
+	text-indent: ${1:10}px;${2}
+snippet text Transform
+	text-transform: ${1:capitalize/uppercase/lowercase/none};${2}
+# text shadow
+snippet tshadow Shadow Hex
+	text-shadow: #${1:DDD} ${2:10px} ${3:10px} ${4:2px};${5}
+snippet tshadow Shadow RGB
+	text-shadow: rgb(${1:255}, ${2:255}, ${3:255}) ${4:10px} ${5:10px} ${6:2px};${7}
+snippet tshadow Shadow RGBA
+	text-shadow: rgb(${1:255}, ${2:255}, ${3:255}, ${4:0.5}) ${5:10px} ${6:10px} ${7:2px};${8}
+snippet tshadow None
+	text-shadow: none;${1}
+# vertical
+snippet vertical
+	vertical-align: ${1:baseline/sub/super/top/text-top/middle/bottom/text-bottom/length/%};${2}
+# visibility
+snippet visibility
+	visibility: ${1:visible/hidden/collapse};${2}
+# white space
+snippet white
+	white-space: ${1:normal/pre/nowrap};${2}
+# word
+snippet word
+	word-spacing: ${1:10px/normal};${2}
+# z-index
+snippet z
+	z-index: ${1:999};${2}
+# dimensions
+snippet w
+	width: ${1:width};${2}
+snippet maxw
+	max-width: ${1:width};${2}
+snippet minw
+	min-width: ${1:width};${2}
+snippet h
+	height: ${1:height};${2}
+snippet maxh
+	max-height: ${1:height};${2}
+snippet minh
+	min-height: ${1:height};${2}
+# important !
+snippet !
+	!important${1}
+# scrollbar
+snippet scrollbar
+	scrollbar-base-color:       ${1:#CCCCCC};
+	scrollbar-arrow-color:      ${2:#000000};
+	scrollbar-track-color:      ${3:#999999};
+	scrollbar-3dlight-color:    ${4:#EEEEEE};
+	scrollbar-highlight-color:  ${5:#FFFFFF};
+	scrollbar-face-color:       ${6:#CCCCCC};
+	scrollbar-shadow-color:     ${7:#999999};
+	scrollbar-darkshadow-color: ${8:#666666};${9}
+# sekections
+snippet selection
+	::-moz-selection {
+		background: #${1:FFF};
+		color: #${2:000};
+	}
+	::selection {
+		background: #${3:FFF};
+		color: #${4:000};
+	}${5}
+# MK Specific
+snippet debug
+	border: 1px dotted magenta;${1}
+snippet body
+	.body {
+		clear: both;
+		margin: 0 auto;
+		width: 980px;
+		overflow: hidden;
+	}
+snippet hr
+	/* ${1:Category}
+	 *****************************************************************************/
+	${2}

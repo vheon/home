@@ -1,0 +1,79 @@
+# Raphael.js ------------------------------------------------------------------
+snippet paper
+	var paper = Raphael(${1:x}, ${2:y}, ${3:width}, ${4:height});${5}
+snippet circ
+	circle(${1:x}, ${2:y}, ${3:radius});${4}
+snippet rect
+	rect(${1:x}, ${2:y}, ${3:width}, ${4:height});${5}
+snippet rrect
+	rect(${1:x}, ${2:y}, ${3:width}, ${4:height}, ${5:radius});${6}
+snippet ellipse
+	ellipse(${1:x}, ${2:y}, ${3:rx}, ${4:ry});${5}
+snippet image
+	image('${1:src}', ${2:x}, ${3:y}, ${4:width}, ${5:height});${6}
+snippet rtext
+	text(${1:x}, ${2:y}, '${3:text}');${4}
+snippet path
+	path('${1:path}');${2}
+snippet clear
+	clear();${1}
+snippet rotate
+	rotate(${1:degree}${2});${3}
+snippet translate
+	translate(${1:dx}, ${2:dy});${3}
+snippet scale
+	scale(${1:hx}, ${2:hy});${3}
+snippet rattr
+	attr({${1:name}: ${2:value}});${3}
+snippet animate
+	animate(${1:attributes});
+snippet getbb
+	getBBox()${1};
+snippet front
+	toFront();${1}
+snippet back
+	toBack();${1}
+snippet ibefore
+	insertBefore(${1:object});${2}
+snippet iafter
+	insertAfter(${1:object});${2}
+snippet tlen
+	getTotalLength();${1}
+snippet plen
+	getPointAtLength(${1:length});${2}
+snippet subpath
+	getSubpath(${1:from}, ${2:to});${3}
+snippet ssize
+	setSize(${1:width}, ${2:height});${3}
+snippet grgb
+	getRGB(${1:attr});${2}
+snippet angle
+	angle(${1:x1}, ${2:y1}, ${3:x2}, ${4:y2});${5}
+snippet rad
+	rad(${1:degree});${2}
+snippet deg
+	deg(${1:radian});${2}
+snippet snap
+	snapTo(${1:number or array}, ${2:value}, ${3:tolerance});${4}
+snippet gcolor
+	getColor();${1}
+snippet gcolorr
+	getColor.reset();${1}
+snippet regfont
+	registerFont(${1:font});${2}
+snippet gfont
+	getFont(${1:font});${2}
+snippet safari
+	safari();
+snippet rExt
+	Raphael.fn.${1:method} = function() {
+		var paper = this;
+		paper.safari();
+		return {
+			${2:// body...}
+		};
+	};
+snippet rAddEl
+	Raphael.el.${1:element} = function() {
+		this.attr({${2:name}: ${3:value}});
+	};${4}

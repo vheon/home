@@ -1,0 +1,59 @@
+# Haml
+snippet page
+	!!!
+	%html{:lang => 'en'}
+		%head
+			%title ${1:Title}
+			%meta{ :content => 'text/html; charset=UTF-8', :'http-equiv' => 'content-type' }
+			%meta{ :name => '${2:name}', :content => '${3:content}'${4:, } }${5}
+		%body
+snippet ie
+	/[if ${1:lte }IE${3: ${2:version}}]
+		${3}
+snippet cdata
+	:cdata
+		${1}
+snippet md
+	:markdown
+		${1}
+snippet plain
+	:plain
+		${1}
+snippet js
+	:javascript
+		${1}
+snippet escaped
+	:escaped
+		${1}
+snippet ruby
+	:ruby
+		${1}
+snippet preserve
+	:preserve
+		${1}
+snippet erb
+	:erb
+		${1}
+snippet sass
+	:sass
+		${1}
+snippet textile
+	:textile
+		${1}
+snippet maruku
+	:maruku
+		${1}
+snippet :
+	:${1:name} => "${2:value}"${3:, }${4}
+snippet t
+	%${1:p}
+snippet meta
+	%meta{ :name => '${1:name}', :content => '${2:content}'${3:, } }${4}
+snippet partial
+	= render :partial => '${1:path}'${2}
+snippet link
+	%a{:href => '${1:#}'} ${2:Link}
+snippet img
+	%img{:src => '${1:path}', :alt => '${2:alt}'}/${3}
+snippet imgd
+	%img{:src => '${1:path}', :alt => '${2:alt}', :width => '${3}', :height => '${4}'}/${5}

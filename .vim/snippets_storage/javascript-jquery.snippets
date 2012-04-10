@@ -1,0 +1,285 @@
+# jQuery ----------------------------------------------------------------------
+snippet ready
+	jQuery(document).ready(function($) {
+		${1:// add initialize calls}
+	});
+snippet add
+	add('${1:selector/elements/html}');${2}
+snippet addClass
+	addClass('${1:className}');${2}
+snippet after
+	after('${1:content}');${2}
+snippet andSelf
+	andSelf();${1}
+snippet animate Animate
+	animate({${1:props}}, ${2:duration}, '${3:easing}');${4}
+snippet animate Animate Callback
+	animate({${1:props}}, ${2:duration}, '${3:easing}', function () {
+		${4:// handle complete...}
+	});
+snippet append
+	append('${1:content}');${2}
+snippet appendTo
+	appendTo(${1:selector});${2}
+snippet attr
+	attr(${1:attrName}, ${2:value or function});${3}
+snippet before
+	before('${1:content}');${2}
+snippet jbind
+	bind('${1:eventName}', ${2:handler});${3}
+snippet blur
+	blur(${1:handler});
+snippet change
+	change(${1:handler});
+snippet children
+	children(${1:[selector]});${2}
+snippet clearQueue
+	clearQueue(${1:[queueName]});${2}
+snippet click
+	click(${1:handler});
+snippet jclone
+	clone();${1}
+snippet closest
+	closest(${1:selector});${2}
+snippet contains
+	contains('${1:find}');${2}
+snippet contents
+	contents();${1}
+snippet css
+	css(${1:get or set});${2}
+snippet data
+	data(${1:get or set});${2}
+snippet dblclick
+	dblclick(${1:handler});
+snippet delay
+	delay(${1:duration});${2}
+snippet delegate
+	delegate(${1:selector}, '${2:eventType}', ${3:handler});${4}
+snippet dequeue
+	dequeue(${1:[queueName]});${2}
+snippet detach
+	dequeue(${1:[selector]});${2}
+snippet die
+	die(${1:eventType});${2}
+snippet jeach
+	each(function(index) {
+		${1:// Act on the iteration}
+	});${2}
+snippet empty
+	empty();${1}
+snippet end
+	end();${1}
+snippet eq
+	eq(${1:index});${2}
+snippet error
+	error(${1:handler});
+snippet fadeIn Fade In
+	fadeIn(${1:duration}, '${2:easing}');${3}
+snippet fadeIn Fade In Callback
+	fadeIn(${1:duration}, '${2:easing}', function() {
+		${3:// handle complete...}
+	});
+snippet fadeOut Fade Out
+	fadeOut(${1:duration}, '${2:easing}');${3}
+snippet fadeOut Fade Out Callback
+	fadeOut(${1:duration}, '${2:easing}', function() {
+		${3:// handle complete...}
+	});
+snippet fadeTo Fade To
+	fadeTo(${1:duration}, ${2:opacity}, '${3:easing}');${4}
+snippet fadeTo Fade To Callback
+	fadeTo(${1:duration}, ${2:opacity}, '${3:easing}', function() {
+		${4:// handle complete...}
+	});
+snippet filter
+	filter(${1:selector/function});${2}
+snippet find
+	find('${1:selector}');${2}
+snippet first
+	first();${1}
+snippet focus
+	focus(${1:handler});
+snippet focusin
+	focusin(${1:handler});
+snippet focusout
+	focusout(${1:handler});
+snippet get
+	get(${1:[index]});${2}
+snippet has
+	has(${1:selector});${2}
+snippet hasClass
+	hasClass('${1:className}');${2}
+snippet height
+	height(${1});${2}
+snippet hide
+	hide(${1});${2}
+snippet hover
+	hover(${1:handlerIn}, ${2:handlerOut});${3}
+snippet html
+	html(${1});${2}
+snippet index
+	index(${1});${2}
+snippet innerHeight
+	innerHeight(${1});${2}
+snippet innerWidth
+	innerWidth(${1});${2}
+snippet is
+	is(${1});${2}
+snippet keydown
+	keydown(${1:handler});
+snippet keypress
+	keypress(${1:handler});
+snippet keyup
+	keyup(${1:handler});
+snippet last
+	last();${1}
+snippet live
+	live('${1:eventType(s)}', function(${2:event}) {
+		${3:// Act on the event}
+	});
+snippet load
+	load(${1:handler});
+snippet map
+	map(function(index, elem) {
+		return ${1:something};
+	});
+snippet mousedown
+	mousedown(${1:handler});
+snippet mouseenter
+	mouseenter(${1:handler});
+snippet mouseleave
+	mouseleave(${1:handler});
+snippet mousemove
+	mousemove(${1:handler});
+snippet mouseout
+	mouseout(${1:handler});
+snippet mouseover
+	mouseover(${1:handler});
+snippet mouseup
+	mouseup(${1:handler});
+snippet next
+	next(${1:[selector]});${2}
+snippet nextAll
+	nextAll(${1:[selector]});${2}
+snippet nextUntil
+	nextUntil(${1:[selector]});${2}
+snippet not
+	not(${1});${2}
+snippet offset
+	offset(${1});${2}
+snippet offsetParent
+	offsetParent();${1}
+snippet one
+	one('${1:eventName}', ${2:handler});
+snippet outerHeight
+	outerHeight(${1:[includeMargin]});${2}
+snippet outerWidth
+	outerWidth(${1:[includeMargin]});${2}
+snippet parent
+	parent(${1:[selector]});${2}
+snippet parents
+	parents(${1:[selector]});${2}
+snippet parentsUntil
+	parentsUntil(${1:[selector]});${2}
+snippet position
+	position();${1}
+snippet prepend
+	prepend(${1:content});${2}
+snippet prependTo
+	prependTo(${1:selector});${2}
+snippet prev
+	prev(${1:[selector]});${2}
+snippet prevAll
+	prevAll(${1:[selector]});${2}
+snippet prevUntil
+	prevUntil(${1:[selector]});${2}
+snippet pushStack
+	pushStack(${1:elements});${2}
+snippet queue
+	queue(${1:[queueName]});${2}
+snippet remove
+	remove(${1:[selector]});${2}
+snippet removeAttr
+	removeAttr('${1:attributeName}');${2}
+snippet removeClass
+	removeClass('${1:className}');${2}
+snippet removeData
+	removeData('${1:name}');${2}
+snippet replaceAll
+	replaceAll('${1:element}');${2}
+snippet replaceWith
+	replaceWith(${1:content/function});${2}
+snippet resize
+	resize(${1:handler});
+snippet scroll
+	scroll(${1:handler});
+snippet scrollLeft
+	scrollLeft(${1});${2}
+snippet scrollTop
+	scrollTop(${1});${2}
+snippet select
+	select(${1:handler});${2}
+snippet serialize
+	serialize();${1}
+snippet serializeArray
+	serializeArray();${1}
+snippet show
+	show(${1});${2}
+snippet siblings
+	siblings(${1:[selector]});${2}
+snippet size
+	size();${1}
+snippet slice
+	slice(${1:start}, ${2:[end]});${3}
+snippet slideDown Slide Down
+	slideDown(${1:duration}, '${2:easing}');${3}
+snippet slideDown Slide Down Callback
+	slideDown(${1:duration}, '${2:easing}', function() {
+		${3:// handle complete...}
+	});
+snippet slideToggle Slide Toggle
+	slideToggle(${1:duration}, '${2:easing}');${3}
+snippet slideToggle Slide Toggle Callback
+	slideToggle(${1:duration}, '${2:easing}', function() {
+		${3:// handle complete...}
+	});
+snippet slideUp Slide Up
+	slideUp(${1:duration}, '${2:easing}');${3}
+snippet slideUp Slide Up Callback
+	slideUp(${1:duration}, '${2:easing}', function() {
+		${3:// handle complete...}
+	});
+snippet stop
+	stop(${1:[clearQueue]}, ${2:[jumpToEnd]});${3}
+snippet submit
+	submit(${1:handler});
+snippet text
+	text(${1});${2}
+snippet toArray
+	toArray();${1}
+snippet toggle
+	toggle(${1});${2}
+snippet toggleClass
+	toggleClass('${1:className}');${2}
+snippet trigger
+	trigger('${1:eventType}'${2:[curry]});${3}
+snippet triggerHandler
+	triggerHandler('${1:eventType}'${2:[curry]});${3}
+snippet unbind
+	unbind('${1:eventName}', ${2:handler});${3}
+snippet undelegate
+	undelegate(${1:selector}, '${2:eventType}', ${3:handler});${4}
+snippet unload
+	unload(${1:handler});
+snippet unwrap
+	unwrap();${1}
+snippet val
+	val(${1});${2}
+snippet width
+	width(${1});${2}
+snippet wrap
+	wrap(${1:element/function});${2}
+snippet wrapAll
+	wrapAll(${1:element});${2}
+snippet wrapInner
+	wrapInner(${1:element/function});${2}

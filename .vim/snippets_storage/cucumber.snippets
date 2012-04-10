@@ -1,0 +1,28 @@
+# Cucumber
+snippet tag
+	@${1:tag}
+snippet fea
+	Feature: ${1:description}
+		In order to ${2:value}
+		As a ${3:role}
+		I want ${4:feature}
+snippet sc
+	Scenario: ${1:title}
+		Given ${2:context}
+		When ${3:event}
+		Then ${4:outcome}
+snippet sh
+	Scenario: ${1:title}
+snippet so
+	Scenario Outline: ${1:title}
+		Given ${2:context}
+		When ${3:event}
+		Then ${4:outcome}
+snippet giv
+	Given ${1:context}
+snippet and
+	And ${1:context}
+snippet whe
+	When ${1:event}
+snippet the
+	Then ${1:outcome}

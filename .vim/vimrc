@@ -105,6 +105,11 @@ let Tlist_Show_One_File = 1
 let Tlist_Process_File_Always = 1
 let Tlist_Show_Menu = 1
 
+" Let syntastic popup window open when an error is found
+let g:syntastic_auto_loc_list = 1
+" Force to use jshint... let's try it out :)
+let g:syntastic_javascript_checker = 'jshint'
+
 if has('mac')
 	let g:Powerline_symbols = 'compatible'
 else
@@ -144,8 +149,22 @@ nmap k gk
 " Try to jump the right delimiter
 inoremap <leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
 
+let g:snippets_dir = '~/.vim/snippets_storage/'
+
+" An attempt of remapping for snipMate
+"ino <leader><Tab> <c-r>=TriggerSnippet()<cr>
+"nor <leader><Tab> <esc>i<right><c-r>=TriggerSnippet()<cr>
+
 " Swap ; with : in normal mode
 nmap ; :
+
+" Guard if for not load autocommand twice
+if !exists("autocommands_loaded")
+	let autocommands_loaded = 1
+
+	" Reload all snippets when creating new ones
+	au! BufWritePost *.snippets call ReloadAllSnippets()
+endif
 
 function! ColorColumnToggle()
 	if &colorcolumn
