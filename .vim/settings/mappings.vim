@@ -35,7 +35,7 @@ endif
 
 " Use the two first fingers on both sides of the keyboard
 " simultaneously to go to the beginning or end of line
-Arpeggio nnoremap jk $
+Arpeggio nnoremap kj $
 Arpeggio nnoremap fd 0
 
 " Remap ESC to a better shortcut. I've never type 'jj' anyway
@@ -79,8 +79,8 @@ nnoremap <silent> < <c-w><
 " ============================
 
 " Use screen scroll instead of line scroll
-nmap j gj
-nmap k gk
+" nmap j gj
+" nmap k gk
 
 " Clean the last search
 nmap <silent> // :nohlsearch<CR>
