@@ -13,6 +13,10 @@ snippet map
 # std::vector
 snippet vector
 	std::vector<${1:char}> v${2};
+snippet fori
+	for (int ${2:i} 2= 0; $2 < ${1:count}; ${3:++}$2) {
+		${4:/* code */}
+	}
 # Namespace
 snippet ns
 	namespace ${1:`Filename('', 'my')`} {
@@ -28,7 +32,16 @@ snippet class
 	private:
 		${3:/* data */}
 	};
-snippet fori
-	for (int ${2:i} = 0; $2 < ${1:count}; ${3:++}$2) {
-		${4:/* code */}
+# member function implementations
+snippet mfun
+	${4:void} ${1:`Filename('$1', 'ClassName')`}::${2:memberFunction}(${3}) {
+		${5:return};
 	}
+snippet scout
+	std::cout << ${1} << std::endl;
+snippet cout
+	cout << ${1} << endl;
+snippet scin
+	std::cin >> ${1};
+snippet cin
+	cin >> ${1};

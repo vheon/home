@@ -2,89 +2,100 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" =============== Pathogen Initialization ===============
+" This loads all the plugins in ~/.vim/bundle
+" Use tpope's pathogen plugin to manage all other plugins
+
 " Disable the filetype recognition to be sure to run always pathogen
 filetype off
 
-" Activate pathogen
+runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+
+
+" =============== General Config ===============
+
+" Turn on the syntax highlighting
+syntax on
+
+set encoding=utf-8
+set showcmd
+set showmode
+set backspace=indent,eol,start
+set history=1000
+set undolevels=1000
+set number
+set shortmess=a
+set autochdir
+set autoread
+set cursorline
+set hidden
+
+" =============== Turn Off Swap Files ===============
+
+set noswapfile
+set nobackup
+set nowb
+
+" =============== Search Settings ===============
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" =========== Disable Sound and Visual Errors ===========
+
+set noerrorbells
+set novisualbell
+set vb t_vb=
+
+" =============== Indentation ===============
+
+set autoindent
+set copyindent
+set smartindent
+set smarttab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set expandtab
 
 " Reactivate the filetype recognition on indentation and plugins
 filetype on
 filetype indent on
 filetype plugin on
 
-syntax on
-
-if has("gui_running")
-	if has("gui_gtk2")
-		set guifont=ProggyCleanTTSZ\ for\ Powerline\ 12
-	else
-		set guifont=Anonymous\ Pro:h13
-	endif
-endif
-
-colorscheme mustang
-
-set encoding=utf-8
-
-set nobackup
-set noswapfile
-
-set showcmd
-set showmode
-
-set noerrorbells
-set novisualbell
-set vb t_vb=
-
-set hidden
-
-if has('mouse')
-	set mouse=a
-endif
-
-set autoindent
-set copyindent
-set smartindent
-set smarttab
-set smartcase
-
-set showmatch
+"Display non visible characters, (tab, end of line and white spaces)
+set list
+set listchars=tab:▸\ ,eol:¬,trail:·
 
 set nowrap
-set backspace=indent,eol,start
 
+" =============== Completion ===============
 
-set hlsearch
-set incsearch
-set ignorecase
+set wildmode=list:longest
+set wildmenu
+set wildignore=*.o,*.obj,*~
+set wildignore+=*DS_Store*
+set wildignore+=*.png,*.jpg,*.jpeg,*.gif
 
-set history=1000
-set undolevels=1000
-
-set number
-set ruler
-
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
-set noexpandtab
+" =============== Scrolling ===============
 
 set scrolloff=8
 set sidescrolloff=7
 
-set autochdir
-set shortmess=a
-set autoread
+" =============== Mouse ===============
+if has('mouse')
+    set mouse=a
+endif
 
-set wildmode=list:full
-set wildmenu
-
-set cursorline
-
-set list
-set listchars=tab:▸\ ,eol:¬,trail:·
+" Just an attempt to separate configuration
+" stolen from yadr - https://github.com/skwp/dotfiles
+for file in split(glob('~/.vim/settings/*.vim'), '\n')
+    exe 'source' file
+endfor
 
 set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
 set laststatus=2
@@ -105,17 +116,6 @@ let Tlist_Show_One_File = 1
 let Tlist_Process_File_Always = 1
 let Tlist_Show_Menu = 1
 
-" Let syntastic popup window open when an error is found
-let g:syntastic_auto_loc_list = 1
-" Force to use jshint... let's try it out :)
-let g:syntastic_javascript_checker = 'jshint'
-
-if has('mac')
-	let g:Powerline_symbols = 'compatible'
-else
-	let g:Powerline_symbols = 'fancy'
-endif
-
 "Mappings for save and quit
 "nmap q :q<CR>
 "nmap Q :q!<CR>
@@ -129,14 +129,11 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " Clean the last search
-nmap <silent> <leader>z :nohlsearch<CR>
+nmap <silent> // :nohlsearch<CR>
 
 " Sudo to write
+" stolen from Steve Losh
 cmap w!! w !sudo tee % >/dev/null
-
-" Underline the current lines with '=' or '-'
-nmap <silent> ,u= :t.\|s/./=/g\|:nohls<cr>
-nmap <silent> ,u- :t.\|s/./-/g\|:nohls<cr>
 
 " Remap ESC to a better shortcut. I've never type 'jj' anyway
 imap jj <ESC>
@@ -151,25 +148,21 @@ inoremap <leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
 
 let g:snippets_dir = '~/.vim/snippets_storage/'
 
-" An attempt of remapping for snipMate
-"ino <leader><Tab> <c-r>=TriggerSnippet()<cr>
-"nor <leader><Tab> <esc>i<right><c-r>=TriggerSnippet()<cr>
 
 " Swap ; with : in normal mode
 nmap ; :
 
 " Guard if for not load autocommand twice
-if !exists("autocommands_loaded")
-	let autocommands_loaded = 1
+if !exists('autocommands_loaded')
+    let autocommands_loaded = 1
 
-	" Reload all snippets when creating new ones
-	au! BufWritePost *.snippets call ReloadAllSnippets()
+    " Reload all snippets when creating new ones
+    au! BufWritePost *.snippets call ReloadAllSnippets()
 endif
 
 function! ColorColumnToggle()
-	if &colorcolumn
-		set colorcolumn=
-	else
-		set colorcolumn=81
-	endif
+    if &colorcolumn
+        set colorcolumn=
+    else
+        set colorcolumn=81
 endfunction
