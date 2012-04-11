@@ -37,3 +37,12 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
+[submodule "bundle/pathogen"]
+	path = bundle/pathogen
+	url = git://github.com/tpope/vim-pathogen.git
+[submodule "bundle/showmarks"]
+	path = bundle/showmarks
+	url = git://github.com/VimEz/ShowMarks.git
+[submodule "bundle/arpeggio"]
+	path = bundle/arpeggio
+	url = git://github.com/kana/vim-arpeggio.git
