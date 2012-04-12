@@ -12,4 +12,4 @@ let g:syntastic_auto_loc_list = 1
 " automatically jump to the first error when detected
 let g:syntastic_auto_jump = 1
 " TODO: test this option 
-let g:syntastic_quiet_warnings = 0
+let g:syntastic_quiet_warnings = 1
