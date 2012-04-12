@@ -6,4 +6,4 @@ let g:ctrlp_by_filename = 1
 let g:ctrlp_map = ',t'
 
 " Additional mapping for buffer search 
-nnoremap ,b :CtrlPBuffer<cr>
+" nnoremap ,b :CtrlPBuffer<cr>
