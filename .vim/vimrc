@@ -104,7 +104,6 @@ if !exists('autocommands_loaded')
     au! BufWritePost *.snippets call ReloadAllSnippets()
 endif
 
-
 " Just an attempt to separate configuration
 " stolen from yadr - https://github.com/skwp/dotfiles
 for file in split(glob('~/.vim/settings/*.vim'), '\n')
