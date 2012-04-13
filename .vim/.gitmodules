@@ -64,3 +64,6 @@
 [submodule "bundle/color_highlight"]
 	path = bundle/color_highlight
 	url = https://github.com/chrisbra/color_highlight.git
+[submodule "bundle/indexed-search"]
+	path = bundle/indexed-search
+	url = https://github.com/henrik/vim-indexed-search.git

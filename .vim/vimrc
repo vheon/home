@@ -61,17 +61,17 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set expandtab
-
-" Reactivate the filetype recognition on indentation and plugins
-filetype on
-filetype indent on
-filetype plugin on
-
+"
 "Display non visible characters, (tab, end of line and white spaces)
 set list
 set listchars=tab:▸\ ,eol:¬,trail:·
 
 set nowrap
+
+" Reactivate the filetype recognition on indentation and plugins
+filetype on
+filetype indent on
+filetype plugin on
 
 " =============== Completion ===============
 
