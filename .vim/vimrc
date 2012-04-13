@@ -96,6 +96,9 @@ set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\
 set laststatus=2
 
 
+" TODO: find a better approach with this
+"       maybe anoterh location?
+"
 " Guard if for not load autocommand twice
 if !exists('autocommands_loaded')
     let autocommands_loaded = 1
@@ -103,6 +106,15 @@ if !exists('autocommands_loaded')
     " Reload all snippets when creating new ones
     au! BufWritePost *.snippets call ReloadAllSnippets()
 endif
+
+" TODO: are these going to stay here?
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Just an attempt to separate configuration
 " stolen from yadr - https://github.com/skwp/dotfiles
