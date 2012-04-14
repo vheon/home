@@ -32,6 +32,9 @@ set autoread
 set cursorline
 set hidden
 
+" Lower a little bit the timeout
+set timeoutlen=750
+
 " =============== Turn Off Swap Files ===============
 
 set noswapfile
