@@ -1,0 +1,9 @@
+#!/bin/bash
+
+bundle="$HOME/.vim/bundle/"
+
+cd $bundle
+
+cd "Command-T"
+bundle install
+rake make

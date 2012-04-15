@@ -67,7 +67,7 @@ set expandtab
 "
 "Display non visible characters, (tab, end of line and white spaces)
 set list
-set listchars=tab:▸\ ,eol:¬,trail:·
+set listchars=tab:▸\ ,eol:¬,trail:·,precedes:…,extends:…
 
 set nowrap
 
@@ -97,6 +97,19 @@ endif
 
 set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
 set laststatus=2
+
+
+" ============== Avoid Bad Abits! ==============
+
+map <Left> :echo "no!"<cr>
+map <Right> :echo "no!"<cr>
+map <Up> :echo "no!"<cr>
+map <Down> :echo "no!"<cr>
+
+imap <Left> <esc>:echo "no!"<cr>a
+imap <Right> <esc>:echo "no!"<cr>a
+imap <Up> <esc>:echo "no!"<cr>a
+imap <Down> <esc>:echo "no!"<cr>a
 
 
 " TODO: find a better approach with this
