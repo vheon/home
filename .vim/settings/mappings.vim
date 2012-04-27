@@ -34,9 +34,11 @@ if has('mac')
 endif
 
 " Use the two first fingers on both sides of the keyboard
-" simultaneously to go to the beginning or end of line
+" simultaneously to go to the first written character of the line,
+" the beginning or end of line
 Arpeggio nnoremap kj $
-Arpeggio nnoremap fd 0
+Arpeggio nnoremap fd ^
+Arpeggio nnoremap fs 0
 
 " Remap ESC to a better shortcut. I've never type 'jj' anyway
 imap jj <ESC>
