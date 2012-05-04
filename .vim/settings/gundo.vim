@@ -1,4 +1,4 @@
-nmap ,u :GundoToggle<cr>
+nmap <silent> ,u :GundoToggle<cr>
 
 " open on the right
 let g:gundo_right = 1
