@@ -94,6 +94,10 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 " Quickly run the macro in the register q
 nnoremap <Space> @q
 
+" visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv 
+
 " Sudo to write
 " stolen from Steve Losh
 cmap w!! w !sudo tee % >/dev/null

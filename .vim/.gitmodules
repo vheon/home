@@ -76,3 +76,6 @@
 [submodule "bundle/web-indent"]
 	path = bundle/web-indent
 	url = https://github.com/lukaszb/vim-web-indent.git
+[submodule "bundle/neocomplcache"]
+	path = bundle/neocomplcache
+	url = https://github.com/Shougo/neocomplcache.git
