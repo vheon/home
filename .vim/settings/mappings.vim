@@ -33,6 +33,17 @@ if has('mac')
 
 endif
 
+" ========================================
+" Not use the arrow key in completion menu
+" ========================================
+
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k>       pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
 " Use the two first fingers on both sides of the keyboard
 " simultaneously to go to the first written character of the line,
 " the beginning or end of line
