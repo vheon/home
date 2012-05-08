@@ -60,6 +60,7 @@ nmap ; :
 
 " Try to jump the right delimiter
 inoremap <leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
+inoremap <leader><Space> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
 
 " Go to last edit location with ,.
 nnoremap ,. '.
