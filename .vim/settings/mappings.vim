@@ -51,6 +51,11 @@ Arpeggio nnoremap kj $
 Arpeggio nnoremap fd ^
 Arpeggio nnoremap fs 0
 
+" Same thing, but in command line mode
+Arpeggio cnoremap jk <end>
+Arpeggio cnoremap df <home>
+
+
 " Remap ESC to a better shortcut. I've never type 'jj' anyway
 imap jj <ESC>
 cmap jj <c-c>
