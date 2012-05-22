@@ -1,4 +1,5 @@
-nmap ,f :NERDTreeToggle<cr>
+let NERDTreeMinimalUI=1
+let NERDTreeQuitOnOpen=1
 
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 

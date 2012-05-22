@@ -107,6 +107,21 @@ snippet pr
 # fprintf (again, this isn't as nice as TextMate's version, but it works)
 snippet fpr
 	fprintf(${1:stderr}, "${2:%s}\n"${3});${4}
+# switch
+snippet switch
+	switch (${1})
+	{
+		case ${2}:
+			${3}
+			break;
+		default:
+			break;
+	}
+# case
+snippet case
+	case ${1}:
+		${2}
+		break;
 # This is kind of convenient
 # snippet .
 #	[${1}]${2}

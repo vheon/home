@@ -1,4 +1,5 @@
 if has("gui_macvim")
+  set fuoptions=maxvert,maxhorz
   macmenu &File.New\ Tab key=<nop>
   macmenu &File.Open\.\.\. key=<nop>
   macmenu &Edit.Find.Find\.\.\. key=<nop>

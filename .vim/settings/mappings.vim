@@ -30,19 +30,22 @@ if has('mac')
     imap <silent> <D-d> _
     imap <silent> <D-K> -
     imap <silent> <D-D> -
+    cnoremap <D-k> _
+    cnoremap <D-d> _
+    cnoremap <D-K> -
+    cnoremap <D-D> -
 
 endif
 
 " ========================================
-" Not use the arrow key in completion menu
+" Not use the arrow key in command line
 " ========================================
 
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k>       pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+
 
 " Use the two first fingers on both sides of the keyboard
 " simultaneously to go to the first written character of the line,
@@ -65,7 +68,7 @@ nmap ; :
 
 " Try to jump the right delimiter
 inoremap <leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
-inoremap <leader><Space> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
+" inoremap <leader><Space> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
 
 " Go to last edit location with ,.
 nnoremap ,. '.
@@ -118,3 +121,6 @@ vnoremap > >gv
 " Sudo to write
 " stolen from Steve Losh
 cmap w!! w !sudo tee % >/dev/null
+
+" Open the current buffer in the browser
+nnoremap <F12> :exe ':silent !open -a "google chrome" %'<cr>

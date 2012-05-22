@@ -5,9 +5,11 @@ if has('gui_running')
     colorscheme solarized
     set background=dark
 
+    set guioptions-=T
+
     if has('gui_gtk2')
         set guifont=ProggyCleanTTSZ\ for\ Powerline\ 12
     else
-        set guifont=Anonymous\ Pro:h13
+        set guifont=Anonymous\ Pro\ for\ Powerline:h13
     endif
 endif
