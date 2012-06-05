@@ -85,6 +85,3 @@
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
-[submodule "bundle/jsbeautify"]
-	path = bundle/jsbeautify
-	url = https://github.com/maksimr/vim-jsbeautify.git
