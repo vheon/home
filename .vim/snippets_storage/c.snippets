@@ -12,10 +12,10 @@ snippet mainn
 		return 0;
 	}
 # #include <...>
-snippet inc
+snippet include
 	#include <${1:stdio}.h>${2}
 # #include "..."
-snippet Inc
+snippet Include
 	#include "${1:`Filename("$1.h")`}"${2}
 # #ifndef ... #define ... #endif
 snippet ifndef 
@@ -45,7 +45,7 @@ snippet if
 	if (${1:/* condition */}) {
 		${2:/* code */}
 	}
-snippet el
+snippet else
 	else {
 		${1}
 	}
@@ -58,7 +58,7 @@ snippet do
 		${2:/* code */}
 	} while (${1:/* condition */});
 # While Loop
-snippet wh
+snippet while
 	while (${1:/* condition */}) {
 		${2:/* code */}
 	}
@@ -85,7 +85,7 @@ snippet fdec
 snippet td
 	typedef ${1:int} ${2:MyCustomType};${3}
 # Struct
-snippet st
+snippet struct
 	struct ${1:`Filename('$1_t', 'name')`} {
 		${2:/* data */}
 	}${3: /* optional variable list */};${4}

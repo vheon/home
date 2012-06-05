@@ -64,6 +64,8 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set expandtab
+
+set foldmethod=marker
 "
 "Display non visible characters, (tab, end of line and white spaces)
 set list

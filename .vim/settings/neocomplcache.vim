@@ -9,6 +9,9 @@ let g:neocomplcache_min_syntax_length = 3
 " words less than 3 letters long aren't worth completing
 let g:neocomplcache_auto_completion_start_length = 3
 
+"
+let g:neocomplcache_force_overwrite_completefunc = 1
+
 " select the first option in the menu
 "let g:neocomplcache_enable_auto_select = 1
 
