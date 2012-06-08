@@ -34,7 +34,15 @@ if has('mac')
     cnoremap <D-d> _
     cnoremap <D-K> -
     cnoremap <D-D> -
-
+else
+    imap <silent> <M-k> _
+    imap <silent> <M-d> _
+    imap <silent> <M-K> -
+    imap <silent> <M-D> -
+    cnoremap <M-k> _
+    cnoremap <M-d> _
+    cnoremap <M-K> -
+    cnoremap <M-D> -
 endif
 
 " ========================================
@@ -73,14 +81,6 @@ inoremap <leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
 " Go to last edit location with ,.
 nnoremap ,. '.
 
-if has('mac')
-    map <D-/> :TComment<cr>
-    imap <D-/> <esc>:Tcomment<cr>i
-else
-    map <C-/> :TComment<cr>
-    imap <C-/> <esc>:Tcomment<cr>i
-endif
-
 " =======================================
 "           Split Manipulation
 " =======================================
@@ -116,7 +116,7 @@ nnoremap <Space> @q
 
 " visual shifting (does not exit Visual mode)
 vnoremap < <gv
-vnoremap > >gv 
+vnoremap > >gv
 
 " Sudo to write
 " stolen from Steve Losh
@@ -124,4 +124,9 @@ cmap w!! w !sudo tee % >/dev/null
 command! W exec 'w !sudo tee % > /dev/null' | e!
 
 " Open the current buffer in the browser
-nnoremap <F12> :exe ':silent !open -a "google chrome" %'<cr>
+if has('mac')
+    nnoremap <F12> :exe ':silent !open -a "google chrome" %'<cr>
+else
+    nnoremap <F12> :exe ':silent !chromium %'<cr>
+endif
+

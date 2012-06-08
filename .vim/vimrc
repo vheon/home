@@ -78,6 +78,9 @@ filetype on
 filetype indent on
 filetype plugin on
 
+" usefull for mapping Alt key on linux
+set winaltkeys=no
+
 " =============== Completion ===============
 
 set wildmode=list:longest
@@ -85,6 +88,7 @@ set wildmenu
 set wildignore=*.o,*.obj,*~
 set wildignore+=*DS_Store*
 set wildignore+=*.png,*.jpg,*.jpeg,*.gif
+set wildignore+=*.mkv,*.avi
 
 " =============== Scrolling ===============
 
@@ -123,6 +127,7 @@ if !exists('autocommands_loaded')
 
     " Reload all snippets when creating new ones
     au! BufWritePost *.snippets call ReloadAllSnippets()
+
 endif
 
 " TODO: are these going to stay here?
