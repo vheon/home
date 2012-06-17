@@ -120,7 +120,7 @@ vnoremap > >gv
 
 " Sudo to write
 " stolen from Steve Losh
-cmap w!! w !sudo tee % >/dev/null
+" cmap w!! w !sudo tee % >/dev/null
 command! W exec 'w !sudo tee % > /dev/null' | e!
 
 " Open the current buffer in the browser
