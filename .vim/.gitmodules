@@ -85,6 +85,3 @@
 [submodule "bundle/jsbeautify"]
 	path = bundle/jsbeautify
 	url = https://github.com/maksimr/vim-jsbeautify.git
-[submodule "bundle/rfc-syntax"]
-	path = bundle/rfc-syntax
-	url = https://github.com/vheon/rfc-syntax.git
