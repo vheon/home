@@ -64,9 +64,6 @@
 [submodule "bundle/Command-T"]
 	path = bundle/Command-T
 	url = https://github.com/wincent/Command-T.git
-[submodule "bundle/javascript-syntax"]
-	path = bundle/javascript-syntax
-	url = https://github.com/jelera/vim-javascript-syntax.git
 [submodule "bundle/json"]
 	path = bundle/json
 	url = https://github.com/leshill/vim-json.git
