@@ -85,3 +85,6 @@
 [submodule "bundle/javascript"]
 	path = bundle/javascript
 	url = git://github.com/pangloss/vim-javascript.git
+[submodule "bundle/powerline-settings"]
+	path = bundle/powerline-settings
+	url = git://github.com/vheon/vim-powerline-settings.git

@@ -26,7 +26,7 @@ set backspace=indent,eol,start
 set history=1000
 set undolevels=1000
 set number
-set shortmess=a
+set shortmess=atI
 set autochdir
 set autoread
 set cursorline
