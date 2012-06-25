@@ -10,6 +10,6 @@ if has('gui_running')
     if has('gui_gtk2')
         set guifont=Anonymous\ Pro\ for\ Powerline\ 10
     else
-        set guifont=Anonymous\ Pro\ for\ Powerline:h13
+        set guifont=Anonymous\ Pro\ for\ Powerline:h12
     endif
 endif
