@@ -88,3 +88,6 @@
 [submodule "bundle/powerline-settings"]
 	path = bundle/powerline-settings
 	url = git://github.com/vheon/vim-powerline-settings.git
+[submodule "bundle/irblack"]
+	path = bundle/irblack
+	url = git://github.com/wgibbs/vim-irblack.git
