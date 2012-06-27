@@ -88,3 +88,6 @@
 [submodule "bundle/powerline-settings"]
 	path = bundle/powerline-settings
 	url = git://github.com/vheon/vim-powerline-settings.git
+[submodule "bundle/ctrlp"]
+	path = bundle/ctrlp
+	url = git://github.com/kien/ctrlp.vim.git
