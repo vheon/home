@@ -1,3 +1,5 @@
+" let g:Powerline_loaded=1
+
 let g:Powerline_symbols = 'fancy'
 
 let g:Powerline_colorscheme='darkSolarized'
