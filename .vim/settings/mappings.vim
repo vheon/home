@@ -118,6 +118,9 @@ nnoremap <Space> @q
 vnoremap < <gv
 vnoremap > >gv
 
+" shortcut for modify settings.vim file
+cnoremap @@ ~/.vim/settings/
+
 " Sudo to write
 " stolen from Steve Losh
 " cmap w!! w !sudo tee % >/dev/null
