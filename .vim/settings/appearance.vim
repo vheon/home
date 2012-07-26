@@ -5,6 +5,10 @@ if has('gui_running')
     colorscheme solarized
     set background=dark
 
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=l
+    set guioptions-=L
     set guioptions-=T
 
     if has('gui_gtk2')

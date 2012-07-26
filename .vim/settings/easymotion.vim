@@ -13,6 +13,13 @@ call EasyMotion#InitOptions({
 \ , 'hl_group_shade'  : 'EasyMotionShade'
 \ })
 
+let g:EasyMotion_mapping_w = ',w'
+let g:EasyMotion_mapping_W = ',W'
+let g:EasyMotion_mapping_e = ',e'
+let g:EasyMotion_mapping_E = ',E'
+let g:EasyMotion_mapping_f = ',f'
+let g:EasyMotion_mapping_F = ',F'
+
 " Make EasyMotion more yellow, less red
 hi clear EasyMotionTarget
 hi! EasyMotionTarget guifg=yellow
