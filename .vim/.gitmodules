@@ -93,4 +93,4 @@
 	url = git://github.com/mattn/gist-vim.git
 [submodule "bundle/colors-solarized"]
 	path = bundle/colors-solarized
-	url = https://github.com/vheon/vim-colors-solarized.git
+	url = git://github.com/vheon/vim-colors-solarized.git
