@@ -76,7 +76,6 @@ nmap ; :
 
 " Try to jump the right delimiter
 inoremap <leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
-" inoremap <leader><Space> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
 
 " Go to last edit location with ,.
 nnoremap ,. '.
@@ -105,7 +104,7 @@ nnoremap <silent> < <c-w><
 " nmap k gk
 
 " Clean the last search
-nmap <silent> // :nohlsearch<CR>
+nmap <silent> <Leader>z :nohlsearch<CR>
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -120,6 +119,10 @@ vnoremap > >gv
 
 " shortcut for modify settings.vim file
 cnoremap @@ ~/.vim/settings/
+
+" Make selecting inside an HTML tag better
+vnoremap <silent> it itVkoj
+vnoremap <silent> at atV
 
 " Sudo to write
 " stolen from Steve Losh

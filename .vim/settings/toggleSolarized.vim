@@ -1,6 +1,6 @@
 function! s:ToggleSolarized()
+    let g:Powerline_colorscheme = ( &background == "dark"? "lightSolarized" : "darkSolarized" )
     ToggleBG
-    let Powerline_colorscheme = ( &background == "dark"? "lightSolarized" : "darkSolarized" )
     PowerlineReloadColorscheme
 endfunction
 

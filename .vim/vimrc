@@ -128,6 +128,10 @@ if !exists('autocommands_loaded')
     " Reload all snippets when creating new ones
     au! BufWritePost *.snippets call ReloadAllSnippets()
 
+    au BufEnter * set cursorline
+    au BufLeave * set nocursorline
+    au BufReadPre * set nocursorline
+
 endif
 
 " TODO: are these going to stay here?
