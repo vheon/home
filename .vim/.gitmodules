@@ -94,3 +94,6 @@
 [submodule "bundle/colors-solarized"]
 	path = bundle/colors-solarized
 	url = git://github.com/vheon/vim-colors-solarized.git
+[submodule "bundle/matchit.zip"]
+	path = bundle/matchit.zip
+	url = git://github.com/vim-scripts/matchit.zip.git
