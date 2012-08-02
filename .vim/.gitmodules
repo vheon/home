@@ -94,3 +94,6 @@
 [submodule "bundle/matchit.zip"]
 	path = bundle/matchit.zip
 	url = git://github.com/vim-scripts/matchit.zip.git
+[submodule "bundle/coffee-script"]
+	path = bundle/coffee-script
+	url = git://github.com/kchmck/vim-coffee-script.git
