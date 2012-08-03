@@ -70,6 +70,8 @@ set foldmethod=marker
 "Display non visible characters, (tab, end of line and white spaces)
 set list
 set listchars=tab:▸\ ,eol:¬,trail:·,precedes:…,extends:…
+set showbreak=↩\ 
+
 
 set nowrap
 

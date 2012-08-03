@@ -100,3 +100,6 @@
 [submodule "bundle/indent-guides"]
 	path = bundle/indent-guides
 	url = git://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "bundle/ruby"]
+	path = bundle/ruby
+	url = git://github.com/vim-ruby/vim-ruby.git
