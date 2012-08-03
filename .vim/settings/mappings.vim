@@ -74,9 +74,6 @@ cmap jj <c-c>
 " Swap ; with : in normal mode
 nmap ; :
 
-" Try to jump the right delimiter
-inoremap <leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
-
 " Go to last edit location with ,.
 nnoremap ,. '.
 
@@ -121,6 +118,7 @@ vnoremap > >gv
 cnoremap @@ ~/.vim/settings/
 
 " Make selecting inside an HTML tag better
+" TODO: maybe move this lines
 vnoremap <silent> it itVkoj
 vnoremap <silent> at atV
 

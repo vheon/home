@@ -16,7 +16,7 @@ let g:syntastic_quiet_warnings = 1
 
 " =============== Sign Color ===============
 
-sign define SyntasticError texthl=SyntasticErrorSign
-sign define SyntasticWarning texthl=SyntasticWarningSign
-sign define SyntasticStyleError texthl=SyntasticErrorSign
-sign define SyntasticStyleWarning texthl=SyntasticWarningSign
+exe "sign define SyntasticError texthl=SyntasticErrorSign"
+exe "sign define SyntasticWarning texthl=SyntasticWarningSign"
+exe "sign define SyntasticStyleError texthl=SyntasticErrorSign"
+exe "sign define SyntasticStyleWarning texthl=SyntasticWarningSign"
