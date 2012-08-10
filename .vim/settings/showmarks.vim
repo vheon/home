@@ -3,4 +3,4 @@ let g:showmarks_enable = 0
 " Not show brace marks
 let g:showmarks_include = "abcdefghijklmnopqrstqvwxyzABCDEFGHIJKLMNOPQRSTQVWXYZ"
 
-nnoremap <Leader>m :ShowMarksPlaceMark<cr>
+" nnoremap <Leader>m :ShowMarksPlaceMark<cr>
