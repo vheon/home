@@ -137,7 +137,7 @@ Bundle 'leshill/vim-json'
 " }}}
 
 " MatchIt.zip {{{
-Bundle 'vim-scripts/matchit.zip'
+Bundle 'matchit.zip'
 
 " }}}
 
