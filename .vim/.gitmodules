@@ -100,3 +100,6 @@
 [submodule "bundle/ruby"]
 	path = bundle/ruby
 	url = git://github.com/vim-ruby/vim-ruby.git
+[submodule "bundle/Smart-Home-Key"]
+	path = bundle/Smart-Home-Key
+	url = https://github.com/vim-scripts/Smart-Home-Key.git

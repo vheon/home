@@ -3,7 +3,7 @@
 
 function! s:SwitchToActualFile()
     let fname = resolve(expand('%:p'))
-    exec "edit! " . fname
-    bwipeout #
+    bw! %
+    exec "edit " . fname
 endfunction
 command FollowSymlink call s:SwitchToActualFile()
