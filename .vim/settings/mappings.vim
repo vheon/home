@@ -59,8 +59,8 @@ cnoremap <C-l> <Right>
 " simultaneously to go to the first written character of the line,
 " the beginning or end of line
 Arpeggio nnoremap kj $
-Arpeggio nnoremap fd ^
-Arpeggio nnoremap fs 0
+Arpeggio nnoremap fd :silent SmartHomeKey<cr>
+" Arpeggio nnoremap fs 0
 
 " Same thing, but in command line mode
 Arpeggio cnoremap jk <end>
