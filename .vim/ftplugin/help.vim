@@ -1,3 +1,3 @@
 " Simpler way to navigate through 'link'
-nnoremap <silent> <cr> <C-]>
-nnoremap <silent> <BS> <C-t>
+nnoremap <buffer> <silent> <cr> <C-]>
+nnoremap <buffer> <silent> <BS> <C-t>

@@ -1,0 +1,7 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3336
+
+This plugin will give you a command called :SmartHomeKey. You can bind this to any key, but I like to use <Home>. When you are in your code, and you call :SmartHomeKey, if the cursor is anywhere but ^ (the first non-blank character on the line), it will go to ^. If you are on ^ and you call :SmartHomeKey again, the cursor will be placed at 0 (first character on line, blank or non-blank). If you hold <Home>, it will just toggle between ^ and 0. 
+
+This emulates the behavior of the home key in Eclipse, which is what I used before switching to Vim. 
+
+This script is really simple, but I'm new to Vim scripting so let me know if you have problems (or if I did something stupid).

@@ -9,15 +9,154 @@ if filereadable(expand("~/.vim/before.vimrc"))
 endif
 " }}}
 
+" Mappings {{{
+
+" General vim sanity improvements {{{
+
+let mapleader=","
+
+nnoremap Y y$
+
+" }}}
+
+" RSI Prevention - keyboard remaps {{{
+
+" Certain things we do every day as programmers stress
+" out our hands. For example, typing underscores and
+" dashes are very common, and in position that require
+" a lot of hand movement. Vim to the rescue
+
+if has('mac')
+
+    " TODO: check on gvim how to remap this
+    " Now using the middle finger of either hand you can type
+    " underscores with apple-k or apple-d, and add Shift
+    " to type dashes
+    imap <silent> <D-k> _
+    imap <silent> <D-d> _
+    imap <silent> <D-K> -
+    imap <silent> <D-D> -
+    cnoremap <D-k> _
+    cnoremap <D-d> _
+    cnoremap <D-K> -
+    cnoremap <D-D> -
+else
+    imap <silent> <M-k> _
+    imap <silent> <M-d> _
+    imap <silent> <M-K> -
+    imap <silent> <M-D> -
+    cnoremap <M-k> _
+    cnoremap <M-d> _
+    cnoremap <M-K> -
+    cnoremap <M-D> -
+endif
+
+" }}}
+
+" Not use the arrow key in command line {{{
+
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+
+" }}}
+
+" Remap ESC to a better shortcut. I've never type 'jj' anyway {{{
+imap jj <ESC>
+cmap jj <c-c>
+" }}}
+
+" Folding {{{
+nnoremap <leader>z zMzvzz
+" }}}
+
+" Use tab for MatchIt
+nnoremap <tab> %
+
+" Swap ; with : in normal mode
+nmap ; :
+
+" Go to last edit location with ,.
+nnoremap ,. '.
+
+" Split Manipulation {{{
+
+" Easy splits navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Resize splits
+nnoremap <silent> + <c-w>+
+nnoremap <silent> - <c-w>-
+nnoremap <silent> > <c-w>>
+nnoremap <silent> < <c-w><
+
+" }}}
+
+" Shortcuts for everyday tasks {{{
+
+" Clean the last search
+nmap <silent> <Leader>/ :nohlsearch<CR>
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Quickly run the macro in the register q
+nnoremap <Space> @q
+
+" visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+" shortcut for modify settings.vim file
+cnoremap @@ ~/.vim/settings/
+
+" Make selecting inside an HTML tag better
+" TODO: maybe move this lines
+vnoremap <silent> it itVkoj
+vnoremap <silent> at atV
+
+" Sudo to write
+" stolen from Steve Losh
+" cmap w!! w !sudo tee % >/dev/null
+command! W exec 'w !sudo tee % > /dev/null' | e!
+
+" Open the current buffer in the browser
+if has('mac')
+    nnoremap <F12> :exe ':silent !open -a "google chrome" %'<cr>
+else
+    nnoremap <F12> :exe ':silent !chromium %'<cr>
+endif
+
+" }}}
+
+" }}}
+
 " Vundle {{{
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+
+exe "sign define Vu_error    texthl=DiffDelete"
+exe "sign define Vu_active   texthl=DiffChange"
+exe "sign define Vu_todate   texthl=DiffText"
+exe "sign define Vu_new      texthl=DiffAdd"
+exe "sign define Vu_updated  texthl=DiffAdd"
+exe "sign define Vu_deleted  texthl=DiffDelete"
+exe "sign define Vu_helptags texthl=DiffAdd"
 "}}}
 
 " Plugins {{{
+
+" Smart-Home-Key {{{
+Bundle 'Smart-Home-Key'
+"}}}
 
 " Arpeggio {{{
 Bundle 'kana/vim-arpeggio'
@@ -27,9 +166,8 @@ call arpeggio#load()
 " Use the two first fingers on both sides of the keyboard
 " simultaneously to go to the first written character of the line,
 " the beginning or end of line
-Arpeggio nnoremap kj $
-Arpeggio nnoremap fd ^
-Arpeggio nnoremap fs 0
+Arpeggio nnoremap kj <end>
+Arpeggio nnoremap <silent> fd :SmartHomeKey<cr>
 
 " Same thing, but in command line mode
 Arpeggio cnoremap jk <end>
@@ -48,20 +186,56 @@ nmap <F5> :ToggleSolarized<cr>
 imap <F5> <esc>:ToggleSolarized<cr>a
 " }}}
 
+" Zenburn{{{
+Bundle 'jnurmine/Zenburn'
+
+"}}}
+
 " CtrlP {{{
 Bundle 'kien/ctrlp.vim'
 
 let g:ctrlp_max_height=15
 let g:ctrlp_map = '<leader>t'
 
-nnoremap  ,b  :CtrlPBuffer<cr>
+nnoremap <Leader>b :CtrlPBuffer<cr>
+" }}}
+
+" Neocomplcache"{{{
+"
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+
+" words less than 3 letters long aren't worth completing
+let g:neocomplcache_auto_completion_start_length = 3
+
+let g:neocomplcache_force_overwrite_completefunc = 1
+
+" select the first option in the menu
+"let g:neocomplcache_enable_auto_select = 1
+
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+
+inoremap <expr> <cr>    pumvisible() ? neocomplcache#close_popup() : "\<cr>"
+inoremap <expr> jj      pumvisible() ? neocomplcache#close_popup() . "\<esc>" : "<esc>"
+inoremap <expr> <esc>   pumvisible() ? neocomplcache#cancel_popup() : "\<esc>"
+inoremap <expr> <C-j>   pumvisible() ? "\<C-n>" : "\<C-x>\<C-n>"
+inoremap <expr> <C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 " }}}
 
 " delimitMate {{{
 Bundle 'Raimondi/delimitMate'
 
 " Try to jump the right delimiter
-inoremap <leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
+inoremap <Leader><Tab> <C-R>=delimitMate#JumpAny("\<leader><Tab>")<CR>
 
 let g:delimitMate_expand_cr = 1
 " }}}
@@ -105,6 +279,14 @@ Bundle 'tpope/vim-fugitive'
 " GunDo {{{
 Bundle 'sjl/gundo.vim'
 
+let g:gundo_width = 60
+let g:gundo_preview_height = 30
+let g:gundo_right = 1
+let g:gundo_close_on_revert = 1
+
+let g:gundo_preview_bottom = 0
+
+nnoremap <C-u> :GundoToggle<cr>
 " }}}
 
 " Indent-Guides {{{
@@ -117,6 +299,9 @@ Bundle 'henrik/vim-indexed-search'
 
 " }}}
 
+" CoffeeScript {{{
+Bundle 'kchmck/vim-coffee-script'
+" }}}
 " Javascript {{{
 Bundle "pangloss/vim-javascript"
 
@@ -146,6 +331,8 @@ Bundle 'scrooloose/nerdtree'
 
 let NERDTreeMinimalUI=1
 let NERDTreeQuitOnOpen=1
+
+nnoremap <C-f> :NERDTreeToggle<cr>
 
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
@@ -195,17 +382,28 @@ let g:showmarks_include = "abcdefghijklmnopqrstqvwxyzABCDEFGHIJKLMNOPQRSTQVWXYZ"
 " }}}
 
 " SnipMate {{{
-Bundle 'msanders/snipmate.vim'
+" Bundle 'msanders/snipmate.vim'
 
-let g:snippets_dir = '~/.vim/snippets_storage/'
+" let g:snippets_dir = '~/.vim/snippets_storage/'
 
 " }}}
 
+" UltiSnips {{{
+Bundle 'SirVer/ultisnips'
+
+let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+" }}}
 " Surround {{{
 Bundle 'tpope/vim-surround'
 
 let g:surround_35  = "#{\r}"
 " }}}
+
+" Rainbow Parenthsis {{{
+Bundle 'vheon/Rainbow-Parenthesis-Bundle'
+
+nnoremap <silent> <leader>rp :ToggleRainbowParenthesis<cr>
+"}}}
 
 " Syntastic {{{
 Bundle 'scrooloose/syntastic'
@@ -237,17 +435,28 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoshowtag = 1
 let g:tagbar_autoclose = 1
 
+nnoremap <C-o> :TagbarToggle<cr>
 " }}}
 
 " TComment {{{
 Bundle 'tomtom/tcomment_vim'
-
 " }}}
 
 " Web-Indent {{{
 Bundle 'lukaszb/vim-web-indent'
 
 " }}}
+
+" Golden Ratio {{{
+" Bundle 'pekepeke/golden-ratio'
+
+" let g:golden_ratio_ignore_ftypes = ['nerdtree']
+" }}}
+
+" RFC {{{
+Bundle 'vheon/rfc-syntax'
+"}}}
+
 " }}}
 
 " Reactivate the filetype recognition on indentation and plugins {{{
@@ -278,7 +487,7 @@ set timeoutlen=500 " Lower a little bit the timeout
 
 set winaltkeys=no " usefull for mapping Alt key on linux
 
-set formatoptions-=o " Do not allow insertion of lead comment on 'o' or 'O' in normal mode
+set fo-=o " Do not allow insertion of lead comment on 'o' or 'O' in normal mode
 " }}}
 
 " Turn Off Swap Files {{{
@@ -350,7 +559,7 @@ endif
 " }}}
 
 " Statusline {{{
-set statusline=%{fugitive#statusline()}%r%F%m%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
+" set statusline=%{fugitive#statusline()}%r%F%m%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
 set laststatus=2
 " }}}
 
@@ -378,11 +587,10 @@ if !exists('autocommands_loaded')
     " Reload all snippets when creating new ones
     au! BufWritePost *.snippets call ReloadAllSnippets()
 
-    au BufEnter * set cursorline
-    au BufLeave * set nocursorline
-    au WinEnter * set cursorline
-    au WinLeave * set nocursorline
+    au BufEnter,WinEnter * set cursorline
+    au BufLeave,WinLeave * set nocursorline
 
+    au BufWritePost $MYVIMRC source $MYVIMRC | call Pl#Load()
 endif
 " }}}
 
@@ -441,125 +649,6 @@ endif
 
 " }}}
 
-" Mappings {{{
-
-" General vim sanity improvements {{{
-let mapleader=","
-
-nnoremap Y y$
-
-" }}}
-
-" RSI Prevention - keyboard remaps {{{
-
-" Certain things we do every day as programmers stress
-" out our hands. For example, typing underscores and
-" dashes are very common, and in position that require
-" a lot of hand movement. Vim to the rescue
-
-if has('mac')
-
-    " TODO: check on gvim how to remap this
-    " Now using the middle finger of either hand you can type
-    " underscores with apple-k or apple-d, and add Shift
-    " to type dashes
-    imap <silent> <D-k> _
-    imap <silent> <D-d> _
-    imap <silent> <D-K> -
-    imap <silent> <D-D> -
-    cnoremap <D-k> _
-    cnoremap <D-d> _
-    cnoremap <D-K> -
-    cnoremap <D-D> -
-else
-    imap <silent> <M-k> _
-    imap <silent> <M-d> _
-    imap <silent> <M-K> -
-    imap <silent> <M-D> -
-    cnoremap <M-k> _
-    cnoremap <M-d> _
-    cnoremap <M-K> -
-    cnoremap <M-D> -
-endif
-
-" }}}
-
-" Not use the arrow key in command line {{{
-
-cnoremap <C-j> <Down>
-cnoremap <C-k> <Up>
-cnoremap <C-h> <Left>
-cnoremap <C-l> <Right>
-
-" }}}
-
-" Remap ESC to a better shortcut. I've never type 'jj' anyway {{{
-imap jj <ESC>
-cmap jj <c-c>
-" }}}
-
-" Swap ; with : in normal mode
-nmap ; :
-
-" Go to last edit location with ,.
-nnoremap ,. '.
-
-" Split Manipulation {{{
-
-" Easy splits navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-" Resize splits
-nnoremap <silent> + <c-w>+
-nnoremap <silent> - <c-w>-
-nnoremap <silent> > <c-w>>
-nnoremap <silent> < <c-w><
-
-" }}}
-
-" Shortcuts for everyday tasks {{{
-
-" Clean the last search
-nmap <silent> <Leader>z :nohlsearch<CR>
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" Quickly run the macro in the register q
-nnoremap <Space> @q
-
-" visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
-
-" shortcut for modify settings.vim file
-cnoremap @@ ~/.vim/settings/
-
-" Make selecting inside an HTML tag better
-" TODO: maybe move this lines
-vnoremap <silent> it itVkoj
-vnoremap <silent> at atV
-
-" Sudo to write
-" stolen from Steve Losh
-" cmap w!! w !sudo tee % >/dev/null
-command! W exec 'w !sudo tee % > /dev/null' | e!
-
-" Open the current buffer in the browser
-if has('mac')
-    nnoremap <F12> :exe ':silent !open -a "google chrome" %'<cr>
-else
-    nnoremap <F12> :exe ':silent !chromium %'<cr>
-endif
-
-" }}}
-
-" }}}
-
 " Random Functions {{{
 
 " WrappingToggle {{{
@@ -596,7 +685,20 @@ function! s:ToggleSolarized()
     PowerlineReloadColorscheme
 endfunction
 
-command! ToggleSolarized :call s:ToggleSolarized()
+command! ToggleSolarized call s:ToggleSolarized()
+
+
+" Follow the symlink {{{
+function! s:GoToOriginal()
+
+    let b:orig_file = fnameescape(expand('%:p'))
+    if getftype(b:orig_file) == 'link'
+        let b:target_file = fnamemodify(resolve(b:orig_file))
+          execute 'silent! file ' . fnameescape(b:target_file)
+    endif
+endfunction
+
+"}}}
 " }}}
 
 " }}}
