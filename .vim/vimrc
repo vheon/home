@@ -1,7 +1,8 @@
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-filetype off
+let mapleader=","
+
 
 " Load external configuration before anything else {{{
 if filereadable(expand("~/.vim/before.vimrc"))
@@ -9,136 +10,30 @@ if filereadable(expand("~/.vim/before.vimrc"))
 endif
 " }}}
 
-" Mappings {{{
-
-" General vim sanity improvements {{{
-
-let mapleader=","
-
-nnoremap Y y$
-
-" }}}
-
-" RSI Prevention - keyboard remaps {{{
-
-" Certain things we do every day as programmers stress
-" out our hands. For example, typing underscores and
-" dashes are very common, and in position that require
-" a lot of hand movement. Vim to the rescue
-
-if has('mac')
-
-    " TODO: check on gvim how to remap this
-    " Now using the middle finger of either hand you can type
-    " underscores with apple-k or apple-d, and add Shift
-    " to type dashes
-    imap <silent> <D-k> _
-    imap <silent> <D-d> _
-    imap <silent> <D-K> -
-    imap <silent> <D-D> -
-    cnoremap <D-k> _
-    cnoremap <D-d> _
-    cnoremap <D-K> -
-    cnoremap <D-D> -
-else
-    imap <silent> <M-k> _
-    imap <silent> <M-d> _
-    imap <silent> <M-K> -
-    imap <silent> <M-D> -
-    cnoremap <M-k> _
-    cnoremap <M-d> _
-    cnoremap <M-K> -
-    cnoremap <M-D> -
-endif
-
-" }}}
-
-" Not use the arrow key in command line {{{
-
-cnoremap <C-j> <Down>
-cnoremap <C-k> <Up>
-cnoremap <C-h> <Left>
-cnoremap <C-l> <Right>
-
-" }}}
-
-" Remap ESC to a better shortcut. I've never type 'jj' anyway {{{
-imap jj <ESC>
-cmap jj <c-c>
-" }}}
-
-" Folding {{{
-nnoremap <leader>z zMzvzz
-" }}}
-
-" Use tab for MatchIt
-nnoremap <tab> %
-
-" Swap ; with : in normal mode
-nmap ; :
-
-" Go to last edit location with ,.
-nnoremap ,. '.
-
-" Split Manipulation {{{
-
-" Easy splits navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-" Resize splits
-nnoremap <silent> + <c-w>+
-nnoremap <silent> - <c-w>-
-nnoremap <silent> > <c-w>>
-nnoremap <silent> < <c-w><
-
-" }}}
-
-" Shortcuts for everyday tasks {{{
-
-" Clean the last search
-nmap <silent> <Leader>/ :nohlsearch<CR>
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" Quickly run the macro in the register q
-nnoremap <Space> @q
-
-" visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
-
-" shortcut for modify settings.vim file
-cnoremap @@ ~/.vim/settings/
-
-" Make selecting inside an HTML tag better
-" TODO: maybe move this lines
-vnoremap <silent> it itVkoj
-vnoremap <silent> at atV
-
-" Sudo to write
-" stolen from Steve Losh
-" cmap w!! w !sudo tee % >/dev/null
-command! W exec 'w !sudo tee % > /dev/null' | e!
-
-" Open the current buffer in the browser
-if has('mac')
-    nnoremap <F12> :exe ':silent !open -a "google chrome" %'<cr>
-else
-    nnoremap <F12> :exe ':silent !chromium %'<cr>
-endif
-
-" }}}
-
-" }}}
-
 " Vundle {{{
 
-set rtp+=~/.vim/bundle/vundle/
+" Vundle pre-setting {{{
+let g:vundle_dir = "~/.vim/bundle/vundle"
+" }}}
+
+" Vundle Installation {{{
+
+" Check if Vundle is installed
+let g:vundle = !empty(glob(g:vundle_dir))
+
+" Install Vundle if needed
+if g:vundle == 0
+    call mkdir(expand("~/.vim/bundle"), "p")
+    silent execute "!git clone https://github.com/gmarik/vundle ".g:vundle_dir
+    let g:vundle = 2
+endif
+" }}}
+
+
+
+filetype on
+filetype off
+execute "set rtp+=".g:vundle_dir
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
@@ -393,6 +288,7 @@ Bundle 'SirVer/ultisnips'
 
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
 " }}}
+
 " Surround {{{
 Bundle 'tpope/vim-surround'
 
@@ -456,6 +352,139 @@ Bundle 'lukaszb/vim-web-indent'
 " RFC {{{
 Bundle 'vheon/rfc-syntax'
 "}}}
+
+" }}}
+
+" Vundle Installation 2 {{{
+if g:vundle == 2
+    BundleInstall
+    quitall
+endif
+" }}}
+
+" Mappings {{{
+
+" General vim sanity improvements {{{
+
+
+nnoremap Y y$
+
+" }}}
+
+" RSI Prevention - keyboard remaps {{{
+
+" Certain things we do every day as programmers stress
+" out our hands. For example, typing underscores and
+" dashes are very common, and in position that require
+" a lot of hand movement. Vim to the rescue
+
+if has('mac')
+
+    " TODO: check on gvim how to remap this
+    " Now using the middle finger of either hand you can type
+    " underscores with apple-k or apple-d, and add Shift
+    " to type dashes
+    imap <silent> <D-k> _
+    imap <silent> <D-d> _
+    imap <silent> <D-K> -
+    imap <silent> <D-D> -
+    cnoremap <D-k> _
+    cnoremap <D-d> _
+    cnoremap <D-K> -
+    cnoremap <D-D> -
+else
+    imap <silent> <M-k> _
+    imap <silent> <M-d> _
+    imap <silent> <M-K> -
+    imap <silent> <M-D> -
+    cnoremap <M-k> _
+    cnoremap <M-d> _
+    cnoremap <M-K> -
+    cnoremap <M-D> -
+endif
+
+" }}}
+
+" Not use the arrow key in command line {{{
+
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+
+" }}}
+
+" Remap ESC to a better shortcut. I've never type 'jj' anyway {{{
+imap jj <ESC>
+cmap jj <c-c>
+" }}}
+
+" Folding {{{
+nnoremap <leader>z zMzvzz
+" }}}
+
+" Use tab for MatchIt
+nnoremap <tab> %
+
+" Swap ; with : in normal mode
+nmap ; :
+
+" Go to last edit location with ,.
+nnoremap ,. '.
+
+" Split Manipulation {{{
+
+" Easy splits navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Resize splits
+nnoremap <silent> + <c-w>+
+nnoremap <silent> - <c-w>-
+nnoremap <silent> > <c-w>>
+nnoremap <silent> < <c-w><
+
+" }}}
+
+" Shortcuts for everyday tasks {{{
+
+" Clean the last search
+nmap <silent> <Leader>/ :nohlsearch<CR>
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Quickly run the macro in the register q
+nnoremap <Space> @q
+
+" visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+" shortcut for modify settings.vim file
+cnoremap @@ ~/.vim/settings/
+
+" Make selecting inside an HTML tag better
+" TODO: maybe move this lines
+vnoremap <silent> it itVkoj
+vnoremap <silent> at atV
+
+" Sudo to write
+" stolen from Steve Losh
+" cmap w!! w !sudo tee % >/dev/null
+command! W exec 'w !sudo tee % > /dev/null' | e!
+
+" Open the current buffer in the browser
+if has('mac')
+    nnoremap <F12> :exe ':silent !open -a "google chrome" %'<cr>
+else
+    nnoremap <F12> :exe ':silent !chromium %'<cr>
+endif
+
+" }}}
 
 " }}}
 
@@ -591,6 +620,7 @@ if !exists('autocommands_loaded')
     au BufLeave,WinLeave * set nocursorline
 
     au BufWritePost $MYVIMRC source $MYVIMRC | call Pl#Load()
+    au BufWritePost ~/.vim/vimrc source ~/.vim/vimrc | call Pl#Load()
 endif
 " }}}
 
