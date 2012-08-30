@@ -1,6 +1,0 @@
-This is a mirror of http://www.vim.org/scripts/script.php?script_id=2930
-
-Simple syntax highlight for RFC (Request For Comments) file.
-It can highlight the contents, the titles and so on.
-
-A ftplugin is also provided to use <C-]> to jump from the contents or reference note ([1] like things). You can then use <C-t> to go back (once only). <C-o> and `` should work as expected.
