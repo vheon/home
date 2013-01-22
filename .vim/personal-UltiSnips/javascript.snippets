@@ -22,7 +22,7 @@ ${1:value_name}:${0:value},
 endsnippet
 
 snippet : "Object key key: 'value'"
-${1:key}: ${2:"${3:value}"}${4:, }
+${1:key}: ${2:"${3:value}"}${4:,}
 endsnippet
 
 snippet proto "Prototype (proto)"
@@ -50,7 +50,7 @@ function ${1:function_name} (${2:argument}) {
 }
 endsnippet
 
-snippet f "function (args) {} (anonymous)"
+snippet f "function (args) {} (anonymous)" w
 function ($1) {
     ${0}
 }
@@ -61,11 +61,21 @@ if (${1:true}) {$0} else{};
 endsnippet
 
 snippet if "if"
-if (${1:true}) {$0};
+if (${1:true}) {
+    $0
+}
 endsnippet
 
 snippet timeout "setTimeout function"
 setTimeout(function() {$0}${2:}, ${1:10});
 endsnippet
 
+snippet log "log into console"
+console.log("$1");
+endsnippet
+
+# temp thing
+snippet p "point" w
+{ x: ${1:0}, y: ${2:0} }
+endsnippet
 # vim:ft=snippets:

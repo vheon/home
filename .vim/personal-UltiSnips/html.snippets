@@ -195,7 +195,7 @@ snippet head "XHTML <head>"
 endsnippet
 
 snippet link "XHTML <link>"
-<link rel="${1:stylesheet}" href="${2:/css/master.css}" type="text/css" media="${3:screen}" title="${4:no title}" charset="${5:utf-8}"`!p x(snip)`>
+<link rel="${1:stylesheet}" href="${2:/css/master.css}" type="text/css" charset="${5:utf-8}"`!p x(snip)`>
 endsnippet
 
 snippet meta "XHTML <meta>"
@@ -203,7 +203,7 @@ snippet meta "XHTML <meta>"
 endsnippet
 
 snippet scriptsrc "XHTML <script src...>"
-<script src="$1" type="text/javascript" charset="${3:utf-8}"></script>
+<script src="$1"></script>
 endsnippet
 
 snippet script "XHTML <script>"
@@ -275,6 +275,19 @@ snippet movie "Embed QT movie (movie)" b
 		pluginspage="http://www.apple.com/quicktime/download/"
 	`!p x(snip)`>
 </object>
+endsnippet
+
+snippet html "HTML Template"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${1}</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    ${2}
+</body>
+</html>
 endsnippet
 
 snippet html5 "HTML5 Template"

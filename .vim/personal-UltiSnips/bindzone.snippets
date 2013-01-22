@@ -1,0 +1,41 @@
+global !p
+def newsoa():
+    import datetime
+    now = datetime.datetime.now()
+    # return standard SOA formatted serial for today
+    return now.strftime("%Y%m%d00")
+endglobal
+
+snippet soa "Bootstrap a new Bind zonefile" b
+$TTL 60000
+@     IN SOA   ${1:example.net}.     ${2:root.$1}. (
+                        `!p snip.rv = newsoa()` ;     serial
+                        21600 ;          refresh every 6 hours
+                        3600 ;           retry after one hour
+                        604800 ;         expire after a week
+                        0 ;        minimum TTL of 1 day
+                        )
+
+@               IN      NS              $1.
+$1.             IN      A               ${2:ip}
+endsnippet
+
+snippet A "Insert A Record" b
+${1:hostname}   IN      A               ${2:ip}
+endsnippet
+
+snippet nsa "NS and A Record" !b
+${1:domain}.        IN  NS              ${2:dns name}.
+$2.                 IN  A               ${3:ip}
+endsnippet
+
+snippet zone "zone in named.conf" !b
+zone "${1:zone}" {
+    type ${2:master};
+    file "/etc/bind/db.`!p 
+if t[1] == ".":
+    snip.rv = "root"
+else:
+    snip.rv = ".".join(t[1].split(".")[::-1])`";
+};
+endsnippet
