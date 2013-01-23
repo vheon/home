@@ -273,7 +273,6 @@ cnoremap      <C-p>  <Up>
 cnoremap      <C-A>  <C-B>
 cnoremap <C-X><C-A>  <C-A>
 
-
 " Easy splits navigation
 nnoremap gh <C-w>h
 nnoremap gj <C-w>j
