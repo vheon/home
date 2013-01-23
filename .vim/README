@@ -2,6 +2,14 @@ Installation:
 
     git clone git://github.com/vheon/dotvim.git ~/.vim
 
+Install Vundle
+
+    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
 Create symlinks:
 
     ln -s ~/.vim/vimrc ~/.vimrc
+
+Install Bundles
+
+    vim +BundleInstall +qall
