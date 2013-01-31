@@ -46,13 +46,15 @@ Bundle 'sjl/gundo.vim'
 " More Runtime files
 Bundle 'vheon/vim-plasm-js'
 Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-haml'
+Bundle 'nelstrom/vim-markdown-folding'
 Bundle 'tejr/vim-tmux'
 Bundle 'vheon/rfc-syntax'
-Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'pangloss/vim-javascript'
 Bundle 'leshill/vim-json'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-rvm'
 
 " Try to slim the config
 " Bundle 'nathanaelkane/vim-indent-guides'
@@ -62,6 +64,9 @@ Bundle 'vim-ruby/vim-ruby'
 " Bundle 'kana/vim-arpeggio'
 " Bundle 'Smart-Home-Key'
 " Bundle 'lukaszb/vim-web-indent'
+
+" Test Bundles
+" Bundle 'goldfeld/vim-seek'
 
 " }}}
 " General Settings {{{
@@ -175,7 +180,10 @@ exe "sign define Vu_new      texthl=DiffAdd"
 exe "sign define Vu_updated  texthl=DiffAdd"
 exe "sign define Vu_deleted  texthl=DiffDelete"
 exe "sign define Vu_helptags texthl=DiffAdd"
-"}}}
+
+" Just to color the Bundle word in the vimrc
+" syn keyword vimCommand Bundle
+" }}}
 " Ctrlp {{{
 let g:ctrlp_max_height=15
 let g:ctrlp_map = '<leader>t'
@@ -216,31 +224,45 @@ let g:tagbar_autoclose = 1
 " Functions & Commands {{{
 
 function! MyFoldText()
-    let line = getline(v:foldstart)
+  let line = getline(v:foldstart)
 
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
+  let nucolwidth = &fdc + &number * &numberwidth
+  let windowwidth = winwidth(0) - nucolwidth - 3
+  let foldedlinecount = v:foldend - v:foldstart
 
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+  " expand tabs into spaces
+  let onetab = strpart('          ', 0, &tabstop)
+  let line = substitute(line, '\t', onetab, 'g')
 
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+  let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+  let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+  return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction
+
+function! s:setProperPowerline()
+  let g:Powerline_colorscheme = (&background == "dark") ?
+        \ "darkSolarized" : "lightSolarized"
 endfunction
 
 function! s:ToggleSolarized()
-  let g:Powerline_colorscheme = (&background == "dark") ?
-        \"lightSolarized" : "darkSolarized"
   ToggleBG
+  call s:setProperPowerline()
   PowerlineReloadColorscheme
 endfunction
 command! ToggleSolarized call s:ToggleSolarized()
 
 " Sudo write
 command! W exec 'w !sudo tee % > /dev/null' | e!
+
+function! s:FollowSymlink()
+
+  let b:orig_file = fnameescape(expand('%:p'))
+  if getftype(b:orig_file) == 'link'
+    let b:target_file = fnamemodify(resolve(b:orig_file))
+    execute 'silent! file ' . fnameescape(b:target_file) . ' | e'
+  endif
+endfunction
+command! FollowSymlink call <SID>FollowSymlink()
 
 " }}}
 " Mappings {{{
@@ -261,11 +283,11 @@ nnoremap Y y$
 if has("gui_macvim")
 
   imap <silent> <D-j> _
-  " TODO: this should be <D-f>
-  " maybe shoud be done in KeyRemap4MacBook
-  imap <silent> <D-d> -
   cnoremap <D-j> _
-  cnoremap <D-d> -
+
+  " TODO: this require a gvimrc to unmap <D-l>"
+  imap <silent> <D-l> -
+  cnoremap <D-l> -
 endif
 
 cnoremap      <C-n>  <Down>
@@ -340,6 +362,7 @@ vnoremap <silent> at atV
 
 " Motion for 'next/last object'. For example, 'din(' would go to the next '()' pair
 " and delete its contents.
+" TODO: It not handle wery well empty '()'
 onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
 xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
 onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
@@ -389,10 +412,19 @@ if has('autocmd')
   "     au InsertLeave * setlocal list
   " augroup END
 
-  augroup resoad_vimrc
+  augroup reload_vimrc
     au!
-    au BufWritePost $MYVIMRC source $MYVIMRC | call Pl#Load()
-    au BufWritePost ~/.vim/vimrc source ~/.vim/vimrc | call Pl#Load()
+    au BufWritePost $MYVIMRC source $MYVIMRC |
+          \ call s:setProperPowerline() |
+          \ call Pl#Load()
+    au BufWritePost ~/.vim/vimrc source ~/.vim/vimrc |
+          \ call s:setProperPowerline() |
+          \ call Pl#Load()
+  augroup END
+
+  augroup solarized_powerline
+    au!
+    " au VimEnter * call s:setProperPowerline() | :silent PowerlineReloadColorscheme
   augroup END
 
   " Enable omni completion
@@ -412,6 +444,11 @@ if has('autocmd')
           \ if line("'\"") > 0 && line("'\"") <= line("$") |
           \   execute 'normal! g`"zvzz' |
           \ endif
+  augroup END
+
+  augroup bundle_keyword
+    au!
+    au BufReadPre $MYVIMRC exe 'syn keyword vimCommand Bundle'
   augroup END
 
 endif
