@@ -181,43 +181,41 @@ exe "sign define Vu_updated  texthl=DiffAdd"
 exe "sign define Vu_deleted  texthl=DiffDelete"
 exe "sign define Vu_helptags texthl=DiffAdd"
 
-" Just to color the Bundle word in the vimrc
-" syn keyword vimCommand Bundle
 " }}}
 " Ctrlp {{{
-let g:ctrlp_max_height=15
-let g:ctrlp_map = '<leader>t'
+let g:ctrlp_max_height = 15
+let g:ctrlp_map        = '<leader>t'
 " }}}
 " DelimitMate {{{
 let g:delimitMate_expand_cr = 1
 " }}}
 " GunDo {{{
-let g:gundo_width = 60
-let g:gundo_preview_height = 30
-let g:gundo_right = 1
+let g:gundo_width           = 60
+let g:gundo_preview_height  = 30
+let g:gundo_right           = 1
 let g:gundo_close_on_revert = 1
-let g:gundo_preview_bottom = 0
+let g:gundo_preview_bottom  = 0
 " }}}
 " NERDTree {{{
-let g:NERDTreeMinimalUI=1
-let g:NERDTreeQuitOnOpen=1
-let g:NERDTreeDirArrows=1
-let g:NERDChristmasTree=1
+let g:NERDTreeMinimalUI  = 1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeDirArrows  = 1
+let g:NERDChristmasTree  = 1
 " }}}
 " Powerline {{{
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_colorscheme='darkSolarized'
-let g:Powerline_theme='vheon'
+let g:Powerline_symbols     = 'fancy'
+let g:Powerline_colorscheme = 'darkSolarized'
+let g:Powerline_theme       = 'vheon'
 " }}}
 " Ultisnips {{{
-let g:UltiSnipsSnippetDirectories=["personal-UltiSnips"]
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories = ["personal-UltiSnips"]
+let g:UltiSnipsEditSplit          = "vertical"
 " }}}
 " Tagbar {{{
-let g:tagbar_iconchars = ['▾', '▸']
-let g:tagbar_autofocus = 1
+let g:tagbar_iconchars   = ['▾', '▸']
+let g:tagbar_autofocus   = 1
 let g:tagbar_autoshowtag = 1
-let g:tagbar_autoclose = 1
+let g:tagbar_autoclose   = 1
 " }}}
 
 " }}}
