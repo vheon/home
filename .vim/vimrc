@@ -262,6 +262,16 @@ function! s:FollowSymlink()
 endfunction
 command! FollowSymlink call <SID>FollowSymlink()
 
+" Toggle number & relativenumber
+function! s:NumberToggle()
+  if &number
+    set relativenumber
+  else
+    set number
+  endif
+endfunction
+command! NumberToggle call <SID>NumberToggle()
+
 " }}}
 " Mappings {{{
 
