@@ -238,8 +238,7 @@ function! MyFoldText()
 endfunction
 
 function! s:setProperPowerline()
-  let g:Powerline_colorscheme = (&background == "dark") ?
-        \ "darkSolarized" : "lightSolarized"
+  let g:Powerline_colorscheme = &background."Solarized"
 endfunction
 
 function! s:ToggleSolarized()
@@ -292,6 +291,7 @@ if has("gui_macvim")
 
   imap <silent> <D-j> _
   cnoremap <D-j> _
+  omap <D-j> _
 
   " TODO: this require a gvimrc to unmap <D-l>"
   imap <silent> <D-l> -
@@ -311,7 +311,8 @@ nnoremap gl <C-w>l
 
 " All this for let Ultisnips and delimitMate work together:
 function! JumpKey(key)
-  let char = delimitMate#GetCharFromCursor(0)
+  " let char = delimitMate#GetCharFromCursor(0)
+  let char = getline('.')[col('.')-1]
   let list = b:_l_delimitMate_right_delims + b:_l_delimitMate_quotes_list
 
   " Closing delimiter on the right.
@@ -321,6 +322,7 @@ function! JumpKey(key)
 
   return a:key
 endfunction
+
 
 " TODO: fork ultisnips for a ShouldExpand()
 let g:ulti_expand_res = 0
@@ -428,11 +430,6 @@ if has('autocmd')
     au BufWritePost ~/.vim/vimrc source ~/.vim/vimrc |
           \ call s:setProperPowerline() |
           \ call Pl#Load()
-  augroup END
-
-  augroup solarized_powerline
-    au!
-    " au VimEnter * call s:setProperPowerline() | :silent PowerlineReloadColorscheme
   augroup END
 
   " Enable omni completion
