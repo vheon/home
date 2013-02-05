@@ -65,9 +65,6 @@ Bundle 'tpope/vim-rvm'
 " Bundle 'Smart-Home-Key'
 " Bundle 'lukaszb/vim-web-indent'
 
-" Test Bundles
-" Bundle 'goldfeld/vim-seek'
-
 " }}}
 " General Settings {{{
 
