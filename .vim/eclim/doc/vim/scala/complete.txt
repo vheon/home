@@ -1,0 +1,27 @@
+*vim-scala-complete*
+
+Scala Code Completion
+*********************
+
+Note: Eclim's scala support is currently only available for Eclipse 3.7
+  (Indigo) using eclim 1.7.x. Eclim 2.2.x will be updated to include
+  scala support sometime after the Scala IDE (http://scala-ide.org) is
+  updated to support Eclipse 4.2 (Juno).
+
+Scala code completion uses the standard Vim code completion mechanism
+(|vim-code_completion|) like so:
+
+>
+
+   package eclim.test
+
+   class Test {
+     def test(){
+       val list = List("foo", "bar", "baz")
+       list.s<C-X><C-U>
+     }
+   }
+
+<
+
+vim:ft=eclimhelp

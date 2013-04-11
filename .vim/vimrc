@@ -32,6 +32,13 @@ Bundle 'tpope/vim-scriptease'
 Bundle 'vheon/vim-unimpaired'
 Bundle 'kien/ctrlp.vim'
 
+Bundle 'kana/vim-textobj-user'
+Bundle 'kana/vim-textobj-line'
+Bundle 'kana/vim-textobj-function'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'thinca/vim-textobj-function-javascript'
+Bundle 'vheon/vim-textobj-underscore'
+
 Bundle 'henrik/vim-indexed-search'
 Bundle 'scrooloose/nerdtree'
 Bundle 'godlygeek/tabular'
@@ -56,6 +63,9 @@ Bundle 'leshill/vim-json'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rvm'
 
+Bundle 'derekwyatt/vim-scala'
+
+" Bundle 'Yggdroot/indentLine'
 " Try to slim the config
 " Bundle 'nathanaelkane/vim-indent-guides'
 " Bundle 'vheon/Rainbow-Parenthesis-Bundle'
@@ -65,6 +75,57 @@ Bundle 'tpope/vim-rvm'
 " Bundle 'Smart-Home-Key'
 " Bundle 'lukaszb/vim-web-indent'
 
+" }}}
+" Plugin Settings {{{
+
+" Vundle {{{
+exe "sign define Vu_error    texthl=DiffDelete"
+exe "sign define Vu_active   texthl=DiffChange"
+exe "sign define Vu_todate   texthl=DiffText"
+exe "sign define Vu_new      texthl=DiffAdd"
+exe "sign define Vu_updated  texthl=DiffAdd"
+exe "sign define Vu_deleted  texthl=DiffDelete"
+exe "sign define Vu_helptags texthl=DiffAdd"
+
+" }}}
+" Ctrlp {{{
+let g:ctrlp_max_height = 15
+let g:ctrlp_map        = '<leader>t'
+" }}}
+" DelimitMate {{{
+let g:delimitMate_expand_cr = 1
+" }}}
+" GunDo {{{
+let g:gundo_width           = 60
+let g:gundo_preview_height  = 30
+let g:gundo_right           = 1
+let g:gundo_close_on_revert = 1
+let g:gundo_preview_bottom  = 0
+" }}}
+" NERDTree {{{
+let g:NERDTreeMinimalUI  = 1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeDirArrows  = 1
+let g:NERDChristmasTree  = 1
+" }}}
+" Powerline {{{
+let g:Powerline_symbols     = 'fancy'
+let g:Powerline_colorscheme = 'darkSolarized'
+let g:Powerline_theme       = 'vheon'
+" }}}
+" Ultisnips {{{
+let g:UltiSnipsSnippetDirectories = ["personal-UltiSnips"]
+let g:UltiSnipsEditSplit          = "vertical"
+" }}}
+" Tagbar {{{
+let g:tagbar_iconchars   = ['▾', '▸']
+let g:tagbar_autofocus   = 1
+let g:tagbar_autoshowtag = 1
+let g:tagbar_autoclose   = 1
+" }}}
+" Markdown Folding {{{
+let g:markdown_fold_style = 'nested'
+" }}}
 " }}}
 " General Settings {{{
 
@@ -165,55 +226,6 @@ if has('gui_running')
     set guifont=Source\ Code\ Pro\ for\ Powerline:h12
   endif
 endif
-
-" }}}
-" Plugin Settings {{{
-
-" Vundle {{{
-exe "sign define Vu_error    texthl=DiffDelete"
-exe "sign define Vu_active   texthl=DiffChange"
-exe "sign define Vu_todate   texthl=DiffText"
-exe "sign define Vu_new      texthl=DiffAdd"
-exe "sign define Vu_updated  texthl=DiffAdd"
-exe "sign define Vu_deleted  texthl=DiffDelete"
-exe "sign define Vu_helptags texthl=DiffAdd"
-
-" }}}
-" Ctrlp {{{
-let g:ctrlp_max_height = 15
-let g:ctrlp_map        = '<leader>t'
-" }}}
-" DelimitMate {{{
-let g:delimitMate_expand_cr = 1
-" }}}
-" GunDo {{{
-let g:gundo_width           = 60
-let g:gundo_preview_height  = 30
-let g:gundo_right           = 1
-let g:gundo_close_on_revert = 1
-let g:gundo_preview_bottom  = 0
-" }}}
-" NERDTree {{{
-let g:NERDTreeMinimalUI  = 1
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeDirArrows  = 1
-let g:NERDChristmasTree  = 1
-" }}}
-" Powerline {{{
-let g:Powerline_symbols     = 'fancy'
-let g:Powerline_colorscheme = 'darkSolarized'
-let g:Powerline_theme       = 'vheon'
-" }}}
-" Ultisnips {{{
-let g:UltiSnipsSnippetDirectories = ["personal-UltiSnips"]
-let g:UltiSnipsEditSplit          = "vertical"
-" }}}
-" Tagbar {{{
-let g:tagbar_iconchars   = ['▾', '▸']
-let g:tagbar_autofocus   = 1
-let g:tagbar_autoshowtag = 1
-let g:tagbar_autoclose   = 1
-" }}}
 
 " }}}
 " Functions & Commands {{{
@@ -367,30 +379,206 @@ vnoremap > >gv
 vnoremap <silent> it itVkoj
 vnoremap <silent> at atV
 
-" Motion for 'next/last object'. For example, 'din(' would go to the next '()' pair
-" and delete its contents.
-" TODO: It not handle wery well empty '()'
-onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-onoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
-xnoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
-function! s:NextTextObject(motion, dir)
-  let c = nr2char(getchar())
+" Next and Last
+" From steve losh .vimrc https://github.com/sjl/dotfiles/blob/master/vim/vimrc
 
-  if c ==# "b"
-    let c = "("
-  elseif c ==# "B"
-    let c = "{"
-  elseif c ==# "d"
-    let c = "["
+" Motion for "next/last object".  "Last" here means "previous", not "final".
+" Unfortunately the "p" motion was already taken for paragraphs.
+"
+" Next acts on the next object of the given type, last acts on the previous
+" object of the given type.  These don't necessarily have to be in the current
+" line.
+"
+" Currently works for (, [, {, and their shortcuts b, r, B. 
+"
+" Next kind of works for ' and " as long as there are no escaped versions of
+" them in the string (TODO: fix that).  Last is currently broken for quotes
+" (TODO: fix that).
+"
+" Some examples (C marks cursor positions, V means visually selected):
+"
+" din'  -> delete in next single quotes                foo = bar('spam')
+"                                                      C
+"                                                      foo = bar('')
+"                                                                C
+"
+" canb  -> change around next parens                   foo = bar('spam')
+"                                                      C
+"                                                      foo = bar
+"                                                               C
+"
+" vin"  -> select inside next double quotes            print "hello ", name
+"                                                       C
+"                                                      print "hello ", name
+"                                                             VVVVVV
+
+onoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
+
+onoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+xnoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+onoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+xnoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+
+
+function! s:NextTextObject(motion, dir)
+    let c = nr2char(getchar())
+    let d = ''
+
+    if c ==# "b" || c ==# "(" || c ==# ")"
+        let c = "("
+    elseif c ==# "B" || c ==# "{" || c ==# "}"
+        let c = "{"
+    elseif c ==# "r" || c ==# "[" || c ==# "]"
+        let c = "["
+    elseif c ==# "'"
+        let c = "'"
+    elseif c ==# '"'
+        let c = '"'
+    else
+        return
+    endif
+
+    " Find the next opening-whatever.
+    execute "normal! " . a:dir . c . "\<cr>"
+
+    if a:motion ==# 'a'
+        " If we're doing an 'around' method, we just need to select around it
+        " and we can bail out to Vim.
+        execute "normal! va" . c
+    else
+        " Otherwise we're looking at an 'inside' motion.  Unfortunately these
+        " get tricky when you're dealing with an empty set of delimiters because
+        " Vim does the wrong thing when you say vi(.
+
+        let open = ''
+        let close = ''
+
+        if c ==# "("
+            let open = "("
+            let close = ")"
+        elseif c ==# "{"
+            let open = "{"
+            let close = "}"
+        elseif c ==# "["
+            let open = "\\["
+            let close = "\\]"
+        elseif c ==# "'"
+            let open = "'"
+            let close = "'"
+        elseif c ==# '"'
+            let open = '"'
+            let close = '"'
+        endif
+
+        " We'll start at the current delimiter.
+        let start_pos = getpos('.')
+        let start_l = start_pos[1]
+        let start_c = start_pos[2]
+
+        " Then we'll find it's matching end delimiter.
+        if c ==# "'" || c ==# '"'
+            " searchpairpos() doesn't work for quotes, because fuck me.
+            let end_pos = searchpos(open)
+        else
+            let end_pos = searchpairpos(open, '', close)
+        endif
+
+        let end_l = end_pos[0]
+        let end_c = end_pos[1]
+
+        call setpos('.', start_pos)
+
+        if start_l == end_l && start_c == (end_c - 1)
+            " We're in an empty set of delimiters.  We'll append an "x"
+            " character and select that so most Vim commands will do something
+            " sane.  v is gonna be weird, and so is y.  Oh well.
+            execute "normal! ax\<esc>\<left>"
+            execute "normal! vi" . c
+        elseif start_l == end_l && start_c == (end_c - 2)
+            " We're on a set of delimiters that contain a single, non-newline
+            " character.  We can just select that and we're done.
+            execute "normal! vi" . c
+        else
+            " Otherwise these delimiters contain something.  But we're still not
+            " sure Vim's gonna work, because if they contain nothing but
+            " newlines Vim still does the wrong thing.  So we'll manually select
+            " the guts ourselves.
+            let whichwrap = &whichwrap
+            set whichwrap+=h,l
+
+            execute "normal! va" . c . "hol"
+
+            let &whichwrap = whichwrap
+        endif
+    endif
+endfunction
+
+" Numbers
+
+" Motion for numbers.  Great for CSS.  Lets you do things like this:
+"
+" margin-top: 200px; -> daN -> margin-top: px;
+"              ^                          ^
+" margin-top: 123.98px; -> daN -> margin-top: px;
+"              ^                             ^
+" margin-top: 123.98px; -> diN -> margin-top: .98px;
+"              ^                             ^
+" margin-top: 123.98px; -> diN -> margin-top: 123.px;
+"                 ^                               ^
+
+onoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+xnoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+onoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+onoremap aN :<c-u>call <SID>NumberFloatTextObject()<cr>
+xnoremap aN :<c-u>call <SID>NumberFloatTextObject()<cr>
+
+function! s:NumberTextObject(whole)
+  normal! v
+
+  while getline('.')[col('.')] =~# '\v[0-9]'
+    normal! l
+  endwhile
+
+  if a:whole
+    normal! o
+
+    while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
+      normal! h
+    endwhile
+  endif
+endfunction
+
+function! s:NumberFloatTextObject()
+  " select the inner number
+  call s:NumberTextObject(1)
+  let dot = 0
+
+  " check if at left there's a dot
+  if col('.') > 1 && getline('.')[col('.') - 2] =~# '\.'
+    normal! h
+    let dot = 1
+    while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
+      normal! h
+    endwhile
   endif
 
-  exe "normal! ".a:dir.c."v".a:motion.c
+  " look at right
+  normal! o
+
+  " if we didn't found the dot at left search for it here
+  if !dot && getline('.')[col('.')] =~# '\.'
+    normal! l
+  endif
+  while getline('.')[col('.')] =~# '\v[0-9]'
+    normal! l
+  endwhile
+  normal! o
 endfunction
+
 
 " Always move through visual lines:
 nnoremap j gj
