@@ -1,4 +1,5 @@
 bundle/*
 view/
+*.pyc
 .netrwhist
 !.gitkeep
