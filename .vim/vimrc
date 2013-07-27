@@ -32,8 +32,6 @@ Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'}
 Bundle 'vheon/powerline-settings'
 Bundle 'mkitt/tabline.vim'
 Bundle 'yonchu/accelerated-smooth-scroll'
-" FIXME: find hw style correctly this
-" Bundle 'Yggdroot/indentLine
 
 Bundle 'tpope/vim-sleuth'
 Bundle 'tpope/vim-fugitive'
@@ -49,7 +47,9 @@ Bundle 'tpope/vim-abolish'
 Bundle 'vheon/vim-unimpaired'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kana/vim-smartinput'
-Bundle 'vheon/vim-numbertoggle'
+Bundle 'jeffkreeftmeijer/vim-numbertoggle'
+
+Bundle 'kana/vim-operator-user'
 
 Bundle 'Valloric/MatchTagAlways'
 
@@ -70,10 +70,12 @@ Bundle 'godlygeek/tabular'
 Bundle 'majutsushi/tagbar'
 Bundle 'SirVer/ultisnips'
 Bundle 'sjl/gundo.vim'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
+Bundle 'Valloric/YouCompleteMe'
 
 Bundle 'Shougo/unite.vim'
+Bundle 'mytoh/unite-highlight'
+Bundle 'ujihisa/unite-colorscheme'
 
 " More Runtime files
 Bundle 'tpope/vim-markdown'
@@ -172,6 +174,7 @@ let g:ycm_filetype_blacklist = {
       \ 'notes': 1,
       \ 'markdown': 1,
       \ 'text': 1,
+      \ 'unite': 1,
       \ }
 
 
@@ -216,6 +219,7 @@ call smartinput#define_rule({
       \ })
 
 
+" C/C++ Comment
 call smartinput#map_to_trigger('i', '*', '*', '*')
 call smartinput#define_rule({
       \ 'at': '/\%#',
@@ -225,12 +229,20 @@ call smartinput#define_rule({
       \ })
 
 call smartinput#define_rule({
+      \ 'at': '/\*\s\%#\s\*/',
+      \ 'char': '<Enter>',
+      \ 'input': '<BS><Del><Enter><BS><BS><Right><Up><Enter>',
+      \ 'filetype': ['c', 'cpp'],
+      \ })
+
+" Vim HashMap
+call smartinput#define_rule({
       \ 'at': '{\%#}',
       \ 'char': '<Enter>',
       \ 'input': '\\ <Left><Left><Left><Enter><Right><Enter><Up><Right><Right> ',
       \ 'filetype': ['vim'],
       \ })
-
+" Vim Multiline
 call smartinput#define_rule({
       \ 'at': '\\.\{-},\%#',
       \ 'char': '<Enter>',
@@ -259,6 +271,25 @@ let g:rubycomplete_rails = 1
 
 " Syntastic {{{2
 let g:syntastic_always_populate_loc_list = 1
+
+" let g:syntastic_error_symbol=''
+let g:syntastic_warning_symbol=''
+let g:syntastic_error_symbol='✗'
+" let g:syntastic_warning_symbol='⚠'
+" let g:syntastic_style_error_symbol  = '⚡'
+" let g:syntastic_style_warning_symbol  = '⚡'
+
+
+
+" Eclim {{{2
+let g:EclimCompletionMethod = 'omnifunc'
+
+
+
+
+" Unite {{{2
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
 
 
 
@@ -326,6 +357,8 @@ set display+=lastline
 
 set nomore
 
+" FIXME: Lets give it a try
+set autowrite
 set autoread
 set hidden
 set cursorline
@@ -525,8 +558,8 @@ if has("gui_macvim")
   " the z mark, and entering insert mode again.
   "
   " Note that this will overwrite the contents of the z mark.  I never use it, but
-  " if you do you'll probably want to use another mark.}}}
-  inoremap <M-u> <esc>mzgUiw`za
+  " if you do you'll probably want to use another mark.3}}}
+  inoremap <D-u> <esc>mzgUiw`za
 
 endif
 
@@ -560,6 +593,9 @@ nnoremap <silent> <Leader>u :GundoToggle<cr>
 nnoremap <Leader>f :NERDTreeToggle<cr>
 " nnoremap <Leader>er exe ':NERDTree '. getcwd() .'<cr>'
 nnoremap <Leader>o :TagbarToggle<cr>
+
+" Part of vim-numbertoggle
+nnoremap <silent> <C-m> :set nonumber norelativenumber<CR>
 
 " visual shifting (does not exit Visual mode)
 " TODO: Maybe is not right to remap plain '<' & '>'
@@ -837,7 +873,6 @@ if has('autocmd')
     au!
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   augroup END
 
@@ -847,6 +882,24 @@ if has('autocmd')
           \ if line("'\"") > 0 && line("'\"") <= line("$") |
           \   execute 'normal! g`"zvzz' |
           \ endif
+  augroup END
+
+  augroup shebang_chmod
+  autocmd!
+  autocmd BufNewFile   *  let b:brand_new_file = 1
+  autocmd BufWritePost * unlet! b:brand_new_file
+  autocmd BufWritePre  *
+        \ if exists('b:brand_new_file') |
+        \   if getline(1) =~ '^#!'      |
+        \     let b:chmod_post = '+x'   |
+        \   endif                       |
+        \ endif
+
+  autocmd BufWritePost,FileWritePost *
+        \ if exists('b:chmod_post') && executable('chmod')      |
+        \   silent! execute "!chmod ".b:chmod_post." '<afile>'" |
+        \   unlet b:chmod_post                                  |
+        \ endif
   augroup END
 
   augroup bundle_keyword
@@ -874,20 +927,19 @@ if has('autocmd')
     au!
     au BufRead,BufNewFile *.m,*.mm set filetype=objc
   augroup END
+
+  " Every ftplugin in macvim runtime file override this
+  augroup formatoptions_o
+    au!
+    au BufRead * set formatoptions-=o
+  augroup END
 endif
 
 
 " Tryouts "{{{1
-nnoremap <leader>yt :set operatorfunc=TabularizeOperator<cr>g@
 
-function! TabularizeOperator(type, ...)
-
-  let pattern = input(":Tabularize ")
-  if a:type == 'line'
-    exe ":'[,']Tabularize ".pattern
-  elseif a:type == 'block'
-    exe ":`[\<C-V>`]Tabularize ".pattern
-  else
-    exe ":`[v`]Tabularize ".pattern
-  endif
+map <leader><Space> <Plug>(operator-tabular)
+call operator#user#define('tabular', 'TabularizeUserOperator')
+function! TabularizeUserOperator(motion_wise)
+  call feedkeys(":'[,']Tabularize  /")
 endfunction
