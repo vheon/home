@@ -33,6 +33,7 @@ Bundle 'vheon/powerline-settings'
 Bundle 'mkitt/tabline.vim'
 Bundle 'yonchu/accelerated-smooth-scroll'
 
+Bundle 'vheon/vim-rooter'
 Bundle 'tpope/vim-sleuth'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-endwise'
