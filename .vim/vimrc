@@ -17,83 +17,80 @@ runtime! macros/matchit.vim
 
 Bundle 'gmarik/vundle'
 
-" Colors
+
+Bundle 'bling/vim-airline'
+
 Bundle 'vheon/vim-colors-solarized'
-Bundle 'sjl/badwolf'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'w0ng/vim-hybrid'
-Bundle 'jnurmine/Zenburn'
-
-" FIXME: check this out better
-" Bundle 'Dinduks/vim-holylight'
-
-" UI
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'}
-Bundle 'vheon/powerline-settings'
-Bundle 'mkitt/tabline.vim'
-Bundle 'yonchu/accelerated-smooth-scroll'
-
 Bundle 'vheon/vim-rooter'
 Bundle 'tpope/vim-sleuth'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-repeat'
+" in NeoBundle could be Lazy but I'm not so sure of the plugin per se
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-commentary'
+
 Bundle 'tpope/vim-scriptease'
 Bundle 'tpope/vim-rsi'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'kien/ctrlp.vim'
 Bundle 'kana/vim-smartinput'
-Bundle 'jeffkreeftmeijer/vim-numbertoggle'
+" Bundle 'kien/ctrlp.vim'
 
+Bundle 'Shougo/unite.vim'
+
+" XXX: I use it only for the tryout of Tabular
 Bundle 'kana/vim-operator-user'
 
+" in NeoBundle could be Lazy
 Bundle 'Valloric/MatchTagAlways'
 
 " TextObj-User
 Bundle 'kana/vim-textobj-user'
-Bundle 'kana/vim-textobj-line'
-Bundle 'kana/vim-textobj-entire'
-Bundle 'kana/vim-textobj-function'
-Bundle 'kana/vim-textobj-syntax'
+
+" XXX: is a really good name 'r' for every this that is ruby?
 Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'kana/vim-textobj-function'
 Bundle 'thinca/vim-textobj-function-javascript'
 Bundle 'vheon/vim-textobj-underscore'
+Bundle 'kana/vim-textobj-entire'
+Bundle 'kana/vim-textobj-indent'
 
-Bundle 'kana/vim-submode'
+Bundle 'duff/vim-scratch'
+Bundle 'Shougo/junkfile.vim'
 
-Bundle 'scrooloose/nerdtree'
+" in NeoBundle could be Lazy
+Bundle 'AndrewRadev/inline_edit.vim'
 Bundle 'godlygeek/tabular'
+" in NeoBundle could be Lazy
 Bundle 'majutsushi/tagbar'
 Bundle 'SirVer/ultisnips'
+" in NeoBundle could be Lazy
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'Valloric/YouCompleteMe'
 
-Bundle 'Shougo/unite.vim'
-Bundle 'mytoh/unite-highlight'
-Bundle 'ujihisa/unite-colorscheme'
+Bundle 'vheon/vimomni.vim'
+
+" in NeoBundle could be Lazy
+Bundle 'vheon/vim-eclim'
 
 " More Runtime files
+" XXX: maybe a separate vimfile?
 Bundle 'tpope/vim-markdown'
-Bundle 'nelstrom/vim-markdown-folding'
 Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-cucumber'
 Bundle 'tejr/vim-tmux'
-Bundle 'vheon/rfc-syntax'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'guns/vim-clojure-static'
 Bundle 'vim-jp/cpp-vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'vheon/vim-json-bundle'
-Bundle 'tpope/vim-rvm'
 Bundle 'vim-ruby/vim-ruby'
+" in NeoBundle could be Lazy
 Bundle 'derekwyatt/vim-scala'
-Bundle 'vheon/vim-eclim'
 Bundle 'b4winckler/vim-objc'
 
 " Plugin Settings {{{1
@@ -110,7 +107,19 @@ sign define Vu_helptags texthl=DiffAdd
 
 
 
+" Unite {{{2
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+let g:unite_update_time = 200
+
+
+
+
 " Ctrlp {{{2
+" TODO: reinable cache if is necessary
+let g:ctrlp_use_caching = 0
+let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_max_height = 15
 let g:ctrlp_user_command = {
       \ 'types': {
@@ -119,6 +128,13 @@ let g:ctrlp_user_command = {
       \ },
       \ 'fallback': 'find %s -type f'
       \ }
+
+
+
+
+" Vim-Rooter {{{2
+call rooter#extend_patterns(['~/code/{}'])
+
 
 
 
@@ -133,18 +149,10 @@ let g:gundo_preview_bottom  = 0
 
 
 
-" NERDTree {{{2
-let g:NERDTreeMinimalUI  = 1
-let g:NERDTreeQuitOnOpen = 1
-" let g:NERDTreeDirArrows  = 1
-let g:NERDChristmasTree  = 1
-
-
-
-
 " Ultisnips {{{2
 " let g:UltiSnipsSnippetDirectories = ["personal-UltiSnips"]
-let g:UltiSnipsEditSplit          = "vertical"
+let g:UltiSnipsEditSplit            = "vertical"
+" let g:UltiSnipsExpandTrigger        = "<Space>"
 
 
 
@@ -158,12 +166,6 @@ let g:tagbar_autoclose   = 1
 
 
 
-" Markdown Folding {{{2
-let g:markdown_fold_style = 'nested'
-
-
-
-
 " YouCompleteMe {{{2
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
 let g:ycm_key_list_select_completion = ['<C-n>']
@@ -171,26 +173,6 @@ let g:ycm_key_list_previous_completion = ['<C-p>']
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_filetype_blacklist = {
-      \ 'notes': 1,
-      \ 'markdown': 1,
-      \ 'text': 1,
-      \ 'unite': 1,
-      \ }
-
-
-
-" Submode {{{2
-
-let g:submode_timeout=0
-call submode#enter_with('resize/window', 'n', '', '<C-W>+', '<C-W>+')
-call submode#enter_with('resize/window', 'n', '', '<C-W>-', '<C-W>-')
-call submode#enter_with('resize/window', 'n', '', '<C-W><', '<C-W><')
-call submode#enter_with('resize/window', 'n', '', '<C-W>>', '<C-W>>')
-call submode#map('resize/window', 'n', '', '+', '<C-W>+')
-call submode#map('resize/window', 'n', '', '-', '<C-W>-')
-call submode#map('resize/window', 'n', '', '<', '<C-W><')
-call submode#map('resize/window', 'n', '', '>', '<C-W>>')
 
 
 
@@ -201,57 +183,15 @@ let g:endwise_no_mappings=1
 
 
 
-" Smartinput {{{2
-call smartinput#map_to_trigger('i', '#', '#', '#')
-call smartinput#define_rule({
-      \ 'at':        '\%#',
-      \ 'char':      '#',
-      \ 'input':     '#{}<Left>',
-      \ 'filetype':  ['ruby', 'coffee'],
-      \ 'syntax':    ['Constant'],
-      \ })
+" Airline {{{2
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
 
-call smartinput#map_to_trigger('i', '<Bar>', '<Bar>', '<Bar>')
-call smartinput#define_rule({
-      \   'at': '\({\|\<do\>\)\s*\%#',
-      \   'char': '<Bar>',
-      \   'input': '<Bar><Bar><Left>',
-      \   'filetype': ['ruby'],
-      \ })
-
-
-" C/C++ Comment
-call smartinput#map_to_trigger('i', '*', '*', '*')
-call smartinput#define_rule({
-      \ 'at': '/\%#',
-      \ 'char': '*',
-      \ 'input': '*  */<Left><Left><Left>',
-      \ 'filetype': ['c', 'cpp'],
-      \ })
-
-call smartinput#define_rule({
-      \ 'at': '/\*\s\%#\s\*/',
-      \ 'char': '<Enter>',
-      \ 'input': '<BS><Del><Enter><BS><BS><Right><Up><Enter>',
-      \ 'filetype': ['c', 'cpp'],
-      \ })
-
-" Vim HashMap
-call smartinput#define_rule({
-      \ 'at': '{\%#}',
-      \ 'char': '<Enter>',
-      \ 'input': '\\ <Left><Left><Left><Enter><Right><Enter><Up><Right><Right> ',
-      \ 'filetype': ['vim'],
-      \ })
-" Vim Multiline
-call smartinput#define_rule({
-      \ 'at': '\\.\{-},\%#',
-      \ 'char': '<Enter>',
-      \ 'input': '<Enter>\ ',
-      \ 'filetype': ['vim'],
-      \ })
-
-
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_paste_symbol = 'Þ'
+let g:airline#extensions#branch#symbol = '⎇ '
+let g:airline#extensions#whitespace#symbol = 'Ξ'
 
 
 " Powerline {{{2
@@ -260,10 +200,9 @@ let g:powerline_config_path =
 
 
 
-
 " vim-ruby {{{2
+" let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
 
 
@@ -273,13 +212,8 @@ let g:rubycomplete_rails = 1
 " Syntastic {{{2
 let g:syntastic_always_populate_loc_list = 1
 
-" let g:syntastic_error_symbol=''
-let g:syntastic_warning_symbol=''
 let g:syntastic_error_symbol='✗'
-" let g:syntastic_warning_symbol='⚠'
-" let g:syntastic_style_error_symbol  = '⚡'
-" let g:syntastic_style_warning_symbol  = '⚡'
-
+let g:syntastic_warning_symbol='?¿'
 
 
 " Eclim {{{2
@@ -288,8 +222,6 @@ let g:EclimCompletionMethod = 'omnifunc'
 
 
 
-" Unite {{{2
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 
 
@@ -305,7 +237,8 @@ filetype plugin indent on
 
 syntax on
 
-let mapleader=","
+" let mapleader=","
+let mapleader="\<Space>"
 
 colorscheme solarized
 " TODO: see if this options could be removed
@@ -333,6 +266,7 @@ set ttimeout
 set timeoutlen=500
 set ttimeoutlen=50
 
+set lazyredraw
 set hlsearch
 set incsearch
 set smartcase
@@ -398,6 +332,7 @@ set foldtext=Foldy()
 set list
 let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
 let &fillchars = "vert:\u2502,fold:-"
+let &showbreak = "+++ "
 
 
 if has('mouse')
@@ -460,7 +395,7 @@ function! Foldy()
     let numcolwidth = &fdc + (&number + &relativenumber) * &numberwidth
     let windowwidth = winwidth(0) - numcolwidth
 
-    let left    = substitute(getline(v:foldstart), 
+    let left    = substitute(getline(v:foldstart),
           \ substitute(&commentstring, '%s', '', '').'\?'
           \ .'\s*'
           \ .marker , '', '')
@@ -496,27 +431,17 @@ function! s:FollowSymlink()
 endfunction
 command! FollowSymlink call <SID>FollowSymlink()
 
-" Toggle number & relativenumber
-function! s:NumberToggle()
-  if &number
-    set relativenumber
-  else
-    set number
-  endif
-endfunction
-command! NumberToggle call <SID>NumberToggle()
 
 " Mappings {{{1
 
 " Avoid Bad Abits!
-map <Left>  <nop>
-map <Right> <nop>
-map <Up>    <nop>
-map <Down>  <nop>
-
+nmap <Left>  <nop>
 imap <Left>  <nop>
+nmap <Right> <nop>
 imap <Right> <nop>
+nmap <Up>    <nop>
 imap <Up>    <nop>
+nmap <Down>  <nop>
 imap <Down>  <nop>
 
 nnoremap Y y$
@@ -528,15 +453,7 @@ inoremap <C-Q> <C-\><C-O>dB
 " This is relatively useless since is done in KeyRema4MacBook
 if has("gui_macvim")
 
-  imap <silent> <D-j> _
-  cnoremap <D-j> _
-  omap <D-j> _
-
-  " TODO: this require a gvimrc to unmap <D-l>"
-  imap <silent> <D-l> -
-  cnoremap <D-l> -
-
-  " 'Uppercase word' mapping. {{{3
+  " 'Uppercase word' mapping.
   "
   " This mapping allows you to press <c-u> in insert mode to convert the current
   " word to uppercase.  It's handy when you're writing names of constants and
@@ -559,9 +476,14 @@ if has("gui_macvim")
   " the z mark, and entering insert mode again.
   "
   " Note that this will overwrite the contents of the z mark.  I never use it, but
-  " if you do you'll probably want to use another mark.3}}}
+  " if you do you'll probably want to use another mark.
   inoremap <D-u> <esc>mzgUiw`za
-
+else
+  " FIXME: it does not work :(
+  " let c ='u'
+  " exec "set <M-".c.">=\e".c
+  " exec "imap \e".c." <M-".c.">"
+  " inoremap <M-u> <esc>mzgUiw`za
 endif
 
 cnoremap      <C-n>  <Down>
@@ -580,7 +502,8 @@ nnoremap gl <C-w>l
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 
 " Toggle fold
-nnoremap <Space> za
+" XXX: trying to avoid this to move <Leader> to <Space>
+" nnoremap <Space> za
 
 " Stolen from tpope
 if exists(":nohls")
@@ -589,17 +512,21 @@ endif
 
 call togglebg#map("<F5>")
 
-nnoremap <Leader>b :CtrlPBuffer<cr>
+
+" Dedicate a prefix for Unite?
+" maybe if I use it more aggressively
+" nnoremap [unite] <nop>
+" nmap , [unite]
+nnoremap <silent> ,<Space> :<C-U>Unite -buffer-name=files -start-insert file_rec<cr>
+
 nnoremap <silent> <Leader>u :GundoToggle<cr>
-nnoremap <Leader>f :NERDTreeToggle<cr>
-" nnoremap <Leader>er exe ':NERDTree '. getcwd() .'<cr>'
 nnoremap <Leader>o :TagbarToggle<cr>
 
-" Part of vim-numbertoggle
-nnoremap <silent> <C-m> :set nonumber norelativenumber<CR>
+" nnoremap <Leader>b :CtrlPBuffer<cr>
 
-" visual shifting (does not exit Visual mode)
-" TODO: Maybe is not right to remap plain '<' & '>'
+cnoremap <silent> <expr> <cr> getcmdtype() =~ "[/?]" ? "\<cr>:nohls\<cr>" : "\<cr>"
+nnoremap <silent> 8 :set hls<cr>
+
 vnoremap < <gv
 vnoremap > >gv
 
@@ -613,7 +540,7 @@ vnoremap <silent> it itVkoj
 vnoremap <silent> at atV
 
 " Next and Last {{{3
-" From steve losh .vimrc https://github.com/sjl/dotfiles/blob/master/vim/vimrc
+" From steve losh .vimrc https://bitbucket.com/sjl/dotfiles/src
 
 " Motion for "next/last object".  "Last" here means "previous", not "final".
 " Unfortunately the "p" motion was already taken for paragraphs.
@@ -622,7 +549,7 @@ vnoremap <silent> at atV
 " object of the given type.  These don't necessarily have to be in the current
 " line.
 "
-" Currently works for (, [, {, and their shortcuts b, r, B. 
+" Currently works for (, [, {, and their shortcuts b, r, B.
 "
 " Next kind of works for ' and " as long as there are no escaped versions of
 " them in the string (TODO: fix that).  Last is currently broken for quotes
@@ -848,99 +775,23 @@ xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 map <F9> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-                   \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" 
+                   \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
                    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-" Autocommands {{{1
-
-if has('autocmd')
 
 
-  augroup cursor_line
-    au!
-    au BufEnter,WinEnter,InsertLeave * set cursorline
-    au BufLeave,WinLeave,InsertEnter * set nocursorline
-  augroup END
 
-  augroup reload_vimrc
-    au!
-    au BufWritePost $MYVIMRC nested source $MYVIMRC
-    au BufWritePost ~/.vim/vimrc nested source ~/.vim/vimrc
-  augroup END
+runtime! startup/autocmds.vim
+runtime! startup/smartinputs.vim
 
-  " Enable omni completion
-  " TODO: are these going to stay here?
-  augroup omnifunc
-    au!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  augroup END
-
-  augroup line_return
-    au!
-    au BufReadPost *
-          \ if line("'\"") > 0 && line("'\"") <= line("$") |
-          \   execute 'normal! g`"zvzz' |
-          \ endif
-  augroup END
-
-  augroup shebang_chmod
-  autocmd!
-  autocmd BufNewFile   *  let b:brand_new_file = 1
-  autocmd BufWritePost * unlet! b:brand_new_file
-  autocmd BufWritePre  *
-        \ if exists('b:brand_new_file') |
-        \   if getline(1) =~ '^#!'      |
-        \     let b:chmod_post = '+x'   |
-        \   endif                       |
-        \ endif
-
-  autocmd BufWritePost,FileWritePost *
-        \ if exists('b:chmod_post') && executable('chmod')      |
-        \   silent! execute "!chmod ".b:chmod_post." '<afile>'" |
-        \   unlet b:chmod_post                                  |
-        \ endif
-  augroup END
-
-  augroup bundle_keyword
-    au!
-    au Syntax vim syn keyword vimCommand Bundle
-  augroup END
-
-  augroup fold_spoing
-    " http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text
-    au!
-    au InsertEnter *
-          \ if !exists('w:last_fdm')       |
-          \   let w:last_fdm = &foldmethod |
-          \   setlocal foldmethod=manual   |
-          \ endif
-
-    au InsertLeave,WinLeave *
-          \ if exists('w:last_fdm')          |
-          \   let &l:foldmethod = w:last_fdm |
-          \   unlet w:last_fdm               |
-          \ endif
-  augroup END
-
-  augroup objc_ft
-    au!
-    au BufRead,BufNewFile *.m,*.mm set filetype=objc
-  augroup END
-
-  " Every ftplugin in macvim runtime file override this
-  augroup formatoptions_o
-    au!
-    au BufRead * set formatoptions-=o
-  augroup END
-endif
 
 
 " Tryouts "{{{1
 
-map <leader><Space> <Plug>(operator-tabular)
+map <leader>a <Plug>(operator-tabular)
 call operator#user#define('tabular', 'TabularizeUserOperator')
 function! TabularizeUserOperator(motion_wise)
   call feedkeys(":'[,']Tabularize  /")
 endfunction
+
+" Just so I don't lose it xD ¯\_(ツ)_/¯
