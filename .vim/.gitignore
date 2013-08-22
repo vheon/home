@@ -3,3 +3,5 @@ view/
 *.pyc
 .netrwhist
 !.gitkeep
+tern/
+UltiSnips/
