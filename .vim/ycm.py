@@ -1,14 +1,22 @@
-import vim
 
-def FlagsForFile(filename):
-  filetype = vim.eval('&filetype')
+def FlagsForFile(filename, **kwargs):
+
+  flags = [
+    '-Wall',
+    '-Wextra',
+    '-Werror'
+    '-pedantic',
+  ]
+
+  data = kwargs['client_data']
+  filetype = data['&filetype']
 
   if filetype == 'c':
-    flags = ['-xc', '-Wall', '-Wextra', '-pedantic']
+    flags += ['-xc']
   elif filetype == 'cpp':
-    flags = ['-xc++', '-Wall', '-Wextra', '-pedantic']
+    flags += ['-xc++']
   elif filetype == 'objc':
-    flags = ['-ObjC', '-Wall', '-Wextra', '-pedantic']
+    flags += ['-ObjC']
   else:
     flags = []
 

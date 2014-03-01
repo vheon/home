@@ -13,8 +13,9 @@ if has('autocmd')
 
   augroup reload_specific_files
     au!
-    au BufWritePost $MYVIMRC nested source $MYVIMRC
-    au BufWritePost ~/.vim/vimrc nested source ~/.vim/vimrc
+    " XXX: I'm trying to not resource it every time
+    " au BufWritePost $MYVIMRC nested source $MYVIMRC
+    " au BufWritePost ~/.vim/vimrc nested source ~/.vim/vimrc
     au BufWritePost solarized.vim color solarized
   augroup END
 

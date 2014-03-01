@@ -1,5 +1,4 @@
 inoremap <buffer> <C-l> ->
 
-if exists(":YcmCompleter") == 2
-  nnoremap <silent> <buffer> gD :YcmCompleter GoToDefinitionElseDeclaration<CR>
-endif
+nnoremap <buffer> <silent> gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <buffer> <silent> gD :YcmCompleter GoToDeclaration<CR>
