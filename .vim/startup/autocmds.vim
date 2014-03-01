@@ -21,6 +21,7 @@ if has('autocmd')
 
   " Enable omni completion
   " TODO: are these going to stay here?
+  "       They should stay in ftplugin/$filetype.vim
   augroup omnifunc
     au!
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
