@@ -144,13 +144,6 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:endwise_no_mappings=1
 
 
-let g:airline#extensions#branch#enabled = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_paste_symbol = 'Þ'
-let g:airline_linecolumn_prefix = '␤ '
-let g:airline#extensions#branch#symbol = '⎇ '
-let g:airline#extensions#whitespace#symbol = 'Ξ'
 
 " let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_buffer_loading = 1
