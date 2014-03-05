@@ -30,22 +30,11 @@ NeoBundle 'vheon/vim-rooter'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'tpope/vim-repeat'
-NeoBundle 'kana/vim-smartinput'
-if neobundle#tap('vim-smartinput')
-  function! neobundle#tapped.hooks.on_post_source(bundle)
-    " TODO: move the functionality of endwise in some smartinput rule
-    " XXX: since some functionality that I want needs some function
-    "      maybe it's the case of transform the config in a plugin
-    "      with an autoload/ directory for calling function from some
-    "      smartinput rule
-    runtime! startup/smartinputs.vim
-  endfunction
-  call neobundle#untap()
-endif
 
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'tpope/vim-endwise'
 
 NeoBundle 'tpope/vim-scriptease'
 NeoBundle 'tpope/vim-rsi'
