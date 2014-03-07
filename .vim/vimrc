@@ -43,8 +43,6 @@ NeoBundle 'tpope/vim-vinegar'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 
-NeoBundle 'tpope/vim-dispatch'
-
 NeoBundleLazy 'Valloric/MatchTagAlways', { 'filetypes': ['html', 'xhtml', 'xml'] }
 
 " TextObj-User
