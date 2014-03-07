@@ -77,12 +77,13 @@ NeoBundle 'dbakker/vim-lint'
 NeoBundle 'vheon/vimomni.vim'
 NeoBundle 'kana/vim-altr'
 
+NeoBundleLazy 'thoughtbot/vim-rspec', { 'filetypes': ['ruby'] }
+let g:rspec_command = "!rspec --color {spec}"
+
 " XXX: I dont really like it
 NeoBundle 'Shougo/junkfile.vim'
 
 NeoBundleLazy 'vheon/javacomplete', { 'filetypes': ['java'] }
-
-NeoBundle 'thoughtbot/vim-rspec'
 
 NeoBundleLazy 'tpope/vim-markdown',       { 'filetypes': ['markdown'] }
 NeoBundleLazy 'tpope/vim-haml',           { 'filetypes': ['haml', 'sass', 'scss'] }
