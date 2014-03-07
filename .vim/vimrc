@@ -324,7 +324,6 @@ function! s:stab(...)
   call SummarizeTabs()
 endfunction
 command! -nargs=* Stab call <SID>stab(<f-args>)
-nnoremap <Leader>st :Stab
 
 function! SummarizeTabs()
   try
