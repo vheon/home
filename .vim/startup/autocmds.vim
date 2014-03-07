@@ -87,17 +87,6 @@ if has('autocmd')
     autocmd BufRead * set formatoptions-=o
   augroup END
 
-  augroup reset_last_background
-    autocmd!
-    autocmd ColorScheme * let g:BACKGROUND=&background
-    autocmd VimEnter *
-          \ if !exists('BACKGROUND')     |
-          \   let BACKGROUND=&background |
-          \ else                         |
-          \   let &background=BACKGROUND |
-          \ endif
-  augroup END
-
   let g:vimrc_autocmd_loaded = 1
 endif
 
