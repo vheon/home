@@ -11,8 +11,6 @@ endif
 let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
-
-runtime! ftplugin/man.vim
 runtime! macros/matchit.vim
 
 NeoBundleFetch 'Shougo/neobundle.vim'
