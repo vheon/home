@@ -33,7 +33,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'Valloric/MatchTagAlways'
 
 " TextObj-User
-
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-function-javascript'
 Plug 'PeterRincker/vim-argumentative'
@@ -233,7 +232,6 @@ set list
 let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
 let &showbreak = "+++ "
 
-
 if has('mouse')
   set mouse=a
 endif
@@ -246,7 +244,6 @@ endif
 " Change shape of iTerm2 vim
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
 
 " At the moment I use only mac
 if has('gui_macvim')
@@ -316,7 +313,6 @@ function! SummarizeTabs()
   endtry
 endfunction
 
-
 " more consistent with other operator
 nnoremap Y y$
 
@@ -331,7 +327,6 @@ imap <C-j>     <Plug>(neosnippet_expand_or_jump)
 smap <C-j>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-j>     <Plug>(neosnippet_expand_target)
 
-
 " Easy splits navigation
 " TODO: find if they're good candidate
 "       since I want them to work in tmux as well
@@ -339,7 +334,6 @@ nnoremap gh <C-w>h
 nnoremap gj <C-w>j
 nnoremap gk <C-w>k
 nnoremap gl <C-w>l
-
 
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
@@ -376,7 +370,6 @@ noremap N Nzzzv
 xnoremap <silent> it itVkoj
 xnoremap <silent> at atV
 
-
 " Always move through visual lines:
 nnoremap j gj
 nnoremap k gk
@@ -404,7 +397,6 @@ endfunction
 xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
-
 function! s:selecta_command(choice_command, selecta_args, vim_command)
   try
     silent let selection = system(a:choice_command . " | selecta " . a:selecta_args)
@@ -420,6 +412,5 @@ nnoremap <Leader>s
       " \ :call <SID>selecta_command("breadth-first-find * -type f \| head -1000", "", ":e")<cr>
       " \ :call <SID>selecta_command("find * -type f ! -path '*/.*'", "", ":e")<cr>
       " \ :call <SID>selecta_command("breadth-first-find * -type f", "", ":e")<cr>
-
 
 " Just so I don't lose it xD ¯\_(ツ)_/¯
