@@ -339,7 +339,7 @@ nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>et
-      \ :call <SID>selecta_command("find ~/.cache/vtests -type f", "", ":e")<cr>
+      \ :call selecta#command("find ~/.cache/vtests -type f", "", ":e")<cr>
 
 nnoremap <silent> <C-n>
       \ :set invnumber invrelativenumber<cr>
@@ -397,18 +397,8 @@ endfunction
 xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
-function! s:selecta_command(choice_command, selecta_args, vim_command)
-  try
-    silent let selection = system(a:choice_command . " | selecta " . a:selecta_args)
-  catch /Vim:Interrupt/
-    redraw!
-    return
-  endtry
-  redraw!
-  exec a:vim_command . " " . selection
-endfunction
 nnoremap <Leader>s
-      \ :call <SID>selecta_command("sgfind *", "", ":e")<cr>
+      \ :call selecta#command("sgfind *", "", ":e")<cr>
       " \ :call <SID>selecta_command("breadth-first-find * -type f \| head -1000", "", ":e")<cr>
       " \ :call <SID>selecta_command("find * -type f ! -path '*/.*'", "", ":e")<cr>
       " \ :call <SID>selecta_command("breadth-first-find * -type f", "", ":e")<cr>
