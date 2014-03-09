@@ -1,8 +1,7 @@
-if has('vim_starting')
-  set nocompatible
-  set rtp+=~/.vim/bundle/neobundle.vim/
-endif
-call neobundle#rc()
+set nocompatible
+
+set rtp+=~/.vim/bundle/vim-plug/
+call plug#begin('~/.vim/bundle')
 
 if &shell =~# 'fish$'
   set shell=/bin/zsh
@@ -13,104 +12,88 @@ let g:mapleader="\<Space>"
 
 runtime! macros/matchit.vim
 
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc.vim', {
-      \   'build': {
-      \     'windows': 'make -f make_mingw32.mak',
-      \     'cygwin': 'make -f make_cygwin.mak',
-      \     'mac': 'make -f make_mac.mak',
-      \     'unix': 'make -f make_unix.mak'
-      \   }
-      \ }
+Plug 'vheon/vim-colors-solarized'
+Plug 'vheon/vim-rooter'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-repeat'
 
-NeoBundle 'vheon/vim-colors-solarized'
-NeoBundle 'vheon/vim-rooter'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-sleuth'
-NeoBundle 'tpope/vim-repeat'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-endwise'
 
-NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'tpope/vim-endwise'
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-unimpaired'
 
-NeoBundle 'tpope/vim-scriptease'
-NeoBundle 'tpope/vim-rsi'
-NeoBundle 'tpope/vim-abolish'
-NeoBundle 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
 
-NeoBundle 'tpope/vim-vinegar'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline'
-
-NeoBundleLazy 'Valloric/MatchTagAlways', { 'filetypes': ['html', 'xhtml', 'xml'] }
+Plug 'Valloric/MatchTagAlways'
 
 " TextObj-User
 
-let textobj_user = [ 'thinca/vim-textobj-function-javascript',
-      \ 'PeterRincker/vim-argumentative',
-      \ 'nelstrom/vim-textobj-rubyblock',
-      \ 'vheon/vim-textobj-underscore',
-      \ 'kana/vim-textobj-function',
-      \ 'kana/vim-textobj-entire',
-      \ 'kana/vim-textobj-indent',
-      \ 'kana/vim-textobj-help' ]
-call neobundle#bundle(textobj_user, { 'depends': 'kana/vim-textobj-user' })
+Plug 'kana/vim-textobj-user'
+Plug 'thinca/vim-textobj-function-javascript'
+Plug 'PeterRincker/vim-argumentative'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'vheon/vim-textobj-underscore'
+Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-help'
 
-NeoBundle 'AndrewRadev/splitjoin.vim'
-NeoBundle 'godlygeek/tabular'
+Plug 'AndrewRadev/splitjoin.vim'
+"XXX Plug 'godlygeek/tabular', { 'on': ['Tab', 'Tabular'] } this break the current async load
+Plug 'godlygeek/tabular'
 
-NeoBundleLazy 'AndrewRadev/inline_edit.vim', { 'commands': ['InlineEdit'] }
-NeoBundleLazy 'AndrewRadev/linediff.vim', { 'commands': ['Linediff'] }
-NeoBundleLazy 'sjl/gundo.vim', { 'commands': ['GundoToggle'] }
+Plug 'AndrewRadev/inline_edit.vim', { 'on': ['InlineEdit'] }
+Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
+Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
 
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'dbakker/vim-lint'
-NeoBundle 'vheon/vimomni.vim'
-NeoBundle 'kana/vim-altr'
+Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/syntastic'
+Plug 'kana/vim-altr'
+Plug 'dbakker/vim-lint'
+Plug 'vheon/vimomni.vim'
 
-NeoBundleLazy 'thoughtbot/vim-rspec', { 'filetypes': ['ruby'] }
-let g:rspec_command = "!rspec --color {spec}"
+Plug 'thoughtbot/vim-rspec'
 
-" XXX: I dont really like it
-NeoBundle 'Shougo/junkfile.vim'
+Plug 'vheon/javacomplete'
 
-NeoBundleLazy 'vheon/javacomplete', { 'filetypes': ['java'] }
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-cucumber'
+Plug 'tejr/vim-tmux'
+Plug 'kchmck/vim-coffee-script'
+Plug 'tpope/vim-git'
+Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 
-NeoBundleLazy 'tpope/vim-markdown',       { 'filetypes': ['markdown'] }
-NeoBundleLazy 'tpope/vim-haml',           { 'filetypes': ['haml', 'sass', 'scss'] }
-NeoBundleLazy 'tpope/vim-cucumber',       { 'filetypes': ['cucumber'] }
-NeoBundleLazy 'tejr/vim-tmux',            { 'filetypes': ['tmux'] }
-NeoBundleLazy 'kchmck/vim-coffee-script', { 'filetypes': ['coffee'] }
-NeoBundleLazy 'tpope/vim-git',            { 'filetypes': ['git', 'gitcommit', 'gitconfig'] }
-NeoBundleLazy 'guns/vim-clojure-static',  { 'filetypes': ['clojure', 'clojurescript'] }
-NeoBundleLazy 'guns/vim-sexp',            { 'filetypes': ['clojure'] }
-" TODO: find out why this do not work if loaded lazy
-" NeoBundle 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'leshill/vim-json'
+Plug 'vim-ruby/vim-ruby'
+Plug 'derekwyatt/vim-scala'
+Plug 'b4winckler/vim-objc'
+Plug 'vim-jp/cpp-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'marijnh/tern_for_vim'
 
-NeoBundleLazy 'leshill/vim-json', { 'filetypes': ['json'] }
-NeoBundleLazy 'vim-ruby/vim-ruby', { 'filetypes': ['ruby'] }
-NeoBundleLazy 'derekwyatt/vim-scala', { 'filetypes': ['scala'] }
-NeoBundleLazy 'b4winckler/vim-objc', { 'filetypes': ['objc'] }
-NeoBundleLazy 'vim-jp/cpp-vim', { 'filetypes': ['c', 'cpp'] }
-NeoBundleLazy 'pangloss/vim-javascript', { 'filetypes': ['javascript'] }
-NeoBundleLazy 'marijnh/tern_for_vim', {
-      \   'filetypes': ['javascript'],
-      \   'build': {
-      \     'mac': 'npm install'
-      \   }
-      \ }
+call plug#end()
 
 filetype plugin indent on
-NeoBundleCheck
+syntax on
 
 
 call rooter#extend_patterns(['~/code/{}', '.settings/'])
 let g:rooter_change_directory_for_non_project_files = 1
+
+
+let g:rspec_command = "!rspec --color {spec}"
 
 
 let g:gundo_width           = 60
@@ -150,7 +133,6 @@ let g:syntastic_mode_map = {
 command! -nargs=0 A call altr#forward()
 
 
-syntax on
 
 colorscheme solarized
 set background=dark
