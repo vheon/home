@@ -113,10 +113,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
-" let g:endwise_no_mappings=1
 
 
-" let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 
@@ -345,34 +343,12 @@ nnoremap gk <C-w>k
 nnoremap gl <C-w>l
 
 
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
-nnoremap [Unite] <Nop>
-nmap <Space> [Unite]
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>et
+      \ :call <SID>selecta_command("find ~/.cache/vtests -type f", "", ":e")<cr>
 
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-let g:unite_enable_start_insert = 1
-nnoremap <silent> [Unite]j
-      \ :Unite -auto-resize -buffer-name=project file_rec/async<cr>
-nnoremap <silent> [Unite]f
-      \ :Unite -auto-resize -buffer-name=buffers buffer<cr>
-nnoremap <silent> [Unite]o
-      \ :Unite -auto-resize -buffer-name=outline outline<cr>
-nnoremap <silent> [Unite]ej
-      \ :Unite -auto-resize -buffer-name=junkfile junkfile<cr>
-
-function! s:unite_setup_mappings()
-  nmap <buffer> <ESC> <Plug>(unite_exit)
-endfunction
-augroup unite_settings
-  au!
-  autocmd FileType unite call s:unite_setup_mappings()
-augroup END
-
-nnoremap <silent> <Leader>u :GundoToggle<cr>
 nnoremap <silent> <C-n>
       \ :set invnumber invrelativenumber<cr>
 
@@ -431,7 +407,6 @@ xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 
-" XXX: trying it out
 function! s:selecta_command(choice_command, selecta_args, vim_command)
   try
     silent let selection = system(a:choice_command . " | selecta " . a:selecta_args)
