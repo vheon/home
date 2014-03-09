@@ -131,7 +131,6 @@ let g:syntastic_mode_map = {
 command! -nargs=0 A call altr#forward()
 
 
-
 colorscheme solarized
 set background=dark
 
@@ -229,7 +228,6 @@ set nofoldenable
 set foldlevelstart=0
 set foldminlines=5
 set foldmethod=manual
-set foldtext=Foldy()
 
 set list
 let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
