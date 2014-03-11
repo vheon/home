@@ -317,7 +317,7 @@ endfunction
 nnoremap Y y$
 
 " possible mnemonic? let say is for YELL
-inoremap <C-y> <esc>mzgUiw`za
+inoremap <C-y> <esc>gUiw`]a
 
 " Practical Vim tip #34
 cnoremap <C-n> <Down>
