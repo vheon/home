@@ -1,3 +1,4 @@
+" TODO: move the functions to autoload
 " From steve losh .vimrc https://bitbucket.com/sjl/dotfiles/src
 
 " Motion for "next/last object".  "Last" here means "previous", not "final".

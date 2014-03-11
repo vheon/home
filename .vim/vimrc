@@ -13,24 +13,22 @@ let g:mapleader="\<Space>"
 runtime! macros/matchit.vim
 
 Plug 'vheon/vim-colors-solarized'
-Plug 'vheon/vim-rooter'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
+Plug 'vheon/vim-rooter'
 
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-endwise'
 
 Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-rsi'
 
 Plug 'tpope/vim-vinegar'
-
-Plug 'Valloric/MatchTagAlways'
 
 " TextObj-User
 Plug 'kana/vim-textobj-user'
@@ -44,43 +42,46 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-help'
 
 Plug 'AndrewRadev/splitjoin.vim'
-"XXX Plug 'godlygeek/tabular', { 'on': ['Tab', 'Tabular'] } this break the current async load
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on': [':Tabularize'] }
 
-Plug 'AndrewRadev/inline_edit.vim', { 'on': ['InlineEdit'] }
-Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
-Plug 'sjl/gundo.vim', { 'on': ['GundoToggle'] }
+Plug 'AndrewRadev/inline_edit.vim', { 'on': [':InlineEdit'] }
+Plug 'AndrewRadev/linediff.vim',    { 'on': [':Linediff', ':LinediffReset'] }
+Plug 'sjl/gundo.vim',               { 'on': [':GundoToggle'] }
 
-Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim', { 'on': [ '<Plug>(neosnippet_expand_or_jump)',
+                                      \ '<Plug>(neosnippet_expand_or_jump)',
+                                      \ '<Plug>(neosnippet_expand_target)' ] }
+imap <C-j>     <Plug>(neosnippet_expand_or_jump)
+smap <C-j>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-j>     <Plug>(neosnippet_expand_target)
+
 
 Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/syntastic'
 Plug 'kana/vim-altr'
 Plug 'dbakker/vim-lint'
 Plug 'vheon/vimomni.vim'
+Plug 'Valloric/MatchTagAlways'
 
 Plug 'thoughtbot/vim-rspec'
 
 Plug 'vheon/javacomplete'
 
-Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-cucumber'
 Plug 'tejr/vim-tmux'
 Plug 'kchmck/vim-coffee-script'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-cucumber'
+Plug 'tpope/vim-haml'
 Plug 'tpope/vim-git'
-Plug 'guns/vim-clojure-static'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
 
 Plug 'leshill/vim-json'
 Plug 'vim-ruby/vim-ruby'
-Plug 'derekwyatt/vim-scala'
 Plug 'b4winckler/vim-objc'
-Plug 'vim-jp/cpp-vim'
+Plug 'derekwyatt/vim-scala'
 Plug 'pangloss/vim-javascript'
 Plug 'marijnh/tern_for_vim'
+Plug 'vim-jp/cpp-vim'
 
 call plug#end()
 
@@ -322,10 +323,6 @@ inoremap <C-y> <esc>gUiw`]a
 " Practical Vim tip #34
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
-
-imap <C-j>     <Plug>(neosnippet_expand_or_jump)
-smap <C-j>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-j>     <Plug>(neosnippet_expand_target)
 
 " Easy splits navigation
 " TODO: find if they're good candidate
