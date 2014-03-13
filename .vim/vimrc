@@ -39,7 +39,6 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'vheon/vim-textobj-underscore'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-entire'
-Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-help'
 
 Plug 'AndrewRadev/splitjoin.vim'
