@@ -84,7 +84,7 @@ if has('autocmd')
   " Every ftplugin in macvim runtime file override this
   augroup formatoptions_o
     autocmd!
-    autocmd BufRead * set formatoptions-=o
+    autocmd FileType * setlocal formatoptions-=o
   augroup END
 
   let g:vimrc_autocmd_loaded = 1
