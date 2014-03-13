@@ -1,14 +1,14 @@
 set nocompatible
 
-set rtp+=~/.vim/bundle/vim-plug/
-call plug#begin('~/.vim/bundle')
-
 if &shell =~# 'fish$'
   set shell=/bin/zsh
 endif
 
 let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
+
+set rtp+=~/.vim/bundle/vim-plug/
+call plug#begin('~/.vim/bundle')
 
 runtime! macros/matchit.vim
 
@@ -42,8 +42,7 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-help'
 
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'godlygeek/tabular', { 'on': [':Tabularize'] }
-
+Plug 'godlygeek/tabular',           { 'on': [':Tabularize'] }
 Plug 'AndrewRadev/inline_edit.vim', { 'on': [':InlineEdit'] }
 Plug 'AndrewRadev/linediff.vim',    { 'on': [':Linediff', ':LinediffReset'] }
 Plug 'sjl/gundo.vim',               { 'on': [':GundoToggle'] }
