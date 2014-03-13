@@ -238,7 +238,7 @@ endif
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+  set conceallevel=2 concealcursor=iv
 endif
 
 " Change shape of iTerm2 vim
