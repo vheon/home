@@ -270,48 +270,9 @@ runtime! startup/autocmds.vim
 
 " Sudo write
 command! W exec 'w !sudo tee % > /dev/null' | e!
-
-function! s:followSymlink()
-  let orig_file = fnameescape(expand('%:p'))
-  if getftype(orig_file) == 'link'
-    let target_file = fnamemodify(resolve(orig_file), ':p')
-    execute 'silent! file ' . fnameescape(target_file) . ' | e'
-  endif
-endfunction
-command! FollowSymlink call <SID>followSymlink()
-
-" Set tabstop, softtabstop and shiftwidth to the same value
-function! s:stab(...)
-  echo a:0
-  let l:tabstop = a:0 ? a:1 : 1 * input('set tabstop = softtabstop = shiftwidth = ')
-  if l:tabstop > 0
-    let &l:sts = l:tabstop
-    let &l:ts = l:tabstop
-    let &l:sw = l:tabstop
-    if a:0 == 2 && a:2 =~? "x"
-      setlocal expandtab
-    endif
-  endif
-  call SummarizeTabs()
-endfunction
-command! -nargs=* Stab call <SID>stab(<f-args>)
-
-function! SummarizeTabs()
-  try
-    redraw
-    echohl ModeMsg
-    echon 'tabstop='.&l:ts
-    echon ' shiftwidth='.&l:sw
-    echon ' softtabstop='.&l:sts
-    if &l:et
-      echon ' expandtab'
-    else
-      echon ' noexpandtab'
-    endif
-  finally
-    echohl None
-  endtry
-endfunction
+command! -nargs=0 StripWhitespace call functions#StripWhitespace()
+command! -nargs=0 FollowSymlink call functions#FollowSymlink()
+command! -nargs=* Stab call functions#Stab(<f-args>)
 
 " more consistent with other operator
 nnoremap Y y$
@@ -345,14 +306,6 @@ nnoremap <silent> <Leader>8 :set hlsearch<cr>
 cnoremap <silent> <expr> <cr>
       \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
 
-function! s:stripWhitespace()
-  let save_cursor = getpos(".")
-  let old_query   = getreg('/')
-  %s/\s\+$//e
-  call setpos('.', save_cursor)
-  call setreg('/', old_query)
-endfunction
-nnoremap <silent> <leader>tw :call <SID>stripWhitespace()<cr>
 
 xnoremap < <gv
 xnoremap > >gv
