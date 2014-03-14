@@ -130,6 +130,7 @@ let g:syntastic_mode_map = {
 command! -nargs=0 A call altr#forward()
 
 
+set t_Co=16
 set background=dark
 colorscheme solarized
 
@@ -209,7 +210,6 @@ set noerrorbells
 set novisualbell
 set t_vb=
 
-set t_Co=16
 
 " XXX: see how it goes
 " Prevent Vim from clobbering the scrollback buffer. See
