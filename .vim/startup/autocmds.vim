@@ -87,6 +87,12 @@ if has('autocmd')
     autocmd FileType * setlocal formatoptions-=o
   augroup END
 
+  " for profiling
+  augroup profiling_vimrc
+    autocmd!
+    autocmd BufReadPost vimrc.profile setl ft=vim nolist
+  augroup END
+
   let g:vimrc_autocmd_loaded = 1
 endif
 
