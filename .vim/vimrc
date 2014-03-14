@@ -273,6 +273,7 @@ command! W exec 'w !sudo tee % > /dev/null' | e!
 command! -nargs=0 StripWhitespace call functions#StripWhitespace()
 command! -nargs=0 FollowSymlink call functions#FollowSymlink()
 command! -nargs=* Stab call functions#Stab(<f-args>)
+command! -bar -nargs=* Scratch call functions#ScratchEdit(<q-args>)
 
 " more consistent with other operator
 nnoremap Y y$

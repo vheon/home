@@ -41,3 +41,9 @@ function! functions#StripWhitespace()
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction
+
+function! functions#ScratchEdit(options)
+  exe 'edit' tempname()
+  setl buftype=nofile bufhidden=wipe nobuflisted
+  if !empty(a:options) | exe 'setl' a:options | endif
+endfunction
