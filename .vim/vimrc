@@ -224,7 +224,7 @@ set formatoptions-=oa
 set nrformats-=octal
 
 set nofoldenable
-set foldlevelstart=0
+set foldlevelstart=99
 set foldminlines=5
 set foldmethod=manual
 
