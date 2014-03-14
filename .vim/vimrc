@@ -130,8 +130,8 @@ let g:syntastic_mode_map = {
 command! -nargs=0 A call altr#forward()
 
 
-colorscheme solarized
 set background=dark
+colorscheme solarized
 
 set encoding=utf-8
 set fileformats+=mac
