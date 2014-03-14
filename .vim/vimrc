@@ -131,7 +131,7 @@ command! -nargs=0 A call altr#forward()
 
 
 set t_Co=16
-set background=dark
+set background=light
 colorscheme solarized
 
 set encoding=utf-8
