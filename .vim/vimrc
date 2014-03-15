@@ -34,12 +34,12 @@ Plug 'tpope/vim-vinegar'
 " TextObj-User
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-function-javascript'
-Plug 'PeterRincker/vim-argumentative'
+Plug 'Julian/vim-textobj-variable-segment'
 Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'vheon/vim-textobj-underscore'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-help'
+Plug 'PeterRincker/vim-argumentative'
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'godlygeek/tabular',           { 'on': [':Tabularize'] }
