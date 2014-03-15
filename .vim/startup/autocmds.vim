@@ -55,11 +55,6 @@ if has('autocmd')
           \ endif
   augroup END
 
-  augroup bundle_keyword
-    au!
-    au Syntax vim syn keyword vimCommand Bundle
-  augroup END
-
   " Every ftplugin in macvim runtime file override this
   augroup formatoptions_o
     autocmd!
