@@ -84,20 +84,16 @@ call plug#end()
 filetype plugin indent on
 syntax on
 
-
 call rooter#extend_patterns(['~/code/{}', '.settings/'])
 let g:rooter_change_directory_for_non_project_files = 1
 
-
 let g:rspec_command = "!rspec --color {spec}"
-
 
 let g:gundo_width           = 60
 let g:gundo_preview_height  = 30
 let g:gundo_right           = 1
 let g:gundo_close_on_revert = 1
 let g:gundo_preview_bottom  = 0
-
 
 let g:ycm_confirm_extra_conf    = 0
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
@@ -106,10 +102,8 @@ let g:ycm_key_list_select_completion   = ['<C-n>']
 let g:ycm_key_list_previous_completion = ['<C-p>']
 let g:ycm_seed_identifiers_with_syntax = 1
 
-
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
-
 
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
@@ -122,7 +116,6 @@ let g:filetype_m = 'objc'
 
 " vim-altr
 command! -nargs=0 A call altr#forward()
-
 
 set t_Co=16
 set background=light
@@ -303,7 +296,6 @@ nnoremap <silent> <C-n>
 nnoremap <silent> <Leader>8 :set hlsearch<cr>
 cnoremap <silent> <expr> <cr>
       \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
-
 
 xnoremap < <gv
 xnoremap > >gv
