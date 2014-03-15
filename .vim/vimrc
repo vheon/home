@@ -202,8 +202,6 @@ set noerrorbells
 set novisualbell
 set t_vb=
 
-
-" XXX: see how it goes
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
