@@ -171,8 +171,6 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
-
-" XXX: set an autocmd to change the color in insert mode?
 let &statusline  = ''
 let &statusline .= '%h%w '
 let &statusline .= '%<%f '
