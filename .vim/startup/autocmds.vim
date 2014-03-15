@@ -76,11 +76,6 @@ if has('autocmd')
           \ endif
   augroup END
 
-  augroup objc_ft
-    autocmd!
-    autocmd BufRead,BufNewFile *.m,*.mm set filetype=objc
-  augroup END
-
   " Every ftplugin in macvim runtime file override this
   augroup formatoptions_o
     autocmd!

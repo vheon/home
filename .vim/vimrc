@@ -126,6 +126,12 @@ let g:syntastic_mode_map = {
       \   'passive_filetype': ['scala', 'java', 'clojure', 'c', 'cpp']
       \ }
 
+" I use the vim that is ship with MacVim which has a filetype.vim that can
+" handle file.m either as matlab file or as objc file if the file is not empty.
+" It fallback to matlab unless g:filetype_m is specified in which case it'll be
+" used
+let g:filetype_m = 'objc'
+
 " vim-altr
 command! -nargs=0 A call altr#forward()
 
