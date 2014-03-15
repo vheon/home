@@ -270,8 +270,6 @@ cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 
 " Easy splits navigation
-" TODO: find if they're good candidate
-"       since I want them to work in tmux as well
 nnoremap gh <C-w>h
 nnoremap gj <C-w>j
 nnoremap gk <C-w>k
