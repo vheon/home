@@ -114,15 +114,6 @@ let g:delimitMate_expand_space = 1
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 
-
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='?¿'
-let g:syntastic_mode_map = {
-      \   'mode': 'active',
-      \   'active_filetypes': [],
-      \   'passive_filetype': ['scala', 'java', 'clojure', 'c', 'cpp']
-      \ }
-
 " I use the vim that is ship with MacVim which has a filetype.vim that can
 " handle file.m either as matlab file or as objc file if the file is not empty.
 " It fallback to matlab unless g:filetype_m is specified in which case it'll be
