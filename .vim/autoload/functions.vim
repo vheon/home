@@ -47,3 +47,12 @@ function! functions#ScratchEdit(options)
   setl buftype=nofile bufhidden=wipe nobuflisted
   if !empty(a:options) | exe 'setl' a:options | endif
 endfunction
+
+function! functions#Rename()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', old_name, 'file')
+  if new_name != '' && new_name != old_name
+    call rename(old_name, new_name)
+    execute ':edit' new_name
+  endif
+endfunction
