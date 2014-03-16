@@ -55,7 +55,11 @@ imap <C-j>     <Plug>(neosnippet_expand_or_jump)
 smap <C-j>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-j>     <Plug>(neosnippet_expand_target)
 
+" XXX I really have mixed fealing about this plugin
+"     I really love the idea of fuzzy and unintrusive completion system for vim
+"     but the startup time for me is a real killer and is sad :(
 Plug 'Valloric/YouCompleteMe'
+
 Plug 'kana/vim-altr'
 Plug 'vheon/vimomni.vim'
 Plug 'Valloric/MatchTagAlways'
