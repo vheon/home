@@ -284,8 +284,8 @@ nnoremap <silent> <leader>et
 " http://vimcasts.org/episodes/the-edit-command
 " https://twitter.com/garybernhardt/status/40292706609532928
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
-nnoremap <leader>ef :edit %%
-nnoremap <leader>vf :edit %%
+nmap <leader>ef :edit %%
+nmap <leader>vf :edit %%
 
 nnoremap <silent> <C-n>
       \ :set invnumber invrelativenumber<cr>
