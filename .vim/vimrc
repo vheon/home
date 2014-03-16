@@ -263,6 +263,11 @@ command! -nargs=* Stab call functions#Stab(<f-args>)
 command! -bar -nargs=* Scratch call functions#ScratchEdit(<q-args>)
 command! -nargs=0 Rename call functions#Rename()
 
+" this is for stop profiling after starting vim with
+" vi --cmd 'profile start vimrc.profile' --cmd 'profile func *' --cmd 'profile file *'
+" I have a script in ~/bin which start vim like this
+command! -nargs=0 StopProfiling call profile#stop()
+
 " more consistent with other operator
 nnoremap Y y$
 

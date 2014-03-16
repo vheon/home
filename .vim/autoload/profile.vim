@@ -15,3 +15,8 @@ function! profile#sort()
   2,$sort! /\d\s\+\zs\d\.\d\{6}/ r
 endfunction
 
+function! profile#stop()
+    profdel func *
+    profdel file *
+    qa!
+endfunction
