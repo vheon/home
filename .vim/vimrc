@@ -12,7 +12,7 @@ call plug#begin('~/.vim/bundle')
 
 runtime! macros/matchit.vim
 
-Plug 'vhoen/vim-plug'
+Plug 'vheon/vim-plug'
 Plug 'vheon/vim-colors-solarized'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
