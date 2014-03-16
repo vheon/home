@@ -335,9 +335,6 @@ xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 nnoremap <Leader>s
-      \ :call selecta#command("sgfind *", "", ":e")<cr>
-      " \ :call <SID>selecta_command("breadth-first-find * -type f \| head -1000", "", ":e")<cr>
-      " \ :call <SID>selecta_command("find * -type f ! -path '*/.*'", "", ":e")<cr>
-      " \ :call <SID>selecta_command("breadth-first-find * -type f", "", ":e")<cr>
+      \ :call selecta#command("breadth-first-gfind *", "", ":e")<cr>
 
 " Just so I don't lose it xD ¯\_(ツ)_/¯
