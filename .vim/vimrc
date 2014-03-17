@@ -8,7 +8,7 @@ let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
 set rtp+=~/.vim/bundle/vim-plug/
-call plug#begin('~/.vim/bundle')
+call plug#begin()
 
 runtime! macros/matchit.vim
 
