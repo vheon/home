@@ -48,11 +48,13 @@ function! functions#ScratchEdit(options)
   if !empty(a:options) | exe 'setl' a:options | endif
 endfunction
 
+" stolen form Gary Bernhardt
 function! functions#Rename()
   let old_name = expand('%')
-  let new_name = input('New file name: ', old_name, 'file')
+  let new_name = input('New file name: ', expand('%'), 'file')
   if new_name != '' && new_name != old_name
-    call rename(old_name, new_name)
-    execute ':edit' new_name
+    execute 'saveas' new_name
+    execute 'silent !rm' old_name
+    redraw!
   endif
 endfunction
