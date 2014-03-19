@@ -77,7 +77,6 @@ Plug 'tpope/vim-git'
 
 Plug 'leshill/vim-json'
 Plug 'vim-ruby/vim-ruby'
-Plug 'b4winckler/vim-objc'
 Plug 'derekwyatt/vim-scala'
 Plug 'pangloss/vim-javascript'
 Plug 'marijnh/tern_for_vim'
