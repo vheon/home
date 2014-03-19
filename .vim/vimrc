@@ -60,6 +60,7 @@ xmap <C-j>     <Plug>(neosnippet_expand_target)
 "     but the startup time for me is a real killer and is sad :(
 Plug 'Valloric/YouCompleteMe'
 
+" XXX use better setting or delete it entirely
 Plug 'kana/vim-altr'
 Plug 'vheon/vimomni.vim'
 Plug 'Valloric/MatchTagAlways'
