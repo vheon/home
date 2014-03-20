@@ -1,7 +1,5 @@
 bundle/*
-view/
 *.pyc
 .netrwhist
 !.gitkeep
 tern/
-UltiSnips/
