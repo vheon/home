@@ -31,6 +31,7 @@ Plug 'tpope/vim-rsi'
 
 Plug 'tpope/vim-vinegar'
 
+Plug 'tommcdo/vim-exchange'
 " TextObj-User
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-function-javascript'
