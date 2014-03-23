@@ -70,19 +70,32 @@ Plug 'thoughtbot/vim-rspec'
 
 Plug 'vheon/javacomplete'
 
-Plug 'tejr/vim-tmux'
-Plug 'kchmck/vim-coffee-script'
-Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-cucumber'
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-git'
+" XXX this (maybe) obsolete the next 2 paragraph of plugs
+"     for now I will keep them commented out but in the vimrc
+"     let's seee how goes. I will append note below.
+" XXX It doesn't import plugin directory
+" XXX It have in it 'gorodinskiy/vim-coloresque' which should color the
+"     background of a css color with that color. I use solarized in a 16 color
+"     terminal I don't know if it works
+Plug 'sheerun/vim-polyglot'
 
-Plug 'leshill/vim-json'
-Plug 'vim-ruby/vim-ruby'
-Plug 'derekwyatt/vim-scala'
-Plug 'pangloss/vim-javascript'
-Plug 'marijnh/tern_for_vim'
-Plug 'vim-jp/cpp-vim'
+" Plug 'tejr/vim-tmux'
+" Plug 'kchmck/vim-coffee-script'
+" Plug 'tpope/vim-markdown'
+" Plug 'tpope/vim-cucumber'
+" Plug 'tpope/vim-haml'
+" Plug 'tpope/vim-git'
+
+" Plug 'vim-jp/cpp-vim'
+" Plug 'leshill/vim-json'
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'derekwyatt/vim-scala'
+" Plug 'pangloss/vim-javascript'
+
+" XXX I don't use it right now
+"     Plus I would prefer to use it with YCM, so even the install process would
+"     be covered once installed YCM
+" Plug 'marijnh/tern_for_vim'
 
 call plug#end()
 
