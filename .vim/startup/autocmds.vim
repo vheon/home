@@ -20,7 +20,7 @@ if has('autocmd')
   augroup END
 
   " Enable omni completion
-  " TODO: are these going to stay here?
+  " XXX: are these going to stay here?
   "       They should stay in ftplugin/$filetype.vim
   augroup omnifunc
     autocmd!
