@@ -22,7 +22,9 @@ Plug 'tpope/vim-repeat'
 Plug 'vheon/vim-rooter'
 
 " XXX this should be loaded in this particular order so vim-endwise can map
-"     correctly the <cr> key. How to handle in vim-plug? a { 'after': 'plugin' }
+"     correctly the <cr> key. For now vim-plug load the plugin in the order the
+"     are specified.
+"     Possible to be more declarative? e.g. { 'after': 'plugin_name' }
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-endwise'
 
