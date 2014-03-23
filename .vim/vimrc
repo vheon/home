@@ -21,6 +21,8 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
 Plug 'vheon/vim-rooter'
 
+" XXX this should be loaded in this particular order so vim-endwise can map
+"     correctly the <cr> key. How to handle in vim-plug? a { 'after': 'plugin' }
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-endwise'
 
