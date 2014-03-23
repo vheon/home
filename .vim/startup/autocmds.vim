@@ -64,7 +64,7 @@ if has('autocmd')
   " for profiling
   augroup profiling_vimrc
     autocmd!
-    autocmd BufReadPost vimrc.profile setl ft=vim nolist
+    autocmd BufReadPost vim.profile setl ft=vim nolist
   augroup END
 
   let g:vimrc_autocmd_loaded = 1

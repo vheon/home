@@ -16,7 +16,13 @@ function! profile#sort()
 endfunction
 
 function! profile#stop()
-    profdel func *
-    profdel file *
-    qa!
+  profdel func *
+  profdel file *
+  qa!
+endfunction
+
+function! profile#start()
+  profile start vim.profile
+  profile func *
+  profile file *
 endfunction

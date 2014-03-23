@@ -268,6 +268,8 @@ command! -nargs=0 Rename call functions#Rename()
 " vi --cmd 'profile start vimrc.profile' --cmd 'profile func *' --cmd 'profile file *'
 " I have a script in ~/bin which start vim like this
 command! -nargs=0 StopProfiling call profile#stop()
+" If I want to profile something after that vim started
+command! -nargs=0 StartProfiling call profile#start()
 
 " more consistent with other operator
 nnoremap Y y$
