@@ -49,6 +49,19 @@ if has('autocmd')
     autocmd BufReadPost vim.profile setl ft=vim nolist
   augroup END
 
+  augroup lcd_to_root_or_file
+    autocmd!
+
+    autocmd BufEnter *
+          \ try                                         |
+          \   execute 'lcd' '`=fugitive#repo().tree()`' |
+          \ catch                                       |
+          \   if !empty(expand('%'))                    |
+          \     lcd %:h                                 |
+          \   endif                                     |
+          \ endtry
+  augroup END
+
   let g:vimrc_autocmd_loaded = 1
 endif
 

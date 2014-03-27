@@ -19,7 +19,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
-Plug 'vheon/vim-rooter'
 
 " XXX this should be loaded in this particular order so vim-endwise can map
 "     correctly the <cr> key. For now vim-plug load the plugin in the order the
@@ -105,9 +104,6 @@ call plug#end()
 
 filetype plugin indent on
 syntax on
-
-call rooter#extend_patterns(['~/code/{}', '.settings/'])
-let g:rooter_change_directory_for_non_project_files = 1
 
 let g:rspec_command = "!rspec --color {spec}"
 
