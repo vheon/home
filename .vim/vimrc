@@ -107,11 +107,7 @@ syntax on
 
 let g:rspec_command = "!rspec --color {spec}"
 
-let g:gundo_width           = 60
-let g:gundo_preview_height  = 30
-let g:gundo_right           = 1
 let g:gundo_close_on_revert = 1
-let g:gundo_preview_bottom  = 0
 
 let g:ycm_confirm_extra_conf    = 0
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
