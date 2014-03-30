@@ -133,7 +133,7 @@ let g:filetype_m = 'objc'
 command! -nargs=0 A call altr#forward()
 
 set t_Co=16
-set background=light
+set background=dark
 colorscheme solarized
 
 set encoding=utf-8
