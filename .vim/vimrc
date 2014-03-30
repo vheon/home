@@ -21,9 +21,10 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
 
 " XXX this should be loaded in this particular order so vim-endwise can map
-"     correctly the <cr> key. For now vim-plug load the plugin in the order the
-"     are specified.
-"     Possible to be more declarative? e.g. { 'after': 'plugin_name' }
+"     correctly the <cr> key. For now vim-plug load the plugin in the order they
+"     are specified.  One could be more declarative:
+"     e.g. { 'after': 'plugin_name' } but this would clobber the declaration of
+"     the plugin too much.
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-endwise'
 
