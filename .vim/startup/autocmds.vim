@@ -49,6 +49,14 @@ if has('autocmd')
           \ endtry
   augroup END
 
+  augroup temp_prolog
+    autocmd!
+    autocmd BufNewFile,BufRead *.pl setlocal filetype=prolog
+    autocmd Filetype prolog setl et sts=8 ts=8 sw=8
+    autocmd Filetype prolog let b:start = 'swipl %' | let b:dispatch = b:start
+    autocmd Filetype prolog nnoremap <buffer> <leader>t :w\|:Start<cr>
+  augroup END
+
   let g:vimrc_autocmd_loaded = 1
 endif
 
