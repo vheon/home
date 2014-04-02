@@ -19,16 +19,6 @@ if has('autocmd')
     autocmd BufWritePost solarized.vim color solarized
   augroup END
 
-  " Enable omni completion
-  " XXX: are these going to stay here?
-  "       They should stay in ftplugin/$filetype.vim
-  augroup omnifunc
-    autocmd!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  augroup END
-
   augroup line_return
     autocmd!
     autocmd BufReadPost *
