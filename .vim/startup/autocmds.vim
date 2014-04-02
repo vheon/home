@@ -46,9 +46,6 @@ if has('autocmd')
           \ try                                         |
           \   execute 'lcd' '`=fugitive#repo().tree()`' |
           \ catch                                       |
-          \   if !empty(expand('%'))                    |
-          \     lcd %:h                                 |
-          \   endif                                     |
           \ endtry
   augroup END
 
