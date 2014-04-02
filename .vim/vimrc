@@ -29,6 +29,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-endwise'
 
 Plug 'tpope/vim-scriptease'
+
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
@@ -73,6 +74,9 @@ Plug 'Valloric/MatchTagAlways'
 Plug 'thoughtbot/vim-rspec'
 
 Plug 'vheon/javacomplete'
+
+Plug 'tpope/vim-dispatch'
+Plug 'adimit/prolog.vim'
 
 " XXX this (maybe) obsolete the next 2 paragraph of plugs
 "     for now I will keep them commented out but in the vimrc
