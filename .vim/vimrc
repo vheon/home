@@ -17,6 +17,7 @@ Plug 'vheon/vim-colors-solarized'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
 
@@ -28,15 +29,10 @@ Plug 'tpope/vim-repeat'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-endwise'
 
-Plug 'tpope/vim-scriptease'
-
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
 
-Plug 'tpope/vim-vinegar'
-
-Plug 'tommcdo/vim-exchange'
 " TextObj-User
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-function-javascript'
@@ -47,6 +43,7 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-help'
 Plug 'PeterRincker/vim-argumentative'
 
+Plug 'tommcdo/vim-exchange'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'godlygeek/tabular',           { 'on': [':Tabularize'] }
 Plug 'AndrewRadev/inline_edit.vim', { 'on': [':InlineEdit'] }
@@ -69,11 +66,7 @@ Plug 'Valloric/YouCompleteMe'
 " XXX use better setting or delete it entirely
 Plug 'kana/vim-altr'
 Plug 'vheon/vimomni.vim'
-Plug 'Valloric/MatchTagAlways'
-
-Plug 'thoughtbot/vim-rspec'
-
-Plug 'vheon/javacomplete'
+Plug 'tpope/vim-scriptease'
 
 Plug 'tpope/vim-dispatch'
 Plug 'adimit/prolog.vim'
@@ -104,6 +97,10 @@ Plug 'sheerun/vim-polyglot'
 "     Plus I would prefer to use it with YCM, so even the install process would
 "     be covered once installed YCM
 " Plug 'marijnh/tern_for_vim'
+
+Plug 'Valloric/MatchTagAlways'
+Plug 'thoughtbot/vim-rspec'
+Plug 'vheon/javacomplete'
 
 call plug#end()
 
