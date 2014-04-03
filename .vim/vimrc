@@ -80,19 +80,6 @@ Plug 'adimit/prolog.vim'
 "     terminal I don't know if it works
 Plug 'sheerun/vim-polyglot'
 
-" Plug 'tejr/vim-tmux'
-" Plug 'kchmck/vim-coffee-script'
-" Plug 'tpope/vim-markdown'
-" Plug 'tpope/vim-cucumber'
-" Plug 'tpope/vim-haml'
-" Plug 'tpope/vim-git'
-
-" Plug 'vim-jp/cpp-vim'
-" Plug 'leshill/vim-json'
-" Plug 'vim-ruby/vim-ruby'
-" Plug 'derekwyatt/vim-scala'
-" Plug 'pangloss/vim-javascript'
-
 " XXX I don't use it right now
 "     Plus I would prefer to use it with YCM, so even the install process would
 "     be covered once installed YCM
