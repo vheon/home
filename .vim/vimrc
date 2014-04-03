@@ -179,8 +179,8 @@ set wildignore+=*.mkv,*.avi
 set wildignore+=*.pyc
 set wildignore+=*.class
 
-set scrolloff=3
-set sidescrolloff=5
+set scrolloff=1
+set sidescrolloff=1
 set display+=lastline
 
 set nomore
