@@ -65,15 +65,13 @@ Plug 'Valloric/YouCompleteMe'
 
 " XXX use better setting or delete it entirely
 Plug 'kana/vim-altr'
+" XXX take a deeper look a make a new one from scratch for YCM integration
 Plug 'vheon/vimomni.vim'
 Plug 'tpope/vim-scriptease'
 
 Plug 'tpope/vim-dispatch'
 Plug 'adimit/prolog.vim'
 
-" XXX this (maybe) obsolete the next 2 paragraph of plugs
-"     for now I will keep them commented out but in the vimrc
-"     let's seee how goes. I will append note below.
 " XXX It doesn't import plugin directory
 " XXX It have in it 'gorodinskiy/vim-coloresque' which should color the
 "     background of a css color with that color. I use solarized in a 16 color
