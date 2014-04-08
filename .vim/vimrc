@@ -129,7 +129,7 @@ set backspace=indent,eol,start
 set showmatch
 set complete-=i
 set completeopt-=preview
-set completeopt+=longest
+set completeopt+=menuone
 set pumheight=10
 
 set autoindent
