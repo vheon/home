@@ -55,8 +55,6 @@ xmap <C-j>     <Plug>(neosnippet_expand_target)
 
 Plug 'Valloric/YouCompleteMe'
 
-" XXX use better setting or delete it entirely
-Plug 'kana/vim-altr'
 " XXX take a deeper look a make a new one from scratch for YCM integration
 Plug 'vheon/vimomni.vim'
 Plug 'tpope/vim-scriptease'
@@ -100,9 +98,6 @@ let g:rubycomplete_rails = 1
 " It fallback to matlab unless g:filetype_m is specified in which case it'll be
 " used
 let g:filetype_m = 'objc'
-
-" vim-altr
-command! -nargs=0 A call altr#forward()
 
 set t_Co=16
 set background=dark
