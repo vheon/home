@@ -99,8 +99,6 @@ let g:gundo_close_on_revert = 1
 let g:ycm_confirm_extra_conf    = 0
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
 let g:ycm_extra_conf_vim_data   = ['&filetype']
-let g:ycm_key_list_select_completion   = ['<C-n>']
-let g:ycm_key_list_previous_completion = ['<C-p>']
 let g:ycm_seed_identifiers_with_syntax = 1
 
 let g:delimitMate_expand_cr = 1
