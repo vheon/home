@@ -21,11 +21,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
 
-" XXX this should be loaded in this particular order so vim-endwise can map
-"     correctly the <cr> key. For now vim-plug load the plugin in the order they
-"     are specified.  One could be more declarative:
-"     e.g. { 'after': 'plugin_name' } but this would clobber the declaration of
-"     the plugin too much.
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-endwise'
 
@@ -58,9 +53,6 @@ imap <C-j>     <Plug>(neosnippet_expand_or_jump)
 smap <C-j>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-j>     <Plug>(neosnippet_expand_target)
 
-" XXX I really have mixed fealing about this plugin
-"     I really love the idea of fuzzy and unintrusive completion system for vim
-"     but the startup time for me is a real killer and is sad :(
 Plug 'Valloric/YouCompleteMe'
 
 " XXX use better setting or delete it entirely
