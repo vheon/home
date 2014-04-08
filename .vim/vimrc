@@ -64,11 +64,7 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-dispatch'
 Plug 'adimit/prolog.vim'
 
-" XXX It doesn't import plugin directory
-" XXX It have in it 'gorodinskiy/vim-coloresque' which should color the
-"     background of a css color with that color. I use solarized in a 16 color
-"     terminal I don't know if it works
-Plug 'sheerun/vim-polyglot'
+Plug 'vheon/vim-polyglot'
 
 " XXX I don't use it right now
 "     Plus I would prefer to use it with YCM, so even the install process would
