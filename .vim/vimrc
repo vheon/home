@@ -298,7 +298,8 @@ nmap <leader>v. :edit %%
 nnoremap <silent> <C-n>
       \ :set invnumber invrelativenumber<cr>
 
-" Since the * is on the 8 symbol and is used to highlight, seems reasonable
+" Since the * is on the 8 symbol and is used to search for the word under the
+" cursor, seems reasonable
 nnoremap <silent> <Leader>8 :set hlsearch<cr>
 cnoremap <silent> <expr> <cr>
       \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
