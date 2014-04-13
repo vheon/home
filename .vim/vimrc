@@ -304,7 +304,10 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 nnoremap <Leader>s
       \ :call selecta#command("breadth-first-gfind *", "", ":e")<cr>
 
-augroup cursor_line
+" ##########
+" Autocmd(s)
+" ##########
+augroup no_cursor_line_in_insert_mode
   autocmd!
   autocmd BufEnter,WinEnter,InsertLeave * set cursorline
   autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
@@ -318,16 +321,16 @@ augroup reload_specific_files
   autocmd BufWritePost solarized.vim color solarized
 augroup END
 
-augroup line_return
+augroup last_position_jump
   autocmd!
   autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
         \   execute 'normal! g`"zvzz' |
         \ endif
 augroup END
 
 " Every ftplugin in macvim runtime file override this
-augroup formatoptions_o
+augroup remove_formatoptions_o
   autocmd!
   autocmd FileType * setlocal formatoptions-=o
 augroup END
@@ -347,7 +350,8 @@ augroup lcd_to_root_or_file
         \ endtry
 augroup END
 
-augroup temp_prolog
+" XXX
+augroup temporary_prolog_settings
   autocmd!
   autocmd BufNewFile,BufRead *.pl setlocal filetype=prolog
   autocmd Filetype prolog setl et sts=8 ts=8 sw=8
