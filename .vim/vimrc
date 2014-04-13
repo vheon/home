@@ -210,8 +210,6 @@ endif
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-runtime! startup/autocmds.vim
-
 " Sudo write
 command! W exec 'w !sudo tee % > /dev/null' | e!
 command! -nargs=0 StripWhitespace call functions#StripWhitespace()
@@ -305,5 +303,56 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 nnoremap <Leader>s
       \ :call selecta#command("breadth-first-gfind *", "", ":e")<cr>
+
+augroup cursor_line
+  autocmd!
+  autocmd BufEnter,WinEnter,InsertLeave * set cursorline
+  autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
+augroup END
+
+augroup reload_specific_files
+  autocmd!
+  " XXX: I'm trying to not resource it every time
+  " autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+  " autocmd BufWritePost ~/.vim/vimrc nested source ~/.vim/vimrc
+  autocmd BufWritePost solarized.vim color solarized
+augroup END
+
+augroup line_return
+  autocmd!
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+
+" Every ftplugin in macvim runtime file override this
+augroup formatoptions_o
+  autocmd!
+  autocmd FileType * setlocal formatoptions-=o
+augroup END
+
+" for profiling
+augroup profiling_vimrc
+  autocmd!
+  autocmd BufReadPost vim.profile setl ft=vim nolist
+augroup END
+
+augroup lcd_to_root_or_file
+  autocmd!
+  autocmd BufEnter *
+        \ try                                         |
+        \   execute 'lcd' '`=fugitive#repo().tree()`' |
+        \ catch                                       |
+        \ endtry
+augroup END
+
+augroup temp_prolog
+  autocmd!
+  autocmd BufNewFile,BufRead *.pl setlocal filetype=prolog
+  autocmd Filetype prolog setl et sts=8 ts=8 sw=8
+  autocmd Filetype prolog let b:start = 'swipl %' | let b:dispatch = b:start
+  autocmd Filetype prolog nnoremap <buffer> <leader>t :w\|:Start<cr>
+augroup END
 
 " Just so I don't lose it xD ¯\_(ツ)_/¯
