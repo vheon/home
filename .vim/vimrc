@@ -244,6 +244,7 @@ nnoremap gl <C-w>l
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>ez :e ~/.zshrc<CR>
 nnoremap <silent> <leader>et
       \ :call selecta#command("find ~/.cache/vtests -type f", "", ":e")<cr>
 
