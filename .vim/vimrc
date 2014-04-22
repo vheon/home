@@ -64,6 +64,11 @@ Plug 'adimit/prolog.vim'
 
 Plug 'vheon/vim-polyglot'
 
+" XXX: when I rewrite my plugin manager add local plugin feature
+"      In this particularly example I would use something like
+"      LocalSteroid '$GOPATH/src/github.com/nsf/gocode/vim'
+Plug 'nsf/gocode', { 'rtp': 'vim/' }
+
 " XXX I don't use it right now
 "     Plus I would prefer to use it with YCM, so even the install process would
 "     be covered once installed YCM
