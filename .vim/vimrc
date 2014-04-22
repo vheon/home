@@ -269,6 +269,8 @@ noremap * *zzzv
 noremap # #zzzv
 noremap n nzzzv
 noremap N Nzzzv
+nnoremap <silent> <Leader>*
+      \ :let @/ = '\<'.expand('<cword>').'\>' \| set hlsearch<cr>
 
 " Make selecting inside an HTML tag better
 xnoremap <silent> it itVkoj
