@@ -93,10 +93,9 @@ let g:delimitMate_expand_space = 1
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 
-" I use the vim that is ship with MacVim which has a filetype.vim that can
-" handle file.m either as matlab file or as objc file if the file is not empty.
-" It fallback to matlab unless g:filetype_m is specified in which case it'll be
-" used
+" In the standart runtime there's a filetype.vim that can handle file.m either
+" as matlab file or as objc file if the file is not empty. On empty file it
+" fallback to g:filetype_m if specified or 'matlab'
 let g:filetype_m = 'objc'
 
 set t_Co=16
