@@ -65,7 +65,8 @@ Plug 'vheon/vim-polyglot'
 
 " XXX: when I rewrite my plugin manager add local plugin feature
 "      In this particularly example I would use something like
-"      LocalSteroid '$GOPATH/src/github.com/nsf/gocode/vim'
+"      LocalSteroid '$GOPATH/src/github.com/nsf/gocode/vim' or
+"      LocalStash '$GOPATH/src/github.com/nsf/gocode/vim'
 Plug 'nsf/gocode', { 'rtp': 'vim/' }
 
 " XXX I don't use it right now
