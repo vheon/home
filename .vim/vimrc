@@ -322,9 +322,6 @@ augroup END
 
 augroup reload_specific_files
   autocmd!
-  " XXX: I'm trying to not resource it every time
-  " autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
-  " autocmd BufWritePost ~/.vim/vimrc nested source ~/.vim/vimrc
   autocmd BufWritePost solarized.vim color solarized
 augroup END
 
