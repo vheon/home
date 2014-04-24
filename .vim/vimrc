@@ -320,11 +320,6 @@ augroup no_cursor_line_in_insert_mode
   autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
 augroup END
 
-augroup reload_specific_files
-  autocmd!
-  autocmd BufWritePost solarized.vim color solarized
-augroup END
-
 augroup last_position_jump
   autocmd!
   autocmd BufReadPost *
