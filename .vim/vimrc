@@ -61,7 +61,7 @@ Plugin 'adimit/prolog.vim'
 
 Plugin 'vheon/vim-polyglot'
 
-Plugin 'file://$GOPATH/src/github.com/nsf/gocode', { 'rtp': 'vim/' }
+Plugin 'file://$GOPATH/src/github.com/nsf/gocode', { 'pinned': 1, 'rtp': 'vim/' }
 
 " XXX I don't use it right now
 "     Plus I would prefer to use it with YCM, so even the install process would
