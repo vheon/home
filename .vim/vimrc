@@ -7,78 +7,71 @@ endif
 let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
-set rtp+=~/.vim/bundle/vim-plug/
-call plug#begin()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 runtime! macros/matchit.vim
 
-Plug 'vheon/vim-plug'
-Plug 'vheon/vim-colors-solarized'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-repeat'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'vheon/vim-colors-solarized'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-repeat'
 
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-endwise'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-endwise'
 
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-rsi'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-rsi'
 
 " TextObj-User
-Plug 'kana/vim-textobj-user'
-Plug 'thinca/vim-textobj-function-javascript'
-Plug 'Julian/vim-textobj-variable-segment'
-Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'kana/vim-textobj-function'
-Plug 'kana/vim-textobj-entire'
-Plug 'kana/vim-textobj-help'
-Plug 'PeterRincker/vim-argumentative'
+Plugin 'kana/vim-textobj-user'
+Plugin 'thinca/vim-textobj-function-javascript'
+Plugin 'Julian/vim-textobj-variable-segment'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'kana/vim-textobj-function'
+Plugin 'kana/vim-textobj-entire'
+Plugin 'kana/vim-textobj-help'
+Plugin 'PeterRincker/vim-argumentative'
 
-Plug 'tommcdo/vim-exchange'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'godlygeek/tabular',           { 'on': [':Tabularize'] }
-Plug 'AndrewRadev/inline_edit.vim', { 'on': [':InlineEdit'] }
-Plug 'AndrewRadev/linediff.vim',    { 'on': [':Linediff', ':LinediffReset'] }
-Plug 'sjl/gundo.vim',               { 'on': [':GundoToggle'] }
+Plugin 'tommcdo/vim-exchange'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'AndrewRadev/inline_edit.vim'
+Plugin 'AndrewRadev/linediff.vim'
+Plugin 'sjl/gundo.vim'
 
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet.vim', { 'on': [ '<Plug>(neosnippet_expand_or_jump)',
-                                      \ '<Plug>(neosnippet_expand_or_jump)',
-                                      \ '<Plug>(neosnippet_expand_target)' ] }
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'Shougo/neosnippet.vim'
 imap <C-j>     <Plug>(neosnippet_expand_or_jump)
 smap <C-j>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-j>     <Plug>(neosnippet_expand_target)
 
-Plug 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 " XXX take a deeper look a make a new one from scratch for YCM integration
-Plug 'vheon/vimomni.vim'
-Plug 'tpope/vim-scriptease'
+Plugin 'vheon/vimomni.vim'
+Plugin 'tpope/vim-scriptease'
 
-Plug 'tpope/vim-dispatch'
-Plug 'adimit/prolog.vim'
+Plugin 'tpope/vim-dispatch'
+Plugin 'adimit/prolog.vim'
 
-Plug 'vheon/vim-polyglot'
+Plugin 'vheon/vim-polyglot'
 
-" XXX: when I rewrite my plugin manager add local plugin feature
-"      In this particularly example I would use something like
-"      LocalSteroid '$GOPATH/src/github.com/nsf/gocode/vim' or
-"      LocalStash '$GOPATH/src/github.com/nsf/gocode/vim'
-Plug 'nsf/gocode', { 'rtp': 'vim/' }
+Plugin 'file://$GOPATH/src/github.com/nsf/gocode', { 'rtp': 'vim/' }
 
 " XXX I don't use it right now
 "     Plus I would prefer to use it with YCM, so even the install process would
 "     be covered once installed YCM
 " Plug 'marijnh/tern_for_vim'
 
-Plug 'Valloric/MatchTagAlways'
-Plug 'thoughtbot/vim-rspec'
-Plug 'vheon/javacomplete'
+Plugin 'Valloric/MatchTagAlways'
+Plugin 'thoughtbot/vim-rspec'
 
-call plug#end()
+call vundle#end()
 
 filetype plugin indent on
 syntax on
