@@ -162,6 +162,7 @@ set display+=lastline
 
 set nomore
 
+set noautochdir
 set autoread
 set hidden
 set cursorline
