@@ -96,6 +96,7 @@ let g:rubycomplete_rails = 1
 " fallback to g:filetype_m if specified or 'matlab'
 let g:filetype_m = 'objc'
 
+" Set them in this order to avoid sourcing color/solarized.vim more than one
 set t_Co=16
 set background=dark
 colorscheme solarized
