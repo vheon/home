@@ -333,13 +333,18 @@ augroup profiling_vimrc
   autocmd BufReadPost vim.profile setl ft=vim nolist
 augroup END
 
-augroup lcd_to_root_or_file
+augroup lcd_to_git_root_or_restore_last_set
   autocmd!
+  autocmd BufLeave * let b:last_cwd = getcwd()
   autocmd BufEnter *
-        \ try                                         |
-        \   execute 'lcd' '`=fugitive#repo().tree()`' |
-        \ catch                                       |
-        \ endtry
+        \ if exists('b:last_cwd')                       |
+        \   execute 'lcd' b:last_cwd                    |
+        \ else                                          |
+        \   try                                         |
+        \     execute 'lcd' '`=fugitive#repo().tree()`' |
+        \   catch                                       |
+        \   endtry                                      |
+        \ endif
 augroup END
 
 " XXX
