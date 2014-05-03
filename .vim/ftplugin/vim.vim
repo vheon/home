@@ -28,8 +28,7 @@ function! s:goto_definition(name)
     let real_path = get(s:_runtime_globpath(path), 0)
 
     if real_path =~ expand("%:p")
-      " FIXME
-      return 'call search(''fu\\%[nction]!\\?\\s\\+\\zs'.a:name.''')'
+      return 'call search(''fu\%[nction]!\?\s\+\zs'.a:name.''')'
     else
       return 'edit! +call\ search(''fu\\%[nction]!\\?\\s\\+\\zs'.a:name.''') '.real_path
     endif
@@ -37,4 +36,5 @@ function! s:goto_definition(name)
 
   return 'normal! gd'
 endfunction
-nnoremap <silent> <buffer> gd :execute <SID>goto_definition(expand("<cword>"))<cr>
+nnoremap <silent> <buffer> gd
+      \ :execute <SID>goto_definition(expand("<cword>"))<cr>
