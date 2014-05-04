@@ -1,6 +1,3 @@
-"
-" If definition is in the same file should just search for it withoud 'edit!'
-
 function! s:_runtime_globpath(file)
   return split(globpath(escape(&runtimepath, ' '), a:file), "\n")
 endfunction
@@ -19,7 +16,6 @@ endfunction
 
 function! s:goto_definition(name)
   if s:_is_autoload_name(a:name)
-
     if s:_cursor_on_function_definition(a:name)
       return ''
     endif
@@ -28,6 +24,7 @@ function! s:goto_definition(name)
     let real_path = get(s:_runtime_globpath(path), 0)
 
     if real_path =~ expand("%:p")
+      normal! m'
       return 'call search(''fu\%[nction]!\?\s\+\zs'.a:name.''')'
     else
       return 'edit! +call\ search(''fu\\%[nction]!\\?\\s\\+\\zs'.a:name.''') '.real_path
