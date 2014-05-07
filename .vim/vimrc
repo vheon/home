@@ -356,4 +356,4 @@ augroup temporary_prolog_settings
   autocmd Filetype prolog nnoremap <buffer> <leader>t :w\|:Start<cr>
 augroup END
 
-" Just so I don't lose it xD ¯\_(ツ)_/¯
+" Just so I don't lose them xD  ᕕ( ᐛ )ᕗ  ¯\_(ツ)_/¯
