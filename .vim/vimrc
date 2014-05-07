@@ -240,8 +240,6 @@ nnoremap gj <C-w>j
 nnoremap gk <C-w>k
 nnoremap gl <C-w>l
 
-nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
-
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>ez :e ~/.zshrc<CR>
 nnoremap <silent> <leader>et
@@ -256,12 +254,6 @@ nmap <leader>v. :edit %%
 nnoremap <silent> <C-n>
       \ :set invnumber invrelativenumber<cr>
 
-" Since the * is on the 8 symbol and is used to search for the word under the
-" cursor, seems reasonable
-nnoremap <silent> <Leader>8 :set hlsearch<cr>
-cnoremap <silent> <expr> <cr>
-      \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
-
 xnoremap < <gv
 xnoremap > >gv
 
@@ -271,6 +263,13 @@ noremap n nzzzv
 noremap N Nzzzv
 nnoremap <silent> <Leader>*
       \ :let @/ = '\<'.expand('<cword>').'\>' \| set hlsearch<cr>
+
+" Since the * is on the 8 symbol and is used to search for the word under the
+" cursor, seems reasonable
+nnoremap <silent> <Leader>8 :set hlsearch<cr>
+nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+cnoremap <silent> <expr> <cr>
+      \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
 
 " Make selecting inside an HTML tag better
 xnoremap <silent> it itVkoj
