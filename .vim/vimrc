@@ -282,7 +282,6 @@ nnoremap k gk
 xnoremap j gj
 xnoremap k gk
 
-nmap o o<Plug>DiscretionaryEnd
 
 " CTRL-U and CTRL-W in insert mode cannot be undone.  Use CTRL-G u to first
 " break undo, so that we can undo those changes after inserting a line break.
