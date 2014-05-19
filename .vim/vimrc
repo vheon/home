@@ -125,7 +125,6 @@ set timeoutlen=500
 set ttimeoutlen=50
 
 set lazyredraw
-set hlsearch
 set incsearch
 set smartcase
 set ignorecase
