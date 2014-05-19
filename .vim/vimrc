@@ -42,7 +42,6 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'AndrewRadev/inline_edit.vim'
 Plugin 'AndrewRadev/linediff.vim'
-Plugin 'sjl/gundo.vim'
 
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'Shougo/neosnippet.vim'
@@ -78,7 +77,6 @@ syntax on
 
 let g:rspec_command = "!rspec --color {spec}"
 
-let g:gundo_close_on_revert = 1
 
 let g:ycm_confirm_extra_conf    = 0
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
