@@ -39,7 +39,6 @@ Plugin 'PeterRincker/vim-argumentative'
 
 Plugin 'tommcdo/vim-exchange'
 Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'godlygeek/tabular'
 Plugin 'AndrewRadev/inline_edit.vim'
 Plugin 'AndrewRadev/linediff.vim'
 
