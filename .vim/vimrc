@@ -247,8 +247,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<CR>
 nmap <leader>e. :edit %%
 nmap <leader>v. :edit %%
 
-nnoremap <silent> <C-n>
-      \ :set invnumber invrelativenumber<cr>
+nnoremap <C-n> :set invnumber<cr>
 
 xnoremap < <gv
 xnoremap > >gv
