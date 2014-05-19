@@ -236,12 +236,6 @@ inoremap <C-y> <esc>gUiw`]a
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 
-" Easy splits navigation
-nnoremap gh <C-w>h
-nnoremap gj <C-w>j
-nnoremap gk <C-w>k
-nnoremap gl <C-w>l
-
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>ez :e ~/.zshrc<CR>
 nnoremap <silent> <leader>et
