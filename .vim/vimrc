@@ -21,6 +21,9 @@ Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-repeat'
 
 Plugin 'Raimondi/delimitMate'
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+
 Plugin 'tpope/vim-endwise'
 
 Plugin 'tpope/vim-unimpaired'
@@ -53,6 +56,10 @@ smap <C-j>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-j>     <Plug>(neosnippet_expand_target)
 
 Plugin 'Valloric/YouCompleteMe'
+let g:ycm_confirm_extra_conf    = 0
+let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
+let g:ycm_extra_conf_vim_data   = ['&filetype']
+let g:ycm_seed_identifiers_with_syntax = 1
 
 " XXX take a deeper look a make a new one from scratch for YCM integration
 Plugin 'vheon/vimomni.vim'
@@ -62,6 +69,8 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'adimit/prolog.vim'
 
 Plugin 'vheon/vim-polyglot'
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_rails = 1
 
 Plugin 'file://$GOPATH/src/github.com/nsf/gocode', { 'pinned': 1, 'rtp': 'vim/' }
 
@@ -72,6 +81,7 @@ Plugin 'file://$GOPATH/src/github.com/nsf/gocode', { 'pinned': 1, 'rtp': 'vim/' 
 
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'thoughtbot/vim-rspec'
+let g:rspec_command = "!rspec --color {spec}"
 
 Plugin 'takac/vim-hardtime'
 let g:hardtime_allow_different_key = 1
@@ -83,20 +93,6 @@ call vundle#end()
 
 filetype plugin indent on
 syntax on
-
-let g:rspec_command = "!rspec --color {spec}"
-
-
-let g:ycm_confirm_extra_conf    = 0
-let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
-let g:ycm_extra_conf_vim_data   = ['&filetype']
-let g:ycm_seed_identifiers_with_syntax = 1
-
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_rails = 1
 
 " In the standart runtime there's a filetype.vim that can handle file.m either
 " as matlab file or as objc file if the file is not empty. On empty file it
