@@ -349,7 +349,7 @@ augroup temporary_prolog_settings
   autocmd BufNewFile,BufRead *.pl setlocal filetype=prolog
   autocmd Filetype prolog setl et sts=8 ts=8 sw=8
   autocmd Filetype prolog let b:start = 'swipl %' | let b:dispatch = b:start
-  autocmd Filetype prolog nnoremap <buffer> <leader>t :w\|:Start<cr>
+  autocmd Filetype prolog nnoremap <buffer> <CR> :w\|:Start<cr>
 augroup END
 
 " Just so I don't lose them xD  ᕕ( ᐛ )ᕗ  ¯\_(ツ)_/¯
