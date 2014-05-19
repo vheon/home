@@ -42,6 +42,10 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/inline_edit.vim'
 Plugin 'AndrewRadev/linediff.vim'
 
+Plugin 'junegunn/vim-easy-align'
+nmap <Leader>a <Plug>(EasyAlign)
+xmap <Leader>a <Plug>(EasyAlign)
+
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'Shougo/neosnippet.vim'
 imap <C-j>     <Plug>(neosnippet_expand_or_jump)
