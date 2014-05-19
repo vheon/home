@@ -73,6 +73,12 @@ Plugin 'file://$GOPATH/src/github.com/nsf/gocode', { 'pinned': 1, 'rtp': 'vim/' 
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'thoughtbot/vim-rspec'
 
+Plugin 'takac/vim-hardtime'
+let g:hardtime_allow_different_key = 1
+let g:hardtime_default_on = 1
+let g:hardtime_maxcount = 3
+let g:hardtime_showmsg = 1
+
 call vundle#end()
 
 filetype plugin indent on
