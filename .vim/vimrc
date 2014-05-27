@@ -112,7 +112,7 @@ set showmatch
 set complete-=i
 set completeopt-=preview
 set completeopt+=menuone
-set pumheight=10
+set pumheight=30
 
 set autoindent
 set cindent
