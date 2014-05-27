@@ -252,10 +252,6 @@ nnoremap <C-n> :set invnumber<cr>
 xnoremap < <gv
 xnoremap > >gv
 
-noremap * *zzzv
-noremap # #zzzv
-noremap n nzzzv
-noremap N Nzzzv
 nnoremap <silent> <Leader>*
       \ :let @/ = '\<'.expand('<cword>').'\>' \| set hlsearch<cr>
 
