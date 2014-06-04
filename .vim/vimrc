@@ -26,6 +26,7 @@ let g:delimitMate_expand_space = 1
 
 Plugin 'tpope/vim-endwise'
 
+Plugin 'Valloric/ListToggle'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-rsi'
