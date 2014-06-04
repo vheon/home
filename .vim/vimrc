@@ -74,20 +74,10 @@ let g:rubycomplete_rails = 1
 
 Plugin 'file://$GOPATH/src/github.com/nsf/gocode', { 'pinned': 1, 'rtp': 'vim/' }
 
-" XXX I don't use it right now
-"     Plus I would prefer to use it with YCM, so even the install process would
-"     be covered once installed YCM
-" Plug 'marijnh/tern_for_vim'
-
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'thoughtbot/vim-rspec'
 let g:rspec_command = "!rspec --color {spec}"
 
-Plugin 'takac/vim-hardtime'
-let g:hardtime_allow_different_key = 1
-let g:hardtime_default_on = 1
-let g:hardtime_maxcount = 3
-let g:hardtime_showmsg = 1
 
 call vundle#end()
 
@@ -249,9 +239,6 @@ nmap <leader>v. :edit %%
 
 nnoremap <C-n> :set invnumber<cr>
 
-xnoremap < <gv
-xnoremap > >gv
-
 nnoremap <silent> <Leader>*
       \ :let @/ = '\<'.expand('<cword>').'\>' \| set hlsearch<cr>
 
@@ -265,13 +252,6 @@ cnoremap <silent> <expr> <cr>
 " Make selecting inside an HTML tag better
 xnoremap <silent> it itVkoj
 xnoremap <silent> at atV
-
-" Always move through visual lines:
-nnoremap j gj
-nnoremap k gk
-xnoremap j gj
-xnoremap k gk
-
 
 " CTRL-U and CTRL-W in insert mode cannot be undone.  Use CTRL-G u to first
 " break undo, so that we can undo those changes after inserting a line break.
