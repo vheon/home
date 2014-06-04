@@ -79,6 +79,13 @@ Plugin 'Valloric/MatchTagAlways'
 Plugin 'thoughtbot/vim-rspec'
 let g:rspec_command = "!rspec --color {spec}"
 
+Plugin 'tpope/vim-projectionist'
+let g:projectiles = {
+      \   '*.cpp': {
+      \     '*.cpp': {'alternate': '{}.h'},
+      \     '*.h': {'alternate': '{}.cpp'}
+      \   }
+      \ }
 
 call vundle#end()
 
