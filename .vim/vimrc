@@ -41,14 +41,11 @@ Plugin 'kana/vim-textobj-entire'
 Plugin 'kana/vim-textobj-help'
 Plugin 'PeterRincker/vim-argumentative'
 
+Plugin 'tommcdo/vim-lion'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/inline_edit.vim'
 Plugin 'AndrewRadev/linediff.vim'
-
-Plugin 'junegunn/vim-easy-align'
-nmap <Leader>a <Plug>(EasyAlign)
-xmap <Leader>a <Plug>(EasyAlign)
 
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'Shougo/neosnippet.vim'
