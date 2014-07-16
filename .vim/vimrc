@@ -67,6 +67,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'adimit/prolog.vim'
 
 Plugin 'vheon/vim-polyglot'
+let g:scala_use_default_keymappings = 0
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 
