@@ -255,8 +255,9 @@ nnoremap <silent> <Leader>*
 " cursor, seems reasonable
 nnoremap <silent> <Leader>8 :set hlsearch<cr>
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
-cnoremap <silent> <expr> <cr>
-      \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
+" XXX: see if is necessary now that I don't start with nohlsearch
+" cnoremap <silent> <expr> <cr>
+"       \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
 
 " Make selecting inside an HTML tag better
 xnoremap <silent> it itVkoj
