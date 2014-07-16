@@ -164,8 +164,9 @@ set noautochdir
 set autoread
 set hidden
 set cursorline
-set textwidth=80
-set colorcolumn=+1
+set colorcolumn=81
+" set colorcolumn=+1
+" set textwidth=80
 
 set history=1000
 set viminfo=!,'10,<50,s20,h
