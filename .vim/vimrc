@@ -20,6 +20,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-repeat'
 
+" XXX: do I relly need this plugin? I have to type the closing brackets anyway
+" to jump them so why not type them to close them?
 Plugin 'Raimondi/delimitMate'
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
@@ -175,7 +177,7 @@ set noerrorbells
 set novisualbell
 set t_vb=
 
-" Prevent Vim from clobbering the scrollback buffer. See
+" Prevent Vim from clobbering the scroll back buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
 
