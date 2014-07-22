@@ -284,7 +284,7 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 nnoremap <Leader>s
       \ :call selecta#command("breadth-first-gfind *", "", ":e")<cr>
-nnoremap <C-g>
+nnoremap <Leader>g
       \ :call selecta#command("breadth-first-gfind *", "-s ".expand('<cword>'), ":e")<cr>
 
 " ##########
