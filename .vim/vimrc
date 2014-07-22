@@ -330,6 +330,16 @@ augroup lcd_to_git_root_or_restore_last_set
         \ endif
 augroup END
 
+" When switching solarized background color in vim change the solarized
+" profile in iTerm as well.
+augroup change_iterm_solarized_profile
+  autocmd!
+  autocmd VimEnter,ColorScheme *
+        \ if g:colors_name == "solarized" |
+        \   execute ':silent! !echo -e "\033]50;SetProfile=solarized_'.&background.'\x7"' |
+        \ endif
+augroup END
+
 " XXX
 augroup temporary_prolog_settings
   autocmd!
