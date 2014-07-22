@@ -7,79 +7,71 @@ endif
 let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
 runtime! macros/matchit.vim
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'vheon/vim-colors-solarized'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-repeat'
+Plug 'vheon/vim-colors-solarized'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-repeat'
 
 " XXX: do I relly need this plugin? I have to type the closing brackets anyway
 " to jump them so why not type them to close them?
-Plugin 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
-Plugin 'tpope/vim-endwise'
+Plug 'tpope/vim-endwise'
 
-Plugin 'Valloric/ListToggle'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-rsi'
+Plug 'Valloric/ListToggle'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-rsi'
 
 " TextObj-User
-Plugin 'kana/vim-textobj-user'
-Plugin 'thinca/vim-textobj-function-javascript'
-Plugin 'Julian/vim-textobj-variable-segment'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'kana/vim-textobj-function'
-Plugin 'kana/vim-textobj-entire'
-Plugin 'kana/vim-textobj-help'
-Plugin 'PeterRincker/vim-argumentative'
+Plug 'kana/vim-textobj-user'
+Plug 'thinca/vim-textobj-function-javascript'
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-help'
+Plug 'PeterRincker/vim-argumentative'
 
-Plugin 'tommcdo/vim-lion'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'AndrewRadev/inline_edit.vim'
-Plugin 'AndrewRadev/linediff.vim'
+Plug 'tommcdo/vim-lion'
+Plug 'tommcdo/vim-exchange'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/inline_edit.vim'
+Plug 'AndrewRadev/linediff.vim'
 
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'Shougo/neosnippet.vim'
-imap <C-j>     <Plug>(neosnippet_expand_or_jump)
-smap <C-j>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-j>     <Plug>(neosnippet_expand_target)
-
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 let g:ycm_confirm_extra_conf    = 0
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
 let g:ycm_extra_conf_vim_data   = ['&filetype']
 let g:ycm_seed_identifiers_with_syntax = 1
 
 " XXX take a deeper look a make a new one from scratch for YCM integration
-Plugin 'vheon/vimomni.vim'
-Plugin 'tpope/vim-scriptease'
+Plug 'vheon/vimomni.vim'
+Plug 'tpope/vim-scriptease'
 
-Plugin 'tpope/vim-dispatch'
-Plugin 'adimit/prolog.vim'
+Plug 'tpope/vim-dispatch'
+Plug 'adimit/prolog.vim'
 
-Plugin 'vheon/vim-polyglot'
+Plug 'vheon/vim-polyglot'
 let g:scala_use_default_keymappings = 0
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 
-Plugin 'file://$GOPATH/src/github.com/nsf/gocode', { 'pinned': 1, 'rtp': 'vim/' }
+Plug '$GOPATH/src/github.com/nsf/gocode', { 'rtp': 'vim/' }
 
-Plugin 'Valloric/MatchTagAlways'
-Plugin 'thoughtbot/vim-rspec'
+Plug 'Valloric/MatchTagAlways'
+Plug 'thoughtbot/vim-rspec'
 let g:rspec_command = "!rspec --color {spec}"
 
-Plugin 'tpope/vim-projectionist'
+Plug 'tpope/vim-projectionist'
 let g:projectiles = {
       \   '*.cpp': {
       \     '*.cpp': {'alternate': '{}.h'},
@@ -87,10 +79,11 @@ let g:projectiles = {
       \   }
       \ }
 
-call vundle#end()
+" XXX: note to self for using eclim and putting it inside the plugged
+" directory
+" Plug g:plug_home.'/eclim'
 
-filetype plugin indent on
-syntax on
+call plug#end()
 
 " In the standart runtime there's a filetype.vim that can handle file.m either
 " as matlab file or as objc file if the file is not empty. On empty file it
@@ -196,8 +189,6 @@ set autoread
 set hidden
 set cursorline
 set colorcolumn=81
-" set colorcolumn=+1
-" set textwidth=80
 
 set history=1000
 set viminfo=!,'10,<50,s20,h
@@ -229,15 +220,6 @@ let &showbreak = "\u21aa "
 if has('mouse')
   set mouse=a
 endif
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=iv
-endif
-
-" Change shape of iTerm2 vim
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " Sudo write
 command! W exec 'w !sudo tee % > /dev/null' | e!
