@@ -72,7 +72,7 @@ Plug 'thoughtbot/vim-rspec'
 let g:rspec_command = "!rspec --color {spec}"
 
 Plug 'tpope/vim-projectionist'
-let g:projectiles = {
+let g:projectionist_heuristics = {
       \   '*.cpp': {
       \     '*.cpp': {'alternate': '{}.h'},
       \     '*.h': {'alternate': '{}.cpp'}
