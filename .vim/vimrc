@@ -205,6 +205,9 @@ set noswapfile
 set nobackup
 set nowritebackup
 
+if v:version + has('patch541') >= 704
+  set formatoptions+=j
+endif
 set formatoptions-=oa
 set nrformats-=octal
 
