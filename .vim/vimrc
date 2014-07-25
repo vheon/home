@@ -268,16 +268,13 @@ nnoremap <C-n> :set invnumber<cr>
 nnoremap <silent> <Leader>*
       \ :let @/ = '\<'.expand('<cword>').'\>' \| set hlsearch<cr>
 
-" I'm trying to use '/' for moving where I want but I don't like the
-" highlighting when moving but its still useful when searching for something
-" this mappings help me out with my workflow.
-"
 " Since the * is on the 8 symbol and is used to search for the word under the
 " cursor, seems reasonable
 nnoremap <silent> <Leader>8 :set hlsearch<cr>
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
-cnoremap <silent> <expr> <cr>
-      \ getcmdtype() =~ '[/?]' ? '<cr><C-o>:nohlsearch<cr>' : '<cr>'
+" XXX: see if is necessary now that I don't start with nohlsearch
+" cnoremap <silent> <expr> <cr>
+"       \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
 
 " Make selecting inside an HTML tag better
 xnoremap <silent> it itVkoj
