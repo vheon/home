@@ -85,6 +85,7 @@ let g:projectionist_heuristics = {
 " Plug g:plug_home.'/eclim'
 
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_sign_column_always = 1
 
 call plug#end()
 
