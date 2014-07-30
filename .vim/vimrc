@@ -1,18 +1,13 @@
 set nocompatible
 
-if &shell =~# 'fish$'
-  set shell=/bin/zsh
-endif
-
 let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
 call plug#begin()
 
-runtime! macros/matchit.vim
-
 Plug 'vheon/vim-colors-solarized'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
@@ -89,6 +84,8 @@ let g:gitgutter_sign_column_always = 1
 
 call plug#end()
 
+runtime plugin/sensible.vim
+
 " In the standart runtime there's a filetype.vim that can handle file.m either
 " as matlab file or as objc file if the file is not empty. On empty file it
 " fallback to g:filetype_m if specified or 'matlab'
@@ -100,27 +97,22 @@ set background=dark
 colorscheme solarized
 
 set encoding=utf-8
-set fileformats+=mac
 
-set backspace=indent,eol,start
 set showmatch
-set complete-=i
 set completeopt-=preview
 set completeopt+=menuone
 set pumheight=30
 
-set autoindent
 set cindent
 set cinoptions=L0,g0,N-s,t0,(0
 set shiftround
-set smarttab
 
-set ttimeout
 set timeoutlen=500
-set ttimeoutlen=50
+" XXX: check if I note some difference with the ttimeoutlen set by
+" sensible.vim
+" set ttimeoutlen=50
 
 set lazyredraw
-set incsearch
 set smartcase
 set ignorecase
 
@@ -167,12 +159,8 @@ let &statusline .= '%='
 let &statusline .= '%y '
 let &statusline .= '%-14(%P %3l:%02c%)'
 let &statusline .= '[%{strlen(&l:fenc) ? &enc : &l:fenc}]'
-set laststatus=2
 set cmdheight=2
 set noshowmode
-set showcmd
-set ruler
-set wildmenu
 set wildmode=list:longest
 set wildignore+=.hg,.git,.svn
 set wildignore+=*.o,*.obj,*~
@@ -182,19 +170,13 @@ set wildignore+=*.mkv,*.avi
 set wildignore+=*.pyc
 set wildignore+=*.class
 
-set scrolloff=1
-set sidescrolloff=1
-set display+=lastline
-
 set nomore
 
 set noautochdir
-set autoread
 set hidden
 set cursorline
 set colorcolumn=81
 
-set history=1000
 set viminfo=!,'10,<50,s20,h
 
 set noerrorbells
@@ -213,7 +195,6 @@ if v:version + has('patch541') >= 704
   set formatoptions+=j
 endif
 set formatoptions-=oa
-set nrformats-=octal
 
 set nofoldenable
 set foldlevelstart=99
@@ -272,7 +253,6 @@ nnoremap <silent> <Leader>*
 " Since the * is on the 8 symbol and is used to search for the word under the
 " cursor, seems reasonable
 nnoremap <silent> <Leader>8 :set hlsearch<cr>
-nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 " XXX: see if is necessary now that I don't start with nohlsearch
 " cnoremap <silent> <expr> <cr>
 "       \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
