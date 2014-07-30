@@ -122,10 +122,10 @@ if executable('ag')
 endif
 
 " Mode cursor
-" Change the color of the cursor based on the mode
+" Change the color of the cursor based on the mode we're in.
 " Idea stolen from http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
-" He uses the 'guicursor' option but its for GUI, MSDOW, Win32 console only
-" and I use terminal vim on iTerm2 only at the moment so I send escape keys to
+" He uses the 'guicursor' option which it's for GUI, MSDOW and Win32 console only
+" but I use terminal vim on iTerm2 only at the moment so I send escape keys to
 " iTerm2 to change the cursor color
 let s:solarized_cursor_mode_map = {
       \   "n": &background == 'dark' ? [ "\<Esc>]Pl839496\<Esc>\\" ] : [ "\<Esc>]Pl657b83\<Esc>\\" ],
@@ -138,19 +138,16 @@ let s:solarized_cursor_mode_map = {
 let s:last_mode = ''
 function! Mode_cursor()
   let mode = mode()
-  if mode ==# s:last_mode || has('gui_running')
-    return ''
+  if mode !=# s:last_mode
+    let s:last_mode = mode
+    for escape in get(s:solarized_cursor_mode_map, mode, [])
+      execute ':silent! !echo -e' escape
+    endfor
   endif
-  let s:last_mode = mode
-
-  for escape in get(s:solarized_cursor_mode_map, mode, [])
-    execute ':silent! !echo -e' escape
-  endfor
-
   return ''
 endfunction
 
-let &statusline  = '%{Mode_cursor()}'
+let &statusline  = has('gui_running') ? '' : '%{Mode_cursor()}'
 let &statusline .= '%h%w '
 let &statusline .= '%<%f '
 let &statusline .= '%{fugitive#statusline()}'
