@@ -73,7 +73,7 @@ let s:plug_buf = -1
 let s:mac_gui = has('gui_macvim') && has('gui_running')
 let s:is_win = has('win32') || has('win64')
 let s:me = expand('<sfile>:p')
-let s:base_spec = { 'branch': 'master', 'frozen': 0, 'local': 0 }
+let s:base_spec = { 'branch': 'master', 'frozen': 0 }
 let s:TYPE = {
 \   'string':  type(''),
 \   'list':    type([]),
@@ -109,8 +109,8 @@ function! plug#begin(...)
   let g:plugs_order = []
 
   command! -nargs=+ -bar Plug   call s:add(<args>)
-  command! -nargs=* -complete=customlist,s:names PlugInstall call s:install(<f-args>)
-  command! -nargs=* -complete=customlist,s:names PlugUpdate  call s:update(<f-args>)
+  command! -nargs=* -bang -complete=customlist,s:names PlugInstall call s:install(!empty('<bang>'), <f-args>)
+  command! -nargs=* -bang -complete=customlist,s:names PlugUpdate  call s:update(!empty('<bang>'), <f-args>)
   command! -nargs=0 -bang PlugClean call s:clean('<bang>' == '!')
   command! -nargs=0 PlugUpgrade if s:upgrade() | call s:upgrade_specs() | execute 'source '. s:me | endif
   command! -nargs=0 PlugStatus  call s:status()
@@ -123,7 +123,16 @@ function! s:to_a(v)
   return type(a:v) == s:TYPE.list ? a:v : [a:v]
 endfunction
 
+function! s:source(from, ...)
+  for pattern in a:000
+    for vim in split(globpath(a:from, pattern), '\n')
+      execute 'source '.vim
+    endfor
+  endfor
+endfunction
+
 function! plug#end()
+  let reload = !has('vim_starting')
   if !exists('g:plugs')
     return s:err('Call plug#begin() first')
   endif
@@ -144,13 +153,16 @@ function! plug#end()
   for name in reverse(copy(g:plugs_order))
     let plug = g:plugs[name]
     if !has_key(plug, 'on') && !has_key(plug, 'for')
-      call s:add_rtp(s:rtp(plug))
+      let rtp = s:rtp(plug)
+      call s:add_rtp(rtp)
+      if reload
+        call s:source(rtp, 'plugin/**/*.vim', 'after/plugin/**/*.vim')
+      endif
       continue
     endif
 
     if has_key(plug, 'on')
-      let commands = s:to_a(plug.on)
-      for cmd in commands
+      for cmd in s:to_a(plug.on)
         if cmd =~ '^<Plug>.\+'
           if empty(mapcheck(cmd)) && empty(mapcheck(cmd, 'i'))
             for [mode, map_prefix, key_prefix] in
@@ -169,9 +181,7 @@ function! plug#end()
     endif
 
     if has_key(plug, 'for')
-      for vim in split(globpath(s:rtp(plug), 'ftdetect/**/*.vim'), '\n')
-        execute 'source '.vim
-      endfor
+      call s:source(s:rtp(plug), 'ftdetect/**/*.vim', 'after/ftdetect/**/*.vim')
       for key in s:to_a(plug.for)
         if !has_key(lod, key)
           let lod[key] = []
@@ -264,24 +274,23 @@ function! s:lod(plug, types)
   let rtp = s:rtp(a:plug)
   call s:add_rtp(rtp)
   for dir in a:types
-    for vim in split(globpath(rtp, dir.'/**/*.vim'), '\n')
-      execute 'source '.vim
-    endfor
+    call s:source(rtp, dir.'/**/*.vim')
   endfor
 endfunction
 
 function! s:lod_ft(pat, names)
   for name in a:names
-    call s:lod(g:plugs[name], ['plugin', 'after'])
+    call s:lod(g:plugs[name], ['plugin', 'after/plugin'])
   endfor
   call s:reorg_rtp()
   execute 'autocmd! PlugLOD FileType ' . a:pat
   silent! doautocmd filetypeplugin FileType
+  silent! doautocmd filetypeindent FileType
 endfunction
 
 function! s:lod_cmd(cmd, bang, l1, l2, args, name)
   execute 'delc '.a:cmd
-  call s:lod(g:plugs[a:name], ['plugin', 'ftdetect', 'after'])
+  call s:lod(g:plugs[a:name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   call s:reorg_rtp()
   execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
@@ -289,7 +298,7 @@ endfunction
 function! s:lod_map(map, name, prefix)
   execute 'unmap '.a:map
   execute 'iunmap '.a:map
-  call s:lod(g:plugs[a:name], ['plugin', 'ftdetect', 'after'])
+  call s:lod(g:plugs[a:name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   call s:reorg_rtp()
   let extra = ''
   while 1
@@ -311,7 +320,7 @@ function! s:add(repo, ...)
     let repo = s:trim(a:repo)
     let name = fnamemodify(repo, ':t:s?\.git$??')
     let spec = extend(s:infer_properties(name, repo),
-                    \ a:0 == 1 ? s:parse_options(a:1) : copy(s:base_spec))
+                    \ a:0 == 1 ? s:parse_options(a:1) : s:base_spec)
     let g:plugs[name] = spec
     let g:plugs_order += [name]
   catch
@@ -341,7 +350,7 @@ endfunction
 function! s:infer_properties(name, repo)
   let repo = a:repo
   if s:is_local_plug(repo)
-    let properties = { 'dir': s:dirpath(expand(repo)), 'local': 1 }
+    return { 'dir': s:dirpath(expand(repo)) }
   else
     if repo =~ ':'
       let uri = repo
@@ -352,29 +361,25 @@ function! s:infer_properties(name, repo)
       let uri = 'https://git:@github.com/' . repo . '.git'
     endif
     let dir = s:dirpath( fnamemodify(join([g:plug_home, a:name], '/'), ':p') )
-    let properties = { 'dir': dir, 'uri': uri }
+    return { 'dir': dir, 'uri': uri }
   endif
-  return properties
 endfunction
 
-function! s:install(...)
-  call s:update_impl(0, a:000)
+function! s:install(force, ...)
+  call s:update_impl(0, a:force, a:000)
 endfunction
 
-function! s:update(...)
-  call s:update_impl(1, a:000)
+function! s:update(force, ...)
+  call s:update_impl(1, a:force, a:000)
 endfunction
 
-function! s:apply()
+function! s:helptags()
   for spec in values(g:plugs)
     let docd = join([spec.dir, 'doc'], '/')
     if isdirectory(docd)
-      silent! execute 'helptags '. join([spec.dir, 'doc'], '/')
+      silent! execute 'helptags '. s:esc(docd)
     endif
   endfor
-  runtime! plugin/*.vim
-  runtime! after/*.vim
-  silent! source $MYVIMRC
 endfunction
 
 function! s:syntax()
@@ -465,15 +470,16 @@ function! s:assign_name()
   silent! execute 'f '.fnameescape(name)
 endfunction
 
-function! s:do(pull, todo)
+function! s:do(pull, force, todo)
   for [name, spec] in items(a:todo)
     if !isdirectory(spec.dir)
       continue
     endif
     execute 'cd '.s:esc(spec.dir)
     let installed = has_key(s:prev_update.new, name)
-    if installed || (a:pull &&
-      \ !empty(s:system_chomp('git log --pretty=format:"%h" "HEAD...HEAD@{1}"')))
+    let updated = installed ? 0 :
+      \ (a:pull && !empty(s:system_chomp('git log --pretty=format:"%h" "HEAD...HEAD@{1}"')))
+    if a:force || installed || updated
       call append(3, '- Post-update hook for '. name .' ... ')
       let type = type(spec.do)
       if type == s:TYPE.string
@@ -488,7 +494,8 @@ function! s:do(pull, todo)
         endtry
       elseif type == s:TYPE.funcref
         try
-          call spec.do({ 'name': name, 'status': (installed ? 'installed' : 'updated') })
+          let status = installed ? 'installed' : (updated ? 'updated' : 'unchanged')
+          call spec.do({ 'name': name, 'status': status, 'force': a:force })
           let result = 'Done!'
         catch
           let result = 'Error: ' . v:exception
@@ -505,10 +512,11 @@ endfunction
 function! s:finish(pull)
   call append(3, '- Finishing ... ')
   redraw
-  call s:apply()
-  call s:syntax()
+  call s:helptags()
+  call plug#end()
   call setline(4, getline(4) . 'Done!')
   normal! gg
+  call s:syntax()
   redraw
   let msgs = []
   if !empty(s:prev_update.errors)
@@ -524,7 +532,7 @@ function! s:retry()
   if empty(s:prev_update.errors)
     return
   endif
-  call s:update_impl(s:prev_update.pull,
+  call s:update_impl(s:prev_update.pull, s:prev_update.force,
         \ extend(copy(s:prev_update.errors), [s:prev_update.threads]))
 endfunction
 
@@ -536,7 +544,7 @@ function! s:names(...)
   return filter(keys(g:plugs), 'stridx(v:val, a:1) == 0 && s:is_managed(v:val)')
 endfunction
 
-function! s:update_impl(pull, args) abort
+function! s:update_impl(pull, force, args) abort
   let st = reltime()
   let args = copy(a:args)
   let threads = (len(args) > 0 && args[-1] =~ '^[1-9][0-9]*$') ?
@@ -562,8 +570,7 @@ function! s:update_impl(pull, args) abort
   if !isdirectory(g:plug_home)
     call mkdir(g:plug_home, 'p')
   endif
-  let len = len(g:plugs)
-  let s:prev_update = { 'errors': [], 'pull': a:pull, 'new': {}, 'threads': threads }
+  let s:prev_update = { 'errors': [], 'pull': a:pull, 'force': a:force, 'new': {}, 'threads': threads }
   if has('ruby') && threads > 1
     try
       let imd = &imd
@@ -593,10 +600,7 @@ function! s:update_impl(pull, args) abort
   else
     call s:update_serial(a:pull, todo)
   endif
-  call s:do(a:pull, filter(copy(todo), 'has_key(v:val, "do")'))
-  if len(g:plugs) > len
-    call plug#end()
-  endif
+  call s:do(a:pull, a:force, filter(copy(todo), 'has_key(v:val, "do")'))
   call s:finish(a:pull)
   call setline(1, 'Updated. Elapsed time: ' . split(reltimestr(reltime(st)))[0] . ' sec.')
 endfunction
@@ -674,6 +678,20 @@ function! s:update_parallel(pull, todo, threads)
     %["#{arg.gsub('"', '\"')}"]
   end
 
+  def killall pid
+    pids = [pid]
+    unless `which pgrep`.empty?
+      children = pids
+      until children.empty?
+        children = children.map { |pid|
+          `pgrep -P #{pid}`.lines.map { |l| l.chomp }
+        }.flatten
+        pids += children
+      end
+    end
+    pids.each { |pid| Process.kill 'TERM', pid.to_i rescue nil }
+  end
+
   require 'thread'
   require 'fileutils'
   require 'timeout'
@@ -681,7 +699,7 @@ function! s:update_parallel(pull, todo, threads)
   iswin = VIM::evaluate('s:is_win').to_i == 1
   pull  = VIM::evaluate('a:pull').to_i == 1
   base  = VIM::evaluate('g:plug_home')
-  all   = VIM::evaluate('copy(a:todo)')
+  all   = VIM::evaluate('a:todo')
   limit = VIM::evaluate('get(g:, "plug_timeout", 60)')
   tries = VIM::evaluate('get(g:, "plug_retries", 2)') + 1
   nthr  = VIM::evaluate('a:threads').to_i
@@ -756,17 +774,7 @@ function! s:update_parallel(pull, todo, threads)
       [$? == 0, data.chomp]
     rescue Timeout::Error, Interrupt => e
       if fd && !fd.closed?
-        pids = [fd.pid]
-        unless `which pgrep`.empty?
-          children = pids
-          until children.empty?
-            children = children.map { |pid|
-              `pgrep -P #{pid}`.lines.map { |l| l.chomp }
-            }.flatten
-            pids += children
-          end
-        end
-        pids.each { |pid| Process.kill 'TERM', pid.to_i rescue nil }
+        killall fd.pid
         fd.close
       end
       if e.is_a?(Timeout::Error) && tried < tries
@@ -1028,7 +1036,6 @@ endfunction
 function! s:upgrade_specs()
   for spec in values(g:plugs)
     let spec.frozen = get(spec, 'frozen', 0)
-    let spec.local  = get(spec, 'local', 0)
   endfor
 endfunction
 
