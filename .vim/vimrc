@@ -42,7 +42,12 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/inline_edit.vim'
 Plug 'AndrewRadev/linediff.vim'
 
-Plug 'Valloric/YouCompleteMe'
+function! YCMInstall(info)
+  if a:info.status == 'installed'
+    !./install.sh --clang-completer
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'do': function('YCMInstall') }
 let g:ycm_confirm_extra_conf    = 0
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
 let g:ycm_extra_conf_vim_data   = ['&filetype']
