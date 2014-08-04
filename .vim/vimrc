@@ -113,9 +113,6 @@ set cinoptions=L0,g0,N-s,t0,(0
 set shiftround
 
 set timeoutlen=500
-" XXX: check if I note some difference with the ttimeoutlen set by
-" sensible.vim
-" set ttimeoutlen=50
 
 set lazyredraw
 set smartcase
