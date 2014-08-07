@@ -29,10 +29,11 @@ Plug 'tpope/vim-rsi'
 " TextObj-User
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-function-javascript'
-Plug 'Julian/vim-textobj-variable-segment'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-help'
+
+Plug 'machakann/vim-textobj-delimited'
 Plug 'PeterRincker/vim-argumentative'
 
 Plug 'tommcdo/vim-lion'
