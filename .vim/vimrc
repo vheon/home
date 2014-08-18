@@ -123,6 +123,9 @@ if executable('ag')
 endif
 
 " Mode cursor
+" XXX: should I extract it in a plugin?
+"      let &statusline = modecursor#statusline() to initialize.
+"
 " Change the color of the cursor based on the mode we're in.
 " Idea stolen from http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
 " He uses the 'guicursor' option which it's for GUI, MSDOW and Win32 console only
