@@ -83,6 +83,7 @@ let g:gitgutter_sign_column_always = 1
 
 call plug#end()
 
+runtime! macros/matchit.vim
 runtime plugin/sensible.vim
 
 " In the standart runtime there's a filetype.vim that can handle file.m either
