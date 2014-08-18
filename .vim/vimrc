@@ -30,7 +30,6 @@ Plug 'tpope/vim-rsi'
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-function-javascript'
 Plug 'kana/vim-textobj-function'
-Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-help'
 
 Plug 'machakann/vim-textobj-delimited'
