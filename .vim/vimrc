@@ -15,9 +15,13 @@ Plug 'tpope/vim-repeat'
 
 " XXX: do I relly need this plugin? I have to type the closing brackets anyway
 " to jump them so why not type them to close them?
-Plug 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate', { 'on': [] }
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
+augroup load_delimitmate
+  autocmd!
+  autocmd! InsertEnter * call plug#load('delimitMate') | autocmd! load_delimitmate
+augroup END
 
 Plug 'tpope/vim-endwise'
 " XXX: see if this makes my 'o' map useless :)
@@ -49,12 +53,21 @@ function! YCMInstall(info)
     !./install.sh --clang-completer
   endif
 endfunction
-Plug 'Valloric/YouCompleteMe', { 'do': function('YCMInstall') }
+Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': function('YCMInstall') }
 let g:ycm_confirm_extra_conf    = 0
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
 let g:ycm_extra_conf_vim_data   = ['&filetype']
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_enable_diagnostic_signs = 0
+augroup load_ycm
+  autocmd!
+  autocmd! InsertEnter *
+        \ call plug#load('YouCompleteMe')     |
+        \ if exists('g:loaded_youcompleteme') |
+        \   call youcompleteme#Enable()       |
+        \ endif                               |
+        \ autocmd! load_ycm
+augroup END
 
 " XXX take a deeper look a make a new one from scratch for YCM integration
 Plug 'vheon/vimomni.vim'
