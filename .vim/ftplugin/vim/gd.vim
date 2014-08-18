@@ -33,5 +33,17 @@ function! s:goto_definition(name)
 
   return 'normal! gd'
 endfunction
+
+" XXX: tpope/vim-scriptease remove ':' from iskeyword
+" function! s:grab_cword()
+"   let isk = &iskeyword
+"   try
+"     set iskeyword+=:
+"     return expand('<cword>')
+"   finally
+"     let &iskeyword = isk
+"   endtry
+" endfunction
+
 nnoremap <silent> <buffer> gd
       \ :execute <SID>goto_definition(expand("<cword>"))<cr>
