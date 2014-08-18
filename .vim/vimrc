@@ -60,24 +60,19 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-dispatch'
 Plug 'adimit/prolog.vim'
 
+" XXX: consider to switch back to single plugin for the language that I use
 Plug 'vheon/vim-polyglot'
 let g:scala_use_default_keymappings = 0
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 
-Plug '$GOPATH/src/github.com/nsf/gocode', { 'rtp': 'vim/' }
+" XXX: I prefer using it with YouCompleteMe
+" Plug '$GOPATH/src/github.com/nsf/gocode', { 'rtp': 'vim/' }
 
 Plug 'Valloric/MatchTagAlways'
-Plug 'thoughtbot/vim-rspec'
-let g:rspec_command = "!rspec --color {spec}"
-
-Plug 'tpope/vim-projectionist'
-let g:projectionist_heuristics = {
-      \   '*.cpp': {
-      \     '*.cpp': {'alternate': '{}.h'},
-      \     '*.h': {'alternate': '{}.cpp'}
-      \   }
-      \ }
+" XXX: I should use something a little more generic. See gary bernhardt setup
+" Plug 'thoughtbot/vim-rspec'
+" let g:rspec_command = "!rspec --color {spec}"
 
 " XXX: note to self for using eclim and putting it inside the plugged
 " directory
