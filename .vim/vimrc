@@ -20,6 +20,9 @@ let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
 Plug 'tpope/vim-endwise'
+" XXX: see if this makes my 'o' map useless :)
+let g:endwise_abbreviations = 1
+let g:endwise_no_mappings = 1
 
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-unimpaired'
