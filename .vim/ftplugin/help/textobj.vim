@@ -4,8 +4,8 @@ call textobj#user#map('help', {
       \     'move-p': '<buffer> K'
       \   },
       \   'link': {
-      \     'move-n': '<buffer> l',
-      \     'move-p': '<buffer> L'
+      \     'move-n': '<buffer> <C-l>',
+      \     'move-p': '<buffer> <C-h>'
       \   },
       \   'option': {
       \     'move-n': '<buffer> o',
