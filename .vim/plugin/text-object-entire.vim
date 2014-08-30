@@ -5,17 +5,12 @@ let g:loaded_text_object_entire = 1
 
 function! s:select_a()
   " To easily back to the last position after a command.
-  " For example: yae<C-o>
   mark '
-
-  keepjumps normal! gg0
-  normal! v
-  keepjumps normal! G$
+  keepjumps normal! gg0vG$
 endfunction
 
 function! s:select_i()
   " To easily back to the last position after a command.
-  " For example: yie<C-o>
   mark '
 
   keepjumps normal! gg0
