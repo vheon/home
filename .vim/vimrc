@@ -4,6 +4,7 @@ let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
 call plug#begin()
+let g:plug_window = 'tabnew'
 
 Plug 'vheon/vim-colors-solarized'
 Plug 'tpope/vim-commentary'
