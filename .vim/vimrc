@@ -147,23 +147,28 @@ endif
 " Idea stolen from http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
 " He uses the 'guicursor' option which it's for GUI, MSDOW and Win32 console only
 " but I use terminal vim on iTerm2 only at the moment so I send escape keys to
-" iTerm2 to change the cursor color
-let s:solarized_cursor_mode_map = {
-      \   "n": &background == 'dark' ? [ "\<Esc>]Pl839496\<Esc>\\" ] : [ "\<Esc>]Pl657b83\<Esc>\\" ],
-      \   "i": [ "\<Esc>]Pl268bd2\<Esc>\\" ],
-      \   "v": [ "\<Esc>]Plcb4b16\<Esc>\\" ],
-      \   "V": [ "\<Esc>]Pld33682\<Esc>\\" ],
-      \   "\<C-V>": [ "\<Esc>]Pldc322f\<Esc>\\" ],
+" iTerm2 to change the cursor color. The colors are in the form of '#rrggbb'
+" because iTerm2 expect 'rrggbb', I put the '#' in there to prevent me to support
+" eventually other terminal emulator that use 256 colors or 16 colors.
+let s:cursor_mode_color_map = {
+      \   "n":      "#839496",
+      \   "i":      "#268bd2",
+      \   "v":      "#cb4b16",
+      \   "V":      "#d33682",
+      \   "\<C-V>": "#dc322f",
       \ }
 
 let s:last_mode = ''
+let s:color_template = '"%s\033]Pl%s\033\\"'
+let s:cursor_mode_prefix = exists('$TMUX') ? '\033Ptmux;\033' : ''
 function! Mode_cursor()
   let mode = mode()
   if mode !=# s:last_mode
     let s:last_mode = mode
-    for escape in get(s:solarized_cursor_mode_map, mode, [])
-      execute ':silent! !echo -e' escape
-    endfor
+    if has_key(s:cursor_mode_color_map, mode)
+      let escape = strpart(s:cursor_mode_color_map[mode], 1)
+      execute 'silent! !printf' printf(s:color_template, s:cursor_mode_prefix, escape)
+    endif
   endif
   return ''
 endfunction
