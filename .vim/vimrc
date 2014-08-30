@@ -356,8 +356,8 @@ augroup END
 augroup change_iterm_solarized_profile
   autocmd!
   autocmd VimEnter,ColorScheme *
-        \ if g:colors_name == "solarized" |
-        \   execute ':silent! !echo -e "\033]50;SetProfile=solarized_'.&background.'\x7"' |
+        \ if g:colors_name == "solarized"                                                         |
+        \   execute 'silent! !printf' printf('"\033]50;SetProfile=solarized_%s\x7"', &background) |
         \ endif
 augroup END
 
