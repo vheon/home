@@ -70,7 +70,7 @@ augroup load_ycm
         \ autocmd! load_ycm
 augroup END
 
-" XXX take a deeper look a make a new one from scratch for YCM integration
+" XXX: take a deeper look a make a new one from scratch for YCM integration
 Plug 'vheon/vimomni.vim'
 Plug 'tpope/vim-scriptease'
 
@@ -83,7 +83,7 @@ let g:scala_use_default_keymappings = 0
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 
-" XXX: I prefer using it with YouCompleteMe
+" XXX: I would prefer using it with YouCompleteMe
 " Plug '$GOPATH/src/github.com/nsf/gocode', { 'rtp': 'vim/' }
 
 Plug 'Valloric/MatchTagAlways'
@@ -137,7 +137,11 @@ endif
 
 " Mode cursor
 " XXX: should I extract it in a plugin?
-"      let &statusline = modecursor#statusline() to initialize.
+"      if !has('gui_running')
+"        set statusline +=%{Mode_cursor()}
+"      else
+"        " Setup 'guicursor' with the same colors
+"      endif
 "
 " Change the color of the cursor based on the mode we're in.
 " Idea stolen from http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
@@ -352,7 +356,7 @@ augroup change_iterm_solarized_profile
         \ endif
 augroup END
 
-" XXX
+" XXX:
 augroup temporary_prolog_settings
   autocmd!
   autocmd BufNewFile,BufRead *.pl setlocal filetype=prolog
