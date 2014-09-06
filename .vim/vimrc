@@ -355,10 +355,14 @@ augroup END
 " profile in iTerm as well.
 augroup change_iterm_solarized_profile
   autocmd!
-  autocmd VimEnter,ColorScheme *
-        \ if g:colors_name == "solarized"                                                         |
-        \   execute 'silent! !printf' printf('"\033]50;SetProfile=solarized_%s\x7"', &background) |
-        \ endif
+  autocmd VimEnter,ColorScheme * if !has('gui_running')
+                              \|   if g:colors_name == "solarized"
+                              \|     execute 'silent! !printf' printf('"\033]50;SetProfile=solarized_%s\x7"', &background)
+                              \|   else
+                              \|     execute 'silent! !printf' printf('"\033]50;SetProfile=%s\x7"', g:colors_name)
+                              \|   endif
+                              \| else
+                              \|   autocmd! change_iterm_solarized_profile
 augroup END
 
 " XXX:
