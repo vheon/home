@@ -166,7 +166,7 @@ function! Mode_cursor()
     let s:last_mode = mode
     if has_key(s:cursor_mode_color_map, mode)
       let escape = strpart(s:cursor_mode_color_map[mode], 1)
-      execute 'silent! !printf' printf(s:color_template, s:cursor_mode_prefix, escape)
+      execute 'noautocmd silent! !printf' printf(s:color_template, s:cursor_mode_prefix, escape)
     endif
   endif
   return ''
