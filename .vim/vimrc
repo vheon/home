@@ -62,12 +62,11 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_enable_diagnostic_signs = 0
 augroup load_ycm
   autocmd!
-  autocmd! InsertEnter *
-        \ call plug#load('YouCompleteMe')     |
-        \ if exists('g:loaded_youcompleteme') |
-        \   call youcompleteme#Enable()       |
-        \ endif                               |
-        \ autocmd! load_ycm
+  autocmd! InsertEnter * call plug#load('YouCompleteMe')
+                      \| if exists('g:loaded_youcompleteme')
+                      \|   call youcompleteme#Enable()
+                      \| endif
+                      \| autocmd! load_ycm
 augroup END
 
 " XXX: take a deeper look a make a new one from scratch for YCM integration
@@ -319,10 +318,9 @@ augroup END
 
 augroup last_position_jump
   autocmd!
-  autocmd BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   execute 'normal! g`"zvzz' |
-        \ endif
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+                     \|   execute 'normal! g`"zvzz'
+                     \| endif
 augroup END
 
 " Every ftplugin in macvim runtime file override this
@@ -340,15 +338,14 @@ augroup END
 augroup lcd_to_git_root_or_restore_last_set
   autocmd!
   autocmd BufLeave * let b:last_cwd = getcwd()
-  autocmd BufEnter *
-        \ if exists('b:last_cwd')                       |
-        \   execute 'lcd' b:last_cwd                    |
-        \ else                                          |
-        \   try                                         |
-        \     execute 'lcd' '`=fugitive#repo().tree()`' |
-        \   catch                                       |
-        \   endtry                                      |
-        \ endif
+  autocmd BufEnter * if exists('b:last_cwd')
+                  \|   execute 'lcd' b:last_cwd
+                  \| else
+                  \|   try
+                  \|     execute 'lcd' '`=fugitive#repo().tree()`'
+                  \|   catch
+                  \|   endtry
+                  \| endif
 augroup END
 
 " When switching solarized background color in vim change the solarized
