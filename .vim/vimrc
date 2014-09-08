@@ -25,7 +25,6 @@ augroup load_delimitmate
 augroup END
 
 Plug 'tpope/vim-endwise'
-" XXX: see if this makes my 'o' map useless :)
 let g:endwise_abbreviations = 1
 let g:endwise_no_mappings = 1
 
