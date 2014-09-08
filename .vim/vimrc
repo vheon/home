@@ -16,7 +16,7 @@ Plug 'tpope/vim-repeat'
 
 " XXX: do I relly need this plugin? I have to type the closing brackets anyway
 " to jump them so why not type them to close them?
-Plug 'Raimondi/delimitMate', { 'on': [] }
+Plug 'vheon/delimitMate', { 'branch': 'fix-abbr-pumvisible', 'on': [] }
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 augroup load_delimitmate
