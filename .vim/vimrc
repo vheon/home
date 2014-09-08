@@ -270,7 +270,7 @@ nnoremap <silent> <leader>et
 " https://twitter.com/garybernhardt/status/40292706609532928
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 nmap <leader>e. :edit %%
-nmap <leader>v. :edit %%
+nmap <leader>v. :view %%
 
 nnoremap <C-n> :set invnumber<cr>
 
