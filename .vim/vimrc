@@ -75,12 +75,6 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-dispatch'
 Plug 'adimit/prolog.vim'
 
-" XXX: consider to switch back to single plugin for the language that I use
-Plug 'vheon/vim-polyglot'
-let g:scala_use_default_keymappings = 0
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_rails = 1
-
 " XXX: I would prefer using it with YouCompleteMe
 " Plug '$GOPATH/src/github.com/nsf/gocode', { 'rtp': 'vim/' }
 
@@ -97,6 +91,12 @@ Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_column_always = 1
 nmap [h <Plug>GitGutterPrevHunk
 nmap ]h <Plug>GitGutterNextHunk
+
+" XXX: consider to switch back to single plugin for the language that I use
+Plug 'vheon/vim-polyglot'
+let g:scala_use_default_keymappings = 0
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_rails = 1
 
 call plug#end()
 
