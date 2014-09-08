@@ -95,6 +95,8 @@ Plug 'Valloric/MatchTagAlways'
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_column_always = 1
+nmap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>GitGutterNextHunk
 
 call plug#end()
 
