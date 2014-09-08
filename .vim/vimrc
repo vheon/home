@@ -158,8 +158,8 @@ let s:cursor_mode_color_map = {
       \   "n":      "#839496",
       \   "i":      "#268bd2",
       \   "v":      "#cb4b16",
-      \   "V":      "#d33682",
-      \   "\<C-V>": "#dc322f",
+      \   "V":      "#b58900",
+      \   "\<C-V>": "#6c71c4",
       \ }
 
 let s:last_mode = ''
