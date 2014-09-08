@@ -125,6 +125,7 @@ set cinoptions=L0,g0,N-s,t0,(0
 set shiftround
 
 set timeoutlen=500
+set updatetime=500
 
 set lazyredraw
 set smartcase
