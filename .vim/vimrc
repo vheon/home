@@ -143,7 +143,7 @@ endif
 " Mode cursor
 " XXX: should I extract it in a plugin?
 "      if !has('gui_running')
-"        set statusline +=%{Mode_cursor()}
+"        let &statusline .= '%{Mode_cursor()}'
 "      else
 "        " Setup 'guicursor' with the same colors
 "      endif
