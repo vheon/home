@@ -42,6 +42,7 @@ Plug 'kana/vim-textobj-help'
 Plug 'machakann/vim-textobj-delimited'
 Plug 'PeterRincker/vim-argumentative'
 
+Plug 'bronson/vim-visual-star-search'
 Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -292,19 +293,6 @@ xnoremap <silent> at atV
 " For more info, see: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
-
-" makes * and # work on visual mode too.
-" Extracted from https://github.com/nelstrom/vim-visual-star-search
-" I don't like the additional mapping and is too small for a plugin for me
-function! s:VSetSearch(cmdtype)
-  let temp = @s
-  norm! gv"sy
-  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
-  let @s = temp
-endfunction
-
-xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
 nnoremap <Leader>s
       \ :call selecta#command("breadth-first-gfind *", "", ":e")<cr>
