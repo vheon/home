@@ -94,7 +94,6 @@ nmap [h <Plug>GitGutterPrevHunk
 nmap ]h <Plug>GitGutterNextHunk
 
 Plug 'fatih/vim-go'
-let g:go_bin_path = $GOBIN
 
 " XXX: consider to switch back to single plugin for the language that I use
 Plug 'vheon/vim-polyglot'
