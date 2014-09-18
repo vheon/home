@@ -1,5 +1,5 @@
 inoremap <buffer> <C-l> =>
 
 nnoremap <buffer> <Leader>s
-      \ :call selecta#command("breadth-first-gfind * \| grep -v  target/", "", ":e")<cr>
+      \ :call selecta#command('files -i ''^(\.git\|\.hg\|\.svn\|_darcs\|\.brz)$\|target''', "", ":e")<cr>
 

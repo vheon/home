@@ -264,7 +264,7 @@ cnoremap <C-p> <Up>
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>ez :e ~/.zshrc<CR>
 nnoremap <silent> <leader>et
-      \ :call selecta#command("find ~/.cache/vtests -type f", "", ":e")<cr>
+      \ :call selecta#command("files -a -A ~/.cache/vtests", "", ":e")<cr>
 
 " http://vimcasts.org/episodes/the-edit-command
 " https://twitter.com/garybernhardt/status/40292706609532928
@@ -293,10 +293,10 @@ xnoremap <silent> at atV
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
 
-nnoremap <Leader>s
-      \ :call selecta#command("breadth-first-gfind *", "", ":e")<cr>
-nnoremap <Leader>g
-      \ :call selecta#command("breadth-first-gfind *", "-s ".expand('<cword>'), ":e")<cr>
+nnoremap <silent> <Leader>s
+      \ :call selecta#command("files -A", "", ":e")<cr>
+nnoremap <silent> <Leader>g
+      \ :call selecta#command("files -A", "-s ".expand('<cword>'), ":e")<cr>
 
 " ##########
 " Autocmd(s)
