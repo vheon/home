@@ -170,8 +170,14 @@ function! Mode_cursor()
   if mode !=# s:last_mode
     let s:last_mode = mode
     if has_key(s:cursor_mode_color_map, mode)
-      let escape = strpart(s:cursor_mode_color_map[mode], 1)
-      execute 'noautocmd silent! !printf' printf(s:color_template, s:cursor_mode_prefix, escape)
+      try
+        let save_ei = &eventignore
+        set eventignore="all"
+        let escape = substitute(s:cursor_mode_color_map[mode], '^#', '', '')
+        execute 'silent! !printf' printf(s:color_template, s:cursor_mode_prefix, escape)
+      finally
+        let &eventignore = save_ei
+      endtry
     endif
   endif
   return ''
