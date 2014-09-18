@@ -93,7 +93,10 @@ let g:gitgutter_sign_column_always = 1
 nmap [h <Plug>GitGutterPrevHunk
 nmap ]h <Plug>GitGutterNextHunk
 
-Plug 'fatih/vim-go'
+function! GoBinsInstall(info)
+  GoUpdateBinaries
+endfunction
+Plug 'fatih/vim-go', { 'do': function('GoBinsInstall')}
 
 " XXX: consider to switch back to single plugin for the language that I use
 Plug 'vheon/vim-polyglot'
