@@ -133,10 +133,10 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
-" Mode cursor
+" Cursor Mode
 " XXX: should I extract it in a plugin?
 "      if !has('gui_running')
-"        let &statusline .= '%{Mode_cursor()}'
+"        let &statusline .= '%{CursorMode()}'
 "      else
 "        " Setup 'guicursor' with the same colors
 "      endif
@@ -159,7 +159,7 @@ let s:cursor_mode_color_map = {
 let s:last_mode = ''
 let s:color_template = '"%s\033]Pl%s\033\\"'
 let s:cursor_mode_prefix = exists('$TMUX') ? '\033Ptmux;\033' : ''
-function! Mode_cursor()
+function! CursorMode()
   let mode = mode()
   if mode !=# s:last_mode
     let s:last_mode = mode
@@ -177,7 +177,7 @@ function! Mode_cursor()
   return ''
 endfunction
 
-let &statusline  = has('gui_running') ? '' : '%{Mode_cursor()}'
+let &statusline  = ''
 let &statusline .= '%h%w '
 let &statusline .= '%<%f '
 let &statusline .= '%{fugitive#statusline()}'
@@ -186,6 +186,7 @@ let &statusline .= '%='
 let &statusline .= '%y '
 let &statusline .= '%-14(%P %3l:%02c%)'
 let &statusline .= '[%{strlen(&l:fenc) ? &enc : &l:fenc}]'
+let &statusline .= has('gui_running') ? '' : '%{CursorMode()}'
 set cmdheight=2
 set noshowmode
 set wildmode=list:longest
