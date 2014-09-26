@@ -70,9 +70,6 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-dispatch'
 Plug 'adimit/prolog.vim'
 
-" XXX: I would prefer using it with YouCompleteMe
-" Plug '$GOPATH/src/github.com/nsf/gocode', { 'rtp': 'vim/' }
-
 Plug 'Valloric/MatchTagAlways'
 " XXX: I should use something a little more generic. See gary bernhardt setup
 " Plug 'thoughtbot/vim-rspec'
