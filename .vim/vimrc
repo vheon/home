@@ -339,12 +339,13 @@ augroup END
 
 " When switching colorscheme in terminal vim change the profile in iTerm as well.
 if !has('gui_running')
+  let s:iterm2_profile = 'printf "\033]50;SetProfile=%s\x7" > /dev/tty'
   augroup change_iterm2_profile
     autocmd!
     autocmd VimEnter,ColorScheme * if g:colors_name == "solarized"
-                                \|   execute 'silent! !printf' printf('"\033]50;SetProfile=solarized_%s\x7"', &background)
+                                \|   call system(printf(s:iterm2_profile, 'solarized_'.&background))
                                 \| else
-                                \|   execute 'silent! !printf' printf('"\033]50;SetProfile=%s\x7"', g:colors_name)
+                                \|   call system(printf(s:iterm2_profile, g:colors_name))
                                 \| endif
   augroup END
 endif
