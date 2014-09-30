@@ -1,6 +1,6 @@
 
 function! startup#YCMInstall(info)
-  if a:info.status == 'installed'
+  if a:info.status == 'installed' || a:info.force
     !./install.sh --clang-completer
   endif
 endfunction
