@@ -146,7 +146,8 @@ endif
 " but I use terminal vim on iTerm2 only at the moment so I send escape keys to
 " iTerm2 to change the cursor color. The colors are in the form of '#rrggbb'
 " because iTerm2 expect 'rrggbb', I put the '#' in there to prevent me to support
-" eventually other terminal emulator that use 256 colors or 16 colors.
+" eventually other terminal emulator that use 256 colors or 16 colors. I don't
+" even know if it's a good idea.
 let s:cursor_mode_color_map = {
       \   "n":      "#839496",
       \   "i":      "#268bd2",
@@ -156,21 +157,23 @@ let s:cursor_mode_color_map = {
       \ }
 
 let s:last_mode = ''
-let s:color_template = '"%s\033]Pl%s\033\\"'
-let s:cursor_mode_prefix = exists('$TMUX') ? '\033Ptmux;\033' : ''
+let s:escape_template = '"%s\033]Pl%s\033\\"'
+let s:escape_prefix = exists('$TMUX') ? '\033Ptmux;\033' : ''
 function! CursorMode()
   let mode = mode()
   if mode !=# s:last_mode
     let s:last_mode = mode
     if has_key(s:cursor_mode_color_map, mode)
-      try
-        let save_ei = &eventignore
-        set eventignore="all"
-        let escape = substitute(s:cursor_mode_color_map[mode], '^#', '', '')
-        execute 'silent! !printf' printf(s:color_template, s:cursor_mode_prefix, escape)
-      finally
-        let &eventignore = save_ei
-      endtry
+      let color = substitute(s:cursor_mode_color_map[mode], '^#', '', '')
+      let escape = printf(s:escape_template, s:escape_prefix, color)
+      let command = printf('printf %s > /dev/tty', escape)
+
+      " Sometime the call to system takes long enough to let vim fire some
+      " autocmd, like the one mentioned in `:h last-position-jump` so we  save
+      " the view and restore it later, but it doesn't work always anyway :(
+      let view = winsaveview()
+      call system(command)
+      call winrestview(view)
     endif
   endif
   return ''
