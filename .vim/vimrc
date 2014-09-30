@@ -107,6 +107,8 @@ set t_Co=16
 set background=dark
 colorscheme solarized
 
+set synmaxcol=512
+
 set encoding=utf-8
 
 set showmatch
