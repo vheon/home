@@ -239,8 +239,8 @@ command! W exec 'w !sudo tee % > /dev/null' | e!
 command! -nargs=0 StripWhitespace call functions#StripWhitespace()
 command! -nargs=0 FollowSymlink call functions#FollowSymlink()
 command! -nargs=* Stab call functions#Stab(<f-args>)
-command! -bar -nargs=* Scratch call functions#ScratchEdit(<q-args>)
 command! -nargs=0 Rename call functions#Rename()
+command! -bar -nargs=* Scratch call functions#ScratchEdit(<q-args>)
 
 " this is for stop profiling after starting vim with
 " vi --cmd 'profile start vimrc.profile' --cmd 'profile func *' --cmd 'profile file *'
