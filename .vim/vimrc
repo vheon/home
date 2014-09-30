@@ -206,6 +206,8 @@ set colorcolumn=81
 
 set viminfo=!,'10,<50,s20,h
 
+set nostartofline
+
 set noerrorbells
 set novisualbell
 set t_vb=
