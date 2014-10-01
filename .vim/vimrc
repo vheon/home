@@ -22,6 +22,7 @@ let g:netrw_altfile = 1
 Plug 'vheon/delimitMate', { 'branch': 'fix-abbr-pumvisible', 'on': [] }
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
+let delimitMate_excluded_regions = 'Comment,String'
 augroup load_delimitmate
   autocmd!
   autocmd! InsertEnter * call plug#load('delimitMate') | autocmd! load_delimitmate
