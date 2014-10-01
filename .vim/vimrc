@@ -270,6 +270,16 @@ inoremap <C-y> <esc>gUiw`]a
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 
+" copy the first range address and add + or -
+function! s:command_replicate_address(lhs, direction)
+  let match = matchstr(getcmdline(), '^.\{-1,}\ze,$')
+  return match == '' ? a:lhs : match.a:direction
+endfunction
+cnoremap > <C-R>=<SID>command_replicate_address(">", "+")<Cr>
+cnoremap < <C-R>=<SID>command_replicate_address("<", "-")<Cr>
+cnoremap <C-X>> >
+cnoremap <C-X>< <
+
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>ez :e ~/.zshrc<CR>
 nnoremap <silent> <leader>et
