@@ -1,7 +1,0 @@
-bundle/*
-plugged/*
-*.old
-*.pyc
-.netrwhist
-!.gitkeep
-tern/
