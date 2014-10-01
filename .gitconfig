@@ -1,0 +1,47 @@
+[user]
+	name = Andrea Cedraro
+	email = a.cedraro@gmail.com
+[core]
+	excludesfile = ~/.cvsignore
+[github]
+	user = vheon
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = magenta
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red
+	new = green
+	whitespace = white reverse
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+	branch = magenta
+[hub]
+	protocol = https
+[alias]
+	st = status
+	co = checkout
+	ci = commit --verbose
+	aa = add --all
+	di = diff
+	dc = diff --cached
+	amend = commit --amend
+
+	remotes = remote -v
+
+	start = "!git init && git commit --allow-empty -m 'Initial commit'"
+
+	# log stolen from gary bernhardt
+	l = "!. ~/.githelpers && pretty_git_log"
+	r = !git l -30
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[credential]
+	helper = osxkeychain
