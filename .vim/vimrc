@@ -100,6 +100,11 @@ let g:scala_use_default_keymappings = 0
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 
+Plug 'idbrii/vim-mark'
+let g:mark_no_mappings = 1
+nmap mw <Plug>MarkSet
+xmap mw <Plug>MarkSet
+
 call plug#end()
 
 runtime! macros/matchit.vim
@@ -116,6 +121,13 @@ set background=dark
 colorscheme solarized
 
 set synmaxcol=512
+
+hi! MarkWord1 ctermbg=6 ctermfg=Black
+hi! MarkWord2 ctermbg=4 ctermfg=Black
+hi! MarkWord3 ctermbg=2 ctermfg=Black
+hi! MarkWord4 ctermbg=5 ctermfg=Black
+hi! MarkWord5 ctermbg=3 ctermfg=Black
+hi! MarkWord6 ctermbg=9 ctermfg=Black
 
 set encoding=utf-8
 
