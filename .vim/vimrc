@@ -70,6 +70,9 @@ augroup END
 
 " XXX: take a deeper look a make a new one from scratch for YCM integration
 Plug 'vheon/vimomni.vim'
+let g:ycm_semantic_triggers = {
+      \   'vim': ['re!let\s+', 're!call\s+'],
+      \ }
 Plug 'tpope/vim-scriptease'
 
 Plug 'tpope/vim-dispatch'
