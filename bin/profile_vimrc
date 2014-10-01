@@ -1,0 +1,9 @@
+#!/bin/bash
+vi --cmd 'profile start vim.profile' \
+    --cmd 'profile func *'                 \
+    --cmd 'profile file *'                 \
+    -c 'profdel func *'                    \
+    -c 'profdel file *'                    \
+    -c 'qa!'
+
+

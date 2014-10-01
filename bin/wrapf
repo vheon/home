@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -e
+
+die() {
+	echo $1 2>&1
+	exit 1
+}
+
+wrapfile() {
+	basedir=$(dirname "$1")
+	filename=$(basename "$1")
+	dirname="${filename%.*}"
+	cd $basedir
+
+	if [[ -f $filename ]]; then
+		mkdir $dirname
+		mv $filename $dirname
+	else
+		die "Only files are accepted"
+	fi
+}
+
+for file in "$@"; do
+	wrapfile $file
+done
+

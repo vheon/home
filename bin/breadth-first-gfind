@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gfind -O3 $* -type f ! -path '*/\.*' -printf "%d\t%p\n" | sort -n | cut -f 2
+
