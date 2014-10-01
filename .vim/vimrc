@@ -3,7 +3,7 @@ set nocompatible
 let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
-call plug#begin()
+call plug#begin(g:dotvim.'/bundle')
 let g:plug_window = 'tabnew'
 
 Plug 'vheon/vim-colors-solarized'
