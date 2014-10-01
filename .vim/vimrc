@@ -55,6 +55,7 @@ Plug 'AndrewRadev/linediff.vim'
 
 Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': function('startup#YCMInstall') }
 let g:ycm_confirm_extra_conf    = 0
+let g:ycm_complete_in_comments  = 1
 let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
 let g:ycm_extra_conf_vim_data   = ['&filetype']
 let g:ycm_seed_identifiers_with_syntax = 1
