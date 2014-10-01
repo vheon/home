@@ -14,6 +14,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
 
+Plug 'tpope/vim-vinegar'
+let g:netrw_altfile = 1
+
 " XXX: do I relly need this plugin? I have to type the closing brackets anyway
 " to jump them so why not type them to close them?
 Plug 'vheon/delimitMate', { 'branch': 'fix-abbr-pumvisible', 'on': [] }
