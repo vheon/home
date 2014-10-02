@@ -40,7 +40,7 @@ prompt_vheon_setup() {
   add-zsh-hook preexec prompt_title_preexec_hook
   add-zsh-hook precmd prompt_vheon_precmd_hook
 
-  zstyle ':vcs_info:*' enable git hg svn
+  zstyle ':vcs_info:*' enable git hg
   zstyle ':vcs_info:*' check-for-changes true
   zstyle ':vcs_info:*' unstagedstr '?'
   zstyle ':vcs_info:*' stagedstr '!'
