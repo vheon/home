@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+sudo -v
+
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Set computer name
+sudo scutil --set ComputerName "spark"
+sudo scutil --set HostName "spark"
+sudo scutil --set LocalHostName "spark"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "spark"
+
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=" "
+
+# Menu bar: hide Time Machine, User icons
+for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
+	defaults write "${domain}" dontAutoLoad -array \
+		"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+		"/System/Library/CoreServices/Menu Extras/User.menu"
+
+done
+
+# Show percent battery
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
+
+#
+# SSD
+#
+
+# Disable local Time Machine snapshots
+sudo tmutil disablelocal
+
+
+#
+# Dock
+#
+
+# Set the icon size of Dock items to 36 pixels
+defaults write com.apple.doc tilesize -int 36
+
+# Change minimize/maximize window effect
+defaults write com.apple.dock mineffect -string "scale"
+
+# Show indicator lights for open applications in the Dock
+defaults write com.apple.dock show-precess-indicators -bool true
+
+# Don't show Dashboard as a space
+defaults write com.apple.dock dashboard-in-overlay -bool true
+
+
+# Hot corner
+# Top left screen corner -> Put screen to sleep
+defaults write com.apple.dock wvous-tl-corner -int 10
+defaults write com.apple.dock wvous-tl-modifier -int 0
+
+#
+# Time Machine
+#
+
+# Prevent Time Machine from prompting to use new hard drives as backup volume
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
