@@ -18,6 +18,8 @@ install brew-cask
 
 cask install iterm2
 
+cask install mplayerx
+
 cask install karabiner
 cask install bettertouchtool
 
