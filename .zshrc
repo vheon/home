@@ -64,10 +64,6 @@ alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Re
 # XXX: removes all WORDCHARS and add them when I see its needed
 export WORDCHARS=''
 
-# bind P and N for EMACS mode
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-
 bindkey '^[b' backward-word
 bindkey '^[^[[D' backward-word
 bindkey '^[f' forward-word
@@ -108,3 +104,6 @@ eval 'eval "$(rbenv init -)"'
 
 source $ZSH/func/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/func/zsh-history-substring-search/zsh-history-substring-search.zsh
+# bind P and N for EMACS mode
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
