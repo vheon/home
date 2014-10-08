@@ -27,6 +27,10 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 # Mute feedback on volume change
 defaults write -g 'com.apple.sound.beep.feedback' -bool false
 
+# Reveal IP address, hostname, OS version, etc. when clicking the clock
+# in the login window
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+
 ################################################################################
 # SSD                                                                          #
 ################################################################################
@@ -34,6 +38,17 @@ defaults write -g 'com.apple.sound.beep.feedback' -bool false
 # Disable local Time Machine snapshots
 sudo tmutil disablelocal
 
+# XXX: see if this is safe on a fusion drive
+# # Disable hibernation (speeds up entering sleep mode)
+# # Defaults is 3
+# sudo pmset -a hibernatemode 0
+
+# # Remove the sleep image file to save disk space
+# sudo rm /Private/var/vm/sleepimage
+# # Create a zero-byte file instead…
+# sudo touch /Private/var/vm/sleepimage
+# # …and make sure it can’t be rewritten
+# sudo chflags uchg /Private/var/vm/sleepimage
 
 ################################################################################
 # Dock                                                                         #
@@ -51,11 +66,24 @@ defaults write com.apple.dock show-precess-indicators -bool true
 # Don't show Dashboard as a space
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
+# Autohide the dock
+defaults write com.apple.Dock autohide -bool true
+
+################################################################################
+# Screen                                                                       #
+################################################################################
 
 # Hot corner
 # Top left screen corner -> Put screen to sleep
 defaults write com.apple.dock wvous-tl-corner -int 10
 defaults write com.apple.dock wvous-tl-modifier -int 0
+
+# Require password immediately after sleep or screen saver begins
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+# Disable shadow in screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
 
 ################################################################################
 # Time Machine                                                                 #
@@ -63,3 +91,59 @@ defaults write com.apple.dock wvous-tl-modifier -int 0
 
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
+################################################################################
+# Finder                                                                       #
+################################################################################
+
+# Show ~/Library folder
+chflags nohidden ~/Library/
+
+# Show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# Allow text selection in Quick Look
+defaults write com.apple.finder QLEnableTextSelection -bool true
+
+# Avoid creating .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Use columns view in all Finder windows by default
+# Four-letter codes for the other view modes: `icnv`, `Flwv`, `Nlsv`
+defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+
+################################################################################
+# Safari                                                                       #
+################################################################################
+
+# XXX: soon we'll update to yosemite so It's unkowns how this will work
+# # Hide bookmarks bar
+# defaults write com.apple.Safari ShowFavoritesBar -bool false
+
+################################################################################
+# Trackpad / Keyboard                                                          #
+################################################################################
+
+# Enable tap to click for current user and the login screen
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+# Enable full keyboard access for all controls
+# (e.g. enable Tab in modal dialogs)
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+################################################################################
+# Activity Monitor                                                             #
+################################################################################
+
+# Dock icon = CPU Usage
+defaults write com.apple.ActivityMonitor IconType -int 5
+
+################################################################################
+# Archive Utility                                                              #
+################################################################################
+
+# XXX: check this and see if it is worth it
+# # Move archives to trash after extraction
+# defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash"
