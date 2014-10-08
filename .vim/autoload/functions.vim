@@ -25,6 +25,16 @@ function! functions#Stab(...)
   endtry
 endfunction
 
+function! functions#Expandtab(tabstop)
+  let l:tabstop = a:tabstop
+  if l:tabstop > 0
+    let &l:sts = l:tabstop
+    let &l:ts = l:tabstop
+    let &l:sw = l:tabstop
+    setlocal expandtab
+  endif
+endfunction
+
 function! functions#FollowSymlink()
   let orig_file = fnameescape(expand('%:p'))
   if getftype(orig_file) == 'link'
