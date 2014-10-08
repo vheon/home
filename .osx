@@ -24,18 +24,20 @@ done
 # Show percent battery
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
+# Mute feedback on volume change
+defaults write -g 'com.apple.sound.beep.feedback' -bool false
 
-#
-# SSD
-#
+################################################################################
+# SSD                                                                          #
+################################################################################
 
 # Disable local Time Machine snapshots
 sudo tmutil disablelocal
 
 
-#
-# Dock
-#
+################################################################################
+# Dock                                                                         #
+################################################################################
 
 # Set the icon size of Dock items to 36 pixels
 defaults write com.apple.doc tilesize -int 36
@@ -55,9 +57,9 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 defaults write com.apple.dock wvous-tl-corner -int 10
 defaults write com.apple.dock wvous-tl-modifier -int 0
 
-#
-# Time Machine
-#
+################################################################################
+# Time Machine                                                                 #
+################################################################################
 
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true

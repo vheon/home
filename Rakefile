@@ -27,7 +27,8 @@ end
 
 desc "Setup Mac OS X defaults"
 task :osx do
-  sh ".osx"
+  sh abs_path('.osx')
+end
 
 def abs_path file
   File.expand_path(file)
