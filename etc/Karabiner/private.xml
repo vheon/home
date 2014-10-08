@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<root>
+  <deviceproductdef>
+    <productname>APPLE_INTERNAL_KEYBOARD_253</productname>
+    <productid>0x0253</productid>
+  </deviceproductdef>
+
+  <item>
+    <name>Cadet</name>
+    <item>
+      <name>Swap the Tilde(~) key with Section (§)</name>
+      <identifier>cadet.iso_swap_tilda_section</identifier>
+      <device_only>DeviceVendor::APPLE_INC, DeviceProduct::APPLE_INTERNAL_KEYBOARD_253</device_only>
+      <!-- On the internal keyboard make the Section work like the shifts -->
+      <!-- which means: parentheses on single hit and shift with other key -->
+      <!-- is my version of the international keyboard layout -->
+      <autogen>__KeyToKey__ KeyCode::UK_SECTION, KeyCode::BACKQUOTE</autogen>
+      <autogen>__KeyOverlaidModifier__ KeyCode::BACKQUOTE, KeyCode::SHIFT_L, KeyCode::KEY_9 | ModifierFlag::SHIFT_L</autogen>
+    </item>
+  </item>
+</root>

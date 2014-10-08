@@ -30,6 +30,11 @@ task :osx do
   sh abs_path('.osx')
 end
 
+desc "Link config file to non home locations"
+task :config_files => :homebrew do
+  ln_sf abs_path('~/etc/Karabiner/private.xml'), abs_path('~/Library/Application Support/Karabiner/private.xml')
+end
+
 def abs_path file
   File.expand_path(file)
 end
