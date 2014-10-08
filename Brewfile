@@ -1,35 +1,75 @@
-update
+#!/usr/bin/env bash
 
-install vim --override-system-vi --with-lua
-install cmake
-install ctags
-install findutils
-install git
-install ranger
-install rbenv
-install ruby-build
-install the_silver_searcher
-install tmux
-install tree
+# ask for password upfront
+sudo -v
 
-tap caskroom/cask
-tap caskroom/fonts
-install brew-cask
+# keep alive the sudo
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2> /dev/null &
 
-cask install iterm2
+function bot() {
+  # echo -n '\[._.]/ '
+  # echo -n '┌[._.]┐'
+  echo -n '【ツ】'
+}
 
-cask install mplayerx
+function brew() {
+  echo "$(bot)brew $@"
+  $(which brew) "$@"
+}
 
-cask install karabiner
-cask install bettertouchtool
+brew update
 
-cask install osxfuse
-cask install fuse-xfs
-cask install sshfs
+brew install vim --override-system-vi --with-lua
+brew install cmake
+brew install ctags
+brew install findutils
+brew install coreutils
+brew install git
+brew install ranger
+brew install rbenv
+brew install ruby-build
+brew install the_silver_searcher
+brew install tmux
+brew install tree
 
-cask install spotify
+# XXX: Create a version that support --HEAD
+brew install selecta
 
-cask install qlcolorcode
-cask install qlstephen
+brew tap caskroom/cask
+brew tap caskroom/fonts
+brew install brew-cask
 
-cask install font-source-code-pro
+brew cask install iterm2
+
+brew cask install flash
+
+brew cask install java
+
+brew cask install firefox
+brew cask install google-chrome
+
+brew cask install mplayerx
+
+brew cask install unrarx
+
+brew cask install karabiner
+brew cask install bettertouchtool
+
+brew cask install osxfuse
+brew cask install fuse-xfs
+brew cask install sshfs
+
+brew cask install spotify
+
+brew cask install qlcolorcode
+brew cask install qlstephen
+
+brew cask install font-source-code-pro
+brew cask install font-source-sans-pro
+
+brew cleanup
+brew doctor

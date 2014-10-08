@@ -22,14 +22,13 @@ end
 
 desc "Install from Brewfile"
 task :brewfile => :homebrew do
-  File.foreach('Brewfile') do |line|
-    unless line.chomp.empty? || line =~ /\A\s*#/
-      sh "brew #{line}"
-    end
-  end
+  sh abs_path('Brewfile')
 end
 
 desc "Setup Mac OS X defaults"
 task :osx do
   sh ".osx"
+
+def abs_path file
+  File.expand_path(file)
 end
