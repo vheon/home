@@ -32,6 +32,9 @@ tern/
 /Pictures
 /Public
 /Sites
-/code
+/code/*
+!/code/go/
+/code/go/*
+!/code/go/.gitkeep
 /projects
 

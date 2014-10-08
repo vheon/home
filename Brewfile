@@ -36,6 +36,8 @@ brew install the_silver_searcher
 brew install tmux
 brew install tree
 
+brew install go
+
 # XXX: Create a version that support --HEAD
 brew install selecta
 
