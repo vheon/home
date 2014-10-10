@@ -1,10 +1,7 @@
-/.vim/bundle/*
-/.vim/plugged/*
 *.old
 *.pyc
 .netrwhist
 !.gitkeep
-tern/
 /.CFUserTextEncoding
 /.Xauthority
 /.dropbox
@@ -34,4 +31,6 @@ tern/
 /Sites
 /code
 /projects
+/.vim/bundle/*
+/.vim/plugged/*
 
