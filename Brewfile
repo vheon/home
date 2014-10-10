@@ -29,6 +29,7 @@ brew install ctags
 brew install findutils
 brew install coreutils
 brew install git
+brew install hg
 brew install ranger
 brew install rbenv
 brew install ruby-build
