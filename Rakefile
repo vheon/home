@@ -11,7 +11,7 @@ task :homebrew do
 end
 
 desc "Bootstrap vim"
-task :vim do
+task :vim => [:brewfile, :extra_tools] do
   if not Dir['.vim/bundle/*'].empty?
     puts "** Vim plugins already installed. **"
   else
@@ -33,6 +33,16 @@ end
 desc "Link config file to non home locations"
 task :config_files => :homebrew do
   ln_sf abs_path('~/etc/Karabiner/private.xml'), abs_path('~/Library/Application Support/Karabiner/private.xml')
+end
+
+desc "Set up golang"
+task :golang => brewfile do
+  mkdir_p abs_path('~/code/go')
+end
+
+desc "Install extra tools needed"
+task :extra_tools => :golang do
+  sh 'go get github.com/mattn/files'
 end
 
 def abs_path file
