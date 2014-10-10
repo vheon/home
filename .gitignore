@@ -17,6 +17,7 @@
 /.bash_history
 /.zsh_history
 /.zcompdump
+/.cache/
 /.Trash/
 /Applications/
 /Desktop/
