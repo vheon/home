@@ -5,8 +5,29 @@
     <productid>0x0253</productid>
   </deviceproductdef>
 
+
+  <replacementdef>
+    <replacementname>CADET_UBIQUITOUS_VIM_BINDINGS_IGNORE_APPS</replacementname>
+    <replacementvalue>TERMINAL, VI, PASSWORD, EMACS</replacementvalue>
+  </replacementdef>
+
   <item>
     <name>Cadet</name>
+    <item>
+      <name>Ctrl-n/Ctrl-p to Up/Down</name>
+      <identifier>cadet.ctrl_n_p_up_down</identifier>
+        <not>{{CADET_UBIQUITOUS_VIM_BINDINGS_IGNORE_APPS}}</not>
+      <autogen>
+        __KeyToKey__
+        KeyCode::N, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+        KeyCode::CURSOR_DOWN
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::P, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+        KeyCode::CURSOR_UP
+      </autogen>
+    </item>
     <item>
       <name>Swap the Tilde(~) key with Section (§)</name>
       <identifier>cadet.iso_swap_tilda_section</identifier>
@@ -16,6 +37,50 @@
       <!-- is my version of the international keyboard layout -->
       <autogen>__KeyToKey__ KeyCode::UK_SECTION, KeyCode::BACKQUOTE</autogen>
       <autogen>__KeyOverlaidModifier__ KeyCode::BACKQUOTE, KeyCode::SHIFT_L, KeyCode::KEY_9 | ModifierFlag::SHIFT_L</autogen>
+    </item>
+
+    <item>
+      <name>Vi Insert Mode Commands</name>
+      <appendix>Ctrl-w delete preceding word (Shift+Option+Left, Delete)</appendix>
+      <appendix>Ctrl-u delete preceding line (Shift+Command+Left, Delete)</appendix>
+      <appendix>Ctrl-d remove an indent (Command+BracketLeft)</appendix>
+      <appendix>Ctrl-t add an indent (Command+BracketRight)</appendix>
+      <identifier>cadet.ubiq_vimnormal_insert</identifier>
+
+      <!-- Insert Mode Commands -->
+      <block>
+        <not>{{CADET_UBIQUITOUS_VIM_BINDINGS_IGNORE_APPS}}</not>
+
+        <!-- Ctrl-w -->
+        <autogen>
+          __KeyToKey__
+          KeyCode::W, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+          KeyCode::CURSOR_LEFT, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L,
+          KeyCode::DELETE
+        </autogen>
+
+        <!-- Ctrl-u -->
+        <autogen>
+          __KeyToKey__
+          KeyCode::U, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+          KeyCode::CURSOR_LEFT, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L,
+          KeyCode::DELETE
+        </autogen>
+
+        <!-- Ctrl-d -->
+        <autogen>
+          __KeyToKey__
+          KeyCode::D, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+          KeyCode::BRACKET_LEFT, ModifierFlag::COMMAND_L
+        </autogen>
+
+        <!-- Ctrl-t -->
+        <autogen>
+          __KeyToKey__
+          KeyCode::T, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+          KeyCode::BRACKET_RIGHT, ModifierFlag::COMMAND_L
+        </autogen>
+      </block>
     </item>
   </item>
 </root>
