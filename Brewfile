@@ -44,9 +44,10 @@ brew install selecta
 
 brew tap caskroom/cask
 brew tap caskroom/fonts
+brew tap caskroom/homebrew-versions
 brew install brew-cask
 
-brew cask install iterm2
+brew cask install iterm2-nightly
 
 brew cask install flash
 
@@ -59,6 +60,7 @@ brew cask install mplayerx
 
 brew cask install unrarx
 
+brew cask install seil
 brew cask install karabiner
 brew cask install bettertouchtool
 
