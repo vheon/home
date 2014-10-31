@@ -97,7 +97,7 @@ nfg() {
 }
 
 mountg() {
-  sshfs $USER@ghost.local:/mnt/storage $HOME/tmp/Storage -ovolname=Storage
+  sshfs -o volname=Storage -o Compression=no -o Ciphers=arcfour $USER@ghost.local:/mnt/storage $HOME/tmp/storage
 }
 
 eval 'eval "$(rbenv init -)"'
