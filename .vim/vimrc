@@ -94,6 +94,12 @@ let g:mark_no_mappings = 1
 nmap mw <Plug>MarkSet
 xmap mw <Plug>MarkSet
 
+Plug 'junegunn/goyo.vim'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+let g:pandoc#syntax#style#emphases = 0
+
+
 call plug#end()
 
 runtime! macros/matchit.vim
@@ -119,6 +125,7 @@ hi! MarkWord5 ctermbg=3 ctermfg=Black
 hi! MarkWord6 ctermbg=9 ctermfg=Black
 
 set encoding=utf-8
+set spelllang=en,it
 
 set showmatch
 set completeopt-=preview
