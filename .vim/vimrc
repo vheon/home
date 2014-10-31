@@ -88,12 +88,6 @@ nmap ]h <Plug>GitGutterNextHunk
 
 Plug 'fatih/vim-go', { 'do': function('startup#GoBinsInstall')}
 
-" XXX: consider to switch back to single plugin for the language that I use
-Plug 'vheon/vim-polyglot'
-let g:scala_use_default_keymappings = 0
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_rails = 1
-
 Plug 'idbrii/vim-mark'
 let g:mark_no_mappings = 1
 nmap mw <Plug>MarkSet
