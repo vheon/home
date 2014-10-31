@@ -7,6 +7,7 @@ call plug#begin(g:dotvim.'/bundle')
 let g:plug_window = 'tabnew'
 
 Plug 'vheon/vim-colors-solarized'
+Plug 'fmoralesc/vim-help-grimoire'
 Plug 'whatyouhide/vim-gotham'
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-commentary'
