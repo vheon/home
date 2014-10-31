@@ -87,6 +87,7 @@ nmap [h <Plug>GitGutterPrevHunk
 nmap ]h <Plug>GitGutterNextHunk
 
 Plug 'fatih/vim-go', { 'do': function('startup#GoBinsInstall')}
+let g:go_fmt_fail_silently = 1
 
 Plug 'idbrii/vim-mark'
 let g:mark_no_mappings = 1
