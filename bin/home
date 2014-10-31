@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# taken from http://rhodesmill.org/brandon/2012/home-directory-vc/
+
+if [ -d .git.off ] ;then
+    mv ~/.git.off ~/.git || exit 1
+    echo Home directory version control activated
+else
+    mv ~/.git ~/.git.off || exit 1
+    echo Home directory version control deactivated
+fi
