@@ -97,6 +97,7 @@ nfg() {
 }
 
 mountg() {
+  mkdir -p $HOME/tmp/storage
   sshfs -o volname=Storage -o Compression=no -o Ciphers=arcfour $USER@ghost.local:/mnt/storage $HOME/tmp/storage
 }
 
