@@ -24,20 +24,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-vinegar'
 let g:netrw_altfile = 1
 
-" XXX: do I relly need this plugin? I have to type the closing brackets anyway
-" to jump them so why not type them to close them?
-Plug 'vheon/delimitMate', { 'branch': 'fix-abbr-pumvisible', 'on': [] }
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-let delimitMate_excluded_regions = 'Comment,String'
-augroup load_delimitmate
+Plug 'cohama/lexima.vim', { 'on': [] }
+augroup load_lexima
   autocmd!
-  autocmd! InsertEnter * call plug#load('delimitMate') | autocmd! load_delimitmate
+  autocmd! InsertEnter * call plug#load('lexima.vim') | autocmd! load_lexima
 augroup END
-
-Plug 'tpope/vim-endwise'
-let g:endwise_abbreviations = 1
-let g:endwise_no_mappings = 1
 
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-unimpaired'
