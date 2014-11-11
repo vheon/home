@@ -342,7 +342,7 @@ if !has('gui_running')
       if g:colors_name == "solarized"
         let profile .= '_'.&background
       endif
-      call system(printf(iterm2_profile, profile))
+      silent call system(printf(iterm2_profile, profile))
     endif
   endfunction
 
