@@ -6,7 +6,11 @@ let g:mapleader="\<Space>"
 call plug#begin(g:dotvim.'/bundle')
 let g:plug_window = 'tabnew'
 
+" My plugins
+let g:plug_url_format = 'git@github.com:%s.git'
 Plug 'vheon/vim-colors-solarized'
+unlet! g:plug_url_format
+
 Plug 'fmoralesc/vim-help-grimoire'
 Plug 'whatyouhide/vim-gotham'
 Plug 'chriskempson/base16-vim'
