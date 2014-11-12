@@ -292,46 +292,35 @@ nnoremap <silent> g/
 nnoremap <silent> <Leader>g
       \ :call selecta#command("files -A", "-s ".expand('<cword>'), ":e")<cr>
 
-" ##########
-" Autocmd(s)
-" ##########
-augroup no_cursor_line_in_insert_mode
-  autocmd!
-  autocmd BufEnter,WinEnter,InsertLeave * set cursorline
-  autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
-augroup END
 
-augroup last_position_jump
+augroup VimrcAutocmds
   autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
-                     \|   execute 'normal! g`"zvzz'
-                     \| endif
 augroup END
+command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
+Autocmd FileType vim highlight def link myVimAutocmd vimAutoCmd
+Autocmd FileType vim match myVimAutocmd /\<\(Autocmd\)\>/
 
-" Every ftplugin in macvim runtime file override this
-augroup remove_formatoptions_o
-  autocmd!
-  autocmd FileType * setlocal formatoptions-=o
-augroup END
+Autocmd BufEnter,WinEnter,InsertLeave * set cursorline
+Autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
 
-" for profiling
-augroup profiling_vimrc
-  autocmd!
-  autocmd BufReadPost vim.profile setl ft=vim nolist
-augroup END
+Autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+                    \|   execute 'normal! g`"zvzz'
+                    \| endif
 
-augroup lcd_to_git_root_or_restore_last_set
-  autocmd!
-  autocmd BufLeave * let b:last_cwd = getcwd()
-  autocmd BufEnter * if exists('b:last_cwd')
-                  \|   execute 'lcd' b:last_cwd
-                  \| else
-                  \|   try
-                  \|     execute 'lcd' '`=fugitive#repo().tree()`'
-                  \|   catch
-                  \|   endtry
-                  \| endif
-augroup END
+Autocmd FileType * setlocal formatoptions-=o
+
+Autocmd BufReadPost vim.profile setl ft=vim nolist
+
+" local cd to git root using fugitive or if not available at last set cwd
+Autocmd BufLeave * let b:last_cwd = getcwd()
+Autocmd BufEnter * if exists('b:last_cwd')
+                \|   execute 'lcd' b:last_cwd
+                \| else
+                \|   try
+                \|     execute 'lcd' '`=fugitive#repo().tree()`'
+                \|   catch
+                \|   endtry
+                \| endif
 
 " When switching colorscheme in terminal vim change the profile in iTerm as well.
 if !has('gui_running')
@@ -346,10 +335,7 @@ if !has('gui_running')
     endif
   endfunction
 
-  augroup change_iterm2_profile
-    autocmd!
-    autocmd VimEnter,ColorScheme * call s:change_iterm2_profile()
-  augroup END
+  Autocmd VimEnter,ColorScheme * call s:change_iterm2_profile()
 endif
 
 " Just so I don't lose them xD  ᕕ( ᐛ )ᕗ  ¯\_(ツ)_/¯
