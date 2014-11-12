@@ -306,7 +306,7 @@ Autocmd BufEnter,WinEnter,InsertLeave * set cursorline
 Autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
 
 Autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
-                    \|   execute 'normal! g`"zvzz'
+                    \|   execute 'normal! g`"'
                     \| endif
 
 Autocmd FileType * setlocal formatoptions-=o
