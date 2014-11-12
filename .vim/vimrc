@@ -294,6 +294,7 @@ nnoremap <silent> <Leader>g
       \ :call selecta#command("files -A", "-s ".expand('<cword>'), ":e")<cr>
 
 
+" https://github.com/rhysd/dotfiles/blob/af0e953113175f6e5ee1ed3f8b368dd76eb05ad0/vimrc#L16-L19
 augroup VimrcAutocmds
   autocmd!
 augroup END
