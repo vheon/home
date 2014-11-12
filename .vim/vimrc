@@ -10,14 +10,15 @@ let g:plug_window = 'tabnew'
 let g:plug_url_format = 'git@github.com:%s.git'
 Plug 'vheon/vim-colors-solarized'
 Plug 'vheon/vim-cursormode'
-let cursor_mode#solarized#color_map = {
-      \   "n":      "#839496",
+let cursormode_solarized_color_map = {
+      \   "nlight": "#657b83",
+      \   "ndark":  "#839496",
       \   "i":      "#268bd2",
       \   "v":      "#cb4b16",
       \   "V":      "#b58900",
       \   "\<C-V>": "#6c71c4",
       \ }
-let cursor_mode#gotham#color_map = {
+let cursormode_gotham_color_map = {
       \   "n":      "#99d1ce",
       \   "i":      "#edb443",
       \   "v":      "#d26937",
