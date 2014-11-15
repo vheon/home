@@ -1,5 +1,5 @@
 " Set tabstop, softtabstop and shiftwidth to the same value
-function! functions#Stab(...)
+function! functions#SetIndent(...)
   let l:tabstop = a:0 ? a:1 : 1 * input('set tabstop = softtabstop = shiftwidth = ')
   if l:tabstop > 0
     let &l:sts = l:tabstop
