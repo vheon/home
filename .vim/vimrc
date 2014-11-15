@@ -9,21 +9,6 @@ let g:plug_window = 'tabnew'
 let g:plug_url_format = 'https://github.com/%s.git'
 Plug 'vheon/vim-colors-solarized'
 Plug 'vheon/vim-cursormode'
-let cursormode_solarized_color_map = {
-      \   "nlight": "#657b83",
-      \   "ndark":  "#839496",
-      \   "i":      "#268bd2",
-      \   "v":      "#cb4b16",
-      \   "V":      "#b58900",
-      \   "\<C-V>": "#6c71c4",
-      \ }
-let cursormode_gotham_color_map = {
-      \   "n":      "#99d1ce",
-      \   "i":      "#edb443",
-      \   "v":      "#d26937",
-      \   "V":      "#c23127",
-      \   "\<C-V>": "#4e5166",
-      \ }
 unlet! g:plug_url_format
 
 Plug 'fmoralesc/vim-help-grimoire'
@@ -47,6 +32,7 @@ augroup END
 
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
 
@@ -73,30 +59,31 @@ let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
 let g:ycm_extra_conf_vim_data   = ['&filetype']
 let g:ycm_seed_identifiers_with_syntax = 1
 
-" XXX: take a deeper look a make a new one from scratch for YCM integration
-Plug 'vheon/vimomni.vim'
-let g:ycm_semantic_triggers = {
-      \   'vim': ['re!let\s+', 're!call\s+'],
-      \ }
-Plug 'tpope/vim-scriptease'
-
-Plug 'tpope/vim-dispatch'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsEditSplit="vertical"
 
 Plug 'Valloric/MatchTagAlways'
 " XXX: I should use something a little more generic. See gary bernhardt setup
 " Plug 'thoughtbot/vim-rspec'
 " let g:rspec_command = "!rspec --color {spec}"
 
-" XXX: note to self for using eclim and putting it inside the plugged
-" directory
-" Plug g:plug_home.'/eclim'
+" XXX:
+" Plug 'airblade/vim-gitgutter'
+" let g:gitgutter_sign_column_always = 1
+" " XXX: by default they are mapped to [c ]c which they are can be tped with two
+" " hands which could be more comfortable
+" nmap [h <Plug>GitGutterPrevHunk
+" nmap ]h <Plug>GitGutterNextHunk
 
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_sign_column_always = 1
-nmap [h <Plug>GitGutterPrevHunk
-nmap ]h <Plug>GitGutterNextHunk
-
+Plug 'tpope/vim-scriptease'
 Plug 'fatih/vim-go', { 'do': function('startup#GoBinsInstall')}
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
 let g:go_fmt_fail_silently = 1
 
 Plug 'idbrii/vim-mark'
@@ -105,10 +92,13 @@ nmap mw <Plug>MarkSet
 xmap mw <Plug>MarkSet
 
 Plug 'junegunn/goyo.vim'
+autocmd! User GoyoEnter
+autocmd! User GoyoLeave
+autocmd User GoyoEnter call cursormode#LocalActivate()
+
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 let g:pandoc#syntax#style#emphases = 0
-
 
 call plug#end()
 
