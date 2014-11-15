@@ -6,8 +6,7 @@ let g:mapleader="\<Space>"
 call plug#begin(g:dotvim.'/bundle')
 let g:plug_window = 'tabnew'
 
-" My plugins
-let g:plug_url_format = 'git@github.com:%s.git'
+let g:plug_url_format = 'https://github.com/%s.git'
 Plug 'vheon/vim-colors-solarized'
 Plug 'vheon/vim-cursormode'
 let cursormode_solarized_color_map = {
