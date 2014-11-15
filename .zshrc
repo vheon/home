@@ -50,7 +50,7 @@ alias ftpstop='sudo -s launchctl unload -w /System/Library/LaunchDaemons/ftp.pli
 alias serve='python -m SimpleHTTPServer'
 alias retag='ctags -R . --exclude=.svn --exclude=.git --exclude=log --exclude=tmp'
 
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com | tee ~/var/ip"
 # alias localip="ifconfig getifaddr en1"
 
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
