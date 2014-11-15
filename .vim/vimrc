@@ -279,8 +279,6 @@ inoremap <C-w> <C-g>u<C-w>
 
 nnoremap <silent> g/
       \ :call picker#command("files -A", "", ":e")<cr>
-nnoremap <silent> <Leader>g
-      \ :call selecta#command("files -A", "-s ".expand('<cword>'), ":e")<cr>
 
 
 " https://github.com/rhysd/dotfiles/blob/af0e953113175f6e5ee1ed3f8b368dd76eb05ad0/vimrc#L16-L19
