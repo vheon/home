@@ -314,13 +314,16 @@ Autocmd BufEnter * if exists('b:last_cwd')
 " When switching colorscheme in terminal vim change the profile in iTerm as well.
 if !has('gui_running')
   function! s:change_iterm2_profile()
+    let dual_colorschemes = ["solarized"]
     if exists('g:colors_name')
-      let iterm2_profile = 'printf "\033]50;SetProfile=%s\x7" > /dev/tty'
+      let tmux_escape_prefix  = empty('$TMUX') ? '' : '\033Ptmux;\033'
+      let tmux_escape_postfix = empty('$TMUX') ? '' : '\033\\'
+      let iterm2_profile = 'printf "%s\033]50;SetProfile=%s\x7%s" > /dev/tty'
       let profile = g:colors_name
-      if g:colors_name == "solarized"
+      if index(dual_colorschemes, g:colors_name) >= 0
         let profile .= '_'.&background
       endif
-      silent call system(printf(iterm2_profile, profile))
+      silent call system(printf(iterm2_profile, tmux_escape_prefix, profile, tmux_escape_postfix))
     endif
   endfunction
 
