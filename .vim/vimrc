@@ -91,6 +91,8 @@ let g:mark_no_mappings = 1
 nmap mw <Plug>MarkSet
 xmap mw <Plug>MarkSet
 
+Plug 'acustodioo/vim-tmux'
+
 Plug 'junegunn/goyo.vim'
 autocmd! User GoyoEnter
 autocmd! User GoyoLeave
