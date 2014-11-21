@@ -35,6 +35,7 @@ brew install rbenv
 brew install ruby-build
 brew install the_silver_searcher
 brew install tmux
+brew install reattach-to-user-namespace
 brew install tree
 
 brew install go
