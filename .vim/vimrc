@@ -294,9 +294,10 @@ Autocmd FileType vim match myVimAutocmd /\<\(Autocmd\)\>/
 Autocmd BufEnter,WinEnter,InsertLeave * set cursorline
 Autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
 
-Autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
-                    \|   execute 'normal! g`"zvzz'
-                    \| endif
+Autocmd BufReadPost *
+                   \| if &filetype !~ '^git\c' && if line("'\"") > 1 && line("'\"") <= line("$")
+                   \|   execute 'normal! g`"'
+                   \| endif
 
 Autocmd FileType * setlocal formatoptions-=o
 
