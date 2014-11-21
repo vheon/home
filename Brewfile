@@ -40,6 +40,8 @@ brew install tree
 
 brew install go
 
+brew install maven
+
 # XXX: Create a version that support --HEAD
 brew install selecta
 
