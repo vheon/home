@@ -53,7 +53,7 @@ alias retag='ctags -R . --exclude=.svn --exclude=.git --exclude=log --exclude=tm
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com | tee ~/var/ip"
 # alias localip="ifconfig getifaddr en1"
 
-alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+alias flush="dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
 
