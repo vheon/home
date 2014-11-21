@@ -113,6 +113,8 @@ mountg() {
   sshfs -o volname=Storage -o Compression=no -o Ciphers=arcfour $USER@ghost.local:/mnt/storage $HOME/tmp/storage
 }
 
+export JAVA_HOME=$(/usr/libexec/java_home)
+
 eval 'eval "$(rbenv init -)"'
 
 source $ZSH/func/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
