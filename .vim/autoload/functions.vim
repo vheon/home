@@ -67,3 +67,11 @@ function! functions#Rename()
     redraw!
   endif
 endfunction
+
+function! functions#Remove(file)
+  let file = fnamemodify(bufname(a:file),':p')
+  bdelete!
+  if !bufloaded(file) && delete(file)
+    echoerr 'Failed to delete "'.file.'"'
+  endif
+endfunction
