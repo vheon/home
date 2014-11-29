@@ -210,13 +210,13 @@ endif
 
 " Sudo write
 command! W exec 'w !sudo tee % > /dev/null' | e!
-command! -nargs=0 StripWhitespace call functions#StripWhitespace()
-command! -nargs=0 FollowSymlink call functions#FollowSymlink()
-command! -nargs=* SetIndent call functions#SetIndent(<f-args>)
-command! -nargs=+ Expandtab call functions#Expandtab(<f-args>)
-command! -nargs=0 Rename call functions#Rename()
-command!          Remove call functions#Remove()
-command! -bar -nargs=* Scratch call functions#ScratchEdit(<q-args>)
+command! -nargs=0           FollowSymlink   call functions#FollowSymlink()
+command! -nargs=*           SetIndent       call functions#SetIndent(<f-args>)
+command! -nargs=+           Expandtab       call functions#Expandtab(<f-args>)
+command! -nargs=0           Rename          call functions#Rename()
+command!                    Remove          call functions#Remove()
+command! -bar     -nargs=*  Scratch         call functions#ScratchEdit(<q-args>)
+command! -range=% -nargs=0  StripWhitespace call functions#StripWhitespace(<line1>,<line2>)
 
 " this is for stop profiling after starting vim with
 " vi --cmd 'profile start vimrc.profile' --cmd 'profile func *' --cmd 'profile file *'

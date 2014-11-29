@@ -43,10 +43,10 @@ function! functions#FollowSymlink()
   endif
 endfunction
 
-function! functions#StripWhitespace()
+function! functions#StripWhitespace(line1, line2)
   let save_cursor = getpos(".")
   let old_query   = getreg('/')
-  %s/\s\+$//e
+  execute printf('%d,%ds/\s\+$//e', a:line1, a:line2)
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction
