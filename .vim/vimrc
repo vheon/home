@@ -86,10 +86,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_fmt_fail_silently = 1
 
-Plug 'idbrii/vim-mark'
-let g:mark_no_mappings = 1
-nmap mw <Plug>MarkSet
-xmap mw <Plug>MarkSet
+" XXX: add visualmode version
+nmap mw <Plug>(SimpleMark)
+nnoremap <C-l> :nohlsearch<Cr>:MarkClearAll<cr><C-L>
 
 Plug 'acustodioo/vim-tmux'
 
@@ -257,15 +256,6 @@ nmap <leader>e. :edit %%
 nmap <leader>v. :view %%
 
 nnoremap <C-n> :set invnumber<cr>
-
-nnoremap <silent> <Leader>* :let @/ = '\<'.expand('<cword>').'\>' <Bar> set hlsearch<cr>
-
-" Since the * is on the 8 symbol and is used to search for the word under the
-" cursor, seems reasonable
-nnoremap <silent> <Leader>8 :set hlsearch<cr>
-" XXX: see if is necessary now that I don't start with nohlsearch
-" cnoremap <silent> <expr> <cr>
-"       \ getcmdtype() =~ '[/?]' ? '<cr>:nohlsearch<cr>' : '<cr>'
 
 " Make selecting inside an HTML tag better
 xnoremap <silent> it itVkoj
