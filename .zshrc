@@ -18,7 +18,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
 setopt AUTO_CD
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
-export CDPATH=$CDPATH:$HOME
 export SCALA_HOME=$(brew --repository)/Library/LinkedKegs/scala/libexec
 export GOPATH=$HOME/code/go
 export GOBIN=$GOPATH/bin
