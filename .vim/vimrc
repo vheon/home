@@ -90,7 +90,7 @@ let g:go_fmt_fail_silently = 1
 nmap mw <Plug>(SimpleMark)
 nnoremap <C-l> :nohlsearch<Cr>:MarkClearAll<cr><C-L>
 
-Plug 'acustodioo/vim-tmux'
+Plug 'tmux-plugins/vim-tmux'
 
 Plug 'junegunn/goyo.vim'
 autocmd! User GoyoEnter
