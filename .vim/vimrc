@@ -177,6 +177,7 @@ set cursorline
 set colorcolumn=81
 
 set viminfo=!,'10,<50,s20,h
+set undolevels=128
 
 set nostartofline
 
