@@ -23,6 +23,8 @@ export GOPATH=$HOME/code/go
 export GOBIN=$GOPATH/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export PATH="/usr/local/bin:$HOME/bin:$GOBIN:${PATH}"
+# append eclim bin to the path, but eclipse is installed by brew cask
+export PATH="$PATH:$(readlink /Applications/Eclipse.app)/../"
 export EDITOR=vi
 set -o emacs
 
