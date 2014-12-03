@@ -78,7 +78,7 @@ bindkey -M emacs '^X^E' edit-command-line
 
 # This inserts a tab after completing a redirect. You want this.
 # (Source: http://www.zsh.org/mla/users/2006/msg00690.html)
-function self-insert-redir() {
+self-insert-redir() {
     integer l=$#LBUFFER
     zle self-insert
     (( $l >= $#LBUFFER )) && LBUFFER[-1]=" $LBUFFER[-1]"
@@ -92,11 +92,11 @@ done
 # autoload -U url-quote-magic
 # zle -N self-insert url-quote-magic
 
-function take() {
+take() {
   mkdir -p $1 && cd $1
 }
 
-function trash() {
+trash() {
   mv $1 ~/.Trash
 }
 
