@@ -18,13 +18,6 @@
 " TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 " OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-hi! SimpleMarkWord1 ctermbg=6 ctermfg=Black
-hi! SimpleMarkWord2 ctermbg=4 ctermfg=Black
-hi! SimpleMarkWord3 ctermbg=2 ctermfg=Black
-hi! SimpleMarkWord4 ctermbg=5 ctermfg=Black
-hi! SimpleMarkWord5 ctermbg=3 ctermfg=Black
-hi! SimpleMarkWord6 ctermbg=9 ctermfg=Black
-
 let s:words = {}
 let s:indexes = [1, 2, 3, 4, 5, 6]
 
