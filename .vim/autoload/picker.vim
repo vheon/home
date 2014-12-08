@@ -7,12 +7,9 @@ function! picker#command(choice_command, picker_args, vim_command)
     let choice_command = a:choice_command
   endtry
 
-  try
-    let selection = system(choice_command . " | picker " . a:picker_args)
-  catch /Vim:Interrupt/
-    redraw!
-    return
-  endtry
+  let selection = system(choice_command . " | picker -vim " . a:picker_args)
   redraw!
-  exec a:vim_command selection
+  if !v:shell_error
+    exec a:vim_command selection
+  endif
 endfunction
