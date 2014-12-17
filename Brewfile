@@ -48,7 +48,8 @@ brew install selecta
 
 brew tap caskroom/cask
 brew tap caskroom/fonts
-brew tap caskroom/homebrew-versions
+brew tap caskroom/versions
+brew tap vheon/custom
 brew install brew-cask
 
 brew cask install iterm2-nightly
