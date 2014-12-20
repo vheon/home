@@ -274,12 +274,12 @@ nnoremap <silent> g/
       \ :call picker#command("files -A", "", ":e")<cr>
 
 " https://github.com/rhysd/dotfiles/blob/af0e953113175f6e5ee1ed3f8b368dd76eb05ad0/vimrc#L16-L19
+" but highlight Autocmd command properly
 augroup VimrcAutocmds
   autocmd!
 augroup END
 command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
-Autocmd FileType vim highlight def link myVimAutocmd vimAutoCmd
-Autocmd FileType vim match myVimAutocmd /\<\(Autocmd\)\>/
+Autocmd FileType vim syn keyword vimAutoCmd Autocmd skipwhite nextgroup=vimAutoEventList
 
 Autocmd BufEnter,WinEnter,InsertLeave * set cursorline
 Autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
