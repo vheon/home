@@ -71,13 +71,8 @@ Plug 'Valloric/MatchTagAlways'
 " Plug 'thoughtbot/vim-rspec'
 " let g:rspec_command = "!rspec --color {spec}"
 
-" XXX:
-" Plug 'airblade/vim-gitgutter'
-" let g:gitgutter_sign_column_always = 1
-" " XXX: by default they are mapped to [c ]c which they are can be tped with two
-" " hands which could be more comfortable
-" nmap [h <Plug>GitGutterPrevHunk
-" nmap ]h <Plug>GitGutterNextHunk
+Plug 'airblade/vim-gitgutter'
+let g:gitgutter_sign_column_always = 1
 
 Plug 'tpope/vim-scriptease'
 Plug 'fatih/vim-go', { 'do': function('startup#GoBinsInstall')}
