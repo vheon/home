@@ -144,6 +144,7 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
+if has('vim_starting')
 let &statusline  = ''
 let &statusline .= '%h%w '
 let &statusline .= '%<%f '
@@ -153,6 +154,7 @@ let &statusline .= '%='
 let &statusline .= '%y '
 let &statusline .= '%-14(%P %3l:%02c%)'
 let &statusline .= '[%{strlen(&l:fenc) ? &enc : &l:fenc}]'
+endif
 set cmdheight=2
 set noshowmode
 set wildmode=list:longest
