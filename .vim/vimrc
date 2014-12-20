@@ -81,10 +81,6 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_fmt_fail_silently = 1
 
-" XXX: add visualmode version
-nmap mw <Plug>(SimpleMark)
-nnoremap <C-l> :nohlsearch<Cr>:MarkClearAll<cr><C-L>
-
 Plug 'tmux-plugins/vim-tmux'
 
 Plug 'junegunn/goyo.vim'
@@ -112,13 +108,6 @@ set background=dark
 silent! colorscheme solarized
 
 set synmaxcol=512
-
-hi! MarkWord1 ctermbg=6 ctermfg=Black
-hi! MarkWord2 ctermbg=4 ctermfg=Black
-hi! MarkWord3 ctermbg=2 ctermfg=Black
-hi! MarkWord4 ctermbg=5 ctermfg=Black
-hi! MarkWord5 ctermbg=3 ctermfg=Black
-hi! MarkWord6 ctermbg=9 ctermfg=Black
 
 set encoding=utf-8
 set spelllang=en,it
@@ -231,6 +220,11 @@ inoremap <C-y> <esc>gUiw`]a
 " Practical Vim tip #34
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
+
+" XXX: add visualmode version
+nmap mw <Plug>(SimpleMark)
+nnoremap <silent> <C-L> :nohlsearch<CR>:MarkClearAll<CR><C-L>
+
 
 " copy the first range address and add + or -
 function! s:command_replicate_address(lhs, direction)
