@@ -157,6 +157,8 @@ set wildignore+=*.class
 
 set nomore
 
+set noshowcmd
+
 set noautochdir
 set hidden
 set cursorline
