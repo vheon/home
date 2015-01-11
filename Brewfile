@@ -13,7 +13,8 @@ done 2> /dev/null &
 function bot() {
   # echo -n '\[._.]/ '
   # echo -n '┌[._.]┐'
-  echo -n '【ツ】'
+  # echo -n '【ツ】'
+  echo -n ' ►_◄ '
 }
 
 function brew() {
