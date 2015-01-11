@@ -45,14 +45,14 @@ prompt_vheon_setup() {
   zstyle ':vcs_info:*' unstagedstr '?'
   zstyle ':vcs_info:*' stagedstr '!'
 
-  zstyle ':vcs_info:git:*' formats ' (±)-[%F{yellow}%b%f%u%c]'
-  zstyle ':vcs_info:git:*' actionformats ' %F{yellow}%b%f|%F{magenta}%a%f%u%c'
+  zstyle ':vcs_info:git:*' formats ' (±)-[%F{green}%b%f%u%c]'
+  zstyle ':vcs_info:git:*' actionformats ' %F{green}%b%f|%F{magenta}%a%f%u%c'
   zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 
   zstyle ':vcs_info:hg:*' formats ' (☿)-[%F{yellow}%b%f%u%c]'
 
-  zstyle ':vcs_info:git-svn:*' formats ' (±/☇)-[%F{yellow}%b%f%u%c]'
-  zstyle ':vcs_info:git-svn:*' actionformats ' %F{yellow}%b%f|%F{magenta}%a%f%u%c'
+  zstyle ':vcs_info:git-svn:*' formats ' (±/☇)-[%F{green}%b%f%u%c]'
+  zstyle ':vcs_info:git-svn:*' actionformats ' %F{green}%b%f|%F{magenta}%a%f%u%c'
   zstyle ':vcs_info:git-svn*+set-message:*' hooks git-untracked
 
   PROMPT=''
