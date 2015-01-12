@@ -5,10 +5,18 @@
     <productid>0x0253</productid>
   </deviceproductdef>
 
+  <appdef>
+    <appname>ECLIPSE</appname>
+    <equal>org.eclipse.eclipse</equal>
+    <equal>com.springsource.sts</equal>
+    <equal>org.springsource.sts.ide</equal>
+    <equal>org.eclipse.platform.ide</equal>
+  </appdef>
+
 
   <replacementdef>
     <replacementname>CADET_UBIQUITOUS_VIM_BINDINGS_IGNORE_APPS</replacementname>
-    <replacementvalue>TERMINAL, VI, PASSWORD, EMACS</replacementvalue>
+    <replacementvalue>TERMINAL, VI, PASSWORD, EMACS, ECLIPSE</replacementvalue>
   </replacementdef>
 
   <item>
