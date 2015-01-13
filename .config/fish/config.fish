@@ -30,7 +30,7 @@ function ll
 end
 
 function take
-  mkdir -p $argv[1] and cd $argv[1]
+  mkdir -p $argv[1]; and cd $argv[1]
 end
 
 # cd into whatever is the forefront Finder window.
