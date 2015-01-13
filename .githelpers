@@ -15,8 +15,8 @@
 
 HASH="%C(yellow)%h%Creset"
 RELATIVE_TIME="%Cgreen(%ar)%Creset"
-AUTHOR="%C(bold blue)<%an>%Creset"
-REFS="%C(bold red)%d%Creset"
+AUTHOR="%C(blue)<%an>%Creset"
+REFS="%C(red)%d%Creset"
 SUBJECT="%s"
 
 colsep=$'\c_' # i.e. ^_ (ASCII Unit Separator)
