@@ -1,5 +1,4 @@
-
-function! picker#command(choice_command, picker_args, vim_command)
+function! picker#command(choice_command, vim_command)
   try
     call fugitive#repo()
     let choice_command = "git ls-files --others --cached --exclude-standard"
@@ -7,9 +6,9 @@ function! picker#command(choice_command, picker_args, vim_command)
     let choice_command = a:choice_command
   endtry
 
-  let selection = system(choice_command . " | picker -vim " . a:picker_args)
+  let selection = system(choice_command . " | picker -vim")
   redraw!
   if !v:shell_error
-    exec a:vim_command selection
+    execute a:vim_command selection
   endif
 endfunction
