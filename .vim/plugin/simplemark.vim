@@ -52,6 +52,9 @@ endfunction
 
 function! s:simple_mark_word()
   let word = expand('<cword>')
+  if word =~ '^\s*$'
+    return
+  endif
 
   if has_key(s:words, word)
     call s:unmark_word(word)
