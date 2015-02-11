@@ -318,7 +318,7 @@ if !has('gui_running')
       if index(dual_colorschemes, g:colors_name) >= 0
         let profile .= '_'.&background
       endif
-      let escape = '\033]50;SetProfile='.profile.'%s\x7'
+      let escape = '\033]50;SetProfile='.profile.'\x7'
       if exists('$TMUX')
         let escape = '\033Ptmux;'.substitute(escape, '\\033', '\\033\\033', 'g').'\033\\'
       endif
