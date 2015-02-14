@@ -40,6 +40,9 @@
 	# log stolen from gary bernhardt
 	l = "!. ~/.githelpers && pretty_git_log"
 	r = !git l -30
+
+	remotes = remote -v
+	branches = branch -a
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
