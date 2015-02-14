@@ -32,7 +32,7 @@ brew install coreutils
 brew install git
 brew install hg
 brew install ranger
-brew install rbenv
+brew install rbenv --HEAD
 brew install rbenv-gem-rehash
 brew install ruby-build
 brew install the_silver_searcher
