@@ -79,8 +79,8 @@ brew cask install sshfs
 
 brew cask install spotify
 
-brew cask install qlcolorcode
-brew cask install qlstephen
+sudo brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch --qlplugindir="/Library/QuickLook"
+sudo brew cask install quicklook-csv betterzipql webpquicklook suspicious-package --qlplugindir="/Library/QuickLook"
 
 brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
