@@ -25,6 +25,8 @@ set -x PATH $PATH (readlink /Applications/Eclipse.app)"/../"
 
 set -x fish_greeting ''
 
+. (rbenv init -|psub)
+
 function a
   ls -lrth -G $argv
 end
