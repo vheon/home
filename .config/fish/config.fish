@@ -1,5 +1,9 @@
-# fish color
-set fish_color_autosuggestion --bold green
+# fish colors
+#
+# What I really want is use the base01 from solarized but I cant, so let's
+# change the 240th color in the 256 color palette and let fish-shell use that color
+printf "\033Ptmux;\033\033]4;240;rgb:58/6e/75\007\033\\" > /dev/tty
+set fish_color_autosuggestion 585858
 set fish_color_command green
 set fish_color_param blue
 set fish_color_quote yellow
