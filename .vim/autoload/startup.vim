@@ -6,6 +6,8 @@ function! startup#YCMInstall(info)
 endfunction
 
 function! startup#GoBinsInstall(info)
-  call plug#load('vim-go')
-  GoUpdateBinaries
+  if a:info.force
+    call plug#load('vim-go')
+    GoUpdateBinaries
+  endif
 endfunction
