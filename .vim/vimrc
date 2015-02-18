@@ -115,7 +115,6 @@ set synmaxcol=512
 set encoding=utf-8
 set spelllang=en,it
 
-set showmatch
 set completeopt-=preview
 set completeopt+=menuone
 set pumheight=30
