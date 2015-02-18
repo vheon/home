@@ -32,7 +32,6 @@ augroup END
 
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
 
