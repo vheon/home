@@ -201,7 +201,6 @@ if has('mouse')
   set ttymouse=xterm2
 endif
 
-" Sudo write
 command! W exec 'w !sudo tee % > /dev/null' | e!
 command! -nargs=0           FollowSymlink   call functions#FollowSymlink()
 command! -nargs=*           SetIndent       call functions#SetIndent(<f-args>)
