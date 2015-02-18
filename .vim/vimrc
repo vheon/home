@@ -138,6 +138,7 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
+set tabline=%!tabline#line()
 if has('vim_starting')
 let &statusline  = ''
 let &statusline .= '%h%w '
@@ -211,6 +212,7 @@ command! -nargs=0           Rename          call functions#Rename()
 command!                    Remove          call functions#Remove()
 command! -bar     -nargs=*  Scratch         call functions#ScratchEdit(<q-args>)
 command! -range=% -nargs=0  StripWhitespace call functions#StripWhitespace(<line1>,<line2>)
+command! -bang    -nargs=*  TabTitle        call tabline#set_title(<q-args>, <q-bang>)
 
 " this is for stop profiling after starting vim with
 " vi --cmd 'profile start vimrc.profile' --cmd 'profile func *' --cmd 'profile file *'
