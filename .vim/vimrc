@@ -80,8 +80,6 @@ let g:go_highlight_structs = 1
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 
-Plug 'tmux-plugins/vim-tmux'
-
 Plug 'junegunn/goyo.vim'
 autocmd! User GoyoEnter
 autocmd! User GoyoLeave
@@ -94,8 +92,10 @@ let g:pandoc#syntax#style#emphases = 0
 Plug 'vim-jp/cpp-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 
+Plug 'tmux-plugins/vim-tmux'
 Plug 'kballard/vim-fish'
 Plug 'LargeFile'
+
 call plug#end()
 
 runtime! macros/matchit.vim
