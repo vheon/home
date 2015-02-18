@@ -53,7 +53,6 @@ let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm.py'
 let g:ycm_extra_conf_vim_data   = ['&filetype']
 let g:ycm_seed_identifiers_with_syntax = 1
 
-Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
