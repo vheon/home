@@ -22,6 +22,9 @@
 /.cache/
 /.Trash/
 /.m2/
+/.gradle/
+/.config/subliminal.cache.dbm.db
+/VirtualBox VMs/
 /Applications/
 /Desktop/
 /Documents/
