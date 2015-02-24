@@ -18,11 +18,10 @@ endfunction
 function! profile#stop()
   profdel func *
   profdel file *
-  qa!
 endfunction
 
 function! profile#start()
-  profile start vim.profile
+  execute 'profile start' g:dotvim.'/vim.profile'
   profile func *
   profile file *
 endfunction
