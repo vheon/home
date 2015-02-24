@@ -72,7 +72,7 @@ let g:tagbar_autoclose = 1
 let g:tagbar_width = 55
 nnoremap <Leader>o :TagbarToggle<CR>
 
-Plug 'fatih/vim-go', { 'do': function('startup#GoBinsInstall')}
+Plug 'fatih/vim-go', { 'do': function('startup#GoBinsInstall') }
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1

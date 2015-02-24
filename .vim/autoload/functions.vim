@@ -25,6 +25,7 @@ function! functions#SetIndent(...)
   endtry
 endfunction
 
+
 function! functions#Expandtab(tabstop)
   let l:tabstop = a:tabstop
   if l:tabstop > 0
@@ -35,6 +36,7 @@ function! functions#Expandtab(tabstop)
   endif
 endfunction
 
+
 function! functions#FollowSymlink()
   let orig_file = fnameescape(expand('%:p'))
   if getftype(orig_file) == 'link'
@@ -42,6 +44,7 @@ function! functions#FollowSymlink()
     execute 'silent! file ' . fnameescape(target_file) . ' | e'
   endif
 endfunction
+
 
 function! functions#StripWhitespace(line1, line2)
   let save_cursor = getpos(".")
@@ -51,11 +54,13 @@ function! functions#StripWhitespace(line1, line2)
   call setreg('/', old_query)
 endfunction
 
+
 function! functions#ScratchEdit(options)
   exe 'edit' tempname()
   setl buftype=nofile bufhidden=wipe nobuflisted
   if !empty(a:options) | exe 'setl' a:options | endif
 endfunction
+
 
 " stolen form Gary Bernhardt
 function! functions#Rename()
@@ -67,6 +72,7 @@ function! functions#Rename()
     redraw!
   endif
 endfunction
+
 
 function! functions#Remove(file)
   let file = fnamemodify(bufname(a:file),':p')
