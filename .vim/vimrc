@@ -158,6 +158,7 @@ set wildignore+=*.png,*.jpg,*.jpeg,*.gif
 set wildignore+=*.mkv,*.avi
 set wildignore+=*.pyc
 set wildignore+=*.class
+set wildignore+=target/*,build/*
 
 set nomore
 
