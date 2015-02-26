@@ -4,7 +4,7 @@ import re
 
 def LoadSystemIncludes(filetype):
     regex = re.compile(ur'(?:\#include \<...\> search starts here\:)(?P<list>.*?)(?:End of search list)', re.DOTALL)
-    process = subprocess.Popen(['clang', '-v', '-E'] + filetype + ['-'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen(['clang', '-v', '-E', '-x', filetype, '-'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     process_out, process_err = process.communicate('')
     output = process_out + process_err
     includes = []
@@ -63,14 +63,14 @@ def FlagsForFile(filename, **kwargs):
   filetype = data['&filetype']
 
   if filetype == 'c':
-    language = ['-x', 'c']
+    language = 'c'
   elif filetype == 'cpp':
-    language = ['-x', 'c++']
+    language = 'c++'
     extra_flags += ['-std=c++11']
   elif filetype == 'objc':
-    language = ['-ObjC']
+    language = 'objective-c'
 
-  flags = base_flags + extra_flags + language + LoadSystemIncludes(language)
+  flags = base_flags + extra_flags + ['-x', language] + LoadSystemIncludes(language)
 
   relative_to = DirectoryOfThisScript()
   final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )
