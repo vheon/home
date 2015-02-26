@@ -1,5 +1,5 @@
 setlocal colorcolumn=
-nnoremap q :q<cr>
+nnoremap <buffer> q :q<cr>
 
 function! s:help_tag(prev)
   call search('|\S\+|', a:prev.'W')
