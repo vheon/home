@@ -169,6 +169,7 @@ set hidden
 set cursorline
 set colorcolumn=81
 
+set diffopt=filler,foldcolumn:0,vertical,context:999
 set viminfo=!,'10,<50,s20,h
 set undolevels=128
 
