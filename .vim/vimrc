@@ -63,9 +63,6 @@ Plug 'Valloric/MatchTagAlways'
 " Plug 'thoughtbot/vim-rspec'
 " let g:rspec_command = "!rspec --color {spec}"
 
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_sign_column_always = 1
-
 Plug 'tpope/vim-scriptease'
 Plug 'majutsushi/tagbar'
 let g:tagbar_autoclose = 1
