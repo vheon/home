@@ -62,7 +62,7 @@ Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="context"
 
 Plug 'Valloric/MatchTagAlways'
 " XXX: I should use something a little more generic. See gary bernhardt setup
