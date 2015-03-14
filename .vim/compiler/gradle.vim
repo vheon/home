@@ -12,13 +12,15 @@ set cpo-=C
 
 CompilerSet makeprg=gradle
 CompilerSet errorformat=
-      \%-G:%.%\\+,
-      \%E%f:\ %\\d%\\+:\ %m\ @\ line\ %l\\,\ column\ %c.,%-C%.%#,%Z%p^,
-      \%E%>%f:\ %\\d%\\+:\ %m,%C\ @\ line\ %l\\,\ column\ %c.,%-C%.%#,%Z%p^,
-      \%-G\\s%#,
+      \%f:%l:\ %m,
+      \%-G:%.%#,
+      \%-G%\\s%#,
+      \%-GIncremental%.%#,
       \%-GBUILD\ SUCCESSFUL,
-      \%-GTotal\ \time:\ %.%#
+      \%-GTotal\ time:\ %.%#
 
+      " \%E%f:\ %\\d%\\+:\ %m\ @\ line\ %l\\,\ column\ %c.,%-C%.%#,%Z%p^,
+      " \%E%>%f:\ %\\d%\\+:\ %m,%C\ @\ line\ %l\\,\ column\ %c.,%-C%.%#,%Z%p^,
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
