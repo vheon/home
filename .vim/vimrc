@@ -7,6 +7,8 @@ let g:mapleader="\<Space>"
 
 call plug#begin(g:dotvim.'/bundle')
 let g:plug_window = 'tabnew'
+let g:plug_timeout = 1000
+
 " I have to load this before eclim
 Plug 'vim-jp/vim-java'
 
