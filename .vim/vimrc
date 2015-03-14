@@ -21,8 +21,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
 
-Plug 'tpope/vim-vinegar'
-let g:netrw_altfile = 1
+Plug 'justinmk/vim-dirvish'
 
 Plug 'cohama/lexima.vim', { 'on': [] }
 augroup load_lexima
