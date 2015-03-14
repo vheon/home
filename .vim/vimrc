@@ -11,6 +11,7 @@ let g:plug_window = 'tabnew'
 let g:plug_url_format = 'https://github.com/%s.git'
 Plug 'vheon/vim-colors-solarized'
 Plug 'vheon/vim-cursormode'
+Plug 'vheon/vim-sleuth', { 'branch': 'lua' }
 unlet! g:plug_url_format
 
 Plug 'fmoralesc/vim-help-grimoire'
@@ -18,7 +19,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
 
 Plug 'justinmk/vim-dirvish'
