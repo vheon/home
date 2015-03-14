@@ -12,6 +12,8 @@ let g:plug_url_format = 'https://github.com/%s.git'
 Plug 'vheon/vim-colors-solarized'
 Plug 'vheon/vim-cursormode'
 Plug 'vheon/vim-sleuth', { 'branch': 'lua' }
+Plug 'vheon/vim-eclim', { 'tag': '2.4.0' }
+let g:EclimCompletionMethod = 'omnifunc'
 unlet! g:plug_url_format
 
 Plug 'fmoralesc/vim-help-grimoire'
