@@ -1,6 +1,8 @@
 *.old
 *.pyc
 .netrwhist
+/.nviminfo
+/.nvimlog
 /.config/fish/fish_history
 /.config/fish/fishd*
 !.gitkeep
