@@ -216,6 +216,7 @@ set foldminlines=5
 set foldmethod=manual
 
 set list
+let &fillchars = "vert:\u2502"
 let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
 let &showbreak = "\u21aa "
 
