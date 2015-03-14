@@ -94,7 +94,7 @@ function! functions#SmartWinHelp()
     wincmd K
   endif
 
-  if winheight(0) < 80
+  if winwidth(0) < 80
     wincmd T
   endif
 endfunction
