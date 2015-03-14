@@ -92,6 +92,30 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'kballard/vim-fish'
 Plug 'LargeFile'
 
+if has('nvim')
+  Plug 'ctrlpvim/ctrlp.vim'
+  let g:ctrlp_match_window = 'order:ttb,min:20,max:20'
+  let g:ctrlp_prompt_mappings = {
+    \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
+    \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+    \ 'PrtHistory(-1)':       [],
+    \ 'PrtHistory(1)':        [],
+    \ }
+  nnoremap <silent> g/ :CtrlP<cr>
+else
+  Plug 'wincent/command-t', { 'do': 'rake make' }
+  let g:CommandTMinHeight = 20
+  let g:CommandTMaxHeight = 20
+  let g:CommandTFileScanner = 'find'
+  let g:CommandTTraverseSCM = 'pwd'
+  let g:CommandTCancelMap = '<Esc>'
+  let g:CommandTHighlightColor = 'CursorLine'
+  nnoremap <silent> g/ :CommandT<cr>
+endif
+
+" Plug 'bruno-/vim-man'
+Plug 'wting/rust.vim'
+
 call plug#end()
 
 runtime! macros/matchit.vim
@@ -244,8 +268,6 @@ cnoremap <C-X>< <
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>ez :e ~/.zshrc<CR>
-nnoremap <silent> <leader>et
-      \ :call picker#command("files -a -A ~/.cache/vtests", ":e")<cr>
 
 " http://vimcasts.org/episodes/the-edit-command
 " https://twitter.com/garybernhardt/status/40292706609532928
@@ -264,11 +286,6 @@ xnoremap <silent> at atV
 " For more info, see: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
-
-" XXX: change the api for this. Inside we use git ls-files and fallback to
-" what we pass, in this case `files -A`. Is it optimal?
-nnoremap <silent> g/
-      \ :call picker#command("files -A", ":e")<cr>
 
 " https://github.com/rhysd/dotfiles/blob/af0e953113175f6e5ee1ed3f8b368dd76eb05ad0/vimrc#L16-L19
 " but highlight Autocmd command properly
