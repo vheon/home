@@ -7,6 +7,8 @@ let g:mapleader="\<Space>"
 
 call plug#begin(g:dotvim.'/bundle')
 let g:plug_window = 'tabnew'
+" I have to load this before eclim
+Plug 'vim-jp/vim-java'
 
 let g:plug_url_format = 'https://github.com/%s.git'
 Plug 'vheon/vim-colors-solarized'
