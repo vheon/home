@@ -308,16 +308,24 @@ Autocmd FileType * setlocal formatoptions-=o
 
 Autocmd BufReadPost vim.profile setl ft=vim nolist
 
-" local cd to git root using fugitive or if not available at last set cwd
+" Poor man vim-rooter, git only, using fugitive
 Autocmd BufLeave * let b:last_cwd = getcwd()
 Autocmd BufEnter * if exists('b:last_cwd')
                 \|   execute 'lcd' b:last_cwd
                 \| else
-                \|   try
-                \|     lcd `=fugitive#repo().tree()`
-                \|   catch
-                \|   endtry
+                \|   silent! lcd `=fugitive#repo().tree()`
                 \| endif
+
+" version with g:rooter_change_directory_for_non_project_files = 1
+" Autocmd bufenter * if exists('b:last_cwd')
+"                 \|   execute 'lcd' b:last_cwd
+"                 \| else
+"                 \|   try
+"                 \|     lcd `=fugitive#repo().tree()`
+"                 \|   catch
+"                 \|     silent! lcd %:p:h
+"                 \|   endtry
+"                 \| endif
 
 " For some reason the runtime help when opened (at least on my machine) fires
 " the FileType event multiple times causing problems with this function so I'm
