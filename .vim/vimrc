@@ -1,7 +1,3 @@
-" I know that it is not needed since we are loading a vimrc
-" (:h 'nocompatible') but I'm attached to this :)
-set nocompatible
-
 let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
