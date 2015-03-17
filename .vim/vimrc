@@ -268,7 +268,7 @@ cnoremap < <C-R>=<SID>command_replicate_address("<", "-")<Cr>
 cnoremap <C-X>> >
 cnoremap <C-X>< <
 
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :e `=g:dotvim.'/vimrc'`<CR>
 nnoremap <silent> <leader>ez :e ~/.zshrc<CR>
 
 " http://vimcasts.org/episodes/the-edit-command
