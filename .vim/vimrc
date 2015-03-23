@@ -93,26 +93,20 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'kballard/vim-fish'
 Plug 'LargeFile'
 
-if has('nvim')
-  Plug 'ctrlpvim/ctrlp.vim'
-  let g:ctrlp_match_window = 'order:ttb,min:20,max:20'
-  let g:ctrlp_prompt_mappings = {
-    \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
-    \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
-    \ 'PrtHistory(-1)':       [],
-    \ 'PrtHistory(1)':        [],
-    \ }
-  nnoremap <silent> g/ :CtrlP<cr>
-else
-  Plug 'wincent/command-t', { 'do': 'rake make' }
-  let g:CommandTMinHeight = 20
-  let g:CommandTMaxHeight = 20
-  let g:CommandTFileScanner = 'find'
-  let g:CommandTTraverseSCM = 'pwd'
-  let g:CommandTCancelMap = '<Esc>'
-  let g:CommandTHighlightColor = 'CursorLine'
-  nnoremap <silent> g/ :CommandT<cr>
-endif
+Plug 'JazzCore/ctrlp-cmatcher', { 'do': function('startup#CMatcherInstall') }
+Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_use_caching = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_match_window = 'order:ttb,min:20,max:20'
+let g:ctrlp_prompt_mappings = {
+  \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
+  \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+  \ 'PrtHistory(-1)':       [],
+  \ 'PrtHistory(1)':        [],
+  \ }
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+nnoremap <silent> g/ :CtrlP<cr>
 
 " Plug 'bruno-/vim-man'
 Plug 'wting/rust.vim'
