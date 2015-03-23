@@ -145,7 +145,6 @@ set updatetime=750
 set lazyredraw
 set smartcase
 set ignorecase
-set gdefault
 
 if executable('ag')
   set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
