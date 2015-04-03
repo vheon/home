@@ -1,3 +1,4 @@
+setlocal colorcolumn=121
 if exists(":PingEclim")
   nnoremap <buffer> gd :<c-u>JavaSearchContext<cr>
   " nnoremap <buffer> <c-t> :<c-u>JavaHierarchy<cr>
