@@ -11,3 +11,9 @@ function! startup#GoBinsInstall(info)
     GoUpdateBinaries
   endif
 endfunction
+
+function! startup#CMatcherInstall(info)
+  if a:info.status == 'installed' || a:info.force
+    !CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments ./install.sh
+  endif
+endfunction
