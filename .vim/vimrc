@@ -322,10 +322,7 @@ Autocmd BufEnter * if exists('b:last_cwd')
 "                 \|   endtry
 "                 \| endif
 
-" For some reason the runtime help when opened (at least on my machine) fires
-" the FileType event multiple times causing problems with this function so I'm
-" trying like this.
-Autocmd BufWinEnter *.txt call functions#SmartWinHelp()
+Autocmd BufWinEnter *.txt if &buftype == 'help' | wincmd T | endif
 
 " When switching colorscheme in terminal vim change the profile in iTerm as well.
 if !has('gui_running')
