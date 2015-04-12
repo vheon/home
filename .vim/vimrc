@@ -89,6 +89,7 @@ let g:pandoc#syntax#style#emphases = 0
 Plug 'vim-jp/cpp-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 
+Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'kballard/vim-fish'
 Plug 'LargeFile'
