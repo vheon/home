@@ -81,20 +81,3 @@ function! functions#Remove(file)
     echoerr 'Failed to delete "'.file.'"'
   endif
 endfunction
-
-
-function! functions#SmartWinHelp()
-  if &ft != 'help'
-    return
-  endif
-
-  if winwidth(0) > winheight(0) * 2
-    wincmd H
-  else
-    wincmd K
-  endif
-
-  if winwidth(0) < 80
-    wincmd T
-  endif
-endfunction
