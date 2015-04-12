@@ -265,6 +265,7 @@ cnoremap <C-X>< <
 
 nnoremap <silent> <leader>ev :e `=g:dotvim.'/vimrc'`<CR>
 nnoremap <silent> <leader>ez :e ~/.zshrc<CR>
+nnoremap <silent> <leader>ef :e ~/.config/fish/config.fish<CR>
 
 " http://vimcasts.org/episodes/the-edit-command
 " https://twitter.com/garybernhardt/status/40292706609532928
