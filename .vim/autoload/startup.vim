@@ -1,7 +1,7 @@
 
 function! startup#YCMInstall(info)
   if a:info.status == 'installed' || a:info.force
-    !./install.sh --clang-completer
+    !./install.sh --clang-completer --gocode-completer
   endif
 endfunction
 
