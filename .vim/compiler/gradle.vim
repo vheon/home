@@ -10,7 +10,7 @@ endif
 let s:save_cpo = &cpo
 set cpo-=C
 
-CompilerSet makeprg=gradle
+CompilerSet makeprg=gradle\ --quiet
 CompilerSet errorformat=
       \%f:%l:\ %m,
       \%-G:%.%#,
