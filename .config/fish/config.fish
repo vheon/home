@@ -15,7 +15,7 @@ set -x EDITOR vi
 set -x LC_ALL "en_US.UTF-8"
 set -x LANG "en_US.UTF-8"
 set -x JAVA_HOME (/usr/libexec/java_home)
-set -x SCALA_HOME (brew --repository)"/Library/LinkedKegs/scala/libexec"
+set -x SCALA_HOME "/usr/local/Library/LinkedKegs/scala/libexec"
 set -x GOPATH $HOME/code/go
 set -x GOBIN $GOPATH/bin
 set -x HOMEBREW_CASK_OPTS "--appdir=/Applications"
