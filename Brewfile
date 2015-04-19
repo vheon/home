@@ -22,9 +22,14 @@ function brew() {
   $(which brew) "$@"
 }
 
+brew tap beeftornado/rmtree
+brew tap neovim/neovim
+
 brew update
 
+brew install rmtree
 brew install vim --override-system-vi --with-lua
+brew install neovim --HEAD
 brew install cmake
 brew install ctags
 brew install findutils
@@ -35,6 +40,8 @@ brew install ranger
 brew install rbenv --HEAD
 brew install rbenv-gem-rehash
 brew install ruby-build
+brew install pyenv
+brew install homebrew/boneyard/pyenv-pip-rehash
 brew install the_silver_searcher
 brew install tmux
 brew install reattach-to-user-namespace
