@@ -21,8 +21,8 @@ function! s:select_i()
   normal! $
 endfunction
 
-onoremap ae :<C-U>call <SID>select_a()<cr><C-O>
-xnoremap ae :<C-U>call <SID>select_a()<cr>
-onoremap ie :<C-U>call <SID>select_i()<cr><C-O>
-xnoremap ie :<C-U>call <SID>select_i()<cr>
+onoremap <silent> ae :<C-U>call <SID>select_a()<cr><C-O>
+xnoremap <silent> ae :<C-U>call <SID>select_a()<cr>
+onoremap <silent> ie :<C-U>call <SID>select_i()<cr><C-O>
+xnoremap <silent> ie :<C-U>call <SID>select_i()<cr>
 
