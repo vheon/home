@@ -24,3 +24,9 @@ CompilerSet errorformat=
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
+" set efm=
+"         \%W%f:%l:\ warning:\ %m,
+"         \%E%f:%l:\ error:\ %m,
+"         \%C%p^,
+"         \%C\ %#%m,
+"         \%-G%.%#
