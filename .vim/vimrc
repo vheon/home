@@ -1,3 +1,11 @@
+" https://github.com/rhysd/dotfiles/blob/af0e953113175f6e5ee1ed3f8b368dd76eb05ad0/vimrc#L16-L19
+" highlight in after/syntax/vim.vim
+augroup VimrcAutocmds
+  autocmd!
+augroup END
+command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
+
+
 let g:dotvim = fnamemodify($MYVIMRC, ':h')
 let g:mapleader="\<Space>"
 
@@ -284,14 +292,6 @@ xnoremap <silent> at atV
 " For more info, see: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
-
-" https://github.com/rhysd/dotfiles/blob/af0e953113175f6e5ee1ed3f8b368dd76eb05ad0/vimrc#L16-L19
-" but highlight Autocmd command properly
-augroup VimrcAutocmds
-  autocmd!
-augroup END
-command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
-Autocmd FileType vim syn keyword vimAutoCmd Autocmd skipwhite nextgroup=vimAutoEventList
 
 Autocmd BufEnter,WinEnter,InsertLeave * set cursorline
 Autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
