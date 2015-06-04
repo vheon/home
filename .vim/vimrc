@@ -15,6 +15,7 @@ let g:plug_timeout = 1000
 
 " I have to load this before eclim
 Plug 'vim-jp/vim-java'
+let g:java_highlight_all = 1
 
 let g:plug_url_format = 'https://github.com/%s.git'
 Plug 'vheon/vim-colors-solarized'
