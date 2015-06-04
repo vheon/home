@@ -35,10 +35,11 @@ xnoremap an :<c-u>call <SID>NextTextObject('a', '/')<cr>
 onoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
 xnoremap in :<c-u>call <SID>NextTextObject('i', '/')<cr>
 
-onoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
-xnoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
-onoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
-xnoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+" XXX: I never use these mappings
+" onoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+" xnoremap al :<c-u>call <SID>NextTextObject('a', '?')<cr>
+" onoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
+" xnoremap il :<c-u>call <SID>NextTextObject('i', '?')<cr>
 
 
 function! s:NextTextObject(motion, dir)
