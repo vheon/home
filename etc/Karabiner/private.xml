@@ -5,6 +5,16 @@
     <productid>0x0253</productid>
   </deviceproductdef>
 
+  <devicevendordef>
+    <vendorname>CYPRESS</vendorname>
+    <vendorid>0x04b4</vendorid>
+  </devicevendordef>
+
+  <deviceproductdef>
+    <productname>LEOPOLD_KEYBOARD</productname>
+    <productid>0x0101</productid>
+  </deviceproductdef>
+
   <appdef>
     <appname>ECLIPSE</appname>
     <equal>org.eclipse.eclipse</equal>
@@ -21,6 +31,16 @@
 
   <item>
     <name>Cadet</name>
+    <item>
+    <name>Play/Pause with Print Screen on External Keyboard</name>
+      <device_only>DeviceVendor::CYPRESS, DeviceProduct::LEOPOLD_KEYBOARD</device_only>
+      <identifier>cadet.external_swap_bright_play_pause</identifier>
+      <autogen>
+        __KeyToKey__
+        KeyCode::PC_PRINTSCREEN,
+        KeyCode::VK_CONSUMERKEY_MUSIC_PLAY
+      </autogen>
+    </item>
     <item>
       <name>Ctrl-n/Ctrl-p to Up/Down</name>
       <identifier>cadet.ctrl_n_p_up_down</identifier>
