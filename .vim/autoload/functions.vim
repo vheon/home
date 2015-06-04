@@ -74,8 +74,8 @@ function! functions#Rename()
 endfunction
 
 
-function! functions#Remove(file)
-  let file = fnamemodify(bufname(a:file),':p')
+function! functions#Remove()
+  let file = fnamemodify(bufname('%'),':p')
   bdelete!
   if !bufloaded(file) && delete(file)
     echoerr 'Failed to delete "'.file.'"'
