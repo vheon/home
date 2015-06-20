@@ -156,6 +156,7 @@ set updatetime=750
 set lazyredraw
 set smartcase
 set ignorecase
+set nohlsearch
 
 if executable('ag')
   set grepprg=ag\ --vimgrep\ --follow
