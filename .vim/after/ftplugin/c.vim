@@ -1,8 +1,9 @@
 inoremap <buffer> <C-l> ->
 
 if exists(':YcmCompleter')
-  nnoremap <buffer> <silent> gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+  nnoremap <buffer> <silent> gd :YcmCompleter GoTo<CR>
   nnoremap <buffer> <silent> gD :YcmCompleter GoToDeclaration<CR>
+  nnoremap <buffer> <silent> <Leader>i :YcmCompleter GetType<CR>
 endif
 
 let &l:errorformat =
