@@ -2,7 +2,8 @@ import os
 import subprocess
 import re
 
-def LoadSystemIncludes(filetype):
+
+def LoadSystemIncludes( filetype ):
     regex = re.compile(ur'(?:\#include \<...\> search starts here\:)(?P<list>.*?)(?:End of search list)', re.DOTALL)
     process = subprocess.Popen(['clang', '-v', '-E', '-x', filetype, '-'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     process_out, process_err = process.communicate('')
@@ -15,8 +16,10 @@ def LoadSystemIncludes(filetype):
             includes.append(p)
     return includes
 
+
 def DirectoryOfThisScript():
   return os.path.dirname( os.path.abspath( __file__ ) )
+
 
 def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
   if not working_directory:
@@ -48,7 +51,6 @@ def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
 
 
 def FlagsForFile(filename, **kwargs):
-
   base_flags = [
     '-Wall',
     '-Wextra',
