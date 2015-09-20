@@ -50,4 +50,11 @@ end
 #   sshfs -o volname=Storage -o Compression=no $USER@ghost.local:/mnt/storage $HOME/tmp/storage
 # end
 
+function itermprofile
+  set -l escape "\033]50;SetProfile=$argv[1]\x7"
+  if test -n "$TMUX"
+    set escape (sed -e 's|\\\033|\\\033\\\033|g' (echo $escape | psub))
+    set escape "\033Ptmux;$escape\033\\"
+  end
+  printf $escape > /dev/tty
 end
