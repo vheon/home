@@ -44,7 +44,10 @@ function cdf # short for cdfinder
   cd (osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')
 end
 
-function mountg
-  mkdir -p $HOME/tmp/storage
-  sshfs -o volname=Storage -o Compression=no -o Ciphers=arcfour $USER@ghost.local:/mnt/storage $HOME/tmp/storage
+# function mountg
+#   mkdir -p $HOME/tmp/storage
+#   # sshfs -o volname=Storage -o Compression=no -o Ciphers=arcfour $USER@ghost.local:/mnt/storage $HOME/tmp/storage
+#   sshfs -o volname=Storage -o Compression=no $USER@ghost.local:/mnt/storage $HOME/tmp/storage
+# end
+
 end
