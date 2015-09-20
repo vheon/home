@@ -50,6 +50,11 @@ end
 #   sshfs -o volname=Storage -o Compression=no $USER@ghost.local:/mnt/storage $HOME/tmp/storage
 # end
 
+function sub
+  subliminal -len -s $argv
+end
+complete -c sub -x -a "(__fish_complete_suffix .mkv) (__fish_complete_suffix .mp4)"
+
 function itermprofile
   set -l escape "\033]50;SetProfile=$argv[1]\x7"
   if test -n "$TMUX"
