@@ -1,8 +1,17 @@
+function tmux_escape -d "Escape an escape sequence for tmux"
+  set -l escape $argv[0]
+  if test -n "$TMUX"
+    set escape (sed -e 's|\\\033|\\\033\\\033|g' (echo $escape | psub))
+    set escape "\033Ptmux;$escape\033\\"
+  end
+  echo $escape
+end
+
 # fish colors
 #
 # What I really want is use the base01 from solarized but I cant, so let's
 # change the 240th color in the 256 color palette and let fish-shell use that color
-printf "\033Ptmux;\033\033]4;240;rgb:58/6e/75\007\033\\" > /dev/tty
+printf (tmux_escape "\033]4;240;rgb:58/6e/75\007") > /dev/tty
 set fish_color_autosuggestion 585858
 set fish_color_command green
 set fish_color_param blue
@@ -66,10 +75,8 @@ end
 complete -c sub -x -a "(__fish_complete_suffix .mkv) (__fish_complete_suffix .mp4)"
 
 function itermprofile
-  set -l escape "\033]50;SetProfile=$argv[1]\x7"
-  if test -n "$TMUX"
-    set escape (sed -e 's|\\\033|\\\033\\\033|g' (echo $escape | psub))
-    set escape "\033Ptmux;$escape\033\\"
-  end
-  printf $escape > /dev/tty
+  printf (tmux_escape "\033]50;SetProfile=$argv[1]\x7") > /dev/tty
 end
+
+# tmux_escape is not needed outside of this script
+functions -e tmux_escape
