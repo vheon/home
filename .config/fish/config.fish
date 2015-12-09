@@ -42,7 +42,7 @@ set -x PATH $PATH
 
 set -x fish_greeting ''
 
-. (rbenv init -|psub)
+status --is-interactive; . (rbenv init - --no-rehash -|psub)
 
 function a
   ls -lrth -G $argv
