@@ -11,6 +11,16 @@ set fish_color_error red
 set fish_color_search_match --background=green
 set fish_pager_color_description yellow
 
+set -gx LESS_TERMCAP_so \e'[01;43;30m'    # begin standout-mode – info
+set -gx LESS_TERMCAP_mb \e'[01;31m'       # enter blinking mode
+set -gx LESS_TERMCAP_md \e'[01;34m'       # enter double-bright mode
+set -gx LESS_TERMCAP_me \e'[0m'           # turn off all appearance modes (mb, md, so, us)
+set -gx LESS_TERMCAP_se \e'[0m'           # leave standout mode
+set -gx LESS_TERMCAP_ue \e'[0m'           # leave underline mode
+set -gx LESS_TERMCAP_us \e'[04;36m'       # enter underline mode
+
+set -x LESS '--RAW-CONTROL-CHARS'
+
 set -x EDITOR vi
 set -x LC_ALL "en_US.UTF-8"
 set -x LANG "en_US.UTF-8"
