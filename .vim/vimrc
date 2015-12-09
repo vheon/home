@@ -328,9 +328,10 @@ Autocmd BufEnter * if exists('b:last_cwd')
 Autocmd BufWinEnter *.txt if &buftype == 'help' | wincmd T | endif
 
 " When switching colorscheme in terminal vim change the profile in iTerm as well.
-if !has('gui_running')
+let s:is_iTerm = exists('$TERM_PROGRAM') && $TERM_PROGRAM =~# 'iTerm.app'
+if !has('gui_running') && s:is_iTerm
   function! s:change_iterm2_profile()
-    let dual_colorschemes = ["solarized"]
+    let dual_colorschemes = ['solarized']
     if exists('g:colors_name')
       let profile = g:colors_name
       if index(dual_colorschemes, g:colors_name) >= 0
