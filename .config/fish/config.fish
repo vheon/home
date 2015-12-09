@@ -33,14 +33,11 @@ set -x LESS '--RAW-CONTROL-CHARS'
 set -x EDITOR vi
 set -x LC_ALL "en_US.UTF-8"
 set -x LANG "en_US.UTF-8"
-set -x JAVA_HOME (/usr/libexec/java_home)
-set -x SCALA_HOME "/usr/local/Library/LinkedKegs/scala/libexec"
 set -x GOPATH $HOME/code/go
 set -x GOBIN $GOPATH/bin
 set -x HOMEBREW_CASK_OPTS "--appdir=/Applications"
 set -x PATH /usr/local/bin $HOME/bin $GOBIN $PATH
-# append eclim bin to the path, but eclipse is installed by brew cask
-set -x PATH $PATH (readlink /Applications/Eclipse.app)"/../"
+set -x PATH $PATH
 
 set -x fish_greeting ''
 
