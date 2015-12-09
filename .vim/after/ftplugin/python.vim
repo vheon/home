@@ -1,2 +1,1 @@
-nnoremap <buffer> <silent> gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
+nnoremap <buffer> <silent> gd :YcmCompleter GoTo<CR>
