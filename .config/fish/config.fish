@@ -17,7 +17,7 @@ set fish_color_command green
 set fish_color_param blue
 set fish_color_quote yellow
 set fish_color_error red
-set fish_color_search_match --background=green
+set fish_color_search_match --bright --background=black
 set fish_pager_color_description yellow
 
 set -gx LESS_TERMCAP_so \e'[01;43;30m'    # begin standout-mode – info
