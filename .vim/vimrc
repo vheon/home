@@ -67,10 +67,10 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_filetype_blacklist = { 'help': 1 }
 
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-let g:UltiSnipsEditSplit="context"
+let g:UltiSnipsExpandTrigger = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+let g:UltiSnipsEditSplit = 'context'
 
 Plug 'Valloric/MatchTagAlways'
 " XXX: I should use something a little more generic. See gary bernhardt setup
@@ -88,7 +88,7 @@ Plug 'fatih/vim-go', { 'do': function('startup#GoBinsInstall') }
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 
 Plug 'junegunn/goyo.vim'
 autocmd! User GoyoEnter
