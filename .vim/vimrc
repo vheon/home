@@ -139,6 +139,8 @@ let g:filetype_m = 'objc'
 set t_Co=16
 set background=dark
 silent! colorscheme solarized
+" taken from http://www.reddit.com/r/vim/comments/1skaam/color_scheme_survey/
+" hi Special guifg=#799d6a
 
 set synmaxcol=512
 
