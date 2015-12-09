@@ -165,6 +165,9 @@ set nohlsearch
 if executable('ag')
   set grepprg=ag\ --vimgrep\ --follow
   set grepformat=%f:%l:%c:%m
+elseif executable('pt')
+  set grepprg=pt\ --nocolor\ --smart-case\ --follow
+  set grepformat=%f:%l:%m
 endif
 
 set tabline=%!tabline#line()
