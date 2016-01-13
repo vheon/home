@@ -32,11 +32,9 @@ Plug 'tpope/vim-repeat'
 
 Plug 'justinmk/vim-dirvish'
 
-Plug 'cohama/lexima.vim', { 'on': [] }
-augroup load_lexima
-  autocmd!
-  autocmd! InsertEnter * call plug#load('lexima.vim') | autocmd! load_lexima
-augroup END
+Plug 'rstacruz/vim-closer'
+Plug 'tpope/vim-endwise'
+let g:endwise_abbreviations = 1
 
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-unimpaired'
