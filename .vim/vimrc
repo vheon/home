@@ -66,9 +66,6 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:UltiSnipsEditSplit = 'context'
 
 Plug 'Valloric/MatchTagAlways'
-" XXX: I should use something a little more generic. See gary bernhardt setup
-" Plug 'thoughtbot/vim-rspec'
-" let g:rspec_command = "!rspec --color {spec}"
 
 Plug 'tpope/vim-scriptease'
 Plug 'majutsushi/tagbar'
