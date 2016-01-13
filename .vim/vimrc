@@ -260,6 +260,9 @@ command! -nargs=0 StartProfiling call profile#start()
 " more consistent with other operator
 nnoremap Y y$
 
+nnoremap Q gq
+xnoremap Q gq
+
 " possible mnemonic? let say is for YELL
 inoremap <C-y> <esc>gUiw`]a
 
