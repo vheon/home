@@ -94,7 +94,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'tmux-plugins/vim-tmux'
 Plug 'kballard/vim-fish'
-Plug 'LargeFile'
+Plug 'vimgineers/vim-hugefile'
 
 Plug 'JazzCore/ctrlp-cmatcher', { 'do': function('startup#CMatcherInstall') }
 Plug 'ctrlpvim/ctrlp.vim'
