@@ -272,7 +272,7 @@ cnoremap <C-p> <Up>
 
 " XXX: add visualmode version
 nmap mw <Plug>(SimpleMark)
-nnoremap <silent> <C-L> :nohlsearch<CR>:MarkClearAll<CR><C-L>
+nnoremap <silent> <C-L> :nohlsearch<cr>:MarkClearAll<cr>:diffupdate<CR><C-L>
 
 
 " copy the first range address and add + or -
