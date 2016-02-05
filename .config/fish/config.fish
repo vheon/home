@@ -1,5 +1,5 @@
 function tmux_escape -d "Escape an escape sequence for tmux"
-  set -l escape $argv[0]
+  set -l escape $argv[1]
   if test -n "$TMUX"
     set escape (sed -e 's|\\\033|\\\033\\\033|g' (echo $escape | psub))
     set escape "\033Ptmux;$escape\033\\"
