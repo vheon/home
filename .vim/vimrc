@@ -65,6 +65,14 @@ let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:UltiSnipsEditSplit = 'context'
 
+if has( 'nvim' )
+Plug 'benekastah/neomake'
+let g:neomake_verbose = 0
+" C and CPP are handled by YCM and java usually by eclim
+let s:neomake_exclude_ft = [ 'c', 'cpp', 'java', 'python' ]
+Autocmd BufWritePost * if index(s:neomake_exclude_ft, &ft) < 0 | Neomake | endif
+endif
+
 Plug 'Valloric/MatchTagAlways'
 
 Plug 'tpope/vim-scriptease'
@@ -212,7 +220,7 @@ let &fillchars = "vert:\u2502"
 let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
 let &showbreak = "\u21aa "
 
-if has('mouse')
+if !has('nvim')
   set mouse=a
   set ttymouse=xterm2
 endif
