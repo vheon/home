@@ -88,15 +88,6 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_fmt_command = 'goimports'
 
-Plug 'junegunn/goyo.vim'
-autocmd! User GoyoEnter
-autocmd! User GoyoLeave
-autocmd User GoyoEnter call cursormode#LocalActivate()
-
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-let g:pandoc#syntax#style#emphases = 0
-
 Plug 'vim-jp/cpp-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 
@@ -107,9 +98,6 @@ Plug 'vimgineers/vim-hugefile'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nnoremap <silent> g/ :Files<cr>
-
-" Plug 'bruno-/vim-man'
-Plug 'wting/rust.vim'
 
 call plug#end()
 
