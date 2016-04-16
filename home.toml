@@ -1,0 +1,11 @@
+[tasks.default]
+  links = [
+    ["var/"],
+    ["bin/"], # do I want this on all machines?
+    [".vim/"],
+    [".config/"],
+    [".tmux.conf"], # do I want this on all machines?
+    [".gitconfig"],
+    [".githelpers"],
+    [".cvsignore"],
+  ]
