@@ -42,9 +42,6 @@ set -x PATH $PATH
 
 set -x fish_greeting ''
 
-status --is-interactive; . (rbenv init - --no-rehash -|psub)
-# status --is-interactive; . (pyenv init - --no-rehash -|psub)
-
 function a
   ls -lrth -G $argv
 end
