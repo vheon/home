@@ -66,7 +66,7 @@ end
 # end
 
 function sub
-  subliminal -len -s $argv
+  subliminal download -l en -s $argv
 end
 complete -c sub -x -a "(__fish_complete_suffix .mkv) (__fish_complete_suffix .mp4)"
 
