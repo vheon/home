@@ -37,7 +37,7 @@ set -x GOPATH $HOME/code/go
 set -x GOBIN $GOPATH/bin
 set -x HOMEBREW_CASK_OPTS "--appdir=/Applications"
 set -x FZF_DEFAULT_OPTS "--reverse --color bg:8,fg:12,hl:4,bg+:0,fg+:15,info:11,prompt:3,spinner:6,pointer:2,marker:1"
-set -x PATH /usr/local/bin $HOME/bin $GOBIN $PATH
+set -x PATH /usr/local/bin $HOME/bin $GOBIN $PATH /usr/local/sbin
 set -x PATH $PATH
 
 set -x fish_greeting ''
