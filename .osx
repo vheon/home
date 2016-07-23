@@ -15,11 +15,16 @@ sudo nvram SystemAudioVolume=" "
 
 # Menu bar: hide Time Machine, User icons
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-	defaults write "${domain}" dontAutoLoad -array \
-		"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-		"/System/Library/CoreServices/Menu Extras/User.menu"
-
+  defaults write "${domain}" dontAutoLoad -array \
+    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+    "/System/Library/CoreServices/Menu Extras/User.menu"
 done
+
+defaults write com.apple.systemuiserver menuExtras -array \
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+  "/System/Library/CoreServices/Menu Extras/Volume.menu"  \
+  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+  "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 # Show percent battery
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
@@ -38,17 +43,16 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Disable local Time Machine snapshots
 sudo tmutil disablelocal
 
-# XXX: see if this is safe on a fusion drive
-# # Disable hibernation (speeds up entering sleep mode)
-# # Defaults is 3
-# sudo pmset -a hibernatemode 0
+# Disable hibernation (speeds up entering sleep mode)
+# Defaults is 3
+sudo pmset -a hibernatemode 0
 
-# # Remove the sleep image file to save disk space
-# sudo rm /Private/var/vm/sleepimage
-# # Create a zero-byte file instead…
-# sudo touch /Private/var/vm/sleepimage
-# # …and make sure it can’t be rewritten
-# sudo chflags uchg /Private/var/vm/sleepimage
+# Remove the sleep image file to save disk space
+sudo rm /Private/var/vm/sleepimage
+# Create a zero-byte file instead…
+sudo touch /Private/var/vm/sleepimage
+# …and make sure it can’t be rewritten
+sudo chflags uchg /Private/var/vm/sleepimage
 
 ################################################################################
 # Dock                                                                         #
@@ -112,13 +116,14 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Four-letter codes for the other view modes: `icnv`, `Flwv`, `Nlsv`
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
-################################################################################
-# Safari                                                                       #
-################################################################################
+# Set Home as the default location for new Finder windows
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
-# XXX: soon we'll update to yosemite so It's unkowns how this will work
-# # Hide bookmarks bar
-# defaults write com.apple.Safari ShowFavoritesBar -bool false
+# Enable AirDrop over Ethernet and on unsupported Macs running Lion
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+
+# Disable the warning before emptying the Trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 ################################################################################
 # Trackpad / Keyboard                                                          #
@@ -129,9 +134,29 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
+# Swipe between full-screen apps 
+# 0 -> 4-finger
+# 2 -> 3-finger
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 0
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 0
+
+# Mission Control
+# 0 -> 4-finger
+# 2 -> 3-finger
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadThreeFingerVertSwipeGesture -int 0
+defaults write com.apple.AppleMultitouchTrackpad  TrackpadThreeFingerVertSwipeGesture -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad  TrackpadThreeFingerVertSwipeGesture -int 0
+
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Disable press-and-hold for keys in favor of key repeat
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+# Set a blazingly fast keyboard repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 0
 
 ################################################################################
 # Activity Monitor                                                             #
@@ -147,3 +172,43 @@ defaults write com.apple.ActivityMonitor IconType -int 5
 # XXX: check this and see if it is worth it
 # # Move archives to trash after extraction
 # defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash"
+
+################################################################################
+# iTerm2                                                                       #
+################################################################################
+
+# Install the Solarized Dark theme for iTerm
+# XXX(vheon): add the solarized themes to a folder here in the dotfiles and open them all
+# open "${HOME}/init/Solarized Dark.itermcolors"
+
+# Don’t display the annoying prompt when quitting iTerm
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+###############################################################################
+# Transmission.app                                                            #
+###############################################################################
+
+# Use `~/Documents/Torrents` to store incomplete downloads
+defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
+defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Documents/Torrents"
+
+# Don’t prompt for confirmation before downloading
+defaults write org.m0k.transmission DownloadAsk -bool false
+
+# Trash original torrent files
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+
+# Hide the donate message
+defaults write org.m0k.transmission WarningDonate -bool false
+# Hide the legal disclaimer
+defaults write org.m0k.transmission WarningLegal -bool false
+
+
+###############################################################################
+# Kill affected applications                                                  #
+###############################################################################
+
+for app in "Activity Monitor" "cfprefsd" "Dock" "Finder" "SystemUIServer" "Transmission"; do
+  killall "${app}" &> /dev/null
+done
+echo "Done. Note that some of these changes require a logout/restart to take effect."
