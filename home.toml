@@ -8,4 +8,5 @@
     [".gitconfig"],
     [".githelpers"],
     [".cvsignore"],
+    ["Library/Application Support/Karabiner/private.xml", "etc/Karabiner/private.xml"]
   ]
