@@ -98,6 +98,8 @@ Plug 'vimgineers/vim-hugefile'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+autocmd! User FzfStatusLine setlocal statusline=%#StatusLine#\ >\ fzf
+
 nnoremap <silent> <Leader>pf :Files<cr>
 nnoremap <silent> <Leader>bb :Buffers<cr>
 
