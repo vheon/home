@@ -36,7 +36,7 @@ task :config_files => :homebrew do
 end
 
 desc "Set up golang"
-task :golang => brewfile do
+task :golang => :brewfile do
   mkdir_p abs_path('~/code/go')
 end
 
