@@ -1,5 +1,7 @@
-set encoding=utf-8
-scriptencoding utf8
+if !has('nvim')
+  set encoding=utf-8
+  scriptencoding utf8
+endif
 
 " https://github.com/rhysd/dotfiles/blob/af0e953113175f6e5ee1ed3f8b368dd76eb05ad0/vimrc#L16-L19
 " highlight in after/syntax/vim.vim
