@@ -35,11 +35,7 @@ task :golang => :brewfile do
   mkdir_p abs_path('~/code/go')
 end
 
-desc "Install extra tools needed"
-task :extra_tools => :golang do
-  sh 'go get github.com/mattn/files'
-  sh 'go get github.com/vheon/picker'
-end
+# XXX(vheon): add a task to configure fish automatically
 
 def abs_path file
   File.expand_path(file)
