@@ -3,6 +3,8 @@
     ["var/"],
     ["bin/"],
     [".vim/"],
+    [".config/nvim/", ".vim/"],
+    [".config/nvim/init.vim", ".vim/vimrc"],
     [".config/"],
     [".tmux.conf"],
     [".gitconfig"],
