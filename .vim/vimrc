@@ -96,7 +96,8 @@ Plug 'vimgineers/vim-hugefile'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-nnoremap <silent> g/ :Files<cr>
+nnoremap <silent> <Leader>pf :Files<cr>
+nnoremap <silent> <Leader>bb :Buffers<cr>
 
 call plug#end()
 
@@ -142,6 +143,7 @@ elseif executable('pt')
   set grepprg=pt\ --nocolor\ --smart-case\ --follow
   set grepformat=%f:%l:%m
 endif
+nnoremap <Leader>gw :grep -w <cword><cr>
 
 set tabline=%!tabline#line()
 if has('vim_starting')
