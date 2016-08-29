@@ -12,3 +12,10 @@
     [".cvsignore"],
     ["Library/Application Support/Karabiner/private.xml", "etc/Karabiner/private.xml"]
   ]
+  cmds = [
+    ["bash", "Brewfile"],
+    ["open", "--background", "-a", "/Applications/iTerm.app", "etc/iterm/Solarized_Dark-Patched.itermcolors"],
+    ["open", "--background", "-a", "/Applications/iTerm.app", "etc/iterm/Solarized_Dark_Higher_Contrast.itermcolors"],
+    ["open", "--background", "-a", "/Applications/iTerm.app", "etc/iterm/Solarized_Dark.itermcolors"],
+    ["open", "--background", "-a", "/Applications/iTerm.app", "etc/iterm/Solarized_Light.itermcolors"]
+  ]
