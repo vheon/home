@@ -67,7 +67,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:UltiSnipsEditSplit = 'context'
 
 if has( 'nvim' )
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 let g:neomake_verbose = 0
 " C and CPP are handled by YCM and java usually by eclim
 let s:neomake_exclude_ft = [ 'c', 'cpp', 'java', 'python' ]
