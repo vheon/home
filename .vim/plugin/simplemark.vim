@@ -1,4 +1,4 @@
-" Copyright (C) 2014 Andrea Cedraro <a.cedraro@gmail.com>
+" Copyright (C) 2016 Andrea Cedraro <a.cedraro@gmail.com>
 "
 " Permission is hereby granted, free of charge, to any person obtaining
 " a copy of this software and associated documentation files (the "Software"),
@@ -19,35 +19,71 @@
 " OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 let s:words = {}
-let s:indexes = [1, 2, 3, 4, 5, 6]
-
-function! s:nuke_item_with_index(i)
-  for [word, item] in items(s:words)
-    if item.index == a:i
-      call matchdelete(item.mid)
-      call remove(s:words, word)
-    endif
-  endfor
-endfunction
-
-function! s:available_index()
-  if len(s:indexes) > 0
-    return remove(s:indexes, 0)
-  else
-    return 1
-  endif
-endfunction
+let s:indexes = range( 1, 6 )
 
 function! s:simplemark_clear_all()
-  for [word, item] in items(s:words)
+  for word in keys(s:words)
     call s:unmark_word(word)
   endfor
 endfunction
 
 function! s:unmark_word(word)
-  let item = remove(s:words, a:word)
-  call matchdelete(item.mid)
-  call sort(add(s:indexes, item.index))
+  let marker = remove(s:words, a:word)
+  call sort(add(s:indexes, marker.index))
+
+  call s:windo('s:render_remove_mark', marker)
+endfunction
+
+function! s:render_remove_mark() dict
+  call map(filter(getmatches(), "v:val.group =~# '".self.group."'"),
+         \ 'matchdelete(v:val.id)')
+endfunction
+
+function! s:get_or_steal_index()
+  if len(s:indexes) == 0
+    call s:nuke_item_with_index(1)
+  endif
+  return remove(s:indexes, 0)
+endfunction
+
+function! s:nuke_item_with_index(i)
+  for [word, marker] in items(s:words)
+    if marker.index == a:i
+      call s:unmark_word(word)
+      return
+    endif
+  endfor
+endfunction
+
+function! s:add_mark(word)
+  let index = s:get_or_steal_index()
+  let pattern = s:prepare_pattern(a:word)
+  let marker = {
+        \ 'group': "SimpleMarkWord".index,
+        \ 'pattern': pattern,
+        \ 'index': index
+        \ }
+  let s:words[a:word] = marker
+
+  " Use the pattern as the current search so I can use n/N
+  let @/ = marker.pattern
+
+  return marker
+endfunction
+
+function! s:render_add_mark() dict
+  call matchadd(self.group, self.pattern, 10)
+endfunction
+
+function! s:mark_word(word)
+  let marker = s:add_mark(a:word)
+  call s:windo('s:render_add_mark', marker)
+endfunction
+
+function! s:windo(func, dict)
+  let winnum = winnr()
+  noautocmd windo call call(a:func, [], a:dict)
+  execute 'noautocmd' winnum."wincmd w"
 endfunction
 
 function! s:simple_mark_word()
@@ -59,23 +95,12 @@ function! s:simple_mark_word()
   if has_key(s:words, word)
     call s:unmark_word(word)
   else
-    let i = s:available_index()
-    call s:nuke_item_with_index(i)
-
-    let pattern = s:prepare_pattern(word)
-
-    " Actually match the words.
-    let s:words[word] = {}
-    let s:words[word].mid = matchadd("SimpleMarkWord".i, pattern, 1)
-    let s:words[word].index = i
-
-    " Use the pattern as the current search so I can use n/N
-    let @/ = pattern
+    call s:mark_word(word)
   endif
 endfunction
 
 function! s:prepare_pattern(word)
-  return '\V\<'.escape(a:word, '\').'\>'
+  return '\V\<'.escape(a:word, '\/~ .*^[''$').'\>'
 endfunction
 
 function! s:focus_marked_word(word)
@@ -87,8 +112,11 @@ nnoremap <silent> <Plug>(SimpleMark)      :call <SID>simple_mark_word()<cr>
 nnoremap <silent> <Plug>(SimpleMarkClear) :call <SID>simplemark_clear_all()<cr>
 
 function! s:marked_word(A,L,P)
-  return keys(s:words)
+  return filter(keys(s:words), 'stridx(v:val, a:A) == 0' )
 endfunction
-command! -nargs=1 -complete=customlist,s:marked_word MarkClear :call s:unmark_word(<f-args>)
-command! -nargs=0 MarkClearAll :call s:simplemark_clear_all()
-command! -nargs=1 -complete=customlist,s:marked_word MarkFocus :call s:focus_marked_word(<f-args>)
+command! -nargs=1 -complete=customlist,s:marked_word MarkClear
+      \ :call s:unmark_word(<f-args>)
+command! -nargs=0 MarkClearAll
+      \ :call s:simplemark_clear_all()
+command! -nargs=1 -complete=customlist,s:marked_word MarkFocus
+      \ :call s:focus_marked_word(<f-args>)
