@@ -16,6 +16,7 @@ let g:mapleader="\<Space>"
 
 call plug#begin(g:dotvim.'/bundle')
 let g:plug_window = 'tabnew'
+let g:plug_pwindow = 'vertical rightbelow new'
 let g:plug_timeout = 1000
 
 let g:plug_url_format = 'https://github.com/%s.git'
