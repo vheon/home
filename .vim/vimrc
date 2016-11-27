@@ -46,6 +46,7 @@ Plug 'tpope/vim-rsi'
 
 Plug 'machakann/vim-textobj-delimited'
 Plug 'PeterRincker/vim-argumentative'
+Plug 'AndrewRadev/dsf.vim'
 
 Plug 'bronson/vim-visual-star-search'
 Plug 'tommcdo/vim-lion'
