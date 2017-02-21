@@ -49,3 +49,7 @@
 	smudge = git-media-smudge %f
 [credential]
 	helper = osxkeychain
+[mergetool "fugitive"]
+	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+[merge]
+	tool = fugitive
