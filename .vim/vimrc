@@ -39,6 +39,21 @@ Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-endwise'
 let g:endwise_abbreviations = 1
 
+Plug 'wincent/ferret'
+let g:FerretMap=0
+" nmap <Leader>gw :Ack -w <C-R><C-W><cr>
+nmap <Leader>gw <Plug>(FerretAckWord)
+" if executable('ag')
+"   set grepprg=ag\ --vimgrep\ --follow
+"   set grepformat=%f:%l:%c:%m
+" elseif executable('pt')
+"   set grepprg=pt\ --nocolor\ --smart-case\ --follow
+"   set grepformat=%f:%l:%m
+" endif
+" nnoremap <Leader>gw :grep -w <cword><cr>
+
+" Plug 'romainl/vim-qf'
+
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
@@ -111,6 +126,23 @@ nnoremap <silent> <Leader>pg :GFiles<cr>
 nnoremap <silent> <Leader>pf :Files<cr>
 nnoremap <silent> <Leader>bb :Buffers<cr>
 
+
+Plug 'derekwyatt/vim-fswitch'
+Autocmd BufEnter *.h let b:fswitchlocs = 'rel:./,./Unix/,./Windows/'
+      \ | let b:fswitchdst = 'cpp'
+nnoremap <silent> <Leader>af :FSHere<cr>
+
+function! s:UnixAlternative()
+  let l:alternative = expand('%:p:h').'/Unix/Unix'.expand('%:t')
+  if filereadable( l:alternative )
+    execute 'edit' l:l:alternative
+  else
+    echom 'There is not a Unix alternative for this file'
+  endif
+endfunction
+command! -nargs=0 FSUnix call s:UnixAlternative()
+nnoremap <silent> <Leader>au :FSUnix<cr>
+
 call plug#end()
 
 runtime! macros/matchit.vim
@@ -148,14 +180,6 @@ set smartcase
 set ignorecase
 set nohlsearch
 
-if executable('ag')
-  set grepprg=ag\ --vimgrep\ --follow
-  set grepformat=%f:%l:%c:%m
-elseif executable('pt')
-  set grepprg=pt\ --nocolor\ --smart-case\ --follow
-  set grepformat=%f:%l:%m
-endif
-nnoremap <Leader>gw :grep -w <cword><cr>
 
 set tabline=%!tabline#line()
 if has('vim_starting')
