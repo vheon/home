@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Muxes SRT subtitles into MKV files using mkvmerge.
+
+set -e
+
+merge() {
+  mkvmerge -o "$2-TEMP.mkv" "$1" "$2"
+  rm "$2"
+  mv "$2-TEMP.mkv" "$2"
+}
+
+if [[ -f "$1srt" && -f "$1mkv" ]]; then
+  merge "$1srt" "$1mkv"
+elif [[ "$#" -ne 2 ]]; then
+  echo "Usage: $0 foo.srt foo.mkv" >&2
+  exit 1
+elif [[ "$1" != *.srt && "$2" != *.mkv ]]; then
+  echo "Usage: $0 foo.srt foo.mkv" >&2
+  exit 1
+else
+  merge "$1" "$2"
+fi
+
