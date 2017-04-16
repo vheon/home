@@ -15,9 +15,9 @@ brew tap neovim/neovim
 
 brew update
 
-brew install rmtree
 brew install vim --with-override-system-vi --with-lua
 brew install neovim --HEAD
+brew install fish
 brew install cmake
 brew install ctags
 brew install findutils
@@ -36,11 +36,10 @@ brew install go
 brew tap caskroom/cask
 brew tap caskroom/fonts
 brew tap caskroom/versions
-brew install brew-cask
 
 brew cask install iterm2-beta
 
-brew cask install flash
+brew cask install flash-npapi
 
 brew cask install java
 
@@ -63,9 +62,6 @@ brew cask install bettertouchtool
 brew cask install flux
 
 brew cask install spotify
-
-sudo brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch --qlplugindir="/Library/QuickLook"
-sudo brew cask install quicklook-csv betterzipql webpquicklook suspicious-package --qlplugindir="/Library/QuickLook"
 
 brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
