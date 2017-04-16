@@ -39,25 +39,24 @@ Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-endwise'
 let g:endwise_abbreviations = 1
 
-Plug 'wincent/ferret'
-let g:FerretMap=0
-" nmap <Leader>gw :Ack -w <C-R><C-W><cr>
-nmap <Leader>gw <Plug>(FerretAckWord)
-" if executable('ag')
-"   set grepprg=ag\ --vimgrep\ --follow
-"   set grepformat=%f:%l:%c:%m
-" elseif executable('pt')
-"   set grepprg=pt\ --nocolor\ --smart-case\ --follow
-"   set grepformat=%f:%l:%m
-" endif
-" nnoremap <Leader>gw :grep -w <cword><cr>
-
-" Plug 'romainl/vim-qf'
-
-Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
+
+Plug 'mhinz/vim-grepper'
+let g:grepper = {}
+let g:grepper.switch = 0
+nnoremap <Leader>gw :Grepper -query <C-R><C-W><cr>
+
+Plug 'romainl/vim-qf'
+let g:qf_auto_open_quickfix = 0
+let g:qf_auto_open_loclist = 0
+nmap <Leader>q <Plug>(qf_qf_toggle)
+nmap <Leader>l <Plug>(qf_loc_toggle)
+" From this I only want the mapping for the operator `d` and `dd` to delete
+" specific entries from the quickfix
+Plug 'wincent/ferret'
+let g:FerretLoaded = 1
 
 Plug 'machakann/vim-textobj-delimited'
 Plug 'PeterRincker/vim-argumentative'
