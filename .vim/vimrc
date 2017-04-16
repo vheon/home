@@ -46,7 +46,7 @@ Plug 'tpope/vim-rsi'
 Plug 'mhinz/vim-grepper'
 let g:grepper = {}
 let g:grepper.switch = 0
-nnoremap <Leader>gw :Grepper -query <C-R><C-W><cr>
+nnoremap <Leader>gw :Grepper -cword -noprompt<cr>
 
 Plug 'romainl/vim-qf'
 let g:qf_auto_open_quickfix = 0
