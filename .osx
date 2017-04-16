@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
 sudo -v
 
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
@@ -53,6 +57,9 @@ sudo rm /Private/var/vm/sleepimage
 sudo touch /Private/var/vm/sleepimage
 # …and make sure it can’t be rewritten
 sudo chflags uchg /Private/var/vm/sleepimage
+
+# Disable the sudden motion sensor as it’s not useful for SSDs
+sudo pmset -a sms 0
 
 ################################################################################
 # Dock                                                                         #
@@ -134,7 +141,7 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-# Swipe between full-screen apps 
+# Swipe between full-screen apps
 # 0 -> 4-finger
 # 2 -> 3-finger
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 0
@@ -169,9 +176,8 @@ defaults write com.apple.ActivityMonitor IconType -int 5
 # Archive Utility                                                              #
 ################################################################################
 
-# XXX: check this and see if it is worth it
-# # Move archives to trash after extraction
-# defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash"
+# Move archives to trash after extraction
+defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash"
 
 ################################################################################
 # iTerm2                                                                       #
@@ -194,6 +200,7 @@ defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Do
 
 # Don’t prompt for confirmation before downloading
 defaults write org.m0k.transmission DownloadAsk -bool false
+defaults write org.m0k.transmission MagnetOpenAsk -bool false
 
 # Trash original torrent files
 defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
@@ -202,6 +209,11 @@ defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
 defaults write org.m0k.transmission WarningDonate -bool false
 # Hide the legal disclaimer
 defaults write org.m0k.transmission WarningLegal -bool false
+
+# IP block list.
+# Source: https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
+defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
+defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 
 
 ###############################################################################
