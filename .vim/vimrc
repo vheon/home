@@ -35,6 +35,11 @@ Plug 'tpope/vim-repeat'
 
 Plug 'justinmk/vim-dirvish'
 
+" XXX(vheon): the more I use it the more I think is not for me :/
+" It slow the <cr> a lot (at least on the files I work on) and it doesn't keep
+" the spaces that I need so in the end I basically do it by hand. So to recap
+" - love the idea
+" - lack a little in the execution
 Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-endwise'
 let g:endwise_abbreviations = 1
@@ -77,6 +82,10 @@ let g:ycm_extra_conf_vim_data   = [ '&filetype' ]
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_filetype_blacklist = { 'help': 1 }
 
+" XXX(vheon): I actually don't remember the last time I've used this.
+" I'm not sure it is because I lack the snippets (I don't really like the one
+" found in common repository like honza/vim-snippets) or because I actually
+" don't like the feature :/
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger = '<C-j>'
 let g:UltiSnipsJumpForwardTrigger = '<C-j>'
@@ -87,6 +96,7 @@ Plug 'Shougo/neco-vim'
 let g:ycm_semantic_triggers = get( g:,'ycm_semantic_triggers', {} )
 let g:ycm_semantic_triggers.vim = ['$', '&', 're![\w&$<-][\w:#<>-]*']
 
+" XXX(vheon): I should actually switch to w0rp/ale
 if has( 'nvim' )
 Plug 'neomake/neomake'
 let g:neomake_verbose = 0
