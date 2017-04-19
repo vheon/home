@@ -28,10 +28,12 @@ unlet! g:plug_url_format
 Plug 'fmoralesc/vim-help-grimoire'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
+
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 
 Plug 'justinmk/vim-dirvish'
 
