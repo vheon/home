@@ -56,6 +56,8 @@ Plug 'tpope/vim-rsi'
 " nnoremap <Leader>gw :Grepper -cword -noprompt<cr>
 
 Plug 'romainl/vim-qf'
+let g:qf_window_bottom = 0
+let g:qf_loclist_window_bottom = 0
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 nmap <Leader>q <Plug>(qf_qf_toggle)
