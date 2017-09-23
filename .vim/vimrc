@@ -50,10 +50,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
 
-Plug 'mhinz/vim-grepper'
-let g:grepper = {}
-let g:grepper.switch = 0
-nnoremap <Leader>gw :Grepper -cword -noprompt<cr>
+" Plug 'mhinz/vim-grepper'
+" let g:grepper = {}
+" let g:grepper.switch = 0
+" nnoremap <Leader>gw :Grepper -cword -noprompt<cr>
 
 Plug 'romainl/vim-qf'
 let g:qf_auto_open_quickfix = 0
@@ -63,7 +63,9 @@ nmap <Leader>l <Plug>(qf_loc_toggle)
 " From this I only want the mapping for the operator `d` and `dd` to delete
 " specific entries from the quickfix
 Plug 'wincent/ferret'
-let g:FerretLoaded = 1
+let g:FerretMap=0
+let g:FerretAutojump = 0
+nnoremap <Leader>gw :Ack! -w <C-r><C-w><cr>
 
 Plug 'machakann/vim-textobj-delimited'
 Plug 'PeterRincker/vim-argumentative'
