@@ -19,7 +19,8 @@
 " OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 let s:words = {}
-let s:indexes = range( 1, 6 )
+let s:free_indexes = range( 1, 6 )
+let s:used_indexes = []
 
 function! s:simplemark_clear_all()
   for word in keys(s:words)
@@ -29,7 +30,7 @@ endfunction
 
 function! s:unmark_word(word)
   let marker = remove(s:words, a:word)
-  call sort(add(s:indexes, marker.index))
+  call sort(add(s:free_indexes, marker.index))
 
   call s:windo('s:render_remove_mark', marker)
 endfunction
@@ -40,15 +41,18 @@ function! s:render_remove_mark() dict
 endfunction
 
 function! s:get_or_steal_index()
-  if len(s:indexes) == 0
-    call s:nuke_item_with_index(1)
+  if len(s:free_indexes) == 0
+    call s:nuke_oldest_item()
   endif
-  return remove(s:indexes, 0)
+  let index = remove(s:free_indexes, 0)
+  call add(s:used_indexes, index)
+  return index
 endfunction
 
-function! s:nuke_item_with_index(i)
+function! s:nuke_oldest_item()
+  let index = remove(s:used_indexes, 0)
   for [word, marker] in items(s:words)
-    if marker.index == a:i
+    if marker.index == index
       call s:unmark_word(word)
       return
     endif
