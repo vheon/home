@@ -144,7 +144,7 @@ nnoremap <silent> <Leader>bb :Buffers<cr>
 
 Plug 'derekwyatt/vim-fswitch'
 Autocmd BufEnter *.h let b:fswitchlocs = 'rel:./,./Unix/,./Windows/'
-      \ | let b:fswitchdst = 'cpp'
+      \ | let b:fswitchdst = 'cpp,c'
 nnoremap <silent> <Leader>af :FSHere<cr>
 
 function! s:UnixAlternative()
