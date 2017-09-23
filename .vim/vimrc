@@ -60,10 +60,9 @@ let g:qf_window_bottom = 0
 let g:qf_loclist_window_bottom = 0
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
-nmap <Leader>q <Plug>(qf_qf_toggle)
-nmap <Leader>l <Plug>(qf_loc_toggle)
-" From this I only want the mapping for the operator `d` and `dd` to delete
-" specific entries from the quickfix
+nmap <Leader>q <Plug>qf_qf_toggle_stay
+nmap <Leader>l <Plug>qf_loc_toggle_stay
+
 Plug 'wincent/ferret'
 let g:FerretMap=0
 let g:FerretAutojump = 0
