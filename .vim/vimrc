@@ -195,6 +195,9 @@ set smartcase
 set ignorecase
 set nohlsearch
 
+let g:status_search = ''
+Autocmd User FerretAsyncStart let g:status_search = '[Searching]'
+Autocmd User FerretAsyncFinish let g:status_search = ''
 
 set tabline=%!tabline#line()
 if has('vim_starting')
@@ -202,6 +205,7 @@ let &statusline  = ''
 let &statusline .= '%h%w '
 let &statusline .= '%<%f '
 let &statusline .= '%{fugitive#statusline()}'
+let &statusline .= '%{g:status_search}'
 let &statusline .= '%-4(%m%r%)'
 let &statusline .= '%{&paste ? "P" : ""}'
 let &statusline .= '%='
