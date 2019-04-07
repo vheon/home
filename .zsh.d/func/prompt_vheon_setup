@@ -40,7 +40,7 @@ prompt_vheon_setup() {
   add-zsh-hook preexec prompt_title_preexec_hook
   add-zsh-hook precmd prompt_vheon_precmd_hook
 
-  zstyle ':vcs_info:*' enable git hg
+  zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
   zstyle ':vcs_info:*' unstagedstr '?'
   zstyle ':vcs_info:*' stagedstr '!'
@@ -48,12 +48,6 @@ prompt_vheon_setup() {
   zstyle ':vcs_info:git:*' formats ' (±)-[%F{green}%b%f%u%c]'
   zstyle ':vcs_info:git:*' actionformats ' %F{green}%b%f|%F{magenta}%a%f%u%c'
   zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-
-  zstyle ':vcs_info:hg:*' formats ' (☿)-[%F{yellow}%b%f%u%c]'
-
-  zstyle ':vcs_info:git-svn:*' formats ' (±/☇)-[%F{green}%b%f%u%c]'
-  zstyle ':vcs_info:git-svn:*' actionformats ' %F{green}%b%f|%F{magenta}%a%f%u%c'
-  zstyle ':vcs_info:git-svn*+set-message:*' hooks git-untracked
 
   PROMPT=''
 

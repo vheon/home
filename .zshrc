@@ -25,7 +25,7 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export PATH="/usr/local/bin:$HOME/bin:$GOBIN:${PATH}"
 # append eclim bin to the path, but eclipse is installed by brew cask
 export PATH="$PATH:$(readlink /Applications/Eclipse.app)/../"
-export EDITOR=vi
+export EDITOR=nvim
 set -o emacs
 
 export HISTFILE="$HOME/.history"
@@ -61,6 +61,8 @@ alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
 alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
+
+alias sub='subliminal download -l en -s'
 
 # XXX: removes all WORDCHARS and add them when I see its needed
 export WORDCHARS=''
@@ -105,21 +107,11 @@ cdf() {  # short for cdfinder
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
-nfg() {
-  fg %$(jobs | selecta | xargs -I % expr match % '\[\([[:digit]]\+\)\]')
-}
-
-mountg() {
-  mkdir -p $HOME/tmp/storage
-  sshfs -o volname=Storage -o Compression=no -o Ciphers=arcfour $USER@ghost.local:/mnt/storage $HOME/tmp/storage
-}
-
-export JAVA_HOME=$(/usr/libexec/java_home)
-
-eval 'eval "$(rbenv init -)"'
-
 source $ZSH/func/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/func/zsh-history-substring-search/zsh-history-substring-search.zsh
+
 # bind P and N for EMACS mode
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
