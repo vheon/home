@@ -6,7 +6,8 @@
 .vim/plugged/*
 .vim/init.vim
 .vim/.init.vim-rplugin~
-.config/nvim
+.config/nvim/pack/*
+!.config/nvim/pack/minpac/opt/minpac
 .config/fish/fishd.*
 .config/fish/functions/fish_user_key_bindings.fish
 .config/fish/functions/fzf_key_bindings.fish

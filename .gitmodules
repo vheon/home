@@ -4,3 +4,6 @@
 [submodule ".zsh.d/func/zsh-history-substring-search"]
 	path = .zsh.d/func/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
+[submodule ".config/nvim/pack/minpac/opt/minpac"]
+	path = .config/nvim/pack/minpac/opt/minpac
+	url = https://github.com/k-takata/minpac
