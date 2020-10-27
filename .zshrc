@@ -107,7 +107,11 @@ cdf() {  # short for cdfinder
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
-source $ZSH/func/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#65737e"
+source $ZSH/func/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# source $ZSH/func/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH/func/fast-syntax-highlightin/fast-syntax-highlighting.plugin.zsh
 source $ZSH/func/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # bind P and N for EMACS mode
