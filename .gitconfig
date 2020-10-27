@@ -35,7 +35,7 @@
 
 	remotes = remote -v
 
-	start = "!git init && git commit --allow-empty -m 'Initial commit'"
+	start = "!git init && git commit --allow-empty -m 'A first empty commit to start this project'"
 
 	# log stolen from gary bernhardt
 	; l = "!. ~/.githelpers && pretty_git_log"
