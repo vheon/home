@@ -7,83 +7,12 @@ command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
 
 let g:mapleader="\<Space>"
 
-" XXX(vheon): I kinda miss the update window of vim-plug
-" test https://github.com/kristijanhusak/vim-packager which seems a "clone" of
-" minpac but with that functionality
-
-packadd minpac
-
-call minpac#init({'status_open': 'tab'})
-
-call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-call minpac#add('mhartington/oceanic-next')
-call minpac#add('ayu-theme/ayu-vim')
-
-call minpac#add('tpope/vim-commentary')
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-repeat')
-
-call minpac#add('tpope/vim-fugitive')
-call minpac#add('junegunn/gv.vim')
-
-call minpac#add('justinmk/vim-dirvish')
-
-" XXX(vheon): I really like the abbreviation but it always gets in the way
-" when I'm writing comments
-call minpac#add('tpope/vim-endwise')
-let g:endwise_abbreviations = 1
-
-call minpac#add('tpope/vim-unimpaired')
-call minpac#add('tpope/vim-abolish')
-call minpac#add('tpope/vim-rsi')
-
-call minpac#add('PeterRincker/vim-argumentative')
-
-call minpac#add('Valloric/YouCompleteMe', { 'do': {-> system('./install.py')}})
-let g:ycm_confirm_extra_conf    = 0
-let g:ycm_complete_in_comments  = 1
-" let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm_extra_conf.py'
-" let g:ycm_extra_conf_vim_data   = [ '&filetype' ]
-" let g:ycm_seed_identifiers_with_syntax = 1
-" let g:ycm_filetype_blacklist = { 'help': 1 }
-" let g:ycm_key_list_stop_completion = ['']
-
-call minpac#add('tpope/vim-scriptease')
-
-call minpac#add('vim-jp/cpp-vim')
-call minpac#add('octol/vim-cpp-enhanced-highlight')
-
-call minpac#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': {-> system('./install --all')}})
-call minpac#add('junegunn/fzf.vim')
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-
-  let height = &lines * 40 / 100
-  let width = &columns
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'anchor': 'SW',
-        \ 'row': &lines,
-        \ 'col': 1,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-nnoremap <silent> <Leader>fg :GFiles<cr>
-nnoremap <silent> <Leader>ff :Files<cr>
-nnoremap <silent> <Leader>fb :Buffers<cr>
+lua require('plugins')
 
 set termguicolors
-" XXX(vheon): set guicursor!
-let ayucolor="mirage"
-silent! colorscheme ayu
+" I miss the different colors for visual, visual line and visual block
+set guicursor=n-c-sm:block-Cursor,v-ve:block-IncSearch,i-ci-ve:block-WildMenu,r-cr-o:hor20-Cursor
+silent! colorscheme OceanicNext
 
 set completeopt-=preview
 set completeopt+=menuone
@@ -114,6 +43,8 @@ set cmdheight=2
 set noshowmode
 set wildmode=list:longest
 
+let &tabline = '%!luaeval("require''tabline''.line()")'
+
 set noshowcmd
 
 set noautochdir
@@ -129,6 +60,10 @@ set list
 let &fillchars = "vert:\u2502"
 let &listchars = "tab:\u2192 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
 
+
+command! -nargs=* SetIndent call functions#SetIndent(<f-args>)
+command! -nargs=+ Expandtab call functions#Expandtab(<f-args>)
+
 " more consistent with other operator
 nnoremap Y y$
 
@@ -142,8 +77,12 @@ cnoremap %% <C-R>=printf( '%s%s',
                         \ fnamemodify(expand('%', 1), ':p:h'),
                         \ (!exists("+shellslash") + &shellslash) ? '/' : '\')<CR>
 nmap <leader>e. :edit %%
+nmap <leader>ev :tabnew $MYVIMRC<cr>
 
 nnoremap <C-n> :set invnumber<cr>
+
+nmap mw <Plug>(SimpleMark)
+nnoremap <silent> <C-L> :nohlsearch<cr>:MarkClearAll<cr><C-L>
 
 " CTRL-U and CTRL-W in insert mode cannot be undone.  Use CTRL-G u to first
 " break undo, so that we can undo those changes after inserting a line break.
@@ -167,3 +106,28 @@ Autocmd BufEnter * if exists('b:last_cwd')
                 \| endif
 
 Autocmd BufWinEnter *.txt if &buftype == 'help' | wincmd T | endif
+
+Autocmd TermOpen term://* startinsert
+
+tnoremap <C-w>h <C-\><C-n><C-w>h
+tnoremap <C-w>j <C-\><C-n><C-w>j
+tnoremap <C-w>k <C-\><C-n><C-w>k
+tnoremap <C-w>l <C-\><C-n><C-w>l
+tnoremap <C-w>. <C-w>
+
+Autocmd FileType cpp :SetIndent 4<cr>
+nnoremap <Leader>q :YcmCompleter Format<cr>
+
+function! SwitchSourceHeader()
+  if (expand ("%:e") == "cpp")
+    find %:t:r.h
+  else
+    find %:t:r.cpp
+  endif
+endfunction
+
+nmap <Leader>af :call SwitchSourceHeader()<CR>
+
+let g:loaded_python_provider = 0
+let g:python3_host_prog = '/usr/local/bin/python3'
+
