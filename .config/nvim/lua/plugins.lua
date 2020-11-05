@@ -33,7 +33,12 @@ packer.reset()
 
 local use = packer.use
 local function local_use(package)
-  local path = "~/code/" .. package
+  local path = nil
+  if type(package) == "table" then
+    _, path = next(package)
+  else
+    path = "~/code/" .. package
+  end
   if vim.fn.isdirectory(vim.fn.expand(path)) == 1 then
     use(path)
   end
@@ -82,19 +87,21 @@ use 'tpope/vim-rsi'
 
 use 'PeterRincker/vim-argumentative'
 
-use {
-  'Valloric/YouCompleteMe',
-  init = function()
-    vim.g.ycm_confirm_extra_conf    = 0
-    vim.g.ycm_complete_in_comments  = 1
-    -- let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm_extra_conf.py'
-    -- let g:ycm_extra_conf_vim_data   = [ '&filetype' ]
-    -- let g:ycm_seed_identifiers_with_syntax = 1
-    -- let g:ycm_filetype_blacklist = { 'help': 1 }
-    vim.g.ycm_key_list_stop_completion = {''}
-  end,
-  run = './install.py'
-}
+local_use { 'ycm.nvim', opt = true }
+
+-- use {
+--   'Valloric/YouCompleteMe',
+--   init = function()
+--     vim.g.ycm_confirm_extra_conf    = 0
+--     vim.g.ycm_complete_in_comments  = 1
+--     -- let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm_extra_conf.py'
+--     -- let g:ycm_extra_conf_vim_data   = [ '&filetype' ]
+--     -- let g:ycm_seed_identifiers_with_syntax = 1
+--     -- let g:ycm_filetype_blacklist = { 'help': 1 }
+--     vim.g.ycm_key_list_stop_completion = {''}
+--   end,
+--   run = './install.py'
+-- }
 
 use 'tpope/vim-scriptease'
 
@@ -166,6 +173,14 @@ use 'bakpakin/fennel.vim'
 
 use 'jvirtanen/vim-hcl'
 use 'pprovost/vim-ps1'
+
+use 'nvim-treesitter/nvim-treesitter'
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true
+  }
+}
+use 'nvim-treesitter/playground'
 
 local_use 'bigfixdev.nvim'
 
