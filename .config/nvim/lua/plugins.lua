@@ -43,12 +43,19 @@ use 'tpope/vim-surround'
 use 'tpope/vim-repeat'
 use 'tpope/vim-eunuch'
 
-use 'tpope/vim-fugitive'
+use {
+  'tpope/vim-fugitive',
+  init = function()
+    nnoremap('<leader>gs', ':Gtabedit :<cr>')
+    nnoremap('<leader>gh', ':Gtabedit @<cr>')
+  end
+}
+
 use {
   'junegunn/gv.vim',
   init = function()
-    nnoremap('<leader>gs', ':Gtabedit :<cr>')
     nnoremap('<leader>gl', ':GV<cr>')
+    nnoremap('<leader>gr', ':GV -20<cr>')
   end
 }
 
@@ -87,6 +94,10 @@ use 'tpope/vim-scriptease'
 
 use 'vim-jp/cpp-vim'
 use 'octol/vim-cpp-enhanced-highlight'
+use 'pboettch/vim-cmake-syntax'
+
+use 'chikamichi/mediawiki.vim'
+
 
 use 'elixir-editors/vim-elixir'
 
@@ -122,16 +133,32 @@ use {
         yoffset = 0.9
       }
     }
-    -- XXX(andrea): I should set fzf_colors grabbing the color from the
-    -- colorscheme neovim terinal settings.
     nnoremap('<Leader>fg', ':GFiles<cr>', { silent = true })
     nnoremap('<Leader>ff', ':Files<cr>', { silent = true })
     nnoremap('<Leader>fb', ':Buffers<cr>', { silent = true })
     nnoremap('<Leader>ft', ':Tags<cr>', { silent = true })
+
+    vim.g.fzf_colors = {
+      fg =      {'fg', 'Normal'},
+      bg =      {'bg', 'Comment'},
+      hl =      {'fg', 'Comment'},
+      ['fg+'] = {'fg', 'SignifySignChange', 'CursorColumn', 'Normal'},
+      ['bg+'] = {'bg', 'CursorLineNr', 'CursorColumn'},
+      ['hl+'] = {'fg', 'Statement'},
+      info =    {'fg', 'PreProc'},
+      border =  {'fg', 'Ignore'},
+      prompt =  {'fg', 'Conditional'},
+      pointer = {'fg', 'Exception'},
+      marker =  {'fg', 'Keyword'},
+      spinner = {'fg', 'Label'},
+      header =  {'fg', 'Comment'}
+    }
   end
 }
 
 use 'bakpakin/fennel.vim'
 
+use 'jvirtanen/vim-hcl'
+use 'pprovost/vim-ps1'
 
 packer_define_default_commands()
