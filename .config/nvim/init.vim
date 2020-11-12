@@ -131,9 +131,6 @@ tnoremap <C-w>k <C-\><C-n><C-w>k
 tnoremap <C-w>l <C-\><C-n><C-w>l
 tnoremap <C-w>. <C-w>
 
-Autocmd FileType cpp :SetIndent 4<cr>
-nnoremap <Leader>q :YcmCompleter Format<cr>
-
 function! SwitchSourceHeader()
   if (expand ("%:e") == "cpp")
     find %:t:r.h
