@@ -26,12 +26,27 @@ set smartcase
 set ignorecase
 set nohlsearch
 
+function! GitBranch()
+  let branch = fugitive#head(7)
+  if len(branch)
+    return "\uE0A0".branch
+  endif
+  return ""
+endfunction
+
+function! FerretSearch()
+  return get( g:, 'ferret_search', '' )
+endfunction
+Autocmd User FerretAsyncStart  let g:ferret_search = " \uF422" | redrawstatus
+Autocmd User FerretAsyncFinish unlet g:ferret_search | redrawstatus
+
+
 let g:status_search = ''
 let &statusline  = ''
 let &statusline .= '%h%w '
 let &statusline .= '%<%f '
-let &statusline .= '%{fugitive#statusline()}'
-let &statusline .= '%{g:status_search}'
+let &statusline .= '%{GitBranch()}'
+let &statusline .= '%{FerretSearch()}'
 let &statusline .= '%-4(%m%r%)'
 let &statusline .= '%{&paste ? "P" : ""}'
 let &statusline .= '%='
@@ -106,6 +121,7 @@ Autocmd BufEnter * if exists('b:last_cwd')
                 \| endif
 
 Autocmd BufWinEnter *.txt if &buftype == 'help' | wincmd T | endif
+Autocmd FileType help nnoremap <silent><buffer> gq :q!<cr>
 
 Autocmd TermOpen term://* startinsert
 
@@ -130,4 +146,14 @@ nmap <Leader>af :call SwitchSourceHeader()<CR>
 
 let g:loaded_python_provider = 0
 let g:python3_host_prog = '/usr/local/bin/python3'
+
+let g:clipboard = {
+      \   'name': 'clipper',
+      \   'copy': {
+      \      '+': ['nc', 'localhost', '8377'],
+      \      '*': ['nc', 'localhost', '8377'],
+      \    },
+      \   'paste': { '+': [], '*': [] },
+      \   'cache_enabled': 1,
+      \ }
 
