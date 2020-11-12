@@ -32,6 +32,12 @@ packer.init({ display = { open_cmd = 'tabnew' } })
 packer.reset()
 
 local use = packer.use
+local function local_use(package)
+  local path = "~/code/" .. package
+  if vim.fn.isdirectory(vim.fn.expand(path)) == 1 then
+    use(path)
+  end
+end
 
 -- Packer can manage itself as an optional plugin
 use {'wbthomason/packer.nvim', opt = true}
@@ -160,5 +166,7 @@ use 'bakpakin/fennel.vim'
 
 use 'jvirtanen/vim-hcl'
 use 'pprovost/vim-ps1'
+
+local_use 'bigfixdev.nvim'
 
 packer_define_default_commands()

@@ -144,9 +144,6 @@ endfunction
 
 nmap <Leader>af :call SwitchSourceHeader()<CR>
 
-let g:loaded_python_provider = 0
-let g:python3_host_prog = '/usr/local/bin/python3'
-
 let g:clipboard = {
       \   'name': 'clipper',
       \   'copy': {
@@ -156,4 +153,3 @@ let g:clipboard = {
       \   'paste': { '+': [], '*': [] },
       \   'cache_enabled': 1,
       \ }
-
