@@ -36,11 +36,17 @@ local function local_use(package)
   local path = nil
   if type(package) == "table" then
     _, path = next(package)
+    path = "~/code/"..path
+    if vim.fn.isdirectory(vim.fn.expand(path)) == 1 then
+      package[1] = path
+      use(package)
+    end
   else
     path = "~/code/" .. package
-  end
-  if vim.fn.isdirectory(vim.fn.expand(path)) == 1 then
-    use(path)
+    if vim.fn.isdirectory(vim.fn.expand(path)) == 1 then
+      package = path
+      use(package)
+    end
   end
 end
 
