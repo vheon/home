@@ -82,6 +82,9 @@ command! -nargs=+ Expandtab call functions#Expandtab(<f-args>)
 " more consistent with other operator
 nnoremap Y y$
 
+" possible mnemonic? let say is for YELL
+inoremap <C-y> <esc>gUiw`]a
+
 " Practical Vim tip #34
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
