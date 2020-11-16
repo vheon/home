@@ -127,8 +127,8 @@ use {
     vim.g.qf_loclist_window_bottom = 0
     vim.g.qf_auto_open_quickfix = 0
     vim.g.qf_auto_open_loclist = 0
-    nmap('<Leader>q', '<Plug>qf_qf_toggle_stay')
-    nmap('<Leader>l', '<Plug>qf_loc_toggle_stay')
+    nmap('<Leader>q', '<Plug>(qf_qf_toggle_stay)')
+    nmap('<Leader>l', '<Plug>(qf_loc_toggle_stay)')
   end
 }
 
