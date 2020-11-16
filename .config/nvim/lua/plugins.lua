@@ -28,6 +28,18 @@ packer.set_handler('init', function(plugins, plugin, f)
     f()
   end
 end)
+-- helper function to setup pure lua plugins. Using this we can write the setup
+-- even if the plugin is still not installed. Look down below for
+-- nvim-treesitter for an example.
+-- XXX(andrea): should probably log something when the module is not found.
+local function with_module(module, f)
+  return function()
+    local ok, module = pcall(require,module)
+    if ok then
+      f(module)
+    end
+  end
+end
 packer.init({ display = { open_cmd = 'tabnew' } })
 packer.reset()
 
@@ -180,14 +192,28 @@ use 'bakpakin/fennel.vim'
 use 'jvirtanen/vim-hcl'
 use 'pprovost/vim-ps1'
 
-use 'nvim-treesitter/nvim-treesitter'
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true
-  }
+use {
+  'nvim-treesitter/nvim-treesitter',
+  init = with_module('nvim-treesitter.configs', function(configs)
+    configs.setup {
+      highlight = {
+        enable = true
+      }
+    }
+  end)
 }
 use 'nvim-treesitter/playground'
 
+use {
+  'neovim/nvim-lspconfig',
+  init = with_module('lspconfig', function(lspconfig)
+    lspconfig.gopls.setup {
+      cmd = { '/home/bigfix/go/bin/gopls' }
+    }
+  end)
+}
+
+-- plugin to bundle all nvim settings for work
 local_use 'bigfixdev.nvim'
 
 packer_define_default_commands()
