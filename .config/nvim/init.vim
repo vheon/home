@@ -78,6 +78,7 @@ let &listchars = "tab:\u2192 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\
 
 command! -nargs=* SetIndent call functions#SetIndent(<f-args>)
 command! -nargs=+ Expandtab call functions#Expandtab(<f-args>)
+command! Reload call functions#ReloadInitVim()
 
 " more consistent with other operator
 nnoremap Y y$
