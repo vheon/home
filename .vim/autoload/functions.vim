@@ -81,8 +81,3 @@ function! functions#Remove()
     echoerr 'Failed to delete "'.file.'"'
   endif
 endfunction
-
-function! functions#ReloadInitVim()
-  lua package.loaded.plugins = nil
-  source $MYVIMRC
-endfunction

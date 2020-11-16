@@ -34,3 +34,8 @@ function! functions#Expandtab(tabstop)
     setlocal expandtab
   endif
 endfunction
+
+function! functions#ReloadInitVim()
+  lua package.loaded.plugins = nil
+  source $MYVIMRC
+endfunction
