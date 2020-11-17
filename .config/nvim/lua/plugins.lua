@@ -103,6 +103,8 @@ use 'tpope/vim-unimpaired'
 use 'tpope/vim-abolish'
 use 'tpope/vim-rsi'
 
+-- XXX(andrea): This could probably be replaced with nvim-treesitter-textobjects
+-- https://github.com/nvim-treesitter/nvim-treesitter-textobjects#text-objects-swap
 use 'PeterRincker/vim-argumentative'
 
 local_use { 'ycm.nvim', opt = true }
