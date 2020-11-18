@@ -215,6 +215,8 @@ use {
   end)
 }
 
+use 'khaveesh/vim-fish-syntax'
+
 -- plugin to bundle all nvim settings for work
 local_use 'bigfixdev.nvim'
 

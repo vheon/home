@@ -12,3 +12,4 @@
 .config/fish/functions/fish_user_key_bindings.fish
 .config/fish/functions/fzf_key_bindings.fish
 homemaker
+.config/fish/fish_variables

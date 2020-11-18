@@ -15,34 +15,34 @@ set -g __fish_git_prompt_color_invalidstate red
 set -g __fish_git_prompt_color_untrackedfiles cyan
 set -g ___fish_git_prompt_color_merging magenta
 
-function fish_prompt --description 'Write out the prompt'
-	set -l last_status $status
+function fish_prompt
+  set --local last_status $status
 
-	if test -n "$SSH_CONNECTION"
-		echo -n (set_color green)"$USER"(set_color normal)"@"(set_color magenta)(hostname)" "
-	end
+  if test -n "$SSH_CONNECTION"
+    echo -n (set_color green)"$USER"(set_color normal)"@"(set_color magenta)(hostname)" "
+  end
 
-	# PWD
-	set_color blue
-	echo -n (pwd|sed "s|$HOME|~|")
-	set_color normal
+  # PWD
+  set_color blue
+  echo -n (pwd|sed "s|$HOME|~|")
+  set_color normal
 
-	echo -n (__fish_git_prompt " (±)-[%s]")
+  echo -n (__fish_git_prompt " \uE0A0 %s")
 
-	# New line
-	echo
+  # New line
+  echo
 
-	if not test (count (jobs | grep "stopped")) -eq 0
-		set_color yellow
-		echo -n '☰ '
-		set_color normal
-	end
+  if not test (count (jobs | grep "stopped")) -eq 0
+    set_color yellow
+    echo -n '☰ '
+    set_color normal
+  end
 
-	if test $last_status = 0
-		set_color green
-	else
-		set_color red
-	end
-	echo -n "❯ "
-	set_color normal
+  if test $last_status = 0
+    set_color green
+  else
+    set_color red
+  end
+  echo -n "❯ "
+  set_color normal
 end
