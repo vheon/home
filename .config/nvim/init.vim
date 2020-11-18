@@ -7,7 +7,10 @@ command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
 
 let g:mapleader="\<Space>"
 
-lua require('plugins')
+lua << EOF
+package.loaded.plugins = nil
+require('plugins')
+EOF
 
 set termguicolors
 " I miss the different colors for visual, visual line and visual block
@@ -75,10 +78,8 @@ set list
 let &fillchars = "vert:\u2502"
 let &listchars = "tab:\u2192 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
 
-
 command! -nargs=* SetIndent call functions#SetIndent(<f-args>)
 command! -nargs=+ Expandtab call functions#Expandtab(<f-args>)
-command! Reload call functions#ReloadInitVim()
 
 " more consistent with other operator
 nnoremap Y y$
@@ -97,6 +98,7 @@ cnoremap %% <C-R>=printf( '%s%s',
                         \ (!exists("+shellslash") + &shellslash) ? '/' : '\')<CR>
 nmap <leader>e. :edit %%
 nmap <leader>ev :tabnew $MYVIMRC<cr>
+nnoremap <leader>rv <cmd>source $MYVIMRC<cr>
 
 nnoremap <C-n> :set invnumber<cr>
 
