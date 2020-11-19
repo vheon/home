@@ -18,7 +18,9 @@ set -g ___fish_git_prompt_color_merging magenta
 function fish_prompt
   set --local last_status $status
 
-  if test -n "$SSH_CONNECTION"
+  # I'm in a tmux session I have the user@machine is in the tmux status line.
+  # No need to put it also in the prompt.
+  if test -n "$SSH_CONNECTION" && test -z "$TMUX"
     echo -n (set_color green)"$USER"(set_color normal)"@"(set_color magenta)(hostname)" "
   end
 
@@ -32,7 +34,7 @@ function fish_prompt
   # New line
   echo
 
-  if not test (count (jobs | grep "stopped")) -eq 0
+  if test (count (jobs | grep "stopped")) -ne 0
     set_color yellow
     echo -n '☰ '
     set_color normal
