@@ -27,6 +27,6 @@ set fish_color_param $base06
 set fish_color_comment $base03 --italics
 set fish_color_match $purple
 set fish_color_selection $orange --inverse
-set fish_color_search_match $cyan --background
+set fish_color_search_match --background=$cyan
 set fish_color_operator $blue
 set fish_color_autosuggestion $base03
