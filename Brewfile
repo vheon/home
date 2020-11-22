@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# TODO(andra): we should look into either moving this to ansible as we should
+# do with the rest of the dotfile for bootstrapping or look into the native
+# brew Brewfile support.
+
 # ask for password upfront
 sudo -v
 
@@ -31,6 +35,8 @@ brew install tmux
 brew install aria2
 brew install subliminal
 
+# XXX(andrea): this also needs `brew services start clipper`
+brew install clipper
 # brew install go
 
 brew tap caskroom/cask
