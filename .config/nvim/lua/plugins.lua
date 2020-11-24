@@ -217,6 +217,8 @@ use {
 
 use 'khaveesh/vim-fish-syntax'
 
+use 'kyazdani42/nvim-web-devicons'
+
 -- plugin to bundle all nvim settings for work
 local_use 'bigfixdev.nvim'
 

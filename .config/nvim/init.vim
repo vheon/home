@@ -10,7 +10,11 @@ let g:mapleader="\<Space>"
 lua << EOF
 package.loaded.plugins = nil
 require('plugins')
+
+_G.config = require('config')
 EOF
+set statusline=%!v:lua.config.statusline()
+set tabline=%!v:lua.config.tabline()
 
 set termguicolors
 " I miss the different colors for visual, visual line and visual block
@@ -29,39 +33,9 @@ set smartcase
 set ignorecase
 set nohlsearch
 
-function! GitBranch()
-  let branch = fugitive#head(7)
-  if len(branch)
-    return "\uE0A0".branch
-  endif
-  return ""
-endfunction
-
-function! FerretSearch()
-  return get( g:, 'ferret_search', '' )
-endfunction
-Autocmd User FerretAsyncStart  let g:ferret_search = " \uF422" | redrawstatus
-Autocmd User FerretAsyncFinish unlet g:ferret_search | redrawstatus
-
-
-let g:status_search = ''
-let &statusline  = ''
-let &statusline .= '%h%w '
-let &statusline .= '%<%f '
-let &statusline .= '%{GitBranch()}'
-let &statusline .= '%{FerretSearch()}'
-let &statusline .= '%-4(%m%r%)'
-let &statusline .= '%{&paste ? "P" : ""}'
-let &statusline .= '%='
-let &statusline .= '%y '
-let &statusline .= '%-14(%P %3l:%02c%)'
-let &statusline .= '[%{strlen(&l:fenc) ? &enc : &l:fenc}]'
-
 set cmdheight=2
 set noshowmode
 set wildmode=list:longest
-
-let &tabline = '%!luaeval("require''tabline''.line()")'
 
 set noshowcmd
 
