@@ -59,7 +59,6 @@ function fish_prompt
     set --local user_color (set_color $green)
     set --local user $USER
     set --local hostname_color (set_color $purple)
-    set --local hostname (hotname)
     echo -n "$user_color$USER$color_normal@$hostname_color$hostname$color_normal "
   end
 
