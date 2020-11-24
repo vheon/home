@@ -3,6 +3,7 @@ set -x LC_ALL "en_US.UTF-8"
 set -x LANG "en_US.UTF-8"
 
 set -x fish_greeting ''
+set -x fish_term24bit 1
 
 function a
   ls -lrth -G $argv
