@@ -23,6 +23,11 @@ local function extract_name(win)
 end
 
 local function getname(tabpage)
+  local title = vim.t.tab_title
+  if title ~= nil then
+    return title
+  end
+
   local win = vim.api.nvim_tabpage_get_win(tabpage)
   local fullname = extract_name(win)
   if fullname ~= nil then
