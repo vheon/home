@@ -133,6 +133,7 @@ local function fileencoding()
   return ''
 end
 
+-- XXX(andrea): we should create special statusline for the Quickfix/Location list windows
 local function status_line()
   -- If we're rendering a non focused window just put the file path
   if vim.g.statusline_winid ~= vim.fn.win_getid() then
