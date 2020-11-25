@@ -22,8 +22,10 @@ local function extract_name(win)
   end
 end
 
+local nil_wrap = vim.F.npcall
+
 local function getname(tabpage)
-  local title = vim.t.tab_title
+  local title = nil_wrap(vim.api.nvim_tabpage_get_var, tabpage, 'tab_title')
   if title ~= nil then
     return title
   end
