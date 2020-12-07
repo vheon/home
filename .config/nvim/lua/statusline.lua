@@ -1,6 +1,6 @@
 -- XXX(andrea): for now I use the implementation done in ycm.nvim
 -- Once it gets implemented in core neovim we can get rid of this
-local autocmd = require('ycm.autocmd')
+local autocmd = require'ycm.autocmd'
 local devicons = require'nvim-web-devicons'
 
 local function define_highlights(groups)
@@ -96,6 +96,13 @@ local function ro()
   return ''
 end
 
+local function ycm_status()
+  if not vim.b.ycm_enabled then
+    return ' '
+  end
+  return ''
+end
+
 local function padding(el, n)
   if el ~= nil and #el > 0 then
     n = n or 1
@@ -168,6 +175,7 @@ local function status_line()
     '%*', -- Reset highlight group.
     '%=',
 
+    ycm_status(),
     filetype(),
 
     '%4*', -- Switch to User4 highlight group.
