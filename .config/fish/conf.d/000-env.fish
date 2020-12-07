@@ -1,6 +1,6 @@
-set -x BREW_PREFIX /usr/local/
-if test -d /home/linuxbrew/.linuxbrew/
-  set -x BREW_PREFIX /home/linuxbrew/.linuxbrew/
+set -x BREW_PREFIX /usr/local
+if test -d /home/linuxbrew/.linuxbrew
+  set -x BREW_PREFIX /home/linuxbrew/.linuxbrew
 end
 
 set -x EDITOR nvim
