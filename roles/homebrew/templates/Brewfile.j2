@@ -1,0 +1,43 @@
+{% if is_macOS %}
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/services"
+{% endif %}
+
+{% if is_macOS %}
+brew "coreutils"
+brew "libtool"
+brew "findutils"
+brew "clipper", restart_service: true
+brew "mas"
+{% endif %}
+brew "cmake"
+brew "clang-format"
+brew "fish"
+brew "git"
+brew "curl"
+brew "go"
+brew "neovim", args: ["HEAD"]
+brew "packer"
+brew "tmux"
+# XXX(andrea): we might give https://github.com/ogham/exa a try. If it is worth
+# it it might be also a replacement for `tree`.
+brew "tree"
+
+{% if is_macOS %}
+cask "bettertouchtool"
+cask "font-jetbrainsmono-nerd-font"
+cask "firefox"
+cask "google-chrome"
+cask "iterm2"
+cask "karabiner-elements"
+cask "spotify"
+cask "vagrant"
+cask "virtualbox"
+cask "vlc"
+
+mas "Adblock Plus", id: 1432731683
+mas "The Unarchiver", id: 425424353
+mas "Turn Off the Lights for Safari", id: 1273998507
+mas "WhatsApp", id: 1147396723
+{% endif %}

@@ -2,14 +2,7 @@
 *.old
 *.pyc
 .netrwhist
-.vim/bundle/*
-.vim/plugged/*
-.vim/init.vim
-.vim/.init.vim-rplugin~
-.config/nvim/pack/*
-!.config/nvim/pack/minpac/opt/minpac
-.config/fish/fishd.*
 .config/fish/functions/fish_user_key_bindings.fish
 .config/fish/functions/fzf_key_bindings.fish
-homemaker
 .config/fish/fish_variables
+.vagrant/

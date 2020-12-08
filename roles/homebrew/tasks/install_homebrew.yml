@@ -1,0 +1,9 @@
+- name: Check if brew is not already installed.
+  shell: command -v {{brew_binary}} > /dev/null 2>&1
+  register: brew_installed
+  ignore_errors: yes
+
+- name: Install Homebrew.
+  script: install_homebrew.sh
+  when: brew_installed.rc | int != 0
+

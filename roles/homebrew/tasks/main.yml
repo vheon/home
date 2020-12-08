@@ -1,0 +1,16 @@
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include_tasks: homebrew_prerequisite.yml
+- include_tasks: install_homebrew.yml
+
+- name: Create the global ~/.Brewfile
+  template:
+    src: Brewfile.j2
+    dest: ~/.Brewfile
+
+- name: Install all from Brewfile and remove all the rest.
+  shell: "{{brew_binary}} bundle install --global --cleanup"
+  environment:
+    HOMEBREW_NO_COLOR: 1
+    PATH: "{{brew_bin_location}}:{{ ansible_env.PATH }}"

@@ -1,0 +1,21 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: all
+  connection: local
+
+  pre_tasks:
+    - name: Detect if on macOS
+      set_fact:
+        is_macOS: "{{ansible_os_family | lower == 'darwin'}}"
+
+  roles:
+    - role: homebrew
+    # XXX(andrea): next steps to implement
+    # - role: tmux
+    # - role: fish
+    # - role: git
+    # - role: go
+    # - role: neovim
+    # - role: macOS
+    # - role: iTerm2
+    # - role: hammerspoon??

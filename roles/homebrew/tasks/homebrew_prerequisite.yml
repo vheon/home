@@ -1,0 +1,10 @@
+- name: Ensure all prerequisites are installed on non-macOS.
+  package:
+    name:
+      - git
+      - curl
+      - gcc
+      - make
+    state: present
+  become: true
+  when: not is_macOS
