@@ -15,6 +15,7 @@
       get_url:
         url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
         dest: "{{ install_script.path }}"
+        mode: 644
 
     - name: Install Homebrew.
       shell: "{{ install_script.path }}"
@@ -24,5 +25,5 @@
         path: "{{ install_script.path }}"
         state: absent
 
-  when: brew_installed.rc | int != 1
+  when: brew_installed.rc | int != 0
 
