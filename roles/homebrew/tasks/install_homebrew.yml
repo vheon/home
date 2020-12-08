@@ -1,7 +1,9 @@
 - name: Check if brew is not already installed.
-  shell: command -v brew > /dev/null 2>&1
+  shell: command -v brew # > /dev/null 2>&1
   register: brew_installed
   ignore_errors: yes
+
+- debug: "cmd: {{ brew_installed.cmd }}; rc: {{brew_installed.rc}}; stderr: {{brew_installed.stderr}}; stdout: {{brew_installed.stdout}}"
 
 - name: Install Homebrew
   block:
@@ -25,5 +27,5 @@
         path: "{{ install_script.path }}"
         state: absent
 
-  when: brew_installed.rc | int != 0
+  when: brew_installed.rc | int != 1
 
