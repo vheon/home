@@ -3,7 +3,8 @@
   register: brew_installed
   ignore_errors: yes
 
-- debug: "cmd: {{ brew_installed.cmd }}; rc: {{brew_installed.rc}}; stderr: {{brew_installed.stderr}}; stdout: {{brew_installed.stdout}}"
+- debug:
+    msg: "cmd: {{ brew_installed.cmd }}; rc: {{brew_installed.rc}}; stderr: {{brew_installed.stderr}}; stdout: {{brew_installed.stdout}}"
 
 - name: Install Homebrew
   block:
