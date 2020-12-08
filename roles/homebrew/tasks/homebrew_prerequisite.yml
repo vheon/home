@@ -1,0 +1,7 @@
+- name: Ensure git and curl are installed in the system.
+  package:
+    name:
+      - git
+      - curl
+    state: present
+  when: ansible_distribution == 'CentOS'

@@ -1,0 +1,19 @@
+# Basic workflow to check if all is working from scratch on the platform I use currently use.
+name: main
+
+on: [push]
+
+jobs:
+  setup:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install ansible
+        run: ./bootstrap.sh
+
+      - name: Run ansible
+        run: ansible-playbook main.yml

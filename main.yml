@@ -1,0 +1,7 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  connection: local
+
+  roles:
+    - role: homebrew

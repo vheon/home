@@ -1,0 +1,28 @@
+- name: Check if brew is not already installed.
+  shell: command -v brew > /dev/null 2>&1
+  register: brew_installed
+  ignore_errors: yes
+
+- name: Install Homebrew
+  block:
+    - name: Create temporary file for the install script.
+      tempfile:
+        state:  file
+        suffix: install.sh
+        register: install_script
+
+    - name: Download Homebrew's official script.
+      get_url:
+        url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+        dest: "{{ install_script.path }}"
+
+    - name: Install Homebrew.
+      shell: "{{ install_script.path }}"
+
+    - name: Remove temporary install script.
+      file:
+        path: "{{ install_script.path }}"
+        state: absent
+
+  when: brew_installed.rc | integer != 1
+

@@ -1,0 +1,7 @@
+- include_tasks: homebrew_prerequisite.yml
+- include_tasks: install_homebrew.yml
+
+- name: Install all from Brewfile and remove all the rest.
+  shell: >
+    echo {{ lookup('template', 'Brewfile.j2') }} |
+    brew bundle install --file=- --cleanup
