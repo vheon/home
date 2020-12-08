@@ -81,7 +81,7 @@ function fish_prompt
   set --local prompt_char '❯'
   set --local prompt_char_color (set_color $green)
   if test $last_status -ne 0
-    set prompt_char_color $colo__red
+    set prompt_char_color (set_color $red)
   end
   echo -n "$prompt_char_color$prompt_char$color_normal "
 end
