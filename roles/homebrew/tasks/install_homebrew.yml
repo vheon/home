@@ -6,27 +6,7 @@
 - debug:
     msg: "cmd: {{ brew_installed.cmd }}; rc: {{brew_installed.rc}}; stderr: {{brew_installed.stderr}}; stdout: {{brew_installed.stdout}}"
 
-- name: Install Homebrew
-  block:
-    - name: Create temporary file for the install script.
-      tempfile:
-        state:  file
-        suffix: install.sh
-      register: install_script
-
-    - name: Download Homebrew's official script.
-      get_url:
-        url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-        dest: "{{ install_script.path }}"
-        mode: 644
-
-    - name: Install Homebrew.
-      shell: "{{ install_script.path }}"
-
-    - name: Remove temporary install script.
-      file:
-        path: "{{ install_script.path }}"
-        state: absent
-
-  when: brew_installed.rc | int != 1
+- name: Install Homebrew.
+  script: install.sh
+  when: brew_installed.rc | int != 0
 

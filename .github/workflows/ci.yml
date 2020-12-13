@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Uninstall GitHub Actions' built-in Homebrew.
+        run: tests/uninstall_homebrew.sh
+
       - name: Install ansible
         run: ./bootstrap.sh
 
