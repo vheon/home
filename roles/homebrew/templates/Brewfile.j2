@@ -1,12 +1,12 @@
 tap "homebrew/core"
 tap "homebrew/bundle"
-{% if is_macos %}
+{% if ansible_os_family | lower == 'darwin' %}
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/services"
 {% endif %}
 
-{% if is_macos %}
+{% if ansible_os_family | lower == 'darwin' %}
 brew "coreutils"
 brew "libtool"
 brew "findutils"
@@ -26,7 +26,7 @@ brew "packer"
 brew "tmux"
 brew "tree"
 
-{% if is_macos %}
+{% if ansible_os_family | lower == 'darwin' %}
 cask "bettertouchtool"
 cask "font-jetbrainsmono-nerd-font"
 cask "firefox"
