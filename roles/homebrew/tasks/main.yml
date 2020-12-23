@@ -1,7 +1,20 @@
 - include_tasks: homebrew_prerequisite.yml
 - include_tasks: install_homebrew.yml
 
+- debug:
+    msg: "{{ lookup('template', 'Brewfile.j2') }} is a value from evaluation of this template"
+
+- name: Create the global ~/.Brewfile
+  template:
+    src: Brewfile.j2
+    dest: ~/.Brewfile
+
+- debug:
+    msg: "{{ lookup('file', '~/.Brewfile') }} is the content of the produced file."
+
+# - name: Install all from Brewfile and remove all the rest.
+#   shell: >
+#     echo {{ lookup('template', 'Brewfile.j2') }} |
+#     brew bundle install --file=- --cleanup
 - name: Install all from Brewfile and remove all the rest.
-  shell: >
-    echo {{ lookup('template', 'Brewfile.j2') }} |
-    brew bundle install --file=- --cleanup
+  shell: brew bundle install --global --cleanup
