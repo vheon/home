@@ -1,7 +1,10 @@
-- name: Ensure git and curl are installed in the system.
+- name: Ensure git, curl and gcc are installed in the system.
   package:
     name:
       - git
       - curl
+      - gcc
+      - make
     state: present
-  when: ansible_distribution == 'CentOS'
+  become: true
+  when: ansible_os_family | lower != 'darwin'

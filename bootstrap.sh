@@ -7,7 +7,7 @@ install_ansible_macos()
 
 install_ansible_ubuntu()
 {
-  sudo apt update && sudo apt install software-properties-common && sudo apt-add-repository --yes --update ppa:ansible/ansible && sudo apt install ansible
+  sudo apt update && sudo apt install -y ansible
 }
 
 if [[ $(uname) = "Darwin" ]]; then

@@ -1,3 +1,6 @@
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - include_tasks: homebrew_prerequisite.yml
 - include_tasks: install_homebrew.yml
 
@@ -11,6 +14,7 @@
 #     echo {{ lookup('template', 'Brewfile.j2') }} |
 #     brew bundle install --file=- --cleanup
 - name: Install all from Brewfile and remove all the rest.
-  shell: echo $HOMEBREW_NO_BOTTLE_SOURCE_FALLBACK && brew bundle install --global --cleanup
+  shell: "{{brew_binary}} bundle install --global --cleanup"
   environment:
     HOMEBREW_NO_COLOR: 1
+    PATH: "{{brew_bin_location}}:{{ ansible_env.PATH }}"
