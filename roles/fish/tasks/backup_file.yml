@@ -1,0 +1,19 @@
+---
+- name: Check if file {{ item }} exists.
+  stat:
+    path: "{{ item }}"
+  register: file_stat
+
+- block:
+    - name: Backup file {{ item }}.
+      copy:
+        src: "{{ item }}"
+        dest: "{{ item }}.bkp"
+        remote_src: yes
+
+    - name: Remove original file.
+      file:
+        path: "{{ item }}"
+        state: absent
+
+  when: file_stat.stat.exists

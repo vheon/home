@@ -1,0 +1,31 @@
+---
+- name: Backup default bash files and .profile
+  include_tasks: backup_file.yml
+  loop:
+    - ~/.profile
+    - ~/.bashrc
+    - ~/.bash_login
+
+- name: Link .profile
+  file:
+    src: "{{ role_path }}/files/.profile"
+    path: ~/.profile
+    state: link
+
+# XXX(andrea): should we use XDG_CONFIG_HOME instead of hardcoding ~/.config?
+# XXX(andrea): what if the XDG_CONFIG_HOME variable is not set? does ansible see it?
+- name: Ensure ~/.config directory exists.
+  file:
+    path: "~/.config"
+    state: directory
+
+- name: Link fish configuration.
+  file:
+    src: "{{ role_path }}/files/fish"
+    path: "~/.config/fish"
+    state: link
+
+# XXX(andrea): With the steps above it will make such that when sshing into a
+# machine we use fishshell without setting the user up for it with `chsh`. Of
+# course it will not work on macOS because that is usually the main machine. We
+# should use the Ansible's `user` module for that.

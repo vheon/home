@@ -2,7 +2,5 @@
 *.old
 *.pyc
 .netrwhist
-.config/fish/functions/fish_user_key_bindings.fish
-.config/fish/functions/fzf_key_bindings.fish
-.config/fish/fish_variables
+roles/fish/files/fish/fish_variables
 .vagrant/

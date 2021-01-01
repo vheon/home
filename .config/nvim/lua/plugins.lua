@@ -161,7 +161,7 @@ use {
   end
 }
 
-use { 'junegunn/fzf', run = './install --all' }
+use { 'junegunn/fzf', run = './install --xdg --no-update-rc --no-key-bindings --no-completion' }
 use {
   'junegunn/fzf.vim',
   init = function()
