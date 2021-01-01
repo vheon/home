@@ -22,8 +22,6 @@
 	changed = green
 	untracked = cyan
 	branch = magenta
-[hub]
-	protocol = https
 [alias]
 	st = status
 	co = checkout
@@ -33,12 +31,7 @@
 	dc = diff --cached
 	amend = commit --amend
 
-	remotes = remote -v
-
 	start = "!git init && git commit --allow-empty -m 'A first empty commit to start this project'"
-
-	# log stolen from gary bernhardt
-	; l = "!. ~/.githelpers && pretty_git_log"
 	l = "log --graph --pretty=tformat:'%C(yellow)%h %Cgreen(%ar) %C(blue)<%an> %C(red)%d%Creset %s'"
 	r = !git l -30
 

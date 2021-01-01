@@ -12,8 +12,8 @@
     - role: homebrew
     - role: tmux
     - role: fish
+    - role: git
     # XXX(andrea): next steps to implement
-    # - role: git
     # - role: go
     # - role: neovim
     # - role: macOS

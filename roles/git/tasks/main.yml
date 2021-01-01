@@ -1,0 +1,12 @@
+---
+- name: Link global .gitconfig
+  file:
+    src: "{{ role_path }}/files/.gitconfig"
+    path: "~/.gitconfig"
+    state: link
+
+- name: Link .cvsignore file
+  file:
+    src: "{{ role_path }}/files/.cvsignore"
+    path: "~/.gitconfig"
+    state: link
