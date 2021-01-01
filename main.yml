@@ -10,8 +10,8 @@
 
   roles:
     - role: homebrew
+    - role: tmux
     # XXX(andrea): next steps to implement
-    # - role: tmux
     # - role: fish
     # - role: git
     # - role: go
