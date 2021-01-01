@@ -8,9 +8,11 @@
   template:
     src: Brewfile.j2
     dest: ~/.Brewfile
+  register: brewfile
 
 - name: Install all from Brewfile and remove all the rest.
   shell: "{{brew_binary}} bundle install --no-lock --global --cleanup"
   environment:
     HOMEBREW_NO_COLOR: 1
     PATH: "{{brew_bin_location}}:{{ ansible_env.PATH }}"
+  when: brewfile.changed
