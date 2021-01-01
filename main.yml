@@ -3,5 +3,10 @@
 - hosts: all
   connection: local
 
+  pre_tasks:
+    - name: Detect if on macOS
+      set_fact:
+        - is_macOS: "{{ansible_os_family | lower == 'darwin'}}"
+
   roles:
     - role: homebrew

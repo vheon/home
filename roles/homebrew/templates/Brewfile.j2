@@ -1,10 +1,10 @@
-{% if ansible_os_family | lower == 'darwin' %}
+{% if is_macOS %}
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/services"
 {% endif %}
 
-{% if ansible_os_family | lower == 'darwin' %}
+{% if is_macOS %}
 brew "coreutils"
 brew "libtool"
 brew "findutils"
@@ -24,7 +24,7 @@ brew "tmux"
 # it it might be also a replacement for `tree`.
 brew "tree"
 
-{% if ansible_os_family | lower == 'darwin' %}
+{% if is_macOS %}
 cask "bettertouchtool"
 cask "font-jetbrainsmono-nerd-font"
 cask "firefox"
