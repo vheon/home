@@ -65,7 +65,13 @@ end
 -- Packer can manage itself as an optional plugin
 use {'wbthomason/packer.nvim', opt = true}
 
-use 'mhartington/oceanic-next'
+use {
+  'mhartington/oceanic-next',
+  init = function()
+    vim.g.oceanic_next_terminal_bold = 1
+    vim.g.oceanic_next_terminal_italic = 1
+  end
+}
 
 use 'tpope/vim-commentary'
 use 'tpope/vim-surround'
