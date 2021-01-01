@@ -23,8 +23,8 @@
     - role: tmux
     - role: fish
     - role: git
+    - role: go
     # XXX(andrea): next steps to implement
-    # - role: go
     # - role: neovim
     # - role: macOS
     # - role: iTerm2

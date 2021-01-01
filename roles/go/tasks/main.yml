@@ -1,0 +1,5 @@
+---
+- name: Ensure GOPATH exists
+  file:
+    path: ~/go
+    state: directory
