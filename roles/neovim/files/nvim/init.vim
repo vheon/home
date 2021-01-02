@@ -8,18 +8,40 @@ command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
 let g:mapleader="\<Space>"
 
 lua << EOF
-package.loaded.plugins = nil
-require('plugins')
+-- These are a couple of helpers function to define mappings for plugins.
+-- When packer compiles the configuration all the function has to be either
+-- local to the `config` function or global. I'm putting them here for now.
+_G.nnoremap = function(lhs, rhs, opts)
+  opts = opts or {}
+  vim.tbl_extend('force', opts, { noremap = true })
+  local bufnr = opts.buffer
+  if bufnr ~= nil then
+    opts.buffer = nil
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts)
+  else
+    vim.api.nvim_set_keymap('n', lhs, rhs, opts)
+  end
+end
+_G.nmap = function(lhs, rhs, opts)
+  opts = opts or {}
+  vim.api.nvim_set_keymap('n', lhs, rhs, opts)
+end
 
-_G.config = require('config')
+vim.cmd [[command! PackerInstall  lua require'plugins'.install()]]
+vim.cmd [[command! PackerUpdate   lua require'plugins'.update()]]
+vim.cmd [[command! PackerSync     lua require'plugins'.sync()]]
+vim.cmd [[command! PackerClean    lua require'plugins'.clean()]]
+vim.cmd [[command! PackerCompile  lua require'plugins'.compile()]]
+
+_G.statusline = require'statusline'.line
+_G.tabline = require'tabline'.line
 EOF
-set statusline=%!v:lua.config.statusline()
-set tabline=%!v:lua.config.tabline()
+set statusline=%!v:lua.statusline()
+set tabline=%!v:lua.tabline()
 
 set termguicolors
 " I miss the different colors for visual, visual line and visual block
 set guicursor=n-c-sm:block-Cursor,v-ve:block-IncSearch,i-ci-ve:block-WildMenu,r-cr-o:hor20-Cursor
-silent! colorscheme OceanicNext
 
 set completeopt-=preview
 set completeopt+=menuone
@@ -105,12 +127,6 @@ Autocmd FileType help nnoremap <silent><buffer> gq :q!<cr>
 
 Autocmd TermOpen term://* startinsert
 
-tnoremap <C-w>h <C-\><C-n><C-w>h
-tnoremap <C-w>j <C-\><C-n><C-w>j
-tnoremap <C-w>k <C-\><C-n><C-w>k
-tnoremap <C-w>l <C-\><C-n><C-w>l
-tnoremap <C-w>. <C-w>
-
 function! SwitchSourceHeader()
   if (expand ("%:e") == "cpp")
     find %:t:r.h
@@ -121,12 +137,14 @@ endfunction
 
 nmap <Leader>af :call SwitchSourceHeader()<CR>
 
-let g:clipboard = {
-      \   'name': 'clipper',
-      \   'copy': {
-      \      '+': ['nc', 'localhost', '8377'],
-      \      '*': ['nc', 'localhost', '8377'],
-      \    },
-      \   'paste': { '+': [], '*': [] },
-      \   'cache_enabled': 1,
-      \ }
+lua << EOF
+vim.g.clipboard = {
+  name = 'clipper',
+  copy = {
+    ['+'] = {'nc', 'localhost', '8377'},
+    ['*'] = {'nc', 'localhost', '8377'}
+  },
+  paste = { ['+'] = {}, ['*'] = {} },
+  cache_enabled = 1
+}
+EOF
