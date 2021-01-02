@@ -1,0 +1,26 @@
+---
+# XXX(andrea): should we use XDG_CONFIG_HOME instead of hardcoding ~/.config?
+# XXX(andrea): what if the XDG_CONFIG_HOME variable is not set? does ansible see it?
+# XXX(andrea): these considerations are the same as for fish
+- name: Ensure ~/.config directory exists
+  file:
+    path: "~/.config"
+    state: directory
+
+- name: Link configuration in XDG_CONFIG_HOME
+  file:
+    src: "{{ role_path }}/files/nvim"
+    path: "~/.config/nvim"
+    state: link
+
+# XXX(andrea): should we use XDG_DATA_HOME instead of hardcoding ~/.local/share?
+- name: Clone package manager packer.nvim
+  git:
+    dest: ~/.local/share/nvim/site/pack/packer/opt/packer.nvim
+    repo: https://github.com/wbthomason/packer.nvim
+
+# XXX(andrea): maybe we should set the environment for the whole playbook and be done with it. We could put also XDG directories as well.
+- name: Install all plugins
+  shell: nvim -es -c "PackerSync" -c "qa"
+  environment:
+    PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"

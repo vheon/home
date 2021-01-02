@@ -24,8 +24,9 @@
     - role: fish
     - role: git
     - role: go
+    - role: neovim
     # XXX(andrea): next steps to implement
-    # - role: neovim
     # - role: macOS
+    # - role: karabiner-elements
     # - role: iTerm2
     # - role: hammerspoon??

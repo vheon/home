@@ -3,4 +3,5 @@
 *.pyc
 .netrwhist
 roles/fish/files/fish/fish_variables
+roles/neovim/files/nvim/plugin/packer_compiled.vim
 .vagrant/
