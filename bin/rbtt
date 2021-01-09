@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-killall -u `whoami` BetterTouchTool
-sleep 1
-open /Applications/BetterTouchTool.app
