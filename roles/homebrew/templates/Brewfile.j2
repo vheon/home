@@ -12,11 +12,18 @@ brew "clipper", restart_service: true
 brew "mas"
 {% endif %}
 brew "cmake"
+{% if is_macOS %}
 brew "clang-format"
+{% else %}
+brew "llvm"
+{% endif %}
 brew "fish"
 brew "git"
 brew "curl"
 brew "go"
+{% if not is_macOS %}
+brew "gcc"
+{% endif %}
 brew "neovim", args: ["HEAD"]
 brew "packer"
 brew "tmux"
