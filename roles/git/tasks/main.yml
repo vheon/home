@@ -8,5 +8,5 @@
 - name: Link .cvsignore file
   file:
     src: "{{ role_path }}/files/.cvsignore"
-    path: "~/.gitconfig"
+    path: "~/.cvsignore"
     state: link
