@@ -21,6 +21,6 @@
 
 # XXX(andrea): maybe we should set the environment for the whole playbook and be done with it. We could put also XDG directories as well.
 - name: Install all plugins
-  shell: nvim -es -u init.vim -i NONE -c "PackerInstall" -c "qa"
+  shell: nvim -es -c "PackerSync" -c "qa"
   environment:
     PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
