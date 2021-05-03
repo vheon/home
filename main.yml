@@ -3,10 +3,20 @@
 - hosts: all
   connection: local
 
+  vars_prompt:
+    - name: workMachine
+      prompt: Is this a work machine?
+      private: no
+      default: false
+
   pre_tasks:
     - name: Detect if on macOS
       set_fact:
         is_macOS: "{{ansible_os_family | lower == 'darwin'}}"
+
+    - name: Detect if work machine
+      set_fact:
+        onWorkMachine: "{{ workMachine | bool }}"
 
   roles:
     - role: homebrew

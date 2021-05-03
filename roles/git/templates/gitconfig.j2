@@ -1,10 +1,14 @@
 [user]
 	name = Andrea Cedraro
+{% if onWorkMachine %}
+	email = andrea.cedraro@hcl.com
+{% else %}
 	email = a.cedraro@gmail.com
+{% endif %}
 [core]
 	excludesfile = ~/.cvsignore
-[github]
-	user = vheon
+	editor = nvim
+	pager = less -x1,5
 [color]
 	ui = auto
 [color "branch"]
@@ -12,8 +16,8 @@
 	local = yellow
 	remote = magenta
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
+	meta = yellow
+	frag = magenta
 	old = red
 	new = green
 	whitespace = white reverse
@@ -22,6 +26,14 @@
 	changed = green
 	untracked = cyan
 	branch = magenta
+[diff]
+	tool = nvim -d
+[difftool]
+	prompt = false
+[merge]
+	tool = fugitive
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 [alias]
 	st = status
 	co = checkout
@@ -31,20 +43,12 @@
 	dc = diff --cached
 	amend = commit --amend
 
+	remotes = remote -v
+	branches = branch -a
+
 	start = "!git init && git commit --allow-empty -m 'A first empty commit to start this project'"
 	l = "log --graph --pretty=tformat:'%C(yellow)%h %Cgreen(%ar) %C(blue)<%an> %C(red)%d%Creset %s'"
 	r = !git l -30
-
-	remotes = remote -v
-	branches = branch -a
-[filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
-[credential]
-	helper = osxkeychain
-[mergetool "fugitive"]
-	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
-[merge]
-	tool = fugitive
 [pull]
 	ff = only
+
