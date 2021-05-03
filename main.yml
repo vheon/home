@@ -23,6 +23,7 @@
     - role: tmux
     - role: fish
     - role: git
+    - role: ssh
     - role: go
     - role: neovim
     # XXX(andrea): next steps to implement
