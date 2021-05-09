@@ -66,9 +66,7 @@ return require'packer'.startup {
     -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects#text-objects-swap
     use 'PeterRincker/vim-argumentative'
 
-    local_use {
-      'ycm.nvim', requires = { 'nvim-treesitter/nvim-treesitter' }
-    }
+    local_use 'ycm.nvim'
 
     -- use {
     --   'Valloric/YouCompleteMe',
