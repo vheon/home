@@ -63,9 +63,7 @@
   shell: >
     nvim
     --headless
-    -u NONE # XXX(andrea): double check this!
     -c "autocmd User PackerCompileDone qa"
-    -c "autocmd User PackerComplete lua require'plugins'.compile()"
     -c "lua require'plugins'.sync()"
   environment:
     PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
