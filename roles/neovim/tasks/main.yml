@@ -19,8 +19,25 @@
     dest: ~/.local/share/nvim/site/pack/packer/opt/packer.nvim
     repo: https://github.com/wbthomason/packer.nvim
 
+- name: Ensure ~/code directory exists
+  file:
+    path: "~/code"
+    state: directory
+
+- name: Clone ycm.nvim
+  git:
+    dest: ~/code/ycm.nvim
+    repo: git@github.com:vheon/ycm.nvim.git
+    update: no
+
 # XXX(andrea): maybe we should set the environment for the whole playbook and be done with it. We could put also XDG directories as well.
 - name: Install all plugins
-  shell: nvim -es -c "PackerSync" -c "qa"
+  shell: >
+    nvim
+    --headless
+    -u NONE
+    -c "autocmd User PackerComplete lua require'plugins'.compile()"
+    -c "autocmd User PackerCompleteCompile qa"
+    -c "lua require'plugins'.install()"
   environment:
     PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"

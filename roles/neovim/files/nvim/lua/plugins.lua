@@ -66,7 +66,9 @@ return require'packer'.startup {
     -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects#text-objects-swap
     use 'PeterRincker/vim-argumentative'
 
-    local_use 'ycm.nvim'
+    local_use {
+      'ycm.nvim', requires = { 'nvim-treesitter/nvim-treesitter' }
+    }
 
     -- use {
     --   'Valloric/YouCompleteMe',
@@ -233,7 +235,7 @@ return require'packer'.startup {
     use 'kyazdani42/nvim-web-devicons'
 
     -- plugin to bundle all nvim settings for work
-    local_use 'bigfixdev.nvim'
+    -- local_use 'bigfixdev.nvim'
   end,
   config = {
     disable_commands = true,
