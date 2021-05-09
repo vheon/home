@@ -3,6 +3,7 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/services"
 {% endif %}
+tap "vheon/homebrew"
 
 {% if is_macOS %}
 brew "coreutils"
@@ -21,11 +22,13 @@ brew "fish"
 brew "git"
 brew "curl"
 brew "go"
+# XXX(vheon): I should probably just adapt my formula for macOS as well so it would be consistent
 {% if not is_macOS %}
-brew "gcc"
+brew "neovim-nightly"
+{% else %}
+brew "neovim", args: ["HEAD"]
 {% endif %}
 brew "conan"
-brew "neovim", args: ["HEAD"]
 brew "packer"
 brew "tmux"
 brew "ripgrep"

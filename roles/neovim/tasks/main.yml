@@ -19,6 +19,23 @@
     dest: ~/.local/share/nvim/site/pack/packer/opt/packer.nvim
     repo: https://github.com/wbthomason/packer.nvim
 
+- name: Check if we are doing the setup for the first time.
+  stat:
+    path: ~/.local/share/nvim/site/pack/packer/start/
+  register: packer_start_dir
+
+# XXX(andrea): maybe we should set the environment for the whole playbook and be done with it. We could put also XDG directories as well.
+- name: Install all plugins
+  shell: >
+    nvim
+    --headless
+    -u NONE
+    -c "autocmd User PackerComplete qa"
+    -c "lua require'plugins'.install()"
+  environment:
+    PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
+  when: not packer_start_dir.stat.exists
+
 - name: Ensure ~/code directory exists
   file:
     path: "~/code"
@@ -28,16 +45,27 @@
   git:
     dest: ~/code/ycm.nvim
     repo: git@github.com:vheon/ycm.nvim.git
-    update: no
+    update: no # XXX(andrea): this is actually wrong! Fix the "dirty" state of the project so we can also update a machine!
+  register: git_ycm_nvim
 
-# XXX(andrea): maybe we should set the environment for the whole playbook and be done with it. We could put also XDG directories as well.
-- name: Install all plugins
+- name: Install local plugins
   shell: >
     nvim
     --headless
     -u NONE
-    -c "autocmd User PackerComplete lua require'plugins'.compile()"
-    -c "autocmd User PackerCompleteCompile qa"
+    -c "autocmd User PackerComplete qa"
     -c "lua require'plugins'.install()"
+  environment:
+    PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
+  when: git_ycm_nvim.before == "null"
+
+- name: Update everything and Compile
+  shell: >
+    nvim
+    --headless
+    -u NONE # XXX(andrea): double check this!
+    -c "autocmd User PackerCompileDone qa"
+    -c "autocmd User PackerComplete lua require'plugins'.compile()"
+    -c "lua require'plugins'.sync()"
   environment:
     PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
