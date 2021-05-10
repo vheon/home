@@ -19,6 +19,7 @@
         onWorkMachine: "{{ workMachine | bool }}"
 
   roles:
+    # XXX(andrea): add tags on roles so we can run specific section of the configuration
     - role: homebrew
     - role: tmux
     - role: fish
@@ -26,6 +27,8 @@
     - role: ssh
     - role: go
     - role: neovim
+    # - role: docker
+    #   when: not is_macOS
     # XXX(andrea): next steps to implement
     # - role: macOS
     # - role: karabiner-elements
