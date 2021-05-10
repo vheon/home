@@ -57,7 +57,7 @@
     -c "lua require'plugins'.install()"
   environment:
     PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
-  when: git_ycm_nvim.before == "null"
+  when: git_ycm_nvim.changed and not git_ycm_nvim.before
 
 - name: Update everything and Compile
   shell: >
