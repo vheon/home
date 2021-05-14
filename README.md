@@ -2,6 +2,14 @@
 
 I use this configuration both on macOS and on Linux (part of it also on Windows)
 
+# Usage
+
+```
+$ ansible-galaxy install -r requirements.yml
+$ ansible-playbook --ask-become-pass main.yml
+```
+
+
 # TODOs
 
 - Write a better README
