@@ -85,8 +85,8 @@ return require'packer'.startup {
     use 'tpope/vim-scriptease'
 
     -- XXX(vheon): is this still needed with treesitter??
-    use 'vim-jp/cpp-vim'
-    use 'octol/vim-cpp-enhanced-highlight'
+    -- use 'vim-jp/cpp-vim'
+    -- use 'octol/vim-cpp-enhanced-highlight'
     use 'pboettch/vim-cmake-syntax'
 
     use 'chikamichi/mediawiki.vim'
