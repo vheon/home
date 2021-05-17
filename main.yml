@@ -20,6 +20,8 @@
 
   roles:
     # XXX(andrea): add tags on roles so we can run specific section of the configuration
+    - role: compiler
+      when: not is_macOS
     - role: homebrew
     - role: tmux
     - role: fish
