@@ -158,6 +158,7 @@ return require'packer'.startup {
 
     use {
       'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate', -- XXX(andrea): we need to :TSInstall maintained on first install
       config = function()
         require'nvim-treesitter.configs'.setup {
           highlight = {
