@@ -26,12 +26,20 @@ _G.nmap = function(lhs, rhs, opts)
   opts = opts or {}
   vim.api.nvim_set_keymap('n', lhs, rhs, opts)
 end
+_G.map = function(lhs, rhs, opts)
+  opts = opts or {}
+  vim.api.nvim_set_keymap('', lhs, rhs, opts)
+end
+_G.always_require = function(module)
+  package.loaded[module] = nil
+  return require(module)
+end
 
-vim.cmd [[command! PackerInstall  lua require'plugins'.install()]]
-vim.cmd [[command! PackerUpdate   lua require'plugins'.update()]]
-vim.cmd [[command! PackerSync     lua require'plugins'.sync()]]
-vim.cmd [[command! PackerClean    lua require'plugins'.clean()]]
-vim.cmd [[command! PackerCompile  lua require'plugins'.compile()]]
+vim.cmd [[command! PackerInstall  lua always_require'plugins'.install()]]
+vim.cmd [[command! PackerUpdate   lua always_require'plugins'.update()]]
+vim.cmd [[command! PackerSync     lua always_require'plugins'.sync()]]
+vim.cmd [[command! PackerClean    lua always_require'plugins'.clean()]]
+vim.cmd [[command! PackerCompile  lua always_require'plugins'.compile()]]
 
 _G.statusline = require'statusline'.line
 _G.tabline = require'tabline'.line
