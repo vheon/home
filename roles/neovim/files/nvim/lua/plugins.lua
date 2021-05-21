@@ -283,6 +283,27 @@ return require'packer'.startup {
         }
       end
     }
+
+    use {
+      'mhartington/formatter.nvim',
+      config = function()
+        require('formatter').setup {
+          logging = false,
+          filetype = {
+            cpp = {
+              function()
+                return {
+                  exe = "clang-format-12",
+                  stdin = true
+                }
+              end
+            }
+          }
+        }
+        map('<Leader>gq', '<cmd>Format<cr><esc>')
+      end
+    }
+
     -- plugin to bundle all nvim settings for work
     -- local_use 'bigfixdev.nvim'
   end,
