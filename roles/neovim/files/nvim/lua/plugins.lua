@@ -64,7 +64,7 @@ return require'packer'.startup {
 
     -- XXX(andrea): This could probably be replaced with nvim-treesitter-textobjects
     -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects#text-objects-swap
-    use 'PeterRincker/vim-argumentative'
+    -- use 'PeterRincker/vim-argumentative'
 
     local_use 'ycm.nvim'
 
@@ -161,12 +161,48 @@ return require'packer'.startup {
         require'nvim-treesitter.configs'.setup {
           highlight = {
             enable = true
+          },
+          textobjects = {
+            move = {
+              enable = true,
+              goto_next_start = {
+                ["]m"] = "@function.outer",
+                ["]]"] = "@class.outer",
+              },
+              goto_next_end = {
+                ["]M"] = "@function.outer",
+                ["]["] = "@class.outer",
+              },
+              goto_previous_start = {
+                ["[m"] = "@function.outer",
+                ["[["] = "@class.outer",
+              },
+              goto_previous_end = {
+                ["[M"] = "@function.outer",
+                ["[]"] = "@class.outer",
+              },
+            },
+            select = {
+              enable = true,
+              keymaps = {
+                ["i,"] = "@parameter.inner",
+              }
+            },
+            swap = {
+              enable = true,
+              swap_next = {
+                [">,"] = "@parameter.inner",
+              },
+              swap_previous = {
+                ["<,"] = "@parameter.inner",
+              },
+            }
           }
         }
-      end
-    }
+        end
+      }
     -- XXX(vheon): to activate??
-    -- use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
     -- require'nvim-treesitter.configs'.setup {
     --   highlight = {
     --     enable = true
