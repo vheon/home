@@ -66,6 +66,7 @@ return require'packer'.startup {
     -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects#text-objects-swap
     -- use 'PeterRincker/vim-argumentative'
 
+    -- XXX(andrea): this need a post-update hook to build the (or download a pre-built) binary!
     local_use 'ycm.nvim'
 
     -- use {
