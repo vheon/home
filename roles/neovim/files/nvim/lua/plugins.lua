@@ -270,6 +270,19 @@ return require'packer'.startup {
 
     use 'kyazdani42/nvim-web-devicons'
 
+    use {
+      'akinsho/nvim-toggleterm.lua',
+      config = function()
+        require("toggleterm").setup {
+          direction = 'float',
+          open_mapping = '<leader>t',
+          insert_mappings = false,
+          float_opts = {
+            border = 'single'
+          }
+        }
+      end
+    }
     -- plugin to bundle all nvim settings for work
     -- local_use 'bigfixdev.nvim'
   end,
