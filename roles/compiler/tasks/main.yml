@@ -4,3 +4,9 @@
     name: build-essential
     state: present
   become: yes
+
+- name: Install clang-format tools
+  package:
+    name: clang-format-12
+    state: present
+  become: yes

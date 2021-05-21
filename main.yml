@@ -13,14 +13,20 @@
     - name: Detect if on macOS
       set_fact:
         is_macOS: "{{ansible_os_family | lower == 'darwin'}}"
+      tags:
+        - always
 
     - name: Detect if work machine
       set_fact:
         onWorkMachine: "{{ workMachine | bool }}"
+      tags:
+        - always
 
   roles:
     # XXX(andrea): add tags on roles so we can run specific section of the configuration
     - role: compiler
+      tags:
+        - compiler
       when: not is_macOS
     - role: homebrew
     - role: tmux
