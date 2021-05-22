@@ -13,7 +13,8 @@ lua << EOF
 -- local to the `config` function or global. I'm putting them here for now.
 _G.map = function(lhs, rhs, opts)
   opts = opts or {}
-  vim.tbl_extend('keep', opts, { noremap = true, silent = true })
+  opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts)
+  vim.api.nvim_echo({{"lhs: "..lhs.." with opts: "..vim.inspect(opts)}}, true, {})
   if not opts.buffer then
     vim.api.nvim_set_keymap('n', lhs, rhs, opts)
   else
