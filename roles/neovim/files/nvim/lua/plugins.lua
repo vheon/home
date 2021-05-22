@@ -62,13 +62,8 @@ return require'packer'.startup {
     use 'tpope/vim-abolish'
     use 'tpope/vim-rsi'
 
-    -- XXX(andrea): This could probably be replaced with nvim-treesitter-textobjects
-    -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects#text-objects-swap
-    -- use 'PeterRincker/vim-argumentative'
-
     -- XXX(andrea): this need a post-update hook to build the (or download a pre-built) binary!
     local_use 'ycm.nvim'
-
     -- use {
     --   'Valloric/YouCompleteMe',
     --   config = function()
@@ -85,16 +80,11 @@ return require'packer'.startup {
 
     use 'tpope/vim-scriptease'
 
-    -- XXX(vheon): is this still needed with treesitter??
-    -- use 'vim-jp/cpp-vim'
-    -- use 'octol/vim-cpp-enhanced-highlight'
     use 'pboettch/vim-cmake-syntax'
-
     use 'chikamichi/mediawiki.vim'
-
-
     use 'elixir-editors/vim-elixir'
 
+    -- XXX(andrea): I'm still not sure about this one :/
     use {
       'romainl/vim-qf',
       config = function()
@@ -203,42 +193,8 @@ return require'packer'.startup {
           }
         }
         end
-      }
-    -- XXX(vheon): to activate??
+    }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
-    -- require'nvim-treesitter.configs'.setup {
-    --   highlight = {
-    --     enable = true
-    --   },
-    --   textobjects = {
-    --     move = {
-    --       enable = true,
-    --       goto_next_start = {
-    --         ["]m"] = "@function.outer",
-    --         ["]]"] = "@class.outer",
-    --       },
-    --       goto_next_end = {
-    --         ["]M"] = "@function.outer",
-    --         ["]["] = "@class.outer",
-    --       },
-    --       goto_previous_start = {
-    --         ["[m"] = "@function.outer",
-    --         ["[["] = "@class.outer",
-    --       },
-    --       goto_previous_end = {
-    --         ["[M"] = "@function.outer",
-    --         ["[]"] = "@class.outer",
-    --       },
-    --     },
-    --     select = {
-    --       enable = true,
-    --       keymaps = {
-    --         ["i,"] = "@parameter.inner",
-    --       }
-    --     }
-    --   },
-    -- }
-
     use 'nvim-treesitter/playground'
 
     use {
