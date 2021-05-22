@@ -188,6 +188,7 @@ return require'packer'.startup {
               enable = true,
               keymaps = {
                 ["i,"] = "@parameter.inner",
+                ["a,"] = "@parameter.outer",
               }
             },
             swap = {
