@@ -240,25 +240,30 @@ return require'packer'.startup {
       end
     }
 
-    use {
-      'mhartington/formatter.nvim',
-      config = function()
-        require('formatter').setup {
-          logging = false,
-          filetype = {
-            cpp = {
-              function()
-                return {
-                  exe = "clang-format-12",
-                  stdin = true
-                }
-              end
-            }
-          }
-        }
-        map('<Leader>gq', '<cmd>Format<cr><esc>')
-      end
-    }
+    -- XXX(andrea): without the range feature this is not that great of idea
+    -- for my use case. For now we will probably use either a port in lua of
+    -- clang-format.py script or the python script directly (even though I
+    -- don't want python configured in nvim at all.
+    --
+    -- use {
+    --   'mhartington/formatter.nvim',
+    --   config = function()
+    --     require('formatter').setup {
+    --       logging = false,
+    --       filetype = {
+    --         cpp = {
+    --           function()
+    --             return {
+    --               exe = "clang-format-12",
+    --               stdin = true
+    --             }
+    --           end
+    --         }
+    --       }
+    --     }
+    --     map('<Leader>gq', '<cmd>Format<cr><esc>', { mode = '', noremap = false })
+    --   end
+    -- }
 
     -- plugin to bundle all nvim settings for work
     -- local_use 'bigfixdev.nvim'
