@@ -32,8 +32,8 @@ return require'packer'.startup {
     use {
       'tpope/vim-fugitive',
       config = function()
-        nnoremap('<leader>gs', ':Gtabedit :<cr>')
-        nnoremap('<leader>gh', ':Gtabedit @<cr>')
+        map('<leader>gs', ':Gtabedit :<cr>')
+        map('<leader>gh', ':Gtabedit @<cr>')
       end
     }
 
@@ -42,8 +42,8 @@ return require'packer'.startup {
     use {
       'junegunn/gv.vim',
       config = function()
-        nnoremap('<leader>gl', ':GV<cr>')
-        nnoremap('<leader>gr', ':GV -20<cr>')
+        map('<leader>gl', ':GV<cr>')
+        map('<leader>gr', ':GV -20<cr>')
       end
     }
 
@@ -92,8 +92,8 @@ return require'packer'.startup {
         vim.g.qf_loclist_window_bottom = 0
         vim.g.qf_auto_open_quickfix = 0
         vim.g.qf_auto_open_loclist = 0
-        nmap('<Leader>q', '<Plug>(qf_qf_toggle_stay)')
-        nmap('<Leader>l', '<Plug>(qf_loc_toggle_stay)')
+        map('<Leader>q', '<Plug>(qf_qf_toggle_stay)', { noremap = false })
+        map('<Leader>l', '<Plug>(qf_loc_toggle_stay)', { noremap = false })
       end
     }
 
@@ -102,7 +102,7 @@ return require'packer'.startup {
       config = function()
         vim.g.FerretMap = 0
         vim.g.FerretAutojump = 0
-        nnoremap('<Leader>sw', ':Ack! -w <C-r><C-w><cr>')
+        map('<Leader>sw', ':Ack! -w <C-r><C-w><cr>', { silent = false })
       end
     }
 
@@ -117,11 +117,10 @@ return require'packer'.startup {
             yoffset = 0.9
           }
         }
-        local opts = { silent = true }
-        nnoremap('<Leader>fg', ':GFiles<cr>', opts)
-        nnoremap('<Leader>ff', ':Files<cr>', opts)
-        nnoremap('<Leader>fb', ':Buffers<cr>', opts)
-        nnoremap('<Leader>ft', ':Tags<cr>', opts)
+        map('<Leader>fg', ':GFiles<cr>')
+        map('<Leader>ff', ':Files<cr>')
+        map('<Leader>fb', ':Buffers<cr>')
+        map('<Leader>ft', ':Tags<cr>')
 
         vim.g.fzf_colors = {
           fg =      {'fg', 'Normal'},
@@ -204,16 +203,16 @@ return require'packer'.startup {
           vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
           -- Mappings
-          local opts = { silent = true, buffer = bufnr }
-          nnoremap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-          nnoremap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-          nnoremap('K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-          nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-          -- nnoremap('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-          -- nnoremap('<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-          -- nnoremap('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-          -- nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-          -- nnoremap('<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
+          local opts = { buffer = bufnr }
+          map('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+          map('gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+          map('K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+          map('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+          -- map('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+          -- map('<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+          -- map('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+          -- map('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+          -- map('<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
         end
         local lspconfig = require'lspconfig'
         lspconfig.gopls.setup {

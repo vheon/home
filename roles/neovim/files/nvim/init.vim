@@ -11,24 +11,20 @@ lua << EOF
 -- These are a couple of helpers function to define mappings for plugins.
 -- When packer compiles the configuration all the function has to be either
 -- local to the `config` function or global. I'm putting them here for now.
-_G.nnoremap = function(lhs, rhs, opts)
-  opts = opts or {}
-  vim.tbl_extend('force', opts, { noremap = true })
-  local bufnr = opts.buffer
-  if bufnr ~= nil then
-    opts.buffer = nil
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts)
-  else
-    vim.api.nvim_set_keymap('n', lhs, rhs, opts)
-  end
-end
-_G.nmap = function(lhs, rhs, opts)
-  opts = opts or {}
-  vim.api.nvim_set_keymap('n', lhs, rhs, opts)
-end
 _G.map = function(lhs, rhs, opts)
   opts = opts or {}
-  vim.api.nvim_set_keymap('', lhs, rhs, opts)
+  vim.tbl_extend('keep', opts, { noremap = true, silent = true })
+  if not opts.buffer then
+    vim.api.nvim_set_keymap('n', lhs, rhs, opts)
+  else
+    local buffer = opts.buffer
+    if buffer == true then
+      buffer = 0
+    end
+    opts.buffer = nil
+
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts)
+  end
 end
 _G.always_require = function(module)
   package.loaded[module] = nil
