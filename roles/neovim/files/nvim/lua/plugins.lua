@@ -38,6 +38,20 @@ return require'packer'.startup {
       end
     }
 
+    use {
+      'TimUntersberger/neogit',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'sindrets/diffview.nvim'
+      },
+      config = function()
+        require'neogit'.setup {
+          disable_context_highlighting = false,
+          integrations = { diffview = true }
+        }
+      end
+    }
+
     use 'justinmk/vim-dirvish'
 
     -- XXX(vheon): I really like the abbreviation but it always gets in the way

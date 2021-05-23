@@ -327,11 +327,19 @@ define_highlights {
   SimpleMarkWord3 = { colors.bg, bg = colors.green },
   SimpleMarkWord4 = { colors.bg, bg = colors.yellow },
   SimpleMarkWord5 = { colors.bg, bg = colors.blue },
-  SimpleMarkWord6 = { colors.bg, bg = colors.base05 }
+  SimpleMarkWord6 = { colors.bg, bg = colors.base05 },
+
+  NeogitBranch = colors.orange,
+  NeogitRemote = colors.purple,
+  NeogitHunkHeader = { colors.fg, bg = colors.red },
+  NeogitHunkHeaderHighlight = { colors.bg, bg = colors.yellow },
+  NeogitDiffContextHighlight = { colors.fg, bg = colors.bg },
 }
 
 link { DiffAdded = 'DiffAdd' }
-link { DiffRemoved = 'Delete' }
+link { DiffRemoved = 'DiffDelete' }
+link { NeogitDiffAddHighlight = 'DiffAdd' }
+link { NeogitDiffDeleteHighlight = 'DiffDelete' }
 
 vim.g.terminal_color_0 = colors.base00
 vim.g.terminal_color_8 = colors.base03
