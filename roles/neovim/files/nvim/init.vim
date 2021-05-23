@@ -14,7 +14,6 @@ lua << EOF
 _G.map = function(lhs, rhs, opts)
   opts = opts or {}
   opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts)
-  vim.api.nvim_echo({{"lhs: "..lhs.." with opts: "..vim.inspect(opts)}}, true, {})
   if not opts.buffer then
     vim.api.nvim_set_keymap('n', lhs, rhs, opts)
   else
