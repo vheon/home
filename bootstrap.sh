@@ -23,4 +23,6 @@ if ! command -v ansible-playbook &> /dev/null; then
   install_ansible
 fi
 
+ansible-galaxy install -r requirements.yml
+
 exit $?
