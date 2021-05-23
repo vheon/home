@@ -207,11 +207,11 @@ define_highlights {
   DiffChange = { colors.base03, bg = colors.base01 },
   DiffDelete = { colors.red, bg = colors.base01 },
   DiffText = { colors.blue, bg = colors.base01 },
-  DiffAdded = { colors.text, bg = colors.green, gui = bold },
+  DiffAdded = { colors.green, bg = colors.base01, gui = bold },
   DiffFile = { colors.red, bg = colors.base00 },
   DiffNewFile = { colors.green, bg = colors.base00 },
   DiffLine = { colors.blue, bg = colors.base00 },
-  DiffRemoved = { colors.text, bg = colors.red, gui = bold },
+  DiffRemoved = { colors.red, bg = colors.base01, gui = bold },
 
   gitCommitOverflow = colors.red,
   gitCommitSummary = colors.green,
