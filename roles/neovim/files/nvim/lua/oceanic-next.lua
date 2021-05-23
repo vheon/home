@@ -58,6 +58,12 @@ local function define_highlights(groups)
   end
 end
 
+local function link(spec)
+  for what, to in pairs(spec) do
+    vim.cmd(table.concat({ 'hi', 'link', tostring(what), to}, ' '))
+  end
+end
+
 define_highlights {
   Bold = { gui = bold },
   Debug = colors.red,
@@ -207,11 +213,9 @@ define_highlights {
   DiffChange = { colors.base03, bg = colors.base01 },
   DiffDelete = { colors.red, bg = colors.base01 },
   DiffText = { colors.blue, bg = colors.base01 },
-  DiffAdded = { colors.green, bg = colors.base01, gui = bold },
   DiffFile = { colors.red, bg = colors.base00 },
   DiffNewFile = { colors.green, bg = colors.base00 },
   DiffLine = { colors.blue, bg = colors.base00 },
-  DiffRemoved = { colors.red, bg = colors.base01, gui = bold },
 
   gitCommitOverflow = colors.red,
   gitCommitSummary = colors.green,
@@ -325,6 +329,9 @@ define_highlights {
   SimpleMarkWord5 = { colors.bg, bg = colors.blue },
   SimpleMarkWord6 = { colors.bg, bg = colors.base05 }
 }
+
+link { DiffAdded = 'DiffAdd' }
+link { DiffRemoved = 'Delete' }
 
 vim.g.terminal_color_0 = colors.base00
 vim.g.terminal_color_8 = colors.base03
