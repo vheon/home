@@ -36,35 +36,36 @@ local colors = {
 colors.bg = colors.base00
 colors.text = colors.white -- In https://github.com/mhartington/oceanic-next is base07 right now
 
-local function define_highlight(group, spec)
-  if type(spec) == 'string' then
-      vim.cmd(table.concat({ 'hi', tostring(group), 'guifg='..spec }, ' '))
-  else
-    if vim.tbl_isempty(spec) then
-      return
-    end
-    local fg = spec[1]
-    local fg = fg and 'guifg='..fg or ''
-    local bg = spec.bg and 'guibg='..spec.bg or ''
-    local gui = spec.gui and 'gui='..spec.gui or ''
-    local attrsp = spec.attrsp and 'guisp='..spec.attrsp or ''
-    vim.cmd(table.concat({ 'hi', tostring(group), fg, bg, gui, attrsp }, ' '))
-  end
-end
-
 local function define_highlights(groups)
   for group, spec in pairs(groups) do
-    define_highlight(group, spec)
+    local name = tostring(group)
+    if type(spec) == 'string' then
+      spec = { spec }
+      groups[group] = spec
+    end
+
+    local empty = vim.tbl_isempty(spec)
+    spec.name = name
+
+    if not empty then
+      local fg = spec[1]
+      local fg = fg and 'guifg='..fg or ''
+      local bg = spec.bg and 'guibg='..spec.bg or ''
+      local gui = spec.gui and 'gui='..spec.gui or ''
+      local attrsp = spec.attrsp and 'guisp='..spec.attrsp or ''
+      vim.cmd(table.concat({ 'hi', name, fg, bg, gui, attrsp }, ' '))
+    end
   end
+  return groups
 end
 
 local function link(spec)
   for what, to in pairs(spec) do
-    vim.cmd(table.concat({ 'hi', 'link', tostring(what), to}, ' '))
+    vim.cmd(table.concat({ 'hi', 'link', tostring(what), to.name }, ' '))
   end
 end
 
-define_highlights {
+local groups = define_highlights {
   Bold = { gui = bold },
   Debug = colors.red,
   Directory = colors.blue,
@@ -336,10 +337,12 @@ define_highlights {
   NeogitDiffContextHighlight = { colors.fg, bg = colors.bg },
 }
 
-link { DiffAdded = 'DiffAdd' }
-link { DiffRemoved = 'DiffDelete' }
-link { NeogitDiffAddHighlight = 'DiffAdd' }
-link { NeogitDiffDeleteHighlight = 'DiffDelete' }
+link {
+  DiffAdded = groups.DiffAdd,
+  DiffRemoved = groups.DiffDelete,
+  NeogitDiffAddHighlight = groups.DiffAdd,
+  NeogitDiffDeleteHighlight = groups.DiffDelete
+}
 
 vim.g.terminal_color_0 = colors.base00
 vim.g.terminal_color_8 = colors.base03
