@@ -43,7 +43,7 @@ EOF
 set statusline=%!v:lua.statusline()
 set tabline=%!v:lua.tabline()
 
-set termguicolors
+colorscheme oceanic-next
 " I miss the different colors for visual, visual line and visual block
 set guicursor=n-c-sm:block-Cursor,v-ve:block-IncSearch,i-ci-ve:block-WildMenu,r-cr-o:hor20-Cursor
 

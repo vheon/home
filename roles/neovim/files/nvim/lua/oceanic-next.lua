@@ -1,3 +1,5 @@
+-- Based on https://github.com/mhartington/oceanic-next
+
 vim.o.background = 'dark'
 vim.cmd 'hi clear'
 
@@ -6,7 +8,7 @@ if vim.fn.exists("syntax_on") then
 end
 
 vim.o.termguicolors = true
-vim.g.colors_name = "OceanicNext"
+vim.g.colors_name = "oceanic-next"
 
 local italic = "italic"
 local bold = "bold"
@@ -34,13 +36,15 @@ local colors = {
 colors.bg = colors.base00
 colors.text = colors.white -- In https://github.com/mhartington/oceanic-next is base07 right now
 
-
--- XXX(andrea): the majority of the groups have just the `fg` entry. Maybe we should make the structure something like:
---
--- GroupName = { fgcolor, bg = colors.bg, gui = 'underline' }
-local function define_highlights(groups)
-  for group, spec in pairs(groups) do
-    local fg = spec.fg and 'guifg='..spec.fg or ''
+local function define_highlight(group, spec)
+  if type(spec) == 'string' then
+      vim.cmd(table.concat({ 'hi', tostring(group), 'guifg='..spec }, ' '))
+  else
+    if vim.tbl_isempty(spec) then
+      return
+    end
+    local fg = spec[1]
+    local fg = fg and 'guifg='..fg or ''
     local bg = spec.bg and 'guibg='..spec.bg or ''
     local gui = spec.gui and 'gui='..spec.gui or ''
     local attrsp = spec.attrsp and 'guisp='..spec.attrsp or ''
@@ -48,273 +52,279 @@ local function define_highlights(groups)
   end
 end
 
-define_highlights({
+local function define_highlights(groups)
+  for group, spec in pairs(groups) do
+    define_highlight(group, spec)
+  end
+end
+
+define_highlights {
   Bold = { gui = bold },
-  Debug = { fg = colors.red },
-  Directory = { fg = colors.blue },
-  ErrorMsg = { fg = colors.red, bg = colors.base00 },
-  Exception = { fg = colors.red },
-  FoldColumn = { fg = colors.blue, bg = colors.base00 },
-  Folded = { fg = colors.base03, bg = colors.base01, gui = italic },
-  IncSearch = { fg = colors.base01, bg = colors.orange, gui = 'NONE' },
+  Debug = colors.red,
+  Directory = colors.blue,
+  ErrorMsg = { colors.red, bg = colors.base00 },
+  Exception = colors.red,
+  FoldColumn = { colors.blue, bg = colors.base00 },
+  Folded = { colors.base03, bg = colors.base01, gui = italic },
+  IncSearch = { colors.base01, bg = colors.orange, gui = 'NONE' },
   Italic = { gui = italic },
 
-  Macro = { fg = colors.red },
-  MatchParen = { fg = colors.base05, bg = colors.base03 },
-  ModeMsg = { fg = colors.green },
-  MoreMsg = { fg = colors.green },
-  Question = { fg = colors.blue },
-  Search = { fg = colors.base03, bg = colors.yellow },
-  SpecialKey = { fg = colors.base03 },
-  TooLong = { fg = colors.red },
-  Underlined = { fg = colors.red },
-  Visual = { colorbg = colors.base02 },
-  VisualNOS = { fg = colors.red },
-  WarningMsg = { fg = colors.red },
-  WildMenu = { fg = colors.text, bg = colors.blue },
-  Title = { fg = colors.blue },
-  Conceal = { fg = colors.blue, bg = colors.base00 },
-  Cursor = { fg = colors.base00, bg = colors.base05 },
-  NonText = { fg = colors.base03 },
-  Normal = { fg = colors.text, bg = colors.base00 },
-  EndOfBuffer = { fg = colors.base05, bg = colors.base00 },
-  LineNr = { fg = colors.base03, bg = colors.base00 },
-  SignColumn = { fg = colors.base00, bg = colors.base00 },
-  StatusLine = { fg = colors.base01, bg = colors.base07 },
-  StatusLineNC = { fg = colors.base03, bg = colors.base01 },
-  VertSplit = { fg = colors.base00, bg = colors.base02 },
+  Macro = colors.red,
+  MatchParen = { colors.base05, bg = colors.base03 },
+  ModeMsg = colors.green,
+  MoreMsg = colors.green,
+  Question = colors.blue,
+  Search = { colors.base03, bg = colors.yellow },
+  SpecialKey = colors.base03,
+  TooLong = colors.red,
+  Underlined = colors.red,
+  Visual = { bg = colors.base02 },
+  VisualNOS = colors.red,
+  WarningMsg = colors.red,
+  WildMenu = { colors.text, bg = colors.blue },
+  Title = colors.blue,
+  Conceal = { colors.blue, bg = colors.base00 },
+  Cursor = { colors.base00, bg = colors.base05 },
+  NonText = colors.base03,
+  Normal = { colors.text, bg = colors.base00 },
+  EndOfBuffer = { colors.base05, bg = colors.base00 },
+  LineNr = { colors.base03, bg = colors.base00 },
+  SignColumn = { colors.base00, bg = colors.base00 },
+  StatusLine = { colors.base01, bg = colors.base07 },
+  StatusLineNC = { colors.base03, bg = colors.base01 },
+  VertSplit = { colors.base00, bg = colors.base02 },
   ColorColumn = { bg = colors.base01 },
   CursorColumn = { bg = colors.base01 },
   CursorLine = { bg = colors.base01, gui = 'None' },
-  CursorLineNR = { fg = colors.base00, bg = colors.base00 },
-  CursorLineNr = { fg = colors.base03, bg = colors.base01 },
-  PMenu = { fg = colors.base04, bg = colors.base01 },
-  PMenuSel = { fg = colors.text, bg = colors.blue },
+  CursorLineNR = { colors.base00, bg = colors.base00 },
+  CursorLineNr = { colors.base03, bg = colors.base01 },
+  PMenu = { colors.base04, bg = colors.base01 },
+  PMenuSel = { colors.text, bg = colors.blue },
   PmenuSbar = { bg = colors.base02 },
   PmenuThumb = { bg = colors.base07 },
-  TabLine = { fg = colors.base03, bg = colors.base01 },
-  TabLineFill = { fg = colors.base03, bg = colors.base01 },
-  TabLineSel = { fg = colors.green, bg = colors.base01 },
-  helpExample = { fg = colors.yellow },
-  helpCommand = { fg = colors.yellow },
+  TabLine = { colors.base03, bg = colors.base01 },
+  TabLineFill = { colors.base03, bg = colors.base01 },
+  TabLineSel = { colors.green, bg = colors.base01 },
+  helpExample = colors.yellow,
+  helpCommand = colors.yellow,
 
   -- Standard syntax highlighting
-  Boolean = { fg = colors.orange },
-  Character = { fg = colors.red },
-  Comment = { fg = colors.base03, gui = italic },
-  Conditional = { fg = colors.purple },
-  Constant = { fg = colors.orange },
-  Define = { fg = colors.purple },
-  Delimiter = { fg = colors.brown },
-  Float = { fg = colors.orange },
-  Function = { fg = colors.blue },
+  Boolean = colors.orange,
+  Character = colors.red,
+  Comment = { colors.base03, gui = italic },
+  Conditional = colors.purple,
+  Constant = colors.orange,
+  Define = colors.purple,
+  Delimiter = colors.brown,
+  Float = colors.orange,
+  Function = colors.blue,
 
-  Identifier = { fg = colors.cyan },
-  Include = { fg = colors.blue },
-  Keyword = { fg = colors.purple },
+  Identifier = colors.cyan,
+  Include = colors.blue,
+  Keyword = colors.purple,
 
-  Label = { fg = colors.yellow },
-  Number = { fg = colors.orange },
-  Operator = { fg = colors.base05 },
-  PreProc = { fg = colors.yellow },
-  Repeat = { fg = colors.yellow },
-  Special = { fg = colors.cyan },
-  SpecialChar = { fg = colors.brown },
-  Statement = { fg = colors.red },
-  StorageClass = { fg = colors.yellow },
-  String = { fg = colors.green },
-  Structure = { fg = colors.purple },
-  Tag = { fg = colors.yellow },
-  Todo = { fg = colors.yellow, bg = colors.base01 },
-  Type = { fg = colors.yellow },
-  Typedef = { fg = colors.yellow },
+  Label = colors.yellow,
+  Number = colors.orange,
+  Operator = colors.base05,
+  PreProc = colors.yellow,
+  Repeat = colors.yellow,
+  Special = colors.cyan,
+  SpecialChar = colors.brown,
+  Statement = colors.red,
+  StorageClass = colors.yellow,
+  String = colors.green,
+  Structure = colors.purple,
+  Tag = colors.yellow,
+  Todo = { colors.yellow, bg = colors.base01 },
+  Type = colors.yellow,
+  Typedef = colors.yellow,
 
   -- LSP
   LspDiagnosticsDefaultError = { },
-  LspDiagnosticsSignError = { fg = colors.red },
+  LspDiagnosticsSignError = colors.red,
   LspDiagnosticsUnderlineError = { gui = 'undercurl' },
 
   LspDiagnosticsDefaultWarning = { },
-  LspDiagnosticsSignWarning = { fg = colors.yellow },
+  LspDiagnosticsSignWarning = colors.yellow,
   LspDiagnosticsUnderlineWarning = { gui = 'undercurl' },
 
   LspDiagnosticsDefaultInformation = { },
-  LspDiagnosticsSignInformation = { fg = colors.blue },
+  LspDiagnosticsSignInformation = colors.blue,
   LspDiagnosticsUnderlineInformation = { gui = 'undercurl' },
 
   LspDiagnosticsDefaultHint = { },
-  LspDiagnosticsSignHint = { fg = colors.cyan },
+  LspDiagnosticsSignHint = colors.cyan,
   LspDiagnosticsUnderlineHint = { gui = 'undercurl' },
 
 
   -- TreeSitter stuff
-  TSInclude = { fg = colors.cyan },
-  TSPunctBracket = { fg = colors.cyan },
-  TSPunctDelimiter = { fg = colors.text },
-  TSParameter = { fg = colors.text },
-  TSType = { fg = colors.blue },
-  TSFunction = { fg = colors.cyan },
+  TSInclude = colors.cyan,
+  TSPunctBracket = colors.cyan,
+  TSPunctDelimiter = colors.text,
+  TSParameter = colors.text,
+  TSType = colors.blue,
+  TSFunction = colors.cyan,
 
-  TSTagDelimiter = { fg = colors.cyan },
-  TSProperty = { fg = colors.yellow },
-  TSMethod = { fg = colors.blue },
-  TSParameter = { fg = colors.yellow },
-  TSConstructor = { fg = colors.text },
-  TSVariable = { fg = colors.text },
-  TSOperator = { fg = colors.text },
-  TSTag = { fg = colors.text },
-  TSKeyword = { fg = colors.purple },
-  TSKeywordOperator = { fg = colors.purple },
-  TSVariableBuiltin = { fg = colors.red },
-  TSLabel = { fg = colors.cyan },
+  TSTagDelimiter = colors.cyan,
+  TSProperty = colors.yellow,
+  TSMethod = colors.blue,
+  TSParameter = colors.yellow,
+  TSConstructor = colors.text,
+  TSVariable = colors.text,
+  TSOperator = colors.text,
+  TSTag = colors.text,
+  TSKeyword = colors.purple,
+  TSKeywordOperator = colors.purple,
+  TSVariableBuiltin = colors.red,
+  TSLabel = colors.cyan,
 
-  TSText = { fg = colors.text },    -- For strings considered text in a markup language.
-  TSTextReference = { fg = colors.yellow }, -- FIXME
-  TSEmphasis = { fg = '#FF0000' },    -- For text to be represented with emphasis.
-  TSUnderline = { fg = colors.text, bg = colors.none, style = 'underline' },    -- For text to be represented with an underline.
+  TSText = colors.text,    -- For strings considered text in a markup language.
+  TSTextReference = colors.yellow, -- FIXME
+  TSEmphasis = { '#FF0000' },    -- For text to be represented with emphasis.
+  TSUnderline = { colors.text, bg = colors.none, style = 'underline' },    -- For text to be represented with an underline.
 
   SpellBad = { gui = 'undercurl' },
   SpellLocal = { gui = 'undercurl' },
   SpellCap = { gui = 'undercurl' },
   SpellRare = { gui = 'undercurl' },
 
-  csClass = { fg = colors.yellow },
-  csAttribute = { fg = colors.yellow },
-  csModifier = { fg = colors.purple },
-  csType = { fg = colors.red },
-  csUnspecifiedStatement = { fg = colors.blue },
-  csContextualStatement = { fg = colors.purple },
-  csNewDecleration = { fg = colors.red },
-  cOperator = { fg = colors.cyan },
-  cPreCondit = { fg = colors.purple },
+  csClass = colors.yellow,
+  csAttribute = colors.yellow,
+  csModifier = colors.purple,
+  csType = colors.red,
+  csUnspecifiedStatement = colors.blue,
+  csContextualStatement = colors.purple,
+  csNewDecleration = colors.red,
+  cOperator = colors.cyan,
+  cPreCondit = colors.purple,
 
-  cssColor = { fg = colors.cyan },
-  cssBraces = { fg = colors.base05 },
-  cssClassName = { fg = colors.purple },
+  cssColor = colors.cyan,
+  cssBraces = colors.base05,
+  cssClassName = colors.purple,
 
 
-  DiffAdd = { fg = colors.green, bg = colors.base01, gui = bold },
-  DiffChange = { fg = colors.base03, bg = colors.base01 },
-  DiffDelete = { fg = colors.red, bg = colors.base01 },
-  DiffText = { fg = colors.blue, bg = colors.base01 },
-  DiffAdded = { fg = colors.text, bg = colors.green, gui = bold },
-  DiffFile = { fg = colors.red, bg = colors.base00 },
-  DiffNewFile = { fg = colors.green, bg = colors.base00 },
-  DiffLine = { fg = colors.blue, bg = colors.base00 },
-  DiffRemoved = { fg = colors.text, bg = colors.red, gui = bold },
+  DiffAdd = { colors.green, bg = colors.base01, gui = bold },
+  DiffChange = { colors.base03, bg = colors.base01 },
+  DiffDelete = { colors.red, bg = colors.base01 },
+  DiffText = { colors.blue, bg = colors.base01 },
+  DiffAdded = { colors.text, bg = colors.green, gui = bold },
+  DiffFile = { colors.red, bg = colors.base00 },
+  DiffNewFile = { colors.green, bg = colors.base00 },
+  DiffLine = { colors.blue, bg = colors.base00 },
+  DiffRemoved = { colors.text, bg = colors.red, gui = bold },
 
-  gitCommitOverflow = { fg = colors.red },
-  gitCommitSummary = { fg = colors.green },
+  gitCommitOverflow = colors.red,
+  gitCommitSummary = colors.green,
 
-  htmlBold = { fg = colors.yellow },
-  htmlItalic = { fg = colors.purple },
-  htmlTag = { fg = colors.cyan },
-  htmlEndTag = { fg = colors.cyan },
-  htmlArg = { fg = colors.yellow },
-  htmlTagName = { fg = colors.text },
+  htmlBold = colors.yellow,
+  htmlItalic = colors.purple,
+  htmlTag = colors.cyan,
+  htmlEndTag = colors.cyan,
+  htmlArg = colors.yellow,
+  htmlTagName = colors.text,
 
-  javaScript = { fg = colors.base05 },
-  javaScriptNumber = { fg = colors.orange },
-  javaScriptBraces = { fg = colors.base05 },
+  javaScript = colors.base05,
+  javaScriptNumber = colors.orange,
+  javaScriptBraces = colors.base05,
 
-  jsonKeyword = { fg = colors.green },
-  jsonQuote = { fg = colors.green },
+  jsonKeyword = colors.green,
+  jsonQuote = colors.green,
 
-  markdownCode = { fg = colors.green },
-  markdownCodeBlock = { fg = colors.green },
-  markdownHeadingDelimiter = { fg = colors.blue },
-  markdownItalic = { fg = colors.purple, gui = italic },
-  markdownBold = { fg = colors.yellow, gui = bold },
-  markdownCodeDelimiter = { fg = colors.brown, gui = italic },
-  markdownError = { fg = colors.base05, bg = colors.base00 },
+  markdownCode = colors.green,
+  markdownCodeBlock = colors.green,
+  markdownHeadingDelimiter = colors.blue,
+  markdownItalic = { colors.purple, gui = italic },
+  markdownBold = { colors.yellow, gui = bold },
+  markdownCodeDelimiter = { colors.brown, gui = italic },
+  markdownError = { colors.base05, bg = colors.base00 },
 
-  typescriptParens = { fg = colors.base05, bg = colors.none },
+  typescriptParens = { colors.base05, bg = colors.none },
 
-  -- NeomakeErrorSign = { fg = colors.red, bg = colors.base00 },
-  -- NeomakeWarningSign = { fg = colors.yellow, bg = colors.base00 },
-  -- NeomakeInfoSign = { fg = colors.white, bg = colors.base00 },
-  -- NeomakeError = { fg = colors.red, gui = 'underline', attrsp = colors.red },
-  -- NeomakeWarning = { fg = colors.red, gui = 'underline', attrsp = colors.red },
+  -- NeomakeErrorSign = { colors.red, bg = colors.base00 },
+  -- NeomakeWarningSign = { colors.yellow, bg = colors.base00 },
+  -- NeomakeInfoSign = { colors.white, bg = colors.base00 },
+  -- NeomakeError = { colors.red, gui = 'underline', attrsp = colors.red },
+  -- NeomakeWarning = { colors.red, gui = 'underline', attrsp = colors.red },
 
-  -- ALEErrorSign = { fg = colors.red, bg = colors.base00, gui = bold },
-  -- ALEWarningSign = { fg = colors.yellow, bg = colors.base00, gui = bold },
-  -- ALEInfoSign = { fg = colors.white, bg = colors.base00, gui = bold },
+  -- ALEErrorSign = { colors.red, bg = colors.base00, gui = bold },
+  -- ALEWarningSign = { colors.yellow, bg = colors.base00, gui = bold },
+  -- ALEInfoSign = { colors.white, bg = colors.base00, gui = bold },
 
-  -- NERDTreeExecFile = { fg = colors.base05 },
-  -- NERDTreeDirSlash = { fg = colors.blue },
-  -- NERDTreeOpenable = { fg = colors.blue },
+  -- NERDTreeExecFile = colors.base05,
+  -- NERDTreeDirSlash = colors.blue,
+  -- NERDTreeOpenable = colors.blue,
   -- NERDTreeFile = { bg = colors.none },
-  -- NERDTreeFlags = { fg = colors.blue },
+  -- NERDTreeFlags = colors.blue,
 
-  phpComparison = { fg = colors.base05 },
-  phpParent = { fg = colors.base05 },
-  phpMemberSelector = { fg = colors.base05 },
+  phpComparison = colors.base05,
+  phpParent = colors.base05,
+  phpMemberSelector = colors.base05,
 
-  pythonRepeat = { fg = colors.purple },
-  pythonOperator = { fg = colors.purple },
+  pythonRepeat = colors.purple,
+  pythonOperator = colors.purple,
 
-  rubyConstant = { fg = colors.yellow },
-  rubySymbol = { fg = colors.green },
-  rubyAttribute = { fg = colors.blue },
-  rubyInterpolation = { fg = colors.green },
-  rubyInterpolationDelimiter = { fg = colors.brown },
-  rubyStringDelimiter = { fg = colors.green },
-  rubyRegexp = { fg = colors.cyan },
+  rubyConstant = colors.yellow,
+  rubySymbol = colors.green,
+  rubyAttribute = colors.blue,
+  rubyInterpolation = colors.green,
+  rubyInterpolationDelimiter = colors.brown,
+  rubyStringDelimiter = colors.green,
+  rubyRegexp = colors.cyan,
 
-  -- sassidChar = { fg = colors.red },
-  -- sassClassChar = { fg = colors.orange },
-  -- sassInclude = { fg = colors.purple },
-  -- sassMixing = { fg = colors.purple },
-  -- sassMixinName = { fg = colors.blue },
+  -- sassidChar = colors.red,
+  -- sassClassChar = colors.orange,
+  -- sassInclude = colors.purple,
+  -- sassMixing = colors.purple,
+  -- sassMixinName = colors.blue,
 
-  vimfilerLeaf = { fg = colors.base05 },
-  vimfilerNormalFile = { fg = colors.base05, bg = colors.base00 },
-  vimfilerOpenedFile = { fg = colors.blue },
-  vimfilerClosedFile = { fg = colors.blue },
+  vimfilerLeaf = colors.base05,
+  vimfilerNormalFile = { colors.base05, bg = colors.base00 },
+  vimfilerOpenedFile = colors.blue,
+  vimfilerClosedFile = colors.blue,
 
-  GitGutterAdd = { fg = colors.green, bg = colors.base00, gui = bold },
-  GitGutterChange = { fg = colors.blue, bg = colors.base00, gui = bold },
-  GitGutterDelete = { fg = colors.red, bg = colors.base00, gui = bold },
-  GitGutterChangeDelete = { fg = colors.purple, bg = colors.base00, gui = bold },
+  GitGutterAdd = { colors.green, bg = colors.base00, gui = bold },
+  GitGutterChange = { colors.blue, bg = colors.base00, gui = bold },
+  GitGutterDelete = { colors.red, bg = colors.base00, gui = bold },
+  GitGutterChangeDelete = { colors.purple, bg = colors.base00, gui = bold },
 
-  SignifySignAdd = { fg = colors.green, bg = colors.base00, gui = bold },
-  SignifySignChange = { fg = colors.blue, bg = colors.base00, gui = bold },
-  SignifySignDelete = { fg = colors.red, bg = colors.base00, gui = bold },
-  SignifySignChangeDelete = { fg = colors.purple, bg = colors.base00, gui = bold },
-  SignifySignDeleteFirstLine = { fg = colors.red, bg = colors.base00, gui = bold },
+  SignifySignAdd = { colors.green, bg = colors.base00, gui = bold },
+  SignifySignChange = { colors.blue, bg = colors.base00, gui = bold },
+  SignifySignDelete = { colors.red, bg = colors.base00, gui = bold },
+  SignifySignChangeDelete = { colors.purple, bg = colors.base00, gui = bold },
+  SignifySignDeleteFirstLine = { colors.red, bg = colors.base00, gui = bold },
 
-  xmlTag = { fg = colors.cyan },
-  xmlTagName = { fg = colors.base05 },
-  xmlEndTag = { fg = colors.cyan },
-  Defx_filename_directory = { fg = colors.blue },
+  xmlTag = colors.cyan,
+  xmlTagName = colors.base05,
+  xmlEndTag = colors.cyan,
+  Defx_filename_directory = colors.blue,
 
-  -- CocErrorSign = { fg = colors.red },
-  -- CocWarningSign = { fg = colors.yellow },
-  -- CocInfoSign = { fg = colors.blue },
-  -- CocHintSign = { fg = colors.cyan },
-  -- CocErrorFloat = { fg = colors.red },
-  -- CocWarningFloat = { fg = colors.yellow },
-  -- CocInfoFloat = { fg = colors.blue },
-  -- CocHintFloat = { fg = colors.cyan },
-  -- CocDiagnosticsError = { fg = colors.red },
-  -- CocDiagnosticsWarning = { fg = colors.yellow },
-  -- CocDiagnosticsInfo = { fg = colors.blue },
-  -- CocDiagnosticsHint = { fg = colors.cyan },
-  -- CocSelectedText = { fg = colors.purple },
-  -- CocCodeLens = { fg = colors.base04 }
+  -- CocErrorSign = colors.red,
+  -- CocWarningSign = colors.yellow,
+  -- CocInfoSign = colors.blue,
+  -- CocHintSign = colors.cyan,
+  -- CocErrorFloat = colors.red,
+  -- CocWarningFloat = colors.yellow,
+  -- CocInfoFloat = colors.blue,
+  -- CocHintFloat = colors.cyan,
+  -- CocDiagnosticsError = colors.red,
+  -- CocDiagnosticsWarning = colors.yellow,
+  -- CocDiagnosticsInfo = colors.blue,
+  -- CocDiagnosticsHint = colors.cyan,
+  -- CocSelectedText = colors.purple,
+  -- CocCodeLens = colors.base04
 
-    User2 = { fg = colors.white, bg = colors.base01, gui = bold },
-    User3 = { fg = colors.base07, bg = colors.base01, gui = italic },
-    User4 = { fg = colors.white, bg = colors.base01 },
-    User5 = { fg = colors.base00, bg = colors.white, gui = bold },
+    User2 = { colors.white, bg = colors.base01, gui = bold },
+    User3 = { colors.base07, bg = colors.base01, gui = italic },
+    User4 = { colors.white, bg = colors.base01 },
+    User5 = { colors.base00, bg = colors.white, gui = bold },
 
-  SimpleMarkWord1 = { fg = colors.bg, bg = colors.cyan },
-  SimpleMarkWord2 = { fg = colors.bg, bg = colors.red },
-  SimpleMarkWord3 = { fg = colors.bg, bg = colors.green },
-  SimpleMarkWord4 = { fg = colors.bg, bg = colors.yellow },
-  SimpleMarkWord5 = { fg = colors.bg, bg = colors.blue },
-  SimpleMarkWord6 = { fg = colors.bg, bg = colors.base05 }
-})
+  SimpleMarkWord1 = { colors.bg, bg = colors.cyan },
+  SimpleMarkWord2 = { colors.bg, bg = colors.red },
+  SimpleMarkWord3 = { colors.bg, bg = colors.green },
+  SimpleMarkWord4 = { colors.bg, bg = colors.yellow },
+  SimpleMarkWord5 = { colors.bg, bg = colors.blue },
+  SimpleMarkWord6 = { colors.bg, bg = colors.base05 }
+}
 
 vim.g.terminal_color_0 = colors.base00
 vim.g.terminal_color_8 = colors.base03

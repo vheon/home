@@ -15,15 +15,6 @@ return require'packer'.startup {
 
     use {'wbthomason/packer.nvim', opt = true}
 
-    use {
-      'mhartington/oceanic-next',
-      config = function()
-        vim.g.oceanic_next_terminal_bold = 1
-        vim.g.oceanic_next_terminal_italic = 1
-        vim.cmd [[colorscheme OceanicNext]]
-      end
-    }
-
     use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
