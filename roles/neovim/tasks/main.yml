@@ -59,6 +59,11 @@
     PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
   when: git_ycm_nvim.changed and not git_ycm_nvim.before
 
+- name: Remove packer_compiled.vim
+  file:
+    path: "~/.config/nvim/plugin/packer_compiled.vim"
+    state: absent
+
 - name: Update everything and Compile
   shell: >
     nvim

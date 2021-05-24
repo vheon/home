@@ -276,6 +276,7 @@ return require'packer'.startup {
   config = {
     disable_commands = true,
     display = {
+      non_interactive = #vim.api.nvim_list_uis() == 0,
       open_cmd = 'tabnew',
       keybindings = {
         quit = 'gq'
