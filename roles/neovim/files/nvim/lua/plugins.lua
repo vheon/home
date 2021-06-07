@@ -129,10 +129,10 @@ return require'packer'.startup {
             yoffset = 0.9
           }
         }
-        map('<Leader>fg', ':GFiles<cr>')
-        map('<Leader>ff', ':Files<cr>')
-        map('<Leader>fb', ':Buffers<cr>')
-        map('<Leader>ft', ':Tags<cr>')
+        -- map('<Leader>fg', ':GFiles<cr>')
+        -- map('<Leader>ff', ':Files<cr>')
+        -- map('<Leader>fb', ':Buffers<cr>')
+        -- map('<Leader>ft', ':Tags<cr>')
 
         vim.g.fzf_colors = {
           fg =      {'fg', 'Normal'},
@@ -149,6 +149,36 @@ return require'packer'.startup {
           spinner = {'fg', 'Label'},
           header =  {'fg', 'Comment'}
         }
+      end
+    }
+
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        'nvim-lua/popup.nvim',
+        'nvim-lua/plenary.nvim'
+      },
+      config = function()
+        require('telescope').setup {
+          extensions = {
+            commandt = {
+              override_generic_sorter = true,
+              override_file_sorter = true,
+            }
+          }
+        }
+        map('<Leader>fg', ":lua require('telescope.builtin').git_files()<cr>")
+        map('<Leader>ff', ":lua require('telescope.builtin').find_files()<cr>")
+        map('<Leader>fb', ":lua require('telescope.builtin').buffers()<cr>")
+        map('<Leader>ft', ":lua require('telescope.builtin').treesitter()<cr>")
+      end
+    }
+    use {
+      'vheon/command-t',
+      run = 'make',
+      branch = 'telescope',
+      config = function()
+        require('telescope').load_extension('commandt')
       end
     }
 
