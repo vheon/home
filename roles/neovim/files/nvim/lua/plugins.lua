@@ -47,7 +47,13 @@ return require'packer'.startup {
       config = function()
         require'neogit'.setup {
           disable_context_highlighting = false,
-          integrations = { diffview = true }
+          disable_commit_confirmation = true,
+          integrations = { diffview = true },
+          mappings = {
+            status = {
+              gq = "Close"
+            }
+          }
         }
         map('<leader>gs', ':Neogit<cr>')
       end
