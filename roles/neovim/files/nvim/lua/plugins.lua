@@ -23,7 +23,7 @@ return require'packer'.startup {
     use {
       'tpope/vim-fugitive',
       config = function()
-        map('<leader>gs', ':Gtabedit :<cr>')
+        -- map('<leader>gs', ':Gtabedit :<cr>')
         map('<leader>gh', ':Gtabedit @<cr>')
       end
     }
@@ -49,6 +49,7 @@ return require'packer'.startup {
           disable_context_highlighting = false,
           integrations = { diffview = true }
         }
+        map('<leader>gs', ':Neogit<cr>')
       end
     }
 
