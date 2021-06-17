@@ -144,7 +144,7 @@ end
 local function status_line()
   -- If we're rendering a non focused window just put the file path
   if vim.g.statusline_winid ~= vim.fn.win_getid() then
-    return '%f'
+    return '%f%*'..git_branch()
   end
 
   return table.concat({
