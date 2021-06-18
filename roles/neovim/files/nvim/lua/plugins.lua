@@ -53,6 +53,11 @@ return require'packer'.startup {
             status = {
               gq = "Close"
             }
+          },
+          signs = {
+            section = {'', ''},
+            item = {'', ''},
+            hunk = {'', '▾'},
           }
         }
         map('<leader>gs', ':Neogit<cr>')
