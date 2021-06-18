@@ -164,7 +164,15 @@ return require'packer'.startup {
         'nvim-lua/plenary.nvim'
       },
       config = function()
+        local actions = require('telescope.actions')
         require('telescope').setup {
+          defaults = {
+            mappings = {
+              i = {
+                ['<esc>'] = actions.close
+              }
+            }
+          },
           extensions = {
             commandt = {
               override_generic_sorter = true,
