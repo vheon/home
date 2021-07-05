@@ -6,4 +6,4 @@
     src: "{{ role_path }}/files/config"
     path: ~/.ssh/config
     state: link
-  when: onWorkMachine
+  when: on_work_machine

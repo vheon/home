@@ -3,24 +3,54 @@
 - hosts: all
   connection: local
 
-  vars_prompt:
-    - name: workMachine
-      prompt: Is this a work machine?
-      private: no
-      default: false
-
   pre_tasks:
+    - name: Check if ~/.provision_profile exists.
+      stat:
+        path: "~/.provision_profile"
+      register: provision_profile_file_stat
+      tags:
+        - always
+
+    - block:
+      - name: Detect if the work profile for this machine was already chosen
+        lineinfile:
+          path: "~/.provision_profile"
+          line: 'work'
+          state: present
+        check_mode: yes
+        register: provision_profile
+
+      - set_fact:
+          on_work_machine: "{{ not provision_profile.changed }}"
+
+      when: provision_profile_file_stat.stat.exists
+      tags:
+        - always
+
+    - block:
+      - pause:
+          prompt: Is this a work machine?
+        register: prompt_work_machine
+      - set_fact:
+          on_work_machine: "{{ prompt_work_machine.user_input | bool }}"
+
+      - name: Save the chosen profile
+        lineinfile:
+          path: "~/.provision_profile"
+          line: "{{ on_work_machine | ternary('work', 'nonwork') }}"
+          state: present
+          create: yes
+
+      when: not provision_profile_file_stat.stat.exists
+      tags:
+        - always
+
     - name: Detect if on macOS
       set_fact:
         is_macOS: "{{ansible_os_family | lower == 'darwin'}}"
       tags:
         - always
 
-    - name: Detect if work machine
-      set_fact:
-        onWorkMachine: "{{ workMachine | bool }}"
-      tags:
-        - always
 
   roles:
     # XXX(andrea): add tags on roles so we can run specific section of the configuration
