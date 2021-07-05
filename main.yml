@@ -74,6 +74,10 @@
       when: not is_macOS
       tags:
         - docker
+    - role: libvirt
+      when: not is_macOS
+      tags:
+        - libvirt
     # XXX(andrea): next steps to implement
     # - role: macOS
     # - role: karabiner-elements

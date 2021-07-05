@@ -1,0 +1,19 @@
+---
+- name: Install required packages.
+  package:
+    name:
+      - qemu
+      - qemu-kvm
+      - libvirt-daemon
+      - libvirt-clients
+      - bridge-utils
+      - virt-manager
+    state: present
+  become: yes
+
+- name: Enable libvirtd service
+  service:
+    name: libvirtd
+    enabled: yes
+    state: restarted
+  become: yes
