@@ -22,7 +22,7 @@ brew "curl"
 brew "go"
 # XXX(vheon): I should probably just adapt my formula for macOS as well so it would be consistent
 {% if not is_macOS %}
-brew "neovim-nightly"
+brew "neovim-nightly", args: ["HEAD"]
 {% else %}
 brew "neovim", args: ["HEAD"]
 {% endif %}
