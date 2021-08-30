@@ -44,7 +44,8 @@
 - name: Clone ycm.nvim
   git:
     dest: ~/code/ycm.nvim
-    repo: git@github.com:vheon/ycm.nvim.git
+    # repo: git@github.com:vheon/ycm.nvim.git
+    repo: "{{ 'vheon/ycm.nvim' | github_url( ci = lookup('env','CI') ) }}"
     update: no # XXX(andrea): this is actually wrong! Fix the "dirty" state of the project so we can also update a machine!
   register: git_ycm_nvim
 
