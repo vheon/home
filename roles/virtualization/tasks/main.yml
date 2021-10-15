@@ -1,0 +1,37 @@
+---
+- name: Add hashicorp apt GPG key
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+  become: yes
+
+- name: Add hashicorp repository
+  apt_repository:
+    repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ansible_distribution_release}} main
+    state: present
+  become: yes
+
+- name: Install Vagrant and requirements for vagrant-libvirt
+  apt:
+    name:
+      - vagrant
+      - ruby-libvirt
+      - qemu
+      - libvirt-daemon-system
+      - libvirt-clients
+      - ebtables
+      - dnsmasq-base
+      - libxslt-dev
+      - libxml2-dev
+      - libvirt-dev
+      - zlib1g-dev
+      - ruby-dev
+      - libguestfs-tools
+    state: present
+  become: yes
+
+- name: Install vagrant plugin
+  command: >
+    vagrant plugin install vagrant-libvirt
+  environment:
+    CFLAGS: '-I/opt/vagrant/embedded/include/ruby-3.0.0/ruby'
+

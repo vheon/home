@@ -82,6 +82,13 @@
       when: not is_macOS
       tags:
         - libvirt
+    # XXX(andrea): right now this will contains only vagrant for Linux but we
+    # should move `libvirt` and `docker` to this role since they are all
+    # related to the same use case for me.
+    - role: virtualization
+      when: not is_macOS
+      tags:
+        - virtualization
     # XXX(andrea): next steps to implement
     # - role: macOS
     # - role: karabiner-elements
