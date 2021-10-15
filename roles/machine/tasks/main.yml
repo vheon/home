@@ -1,0 +1,12 @@
+---
+- name: Set sysctl File Limits
+  copy:
+    src: 50-fs.conf
+    dest: /etc/sysctl.d
+  become: yes
+
+- name: Set Shell File Limits
+  copy:
+    src: 91-nofiles.conf
+    dest: /etc/security/limits.d
+  become: yes

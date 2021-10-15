@@ -54,6 +54,10 @@
 
   roles:
     # XXX(andrea): add tags on roles so we can run specific section of the configuration
+    - role: machine
+      tags:
+        - machine
+      when: not is_macOS
     - role: compiler
       tags:
         - compiler
