@@ -2,6 +2,9 @@ set -x BREW_PREFIX /usr/local
 if test -d /home/linuxbrew/.linuxbrew
   set -x BREW_PREFIX /home/linuxbrew/.linuxbrew
 end
+if test -d /opt/homebrew
+  set -x BREW_PREFIX /opt/homebrew
+end
 
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x EDITOR nvim
