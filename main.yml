@@ -63,6 +63,8 @@
         - compiler
       when: not is_macOS
     - role: homebrew
+      tags:
+        - homebrew
     - role: tmux
     - role: fish
     - role: git
