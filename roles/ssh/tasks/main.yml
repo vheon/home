@@ -1,4 +1,9 @@
 ---
+- name: Ensure ~/.ssh directory exists.
+  file:
+    path: "~/.ssh"
+    state: directory
+
 # XXX(andrea): right now I'm using this only for a simple configuration but as
 # soon as I start adding stuff there I should encrypt the file.
 - name: Link ssh config file
