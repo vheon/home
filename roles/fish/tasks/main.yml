@@ -25,7 +25,11 @@
     path: "~/.config/fish"
     state: link
 
-# XXX(andrea): With the steps above it will make such that when sshing into a
-# machine we use fishshell without setting the user up for it with `chsh`. Of
-# course it will not work on macOS because that is usually the main machine. We
-# should use the Ansible's `user` module for that.
+# XXX(andrea): right now we're hardcoding the path for the M1 mac. We should
+# make the brew variable global so that we can reuse it here also.
+- name: Change default shell to fish-shell
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /opt/homebrew/bin/fish
+  become: yes
+  when: is_macOS
