@@ -1,0 +1,3 @@
+---
+brew_bin_location: /usr/local/bin
+brew_binary: /usr/local/bin/brew

@@ -51,6 +51,12 @@
       tags:
         - always
 
+    - include_vars: "{{ item }}"
+      with_first_found:
+        - "{{ ansible_os_family }}_{{ ansible_architecture }}.yml"
+        - "{{ ansible_os_family }}.yml"
+      tags:
+        - always
 
   roles:
     # XXX(andrea): add tags on roles so we can run specific section of the configuration

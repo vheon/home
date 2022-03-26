@@ -30,6 +30,6 @@
 - name: Change default shell to fish-shell
   user:
     name: "{{ ansible_user_id }}"
-    shell: /opt/homebrew/bin/fish
+    shell: "{{ brew_bin_location }}/fish"
   become: yes
   when: is_macOS
