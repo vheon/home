@@ -47,6 +47,7 @@
 
     - name: Detect if on macOS
       set_fact:
+        # XXX(andrea): I hate this name... maybe just "macOS" or simply "macbook"
         is_macOS: "{{ansible_os_family | lower == 'darwin'}}"
       tags:
         - always
