@@ -1,6 +1,3 @@
--- XXX(andrea): for now I use the implementation done in ycm.nvim
--- Once it gets implemented in core neovim we can get rid of this
-local autocmd = require'ycm.autocmd'
 local devicons = require'nvim-web-devicons'
 
 local function define_highlights(groups)
@@ -47,25 +44,22 @@ local function define_highlight_groups()
 end
 
 local function setup()
-  autocmd.define_autocmd_group('vim_statusline', { clear = true })
-  autocmd.define_autocmd {
-    event = 'User FerretAsyncStart',
-    pattern = '', -- User autocmd do not take a pattern
-    command = "lua vim.g.ferret_search = '  '",
-    group = 'vim_statusline'
-  }
-  autocmd.define_autocmd {
-    event = 'User FerretAsyncFinish',
-    pattern = '', -- User autocmd do not take a pattern
-    command = 'lua vim.g.ferret_search = nil',
-    group = 'vim_statusline'
-  }
+  local statusline_group = vim.api.nvim_create_augroup('vim_statusline', { clear = true })
+  vim.api.nvim_create_autocmd( 'User', {
+    pattern = 'FerretAsyncStart',
+    callback = function() vim.g.ferret_search = '  ' end,
+    group = statusline_group
+  })
+  vim.api.nvim_create_autocmd( 'User', {
+    pattern = 'FerretAsyncFinish',
+    callback = function() vim.g.ferret_search = nil end,
+    group = statusline_group
+  })
 
-  autocmd.define_autocmd {
-    event = 'ColorScheme',
+  vim.api.nvim_create_autocmd( 'ColorScheme', {
     callback = define_highlight_groups,
-    group = 'vim_statusline'
-  }
+    group = statusline_group
+  })
 
   define_highlight_groups()
 end

@@ -18,8 +18,6 @@
 -- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 -- OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-local autocmd = require'ycm.autocmd'
-
 -- XXX(andrea): I would prefero to have this into nvim's lua std lib.
 local function define_highlights(groups)
   for group, spec in pairs(groups) do
@@ -48,23 +46,25 @@ local function update_simplemark_highlights()
   vim.cmd("hi SimpleMarkWord6 guifg="..background.." guibg="..color(7))
 end
 
-autocmd.define_autocmd_group('SimpleMarkColors', { clear = true })
-autocmd.define_autocmd {
-  event = 'Colorscheme',
+local group = vim.api.nvim_create_augroup('SimpleMarkColors', { clear = true })
+vim.api.nvim_create_autocmd( 'Colorscheme', {
   callback = update_simplemark_highlights,
-  group = 'vim_statusline'
-}
+  group = group
+})
+
+local function mark_word()
+end
+
+local function clear_all()
+end
 
 local function setup(opts)
   update_simplemark_highlights()
 
-  vim.api.nvim_set_keymap('n', '<Plug>(SimpleMark)', "<cmd>lua require'simplemark'.mark_word()", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '<Plug>(SimpleMarkClear)', "<cmd>lua require'simplemark'.clear_all()", { noremap = true, silent = true })
-
+  vim.keymap.set('n', '<Plug>(SimpleMark)', mark_word )
+  vim.keymap.set('n', '<Plug>(SimpleMarkClear)', clear_all )
 end
 
 return {
-  setup = setup,
-  mark_word = mark_word,
-  clear_all = clear_all
+  setup = setup
 }
