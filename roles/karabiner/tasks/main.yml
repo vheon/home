@@ -1,0 +1,41 @@
+---
+- name: Install Karabiner-Elements
+  community.general.homebrew_cask:
+    name:
+      - karabiner-elements
+    path: "{{ brew_bin_location }}"
+
+- name: Install Goku for the configuration
+  block:
+    - name: Add Goku tap
+      community.general.homebrew_tap:
+        name:
+          - yqrashawn/goku
+        path: "{{ brew_bin_location }}"
+
+    - name: Install Goku
+      community.general.homebrew:
+        name:
+          - goku
+        path: "{{ brew_bin_location }}"
+
+- name: Ensure ~/.config/karabiner directory exists.
+  file:
+    path: "~/.config/karabiner"
+    state: directory
+
+- name: Copy base karabiner-elements configuration.
+  copy:
+    src: "{{ role_path }}/files/karabiner.json"
+    dest: "~/.config/karabiner"
+
+- name: Link karabiner-elements configuration.
+  file:
+    src: "{{ role_path }}/files/karabiner.edn"
+    path: "~/.config/karabiner/karabiner.edn"
+    state: link
+
+- name: Run Goku
+  shell: GOKU_EDN_CONFIG_FILE=~/.config/karabiner/karabiner.edn goku
+  environment:
+    PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
