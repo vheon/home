@@ -84,6 +84,8 @@
          :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
         {:des "Left Control to Cap Lock on single press."
          :rules [[:##left_control :left_control nil {:alone :caps_lock}]]}
+        {:des "Enter to Hyper on press and hold."
+         :rules [[:##return_or_enter :!CTOleft_shift nil {:alone :return_or_enter}]]}
         {:des "Better Shifting: Parentheses on shift keys"
          :rules [[:left_shift :left_shift nil {:alone :!S9}]
                  [:right_shift :right_shift nil {:alone :!R0}]]}
