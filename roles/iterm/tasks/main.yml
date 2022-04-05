@@ -1,0 +1,26 @@
+---
+- name: Ensure iTerm2 DynamicProfiles directory exists.
+  file:
+    path: ~/Library/Application Support/iTerm2/DynamicProfiles
+    state: directory
+
+- name: Link Dynamic Profiles Sources
+  file:
+    src: "{{ role_path }}/files/Sources/{{ item }}"
+    path: "~/Library/Application Support/iTerm2/Sources/{{ item }}"
+    state: link
+  loop:
+    - 20-Default-External.json
+    - 20-Default-Retina.json
+
+- name: Link Base Dynamic Profiles
+  file:
+    src: "{{ role_path }}/files/DynamicProfiles/00-Base.json"
+    path: "~/Library/Application Support/iTerm2/DynamicProfiles/00-Base.json"
+    state: link
+
+- name: Link Default Dynamic Profiles
+  file:
+    src: "{{ role_path }}/files/DynamicProfiles/20-Default-Retina.json"
+    path: "~/Library/Application Support/iTerm2/DynamicProfiles/20-Default.json"
+    state: link

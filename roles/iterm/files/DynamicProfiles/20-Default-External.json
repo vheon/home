@@ -1,0 +1,10 @@
+{
+    "Profiles": [
+        {
+            "Name": "Default",
+            "Guid": "8C012B27-65E8-470D-83FA-B5485479863D",
+            "Dynamic Profile Parent Name": "Base",
+            "Normal Font" : "JetBrainsMonoNerdFontComplete-Regular 15"
+        }
+    ]
+}
