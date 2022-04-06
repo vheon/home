@@ -25,7 +25,10 @@
                :delay 500
                :alone 1000
                :held 500}}
- :applications {:safari ["^com\\.apple\\.Safari$"]}
+
+ :applications {:safari ["^com\\.apple\\.Safari$"]
+                :ms_rdp ["^com\\.microsoft\\.rdc$"
+                         "^com\\.microsoft\\.rdc\\."]}
  :main [{:des "Caps Lock to Escape on single press, Control on press and hold."
          :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
         {:des "Better Shifting: Parentheses on shift keys"
@@ -43,4 +46,18 @@
         ; {:des "Ctrl+p/Ctrl+n to arrow up/down"
         ;  :rules [[:!Tp :up_arrow]
         ;          [:!Tn :down_arrow]]}
+        {:des "Use standard function keys in remote desktop"
+         :rules [[:##f1 :!Ff1 :ms_rdp]
+                 [:##f2 :!Ff2 :ms_rdp]
+                 [:##f3 :!Ff3 :ms_rdp]
+                 [:##f4 :!Ff4 :ms_rdp]
+                 [:##f5 :!Ff5 :ms_rdp]
+                 [:##f6 :!Ff6 :ms_rdp]
+                 [:##f7 :!Ff7 :ms_rdp]
+                 [:##f8 :!Ff8 :ms_rdp]
+                 [:##f9 :!Ff9 :ms_rdp]
+                 [:##f10 :!Ff10 :ms_rdp]
+                 [:##f11 :!Ff11 :ms_rdp]
+                 [:##f11 :!Ff11 :ms_rdp]]}
+
         ]}
