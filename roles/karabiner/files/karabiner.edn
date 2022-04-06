@@ -28,6 +28,7 @@
 
  :applications {:ms_rdp ["^com\\.microsoft\\.rdc$"
                          "^com\\.microsoft\\.rdc\\."]
+
                 :readline_ready ["^org\\.gnu\\.Emacs$"
                                  "^org\\.gnu\\.AquamacsEmacs$"
                                  "^org\\.gnu\\.Aquamacs$"
@@ -94,6 +95,6 @@
                  [:##f9 :!Ff9 :ms_rdp]
                  [:##f10 :!Ff10 :ms_rdp]
                  [:##f11 :!Ff11 :ms_rdp]
-                 [:##f11 :!Ff11 :ms_rdp]]}
+                 [:##f12 :!Ff12 :ms_rdp]]}
 
         ]}
