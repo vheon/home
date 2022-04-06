@@ -102,7 +102,10 @@
       when: is_macOS
       tags:
         - karabiner
+    - role: iterm
+      when: is_macOS
+      tags:
+        - iterm
     # XXX(andrea): next steps to implement
     # - role: macOS
-    # - role: iTerm2
     # - role: hammerspoon??
