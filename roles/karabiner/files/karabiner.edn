@@ -40,7 +40,7 @@
         {:des "Ctrl+u/w like readline"
          :rules [[:!Tw :!Odelete_or_backspace :safari]
                  [:!Tu [:!SCleft_arrow {:key :delete_or_backspace :repeat false}] :safari]]}
-        {:des "Ctrl+p/Ctrl+n to arrow up/down"
-         :rules [[:!Tp :up_arrow]
-                 [:!Tn :down_arrow]]}
+        ; {:des "Ctrl+p/Ctrl+n to arrow up/down"
+        ;  :rules [[:!Tp :up_arrow]
+        ;          [:!Tn :down_arrow]]}
         ]}
