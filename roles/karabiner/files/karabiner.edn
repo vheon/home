@@ -33,6 +33,8 @@
  :applications {:ms_rdp ["^com\\.microsoft\\.rdc$"
                          "^com\\.microsoft\\.rdc\\."]
 
+                :safari ["^com\\.apple\\.Safari$"]
+
                 :readline_ready ["^org\\.gnu\\.Emacs$"
                                  "^org\\.gnu\\.AquamacsEmacs$"
                                  "^org\\.gnu\\.Aquamacs$"
@@ -93,9 +95,9 @@
         {:des "Ctrl+u/w like readline"
          :rules [[:!Tw :!Odelete_or_backspace :!readline_ready]
                  [:!Tu [:!SCleft_arrow {:key :delete_or_backspace :repeat false}] :!readline_ready]]}
-        ; {:des "Ctrl+p/Ctrl+n to arrow up/down"
-        ;  :rules [[:!Tp :up_arrow]
-        ;          [:!Tn :down_arrow]]}
+        {:des "Ctrl+p/Ctrl+n to arrow up/down"
+         :rules [[:!Tp :up_arrow :safari]
+                 [:!Tn :down_arrow :safari]]}
         {:des "Use standard function keys in remote desktop"
          :rules [[:##f1 :!Ff1 :ms_rdp]
                  [:##f2 :!Ff2 :ms_rdp]
