@@ -26,6 +26,10 @@
                :alone 1000
                :held 500}}
 
+ :devices {:internal [{:vendor_id 1452 :product_id 833}]
+           :drevo [{:vendor_id 1452 :product_id 544}]
+           :leopold [{:vendor_id 1204 :product_id 257}]}
+
  :applications {:ms_rdp ["^com\\.microsoft\\.rdc$"
                          "^com\\.microsoft\\.rdc\\."]
 
@@ -69,8 +73,15 @@
                                  "^com\\.sublimetext\\."
                                  "^com\\.microsoft\\.VSCode$" ]}
 
- :main [{:des "Caps Lock to Escape on single press, Control on press and hold."
+ :main [{:des "Switch option and Command on external keyboards"
+         :rules [[:##left_command :left_option [:drevo :leopold]]
+                 [:##left_option :left_command [:drevo :leopold]]]}
+        {:des "Bring backtick and tilde on first function on 60% keyboard"
+         :rules [[:##escape :grave_accent_and_tilde [:drevo]]]}
+        {:des "Caps Lock to Escape on single press, Control on press and hold."
          :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
+        {:des "Left Control to Cap Lock on single press."
+         :rules [[:##left_control :left_control nil {:alone :caps_lock}]]}
         {:des "Better Shifting: Parentheses on shift keys"
          :rules [[:left_shift :left_shift nil {:alone :!S9}]
                  [:right_shift :right_shift nil {:alone :!R0}]]}
