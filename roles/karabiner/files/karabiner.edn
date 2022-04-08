@@ -88,6 +88,8 @@
         {:des "Better Shifting: Shift rolls"
          :rules [[:!Rleft_shift [:left_shift :right_shift] nil {:alone [:!RS0 :!RS9]}]
                  [:!Sright_shift [:right_shift :left_shift] nil {:alone [:!R9 :!S0]}]]}
+        {:des "Better Shifting: End parenthesis on shift + space"
+         :rules [[:!Rspacebar [:!R0 :spacebar]]]}
         {:des "Ctrl+u/w like readline"
          :rules [[:!Tw :!Odelete_or_backspace :!readline_ready]
                  [:!Tu [:!SCleft_arrow {:key :delete_or_backspace :repeat false}] :!readline_ready]]}
