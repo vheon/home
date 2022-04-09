@@ -36,313 +36,243 @@ local colors = {
 colors.bg = colors.base00
 colors.text = colors.white -- In https://github.com/mhartington/oceanic-next is base07 right now
 
-local function define_highlights(groups)
-  for group, spec in pairs(groups) do
-    local name = tostring(group)
-    if type(spec) == 'string' then
-      spec = { spec }
-      groups[group] = spec
-    end
+vim.api.nvim_set_hl(0, 'Bold', { bold = true })
+vim.api.nvim_set_hl(0, 'Debug', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'Directory', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'ErrorMsg', { fg = colors.red, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'Exception', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'FoldColumn', { fg = colors.blue, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'Folded', { fg = colors.base03, bg = colors.base01, italic = true })
+vim.api.nvim_set_hl(0, 'IncSearch', { fg = colors.base01, bg = colors.orange })
+vim.api.nvim_set_hl(0, 'Italic', { italic = true })
 
-    local empty = vim.tbl_isempty(spec)
-    spec.name = name
+vim.api.nvim_set_hl(0, 'Macro', { fg = colors.red})
+vim.api.nvim_set_hl(0, 'MatchParen', { fg = colors.base05, bg = colors.base03 })
+vim.api.nvim_set_hl(0, 'ModeMsg', { fg = colors.green})
+vim.api.nvim_set_hl(0, 'MoreMsg', { fg = colors.green})
+vim.api.nvim_set_hl(0, 'Question', { fg = colors.blue})
+vim.api.nvim_set_hl(0, 'Search', { fg = colors.base03, bg = colors.yellow })
+vim.api.nvim_set_hl(0, 'SpecialKey', { fg = colors.base03})
+vim.api.nvim_set_hl(0, 'TooLong', { fg = colors.red})
+vim.api.nvim_set_hl(0, 'Underlined', { fg = colors.red})
+vim.api.nvim_set_hl(0, 'Visual', { bg = colors.base02 })
+vim.api.nvim_set_hl(0, 'VisualNOS', { fg = colors.red})
+vim.api.nvim_set_hl(0, 'WarningMsg', { fg = colors.red})
+vim.api.nvim_set_hl(0, 'WildMenu', { fg = colors.text, bg = colors.blue })
+vim.api.nvim_set_hl(0, 'Title', { fg = colors.blue})
+vim.api.nvim_set_hl(0, 'Conceal', { fg = colors.blue, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'Cursor', { fg = colors.base00, bg = colors.base05 })
+vim.api.nvim_set_hl(0, 'NonText', { fg = colors.base03})
+vim.api.nvim_set_hl(0, 'Normal', { fg = colors.text, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'EndOfBuffer', { fg = colors.base05, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = colors.base03, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'SignColumn', { fg = colors.base00, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'StatusLine', { fg = colors.base01, bg = colors.base07 })
+vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = colors.base03, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'VertSplit', { fg = colors.base00, bg = colors.base02 })
+vim.api.nvim_set_hl(0, 'ColorColumn', { bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'CursorColumn', { bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'CursorLine', { bg = colors.base01, fg = colors.none })
+vim.api.nvim_set_hl(0, 'CursorLineNR', { fg = colors.base00, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = colors.base03, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'PMenu', { fg = colors.base04, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'PMenuSel', { fg = colors.text, bg = colors.blue })
+vim.api.nvim_set_hl(0, 'PmenuSbar', { bg = colors.base02 })
+vim.api.nvim_set_hl(0, 'PmenuThumb', { bg = colors.base07 })
+vim.api.nvim_set_hl(0, 'TabLine', { fg = colors.base03, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'TabLineFill', { fg = colors.base03, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'TabLineSel', { fg = colors.green, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'helpExample', { fg = colors.yellow})
+vim.api.nvim_set_hl(0, 'helpCommand', { fg = colors.yellow})
 
-    if not empty then
-      local fg = spec[1]
-      local fg = fg and 'guifg='..fg or ''
-      local bg = spec.bg and 'guibg='..spec.bg or ''
-      local gui = spec.gui and 'gui='..spec.gui or ''
-      local attrsp = spec.attrsp and 'guisp='..spec.attrsp or ''
-      vim.cmd(table.concat({ 'hi', name, fg, bg, gui, attrsp }, ' '))
-    end
-  end
-  return groups
-end
+-- Standard syntax highlighting
+vim.api.nvim_set_hl(0, 'Boolean', { fg = colors.orange })
+vim.api.nvim_set_hl(0, 'Character', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'Comment', { fg = colors.base03, italic = true })
+vim.api.nvim_set_hl(0, 'Conditional', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'Constant', { fg = colors.orange })
+vim.api.nvim_set_hl(0, 'Define', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'Delimiter', { fg = colors.brown })
+vim.api.nvim_set_hl(0, 'Float', { fg = colors.orange })
+vim.api.nvim_set_hl(0, 'Function', { fg = colors.blue })
 
-local function link(spec)
-  for what, to in pairs(spec) do
-    vim.cmd(table.concat({ 'hi', 'link', tostring(what), to.name }, ' '))
-  end
-end
+vim.api.nvim_set_hl(0, 'Identifier', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'Include', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'Keyword', { fg = colors.purple })
 
-local groups = define_highlights {
-  Bold = { gui = bold },
-  Debug = colors.red,
-  Directory = colors.blue,
-  ErrorMsg = { colors.red, bg = colors.base00 },
-  Exception = colors.red,
-  FoldColumn = { colors.blue, bg = colors.base00 },
-  Folded = { colors.base03, bg = colors.base01, gui = italic },
-  IncSearch = { colors.base01, bg = colors.orange, gui = 'NONE' },
-  Italic = { gui = italic },
+vim.api.nvim_set_hl(0, 'Label', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'Number', { fg = colors.orange })
+vim.api.nvim_set_hl(0, 'Operator', { fg = colors.base05 })
+vim.api.nvim_set_hl(0, 'PreProc', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'Repeat', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'Special', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'SpecialChar', { fg = colors.brown })
+vim.api.nvim_set_hl(0, 'Statement', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'StorageClass', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'String', { fg = colors.green })
+vim.api.nvim_set_hl(0, 'Structure', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'Tag', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'Todo', { fg = colors.yellow, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'Type', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'Typedef', { fg = colors.yellow })
 
-  Macro = colors.red,
-  MatchParen = { colors.base05, bg = colors.base03 },
-  ModeMsg = colors.green,
-  MoreMsg = colors.green,
-  Question = colors.blue,
-  Search = { colors.base03, bg = colors.yellow },
-  SpecialKey = colors.base03,
-  TooLong = colors.red,
-  Underlined = colors.red,
-  Visual = { bg = colors.base02 },
-  VisualNOS = colors.red,
-  WarningMsg = colors.red,
-  WildMenu = { colors.text, bg = colors.blue },
-  Title = colors.blue,
-  Conceal = { colors.blue, bg = colors.base00 },
-  Cursor = { colors.base00, bg = colors.base05 },
-  NonText = colors.base03,
-  Normal = { colors.text, bg = colors.base00 },
-  EndOfBuffer = { colors.base05, bg = colors.base00 },
-  LineNr = { colors.base03, bg = colors.base00 },
-  SignColumn = { colors.base00, bg = colors.base00 },
-  StatusLine = { colors.base01, bg = colors.base07 },
-  StatusLineNC = { colors.base03, bg = colors.base01 },
-  VertSplit = { colors.base00, bg = colors.base02 },
-  ColorColumn = { bg = colors.base01 },
-  CursorColumn = { bg = colors.base01 },
-  CursorLine = { bg = colors.base01, gui = 'None' },
-  CursorLineNR = { colors.base00, bg = colors.base00 },
-  CursorLineNr = { colors.base03, bg = colors.base01 },
-  PMenu = { colors.base04, bg = colors.base01 },
-  PMenuSel = { colors.text, bg = colors.blue },
-  PmenuSbar = { bg = colors.base02 },
-  PmenuThumb = { bg = colors.base07 },
-  TabLine = { colors.base03, bg = colors.base01 },
-  TabLineFill = { colors.base03, bg = colors.base01 },
-  TabLineSel = { colors.green, bg = colors.base01 },
-  helpExample = colors.yellow,
-  helpCommand = colors.yellow,
+-- LSP
+vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultError', { })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsSignError', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineError', { undercurl = true })
 
-  -- Standard syntax highlighting
-  Boolean = colors.orange,
-  Character = colors.red,
-  Comment = { colors.base03, gui = italic },
-  Conditional = colors.purple,
-  Constant = colors.orange,
-  Define = colors.purple,
-  Delimiter = colors.brown,
-  Float = colors.orange,
-  Function = colors.blue,
+vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultWarning', { })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsSignWarning', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineWarning', { undercurl = true })
 
-  Identifier = colors.cyan,
-  Include = colors.blue,
-  Keyword = colors.purple,
+vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultInformation', { })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsSignInformation', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineInformation', { undercurl = true })
 
-  Label = colors.yellow,
-  Number = colors.orange,
-  Operator = colors.base05,
-  PreProc = colors.yellow,
-  Repeat = colors.yellow,
-  Special = colors.cyan,
-  SpecialChar = colors.brown,
-  Statement = colors.red,
-  StorageClass = colors.yellow,
-  String = colors.green,
-  Structure = colors.purple,
-  Tag = colors.yellow,
-  Todo = { colors.yellow, bg = colors.base01 },
-  Type = colors.yellow,
-  Typedef = colors.yellow,
-
-  -- LSP
-  LspDiagnosticsDefaultError = { },
-  LspDiagnosticsSignError = colors.red,
-  LspDiagnosticsUnderlineError = { gui = 'undercurl' },
-
-  LspDiagnosticsDefaultWarning = { },
-  LspDiagnosticsSignWarning = colors.yellow,
-  LspDiagnosticsUnderlineWarning = { gui = 'undercurl' },
-
-  LspDiagnosticsDefaultInformation = { },
-  LspDiagnosticsSignInformation = colors.blue,
-  LspDiagnosticsUnderlineInformation = { gui = 'undercurl' },
-
-  LspDiagnosticsDefaultHint = { },
-  LspDiagnosticsSignHint = colors.cyan,
-  LspDiagnosticsUnderlineHint = { gui = 'undercurl' },
+vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultHint', { })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsSignHint', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'LspDiagnosticsUnderlineHint', { undercurl = true })
 
 
-  -- TreeSitter stuff
-  TSInclude = colors.cyan,
-  TSPunctBracket = colors.cyan,
-  TSPunctDelimiter = colors.text,
-  TSParameter = colors.text,
-  TSType = colors.blue,
-  TSFunction = colors.cyan,
+-- TreeSitter stuff
+vim.api.nvim_set_hl(0, 'TSInclude', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'TSPunctBracket', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'TSPunctDelimiter', { fg = colors.text })
+vim.api.nvim_set_hl(0, 'TSParameter', { fg = colors.text })
+vim.api.nvim_set_hl(0, 'TSType', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'TSFunction', { fg = colors.cyan })
 
-  TSTagDelimiter = colors.cyan,
-  TSProperty = colors.yellow,
-  TSMethod = colors.blue,
-  TSParameter = colors.yellow,
-  TSConstructor = colors.text,
-  TSVariable = colors.text,
-  TSOperator = colors.text,
-  TSTag = colors.text,
-  TSKeyword = colors.purple,
-  TSKeywordOperator = colors.purple,
-  TSVariableBuiltin = colors.red,
-  TSLabel = colors.cyan,
+vim.api.nvim_set_hl(0, 'TSTagDelimiter', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'TSProperty', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'TSMethod', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'TSParameter', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'TSConstructor', { fg = colors.text })
+vim.api.nvim_set_hl(0, 'TSVariable', { fg = colors.text })
+vim.api.nvim_set_hl(0, 'TSOperator', { fg = colors.text })
+vim.api.nvim_set_hl(0, 'TSTag', { fg = colors.text })
+vim.api.nvim_set_hl(0, 'TSKeyword', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'TSKeywordOperator', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'TSVariableBuiltin', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'TSLabel', { fg = colors.cyan })
 
-  TSText = colors.text,    -- For strings considered text in a markup language.
-  TSTextReference = colors.yellow, -- FIXME
-  TSEmphasis = { '#FF0000' },    -- For text to be represented with emphasis.
-  TSUnderline = { colors.text, bg = colors.none, style = 'underline' },    -- For text to be represented with an underline.
+vim.api.nvim_set_hl(0, 'TSText', { fg = colors.text })    -- For strings considered text in a markup language.
+vim.api.nvim_set_hl(0, 'TSTextReference', { fg = colors.yellow }) -- FIXME
+vim.api.nvim_set_hl(0, 'TSEmphasis', { fg = '#FF0000' })    -- For text to be represented with emphasis.
+vim.api.nvim_set_hl(0, 'TSUnderline', { fg = colors.text, bg = colors.none, underline = true })    -- For text to be represented with an underline.
 
-  SpellBad = { gui = 'undercurl' },
-  SpellLocal = { gui = 'undercurl' },
-  SpellCap = { gui = 'undercurl' },
-  SpellRare = { gui = 'undercurl' },
+vim.api.nvim_set_hl(0, 'SpellBad', { undercurl = true })
+vim.api.nvim_set_hl(0, 'SpellLocal', { undercurl = true })
+vim.api.nvim_set_hl(0, 'SpellCap', { undercurl = true })
+vim.api.nvim_set_hl(0, 'SpellRare', { undercurl = true })
 
-  csClass = colors.yellow,
-  csAttribute = colors.yellow,
-  csModifier = colors.purple,
-  csType = colors.red,
-  csUnspecifiedStatement = colors.blue,
-  csContextualStatement = colors.purple,
-  csNewDecleration = colors.red,
-  cOperator = colors.cyan,
-  cPreCondit = colors.purple,
+vim.api.nvim_set_hl(0, 'csClass', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'csAttribute', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'csModifier', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'csType', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'csUnspecifiedStatement', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'csContextualStatement', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'csNewDecleration', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'cOperator', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'cPreCondit', { fg = colors.purple })
 
-  cssColor = colors.cyan,
-  cssBraces = colors.base05,
-  cssClassName = colors.purple,
+vim.api.nvim_set_hl(0, 'cssColor', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'cssBraces', { fg = colors.base05 })
+vim.api.nvim_set_hl(0, 'cssClassName', { fg = colors.purple })
 
 
-  DiffAdd = { colors.green, bg = colors.base01, gui = bold },
-  DiffChange = { colors.base03, bg = colors.base01 },
-  DiffDelete = { colors.red, bg = colors.base01 },
-  DiffText = { colors.blue, bg = colors.base01 },
-  DiffFile = { colors.red, bg = colors.base00 },
-  DiffNewFile = { colors.green, bg = colors.base00 },
-  DiffLine = { colors.blue, bg = colors.base00 },
+vim.api.nvim_set_hl(0, 'DiffAdd', { fg = colors.green, bg = colors.base01, bold = true })
+vim.api.nvim_set_hl(0, 'DiffChange', { fg = colors.base03, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'DiffDelete', { fg = colors.red, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'DiffText', { fg = colors.blue, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'DiffFile', { fg = colors.red, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'DiffNewFile', { fg = colors.green, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'DiffLine', { fg = colors.blue, bg = colors.base00 })
 
-  gitCommitOverflow = colors.red,
-  gitCommitSummary = colors.green,
+vim.api.nvim_set_hl(0, 'gitCommitOverflow', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'gitCommitSummary', { fg = colors.green })
 
-  htmlBold = colors.yellow,
-  htmlItalic = colors.purple,
-  htmlTag = colors.cyan,
-  htmlEndTag = colors.cyan,
-  htmlArg = colors.yellow,
-  htmlTagName = colors.text,
+vim.api.nvim_set_hl(0, 'htmlBold', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'htmlItalic', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'htmlTag', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'htmlEndTag', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'htmlArg', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'htmlTagName', { fg = colors.text })
 
-  javaScript = colors.base05,
-  javaScriptNumber = colors.orange,
-  javaScriptBraces = colors.base05,
+vim.api.nvim_set_hl(0, 'javaScript', { fg = colors.base05 })
+vim.api.nvim_set_hl(0, 'javaScriptNumber', { fg = colors.orange })
+vim.api.nvim_set_hl(0, 'javaScriptBraces', { fg = colors.base05 })
 
-  jsonKeyword = colors.green,
-  jsonQuote = colors.green,
+vim.api.nvim_set_hl(0, 'jsonKeyword', { fg = colors.green })
+vim.api.nvim_set_hl(0, 'jsonQuote', { fg = colors.green })
 
-  markdownCode = colors.green,
-  markdownCodeBlock = colors.green,
-  markdownHeadingDelimiter = colors.blue,
-  markdownItalic = { colors.purple, gui = italic },
-  markdownBold = { colors.yellow, gui = bold },
-  markdownCodeDelimiter = { colors.brown, gui = italic },
-  markdownError = { colors.base05, bg = colors.base00 },
+vim.api.nvim_set_hl(0, 'markdownCode', { fg = colors.green })
+vim.api.nvim_set_hl(0, 'markdownCodeBlock', { fg = colors.green })
+vim.api.nvim_set_hl(0, 'markdownHeadingDelimiter', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'markdownItalic', { fg = colors.purple, italic = true })
+vim.api.nvim_set_hl(0, 'markdownBold', { fg = colors.yellow, bold = true })
+vim.api.nvim_set_hl(0, 'markdownCodeDelimiter', { fg = colors.brown, italic = true })
+vim.api.nvim_set_hl(0, 'markdownError', { fg = colors.base05, bg = colors.base00 })
 
-  typescriptParens = { colors.base05, bg = colors.none },
+vim.api.nvim_set_hl(0, 'typescriptParens', { fg = colors.base05, bg = colors.none })
 
-  -- NeomakeErrorSign = { colors.red, bg = colors.base00 },
-  -- NeomakeWarningSign = { colors.yellow, bg = colors.base00 },
-  -- NeomakeInfoSign = { colors.white, bg = colors.base00 },
-  -- NeomakeError = { colors.red, gui = 'underline', attrsp = colors.red },
-  -- NeomakeWarning = { colors.red, gui = 'underline', attrsp = colors.red },
+vim.api.nvim_set_hl(0, 'phpComparison', { fg = colors.base05 })
+vim.api.nvim_set_hl(0, 'phpParent', { fg = colors.base05 })
+vim.api.nvim_set_hl(0, 'phpMemberSelector', { fg = colors.base05 })
 
-  -- ALEErrorSign = { colors.red, bg = colors.base00, gui = bold },
-  -- ALEWarningSign = { colors.yellow, bg = colors.base00, gui = bold },
-  -- ALEInfoSign = { colors.white, bg = colors.base00, gui = bold },
+vim.api.nvim_set_hl(0, 'pythonRepeat', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'pythonOperator', { fg = colors.purple })
 
-  -- NERDTreeExecFile = colors.base05,
-  -- NERDTreeDirSlash = colors.blue,
-  -- NERDTreeOpenable = colors.blue,
-  -- NERDTreeFile = { bg = colors.none },
-  -- NERDTreeFlags = colors.blue,
+vim.api.nvim_set_hl(0, 'rubyConstant', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'rubySymbol', { fg = colors.green })
+vim.api.nvim_set_hl(0, 'rubyAttribute', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'rubyInterpolation', { fg = colors.green })
+vim.api.nvim_set_hl(0, 'rubyInterpolationDelimiter', { fg = colors.brown })
+vim.api.nvim_set_hl(0, 'rubyStringDelimiter', { fg = colors.green })
+vim.api.nvim_set_hl(0, 'rubyRegexp', { fg = colors.cyan })
 
-  phpComparison = colors.base05,
-  phpParent = colors.base05,
-  phpMemberSelector = colors.base05,
+vim.api.nvim_set_hl(0, 'vimfilerLeaf', { fg = colors.base05 })
+vim.api.nvim_set_hl(0, 'vimfilerNormalFile', { fg = colors.base05, bg = colors.base00 })
+vim.api.nvim_set_hl(0, 'vimfilerOpenedFile', { fg = colors.blue })
+vim.api.nvim_set_hl(0, 'vimfilerClosedFile', { fg = colors.blue })
 
-  pythonRepeat = colors.purple,
-  pythonOperator = colors.purple,
+vim.api.nvim_set_hl(0, 'GitGutterAdd', { fg = colors.green, bg = colors.base00, bold = true })
+vim.api.nvim_set_hl(0, 'GitGutterChange', { fg = colors.blue, bg = colors.base00, bold = true })
+vim.api.nvim_set_hl(0, 'GitGutterDelete', { fg = colors.red, bg = colors.base00, bold = true })
+vim.api.nvim_set_hl(0, 'GitGutterChangeDelete', { fg = colors.purple, bg = colors.base00, bold = true })
 
-  rubyConstant = colors.yellow,
-  rubySymbol = colors.green,
-  rubyAttribute = colors.blue,
-  rubyInterpolation = colors.green,
-  rubyInterpolationDelimiter = colors.brown,
-  rubyStringDelimiter = colors.green,
-  rubyRegexp = colors.cyan,
+vim.api.nvim_set_hl(0, 'SignifySignAdd', { fg = colors.green, bg = colors.base00, bold = true })
+vim.api.nvim_set_hl(0, 'SignifySignChange', { fg = colors.blue, bg = colors.base00, bold = true })
+vim.api.nvim_set_hl(0, 'SignifySignDelete', { fg = colors.red, bg = colors.base00, bold = true })
+vim.api.nvim_set_hl(0, 'SignifySignChangeDelete', { fg = colors.purple, bg = colors.base00, bold = true })
+vim.api.nvim_set_hl(0, 'SignifySignDeleteFirstLine', { fg = colors.red, bg = colors.base00, bold = true })
 
-  -- sassidChar = colors.red,
-  -- sassClassChar = colors.orange,
-  -- sassInclude = colors.purple,
-  -- sassMixing = colors.purple,
-  -- sassMixinName = colors.blue,
+vim.api.nvim_set_hl(0, 'xmlTag', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'xmlTagName', { fg = colors.base05 })
+vim.api.nvim_set_hl(0, 'xmlEndTag', { fg = colors.cyan })
+vim.api.nvim_set_hl(0, 'Defx_filename_directory', { fg = colors.blue })
 
-  vimfilerLeaf = colors.base05,
-  vimfilerNormalFile = { colors.base05, bg = colors.base00 },
-  vimfilerOpenedFile = colors.blue,
-  vimfilerClosedFile = colors.blue,
+vim.api.nvim_set_hl(0, 'User2', { fg = colors.white, bg = colors.base01, bold = true })
+vim.api.nvim_set_hl(0, 'User3', { fg = colors.base07, bg = colors.base01, italic = true })
+vim.api.nvim_set_hl(0, 'User4', { fg = colors.white, bg = colors.base01 })
+vim.api.nvim_set_hl(0, 'User5', { fg = colors.base00, bg = colors.white, bold = true })
 
-  GitGutterAdd = { colors.green, bg = colors.base00, gui = bold },
-  GitGutterChange = { colors.blue, bg = colors.base00, gui = bold },
-  GitGutterDelete = { colors.red, bg = colors.base00, gui = bold },
-  GitGutterChangeDelete = { colors.purple, bg = colors.base00, gui = bold },
+vim.api.nvim_set_hl(0, 'SimpleMarkWord1', { fg = colors.bg, bg = colors.cyan })
+vim.api.nvim_set_hl(0, 'SimpleMarkWord2', { fg = colors.bg, bg = colors.red })
+vim.api.nvim_set_hl(0, 'SimpleMarkWord3', { fg = colors.bg, bg = colors.green })
+vim.api.nvim_set_hl(0, 'SimpleMarkWord4', { fg = colors.bg, bg = colors.yellow })
+vim.api.nvim_set_hl(0, 'SimpleMarkWord5', { fg = colors.bg, bg = colors.blue })
+vim.api.nvim_set_hl(0, 'SimpleMarkWord6', { fg = colors.bg, bg = colors.base05 })
 
-  SignifySignAdd = { colors.green, bg = colors.base00, gui = bold },
-  SignifySignChange = { colors.blue, bg = colors.base00, gui = bold },
-  SignifySignDelete = { colors.red, bg = colors.base00, gui = bold },
-  SignifySignChangeDelete = { colors.purple, bg = colors.base00, gui = bold },
-  SignifySignDeleteFirstLine = { colors.red, bg = colors.base00, gui = bold },
+vim.api.nvim_set_hl(0, 'NeogitBranch', { fg = colors.orange })
+vim.api.nvim_set_hl(0, 'NeogitRemote', { fg = colors.purple })
+vim.api.nvim_set_hl(0, 'NeogitHunkHeader', { fg = colors.fg, bg = colors.red })
+vim.api.nvim_set_hl(0, 'NeogitHunkHeaderHighlight', { fg = colors.bg, bg = colors.yellow })
+vim.api.nvim_set_hl(0, 'NeogitDiffContextHighlight', { fg = colors.fg, bg = colors.bg })
 
-  xmlTag = colors.cyan,
-  xmlTagName = colors.base05,
-  xmlEndTag = colors.cyan,
-  Defx_filename_directory = colors.blue,
-
-  -- CocErrorSign = colors.red,
-  -- CocWarningSign = colors.yellow,
-  -- CocInfoSign = colors.blue,
-  -- CocHintSign = colors.cyan,
-  -- CocErrorFloat = colors.red,
-  -- CocWarningFloat = colors.yellow,
-  -- CocInfoFloat = colors.blue,
-  -- CocHintFloat = colors.cyan,
-  -- CocDiagnosticsError = colors.red,
-  -- CocDiagnosticsWarning = colors.yellow,
-  -- CocDiagnosticsInfo = colors.blue,
-  -- CocDiagnosticsHint = colors.cyan,
-  -- CocSelectedText = colors.purple,
-  -- CocCodeLens = colors.base04
-
-    User2 = { colors.white, bg = colors.base01, gui = bold },
-    User3 = { colors.base07, bg = colors.base01, gui = italic },
-    User4 = { colors.white, bg = colors.base01 },
-    User5 = { colors.base00, bg = colors.white, gui = bold },
-
-  SimpleMarkWord1 = { colors.bg, bg = colors.cyan },
-  SimpleMarkWord2 = { colors.bg, bg = colors.red },
-  SimpleMarkWord3 = { colors.bg, bg = colors.green },
-  SimpleMarkWord4 = { colors.bg, bg = colors.yellow },
-  SimpleMarkWord5 = { colors.bg, bg = colors.blue },
-  SimpleMarkWord6 = { colors.bg, bg = colors.base05 },
-
-  NeogitBranch = colors.orange,
-  NeogitRemote = colors.purple,
-  NeogitHunkHeader = { colors.fg, bg = colors.red },
-  NeogitHunkHeaderHighlight = { colors.bg, bg = colors.yellow },
-  NeogitDiffContextHighlight = { colors.fg, bg = colors.bg },
-}
-
-link {
-  DiffAdded = groups.DiffAdd,
-  DiffRemoved = groups.DiffDelete,
-  NeogitDiffAddHighlight = groups.DiffAdd,
-  NeogitDiffDeleteHighlight = groups.DiffDelete
-}
+vim.api.nvim_set_hl(0, 'DiffAdded', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'DiffRemoved', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'NeogitDiffAddHighlight', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'NeogitDiffDeleteHighlight', { link = 'DiffDelete' })
 
 vim.g.terminal_color_0 = colors.base00
 vim.g.terminal_color_8 = colors.base03
