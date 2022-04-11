@@ -27,7 +27,8 @@
                :held 500}}
 
  :devices {:internal [{:vendor_id 1452 :product_id 833}]
-           :drevo [{:vendor_id 1452 :product_id 544}]
+           :drevo [{:vendor_id 1452 :product_id 544}
+                   {:vendor_id 1155 :product_id 16400}]
            :leopold [{:vendor_id 1204 :product_id 257}]}
 
  :applications {:ms_rdp ["^com\\.microsoft\\.rdc$"
