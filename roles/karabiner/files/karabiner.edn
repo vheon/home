@@ -77,8 +77,9 @@
                                  "^com\\.microsoft\\.VSCode$" ]}
 
  :main [{:des "Switch option and Command on external keyboards"
-         :rules [[:##left_command :left_option [:drevo :leopold]]
-                 [:##left_option :left_command [:drevo :leopold]]]}
+         :rules [[:condi :drevo :leopold]
+                 [:##left_command :left_option]
+                 [:##left_option :left_command]]}
         {:des "Bring backtick and tilde on first function on 60% keyboard"
          :rules [[:##escape :grave_accent_and_tilde [:drevo]]]}
         {:des "Caps Lock to Escape on single press, Control on press and hold."
@@ -96,23 +97,26 @@
         {:des "Better Shifting: End parenthesis on shift + space"
          :rules [[:!Rspacebar [:!R0 :spacebar]]]}
         {:des "Ctrl+u/w like readline"
-         :rules [[:!Tw :!Odelete_or_backspace :!readline_ready]
-                 [:!Tu [:!SCleft_arrow {:key :delete_or_backspace :repeat false}] :!readline_ready]]}
+         :rules [:!readline_ready
+                 [:!Tw :!Odelete_or_backspace]
+                 [:!Tu [:!SCleft_arrow {:key :delete_or_backspace :repeat false}]]]}
         {:des "Ctrl+p/Ctrl+n to arrow up/down"
-         :rules [[:!Tp :up_arrow :safari]
-                 [:!Tn :down_arrow :safari]]}
+         :rules [:safari
+                 [:!Tp :up_arrow]
+                 [:!Tn :down_arrow]]}
         {:des "Use standard function keys in remote desktop"
-         :rules [[:##f1 :!Ff1 :ms_rdp]
-                 [:##f2 :!Ff2 :ms_rdp]
-                 [:##f3 :!Ff3 :ms_rdp]
-                 [:##f4 :!Ff4 :ms_rdp]
-                 [:##f5 :!Ff5 :ms_rdp]
-                 [:##f6 :!Ff6 :ms_rdp]
-                 [:##f7 :!Ff7 :ms_rdp]
-                 [:##f8 :!Ff8 :ms_rdp]
-                 [:##f9 :!Ff9 :ms_rdp]
-                 [:##f10 :!Ff10 :ms_rdp]
-                 [:##f11 :!Ff11 :ms_rdp]
-                 [:##f12 :!Ff12 :ms_rdp]]}
+         :rules [:ms_rdp
+                 [:##f1  :!Ff1]
+                 [:##f2  :!Ff2]
+                 [:##f3  :!Ff3]
+                 [:##f4  :!Ff4]
+                 [:##f5  :!Ff5]
+                 [:##f6  :!Ff6]
+                 [:##f7  :!Ff7]
+                 [:##f8  :!Ff8]
+                 [:##f9  :!Ff9]
+                 [:##f10 :!Ff10]
+                 [:##f11 :!Ff11]
+                 [:##f12 :!Ff12]]}
 
         ]}
