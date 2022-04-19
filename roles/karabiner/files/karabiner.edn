@@ -26,7 +26,7 @@
                :alone 1000
                :held 500}}
 
- :devices {:internal [{:vendor_id 1452 :product_id 833}]
+ :devices {:italian_internal [{:vendor_id 1452 :product_id 833 :location_id 39}]
            :drevo [{:vendor_id 1452 :product_id 544}
                    {:vendor_id 1155 :product_id 16400}]
            :leopold [{:vendor_id 1204 :product_id 257}]}
@@ -82,6 +82,8 @@
                  [:##left_option :left_command]]}
         {:des "Bring backtick and tilde on first function on 60% keyboard"
          :rules [[:##escape :grave_accent_and_tilde [:drevo]]]}
+        {:des "Bring backtick to US layout on internal italian layout"
+         :rules [[:##non_us_backslash :grave_accent_and_tilde [:italian_internal]]]}
         {:des "Caps Lock to Escape on single press, Control on press and hold."
          :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
         {:des "Left Control to Cap Lock on single press."
