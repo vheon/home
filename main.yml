@@ -78,6 +78,8 @@
     - role: ssh
     - role: go
     - role: neovim
+      tags:
+        - neovim
     - role: geerlingguy.docker
       vars:
         docker_install_compose: false # We might want to install docker-compose through brew
