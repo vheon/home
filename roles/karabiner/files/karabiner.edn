@@ -29,7 +29,9 @@
  :devices {:italian_internal [{:vendor_id 1452 :product_id 833 :location_id 39}]
            :drevo [{:vendor_id 1452 :product_id 544}
                    {:vendor_id 1155 :product_id 16400}]
-           :leopold [{:vendor_id 1204 :product_id 257}]}
+           :leopold [{:vendor_id 1204 :product_id 257}]
+           :rk84 [{:vendor_id 9610 :product_id 89}
+                  {:vendor_id 14 :product_id 13330}]}
 
  :applications {:ms_rdp ["^com\\.microsoft\\.rdc$"
                          "^com\\.microsoft\\.rdc\\."]
@@ -77,7 +79,7 @@
                                  "^com\\.microsoft\\.VSCode$" ]}
 
  :main [{:des "Switch option and Command on external keyboards"
-         :rules [[:condi :drevo :leopold]
+         :rules [[:condi :drevo :leopold :rk84]
                  [:##left_command :left_option]
                  [:##left_option :left_command]]}
         {:des "Bring backtick and tilde on first function on 60% keyboard"
