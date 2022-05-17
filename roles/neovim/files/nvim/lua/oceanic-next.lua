@@ -36,6 +36,12 @@ local colors = {
 colors.bg = colors.base00
 colors.text = colors.white -- In https://github.com/mhartington/oceanic-next is base07 right now
 
+colors.error = colors.red
+colors.warn = colors.yellow
+colors.info = colors.blue
+colors.hint = colors.cyan
+
+
 vim.api.nvim_set_hl(0, 'Bold', { bold = true })
 vim.api.nvim_set_hl(0, 'Debug', { fg = colors.red })
 vim.api.nvim_set_hl(0, 'Directory', { fg = colors.blue })
@@ -114,6 +120,27 @@ vim.api.nvim_set_hl(0, 'Tag', { fg = colors.yellow })
 vim.api.nvim_set_hl(0, 'Todo', { fg = colors.yellow, bg = colors.base01 })
 vim.api.nvim_set_hl(0, 'Type', { fg = colors.yellow })
 vim.api.nvim_set_hl(0, 'Typedef', { fg = colors.yellow })
+
+-- Diagnostics
+vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = colors.error })
+vim.api.nvim_set_hl(0, 'DiagnosticWarn', { fg = colors.warn })
+vim.api.nvim_set_hl(0, 'DiagnosticInfo', { fg = colors.info })
+vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = colors.hint })
+
+vim.api.nvim_set_hl(0, 'DiagnosticSignError', { link = 'DiagnosticError' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', { link = 'DiagnosticWarn' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { link = 'DiagnosticInfo' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { link = 'DiagnosticHint' })
+
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextError', { fg = colors.error, bg = colors.none, italic = true })
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextWarn', { fg = colors.warn, bg = colors.none, italic = true })
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextInfo', { fg = colors.info, bg = colors.none, italic = true })
+vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextHint', { fg = colors.hint, bg = colors.none, italic = true })
+
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', { undercurl = true, sp = colors.error })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { undercurl = true, sp = colors.warn })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInfo', { undercurl = true, sp = colors.info })
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', { undercurl = true, sp = colors.hint })
 
 -- LSP
 vim.api.nvim_set_hl(0, 'LspDiagnosticsDefaultError', { })

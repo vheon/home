@@ -1,4 +1,1 @@
-lua << EOF
-package.loaded['oceanic-next'] = nil
-require'oceanic-next'
-EOF
+lua always_require'oceanic-next'
