@@ -65,7 +65,7 @@ local function setup()
 end
 
 local function git_branch()
-  local branch = vim.fn['fugitive#head'](7)
+  local branch = vim.fn.FugitiveHead(7)
   if branch ~= nil and branch:len() > 0 then
     return ' '..branch
   end
