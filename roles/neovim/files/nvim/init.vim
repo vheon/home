@@ -13,11 +13,11 @@ _G.always_require = function(module)
   return require(module)
 end
 
-vim.cmd [[command! PackerInstall  lua always_require'plugins'.install()]]
-vim.cmd [[command! PackerUpdate   lua always_require'plugins'.update()]]
-vim.cmd [[command! PackerSync     lua always_require'plugins'.sync()]]
-vim.cmd [[command! PackerClean    lua always_require'plugins'.clean()]]
-vim.cmd [[command! PackerCompile  lua always_require'plugins'.compile()]]
+vim.api.nvim_create_user_command('PackerInstall', function() always_require'plugins'.install() end, {})
+vim.api.nvim_create_user_command('PackerUpdate', function() always_require'plugins'.update() end, {})
+vim.api.nvim_create_user_command('PackerSync', function() always_require'plugins'.sync() end, {})
+vim.api.nvim_create_user_command('PackerClean', function() always_require'plugins'.clean() end, {})
+vim.api.nvim_create_user_command('PackerCompile', function() always_require'plugins'.compile() end, {})
 
 _G.statusline = require'statusline'.line
 _G.tabline = require'tabline'.line
