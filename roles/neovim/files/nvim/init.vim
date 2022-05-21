@@ -8,24 +8,6 @@ command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
 let g:mapleader="\<Space>"
 
 lua << EOF
--- These are a couple of helpers function to define mappings for plugins.
--- When packer compiles the configuration all the function has to be either
--- local to the `config` function or global. I'm putting them here for now.
-_G.map = function(lhs, rhs, opts)
-  opts = opts or {}
-  opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts)
-  if not opts.buffer then
-    vim.api.nvim_set_keymap('n', lhs, rhs, opts)
-  else
-    local buffer = opts.buffer
-    if buffer == true then
-      buffer = 0
-    end
-    opts.buffer = nil
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts)
-  end
-end
 _G.always_require = function(module)
   package.loaded[module] = nil
   return require(module)

@@ -23,8 +23,7 @@ return require'packer'.startup {
     use {
       'tpope/vim-fugitive',
       config = function()
-        -- map('<leader>gs', ':Gtabedit :<cr>')
-        map('<leader>gh', ':Gtabedit @<cr>')
+        vim.keymap.set('n', '<leader>gh', ':Gtabedit @<cr>')
       end
     }
 
@@ -33,8 +32,8 @@ return require'packer'.startup {
     use {
       'junegunn/gv.vim',
       config = function()
-        map('<leader>gl', ':GV<cr>')
-        map('<leader>gr', ':GV -20<cr>')
+        vim.keymap.set('n', '<leader>gl', ':GV<cr>')
+        vim.keymap.set('n', '<leader>gr', ':GV -20<cr>')
       end
     }
 
@@ -60,7 +59,7 @@ return require'packer'.startup {
             hunk = {'', '▾'},
           }
         }
-        map('<leader>gs', ':Neogit<cr>')
+        vim.keymap.set('n', '<leader>gs', ':Neogit<cr>')
       end
     }
 
@@ -109,8 +108,8 @@ return require'packer'.startup {
         vim.g.qf_loclist_window_bottom = 0
         vim.g.qf_auto_open_quickfix = 0
         vim.g.qf_auto_open_loclist = 0
-        map('<Leader>q', '<Plug>(qf_qf_toggle_stay)', { noremap = false })
-        map('<Leader>l', '<Plug>(qf_loc_toggle_stay)', { noremap = false })
+        vim.keymap.set('n', '<Leader>q', '<Plug>(qf_qf_toggle_stay)')
+        vim.keymap.set('n', '<Leader>l', '<Plug>(qf_loc_toggle_stay)')
       end
     }
 
@@ -119,7 +118,7 @@ return require'packer'.startup {
       config = function()
         vim.g.FerretMap = 0
         vim.g.FerretAutojump = 0
-        map('<Leader>sw', ':Ack! -w <C-r><C-w><cr>', { silent = false })
+        vim.keymap.set('n', '<Leader>sw', ':Ack! -w <C-r><C-w><cr>')
       end
     }
 
@@ -259,15 +258,15 @@ return require'packer'.startup {
 
           -- Mappings
           local opts = { buffer = bufnr }
-          map('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-          map('gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-          map('K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-          map('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-          -- map('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-          -- map('<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-          -- map('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-          -- map('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-          -- map('<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
+          vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, opts)
+          vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
+          vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
+          vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
+          -- vim.keymap.set('n', '<C-k>', function() vim.lsp.buf.signature_help() end, opts)
+          -- vim.keymap.set('n', '<leader>D', function () vim.lsp.buf.type_definition() end, opts)
+          -- vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end, opts)
+          -- vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
+          -- vim.keymap.set('n', '<leader>e', function() vim.lsp.util.show_line_diagnostics() end, opts)
         end
         local lspconfig = require'lspconfig'
         lspconfig.gopls.setup {
