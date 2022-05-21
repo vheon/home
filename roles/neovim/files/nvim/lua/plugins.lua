@@ -124,73 +124,34 @@ return require'packer'.startup {
 
     use { 'junegunn/fzf', run = './install --xdg --no-update-rc --no-key-bindings --no-completion' }
     use {
-      'junegunn/fzf.vim',
+      'ibhagwan/fzf-lua',
       config = function()
-        vim.g.fzf_layout = {
-          window = {
-            width = 0.99,
-            height = 0.4,
-            yoffset = 0.9
-          }
-        }
-        -- map('<Leader>fg', ':GFiles<cr>')
-        -- map('<Leader>ff', ':Files<cr>')
-        -- map('<Leader>fb', ':Buffers<cr>')
-        -- map('<Leader>ft', ':Tags<cr>')
-
-        vim.g.fzf_colors = {
-          fg =      {'fg', 'Normal'},
-          bg =      {'bg', 'Comment'},
-          hl =      {'fg', 'Comment'},
-          ['fg+'] = {'fg', 'SignifySignChange', 'CursorColumn', 'Normal'},
-          ['bg+'] = {'bg', 'CursorLineNr', 'CursorColumn'},
-          ['hl+'] = {'fg', 'Statement'},
-          info =    {'fg', 'PreProc'},
-          border =  {'fg', 'Ignore'},
-          prompt =  {'fg', 'Conditional'},
-          pointer = {'fg', 'Exception'},
-          marker =  {'fg', 'Keyword'},
-          spinner = {'fg', 'Label'},
-          header =  {'fg', 'Comment'}
-        }
-      end
-    }
-
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = {
-        'nvim-lua/popup.nvim',
-        'nvim-lua/plenary.nvim'
-      },
-      config = function()
-        local actions = require('telescope.actions')
-        require('telescope').setup {
-          defaults = {
-            mappings = {
-              i = {
-                ['<esc>'] = actions.close
-              }
-            }
+        local fzf = require'fzf-lua'
+        fzf.setup {
+          winopts = {
+            height = 0.9,
+            width = 0.95,
+            preview = {
+              horizontal = 'right:50%',
+            },
           },
-          extensions = {
-            commandt = {
-              override_generic_sorter = true,
-              override_file_sorter = true,
-            }
+          fzf_opts = {
+            ['--layout'] = false,
+          },
+          fzf_colors = {
+            gutter = {'bg', 'Normal'},
+            ['bg+'] = {'bg', 'CursorLine'},
+            hl = {'fg', 'PreProc'},
+            ['hl+'] = {'fg', 'PreProc'},
+            prompt =  {'fg', 'Conditional'},
+            pointer = {'fg', 'Exception'},
+            info =    {'fg', 'String'},
           }
         }
-        map('<Leader>fg', ":lua require('telescope.builtin').git_files()<cr>")
-        map('<Leader>ff', ":lua require('telescope.builtin').find_files()<cr>")
-        map('<Leader>fb', ":lua require('telescope.builtin').buffers()<cr>")
-        map('<Leader>ft', ":lua require('telescope.builtin').treesitter()<cr>")
-      end
-    }
-    use {
-      'vheon/command-t',
-      run = 'make',
-      branch = 'telescope',
-      config = function()
-        require('telescope').load_extension('commandt')
+        fzf.register_ui_select()
+        vim.keymap.set('n', '<Leader>fg', function() fzf.git_files() end)
+        vim.keymap.set('n', '<Leader>ff', function() fzf.files() end)
+        vim.keymap.set('n', '<Leader>fb', function() fzf.buffers() end)
       end
     }
 
@@ -293,31 +254,6 @@ return require'packer'.startup {
         }
       end
     }
-
-    -- XXX(andrea): without the range feature this is not that great of idea
-    -- for my use case. For now we will probably use either a port in lua of
-    -- clang-format.py script or the python script directly (even though I
-    -- don't want python configured in nvim at all.
-    --
-    -- use {
-    --   'mhartington/formatter.nvim',
-    --   config = function()
-    --     require('formatter').setup {
-    --       logging = false,
-    --       filetype = {
-    --         cpp = {
-    --           function()
-    --             return {
-    --               exe = "clang-format-12",
-    --               stdin = true
-    --             }
-    --           end
-    --         }
-    --       }
-    --     }
-    --     map('<Leader>gq', '<cmd>Format<cr><esc>', { mode = '', noremap = false })
-    --   end
-    -- }
 
     -- plugin to bundle all nvim settings for work
     -- local_use 'bigfixdev.nvim'
