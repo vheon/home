@@ -59,7 +59,7 @@ return require'packer'.startup {
             hunk = {'', '▾'},
           }
         }
-        vim.keymap.set('n', '<leader>gs', ':Neogit<cr>')
+        vim.keymap.set('n', '<leader>gs', function() neogit.open() end)
       end
     }
 
