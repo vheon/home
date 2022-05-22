@@ -44,8 +44,9 @@ return require'packer'.startup {
         'sindrets/diffview.nvim'
       },
       config = function()
-        require'neogit'.setup {
-          disable_context_highlighting = false,
+        local neogit = require'neogit'
+        neogit.setup {
+          disable_builtin_notifications = true,
           disable_commit_confirmation = true,
           integrations = { diffview = true },
           mappings = {
@@ -60,6 +61,13 @@ return require'packer'.startup {
           }
         }
         vim.keymap.set('n', '<leader>gs', function() neogit.open() end)
+      end
+    }
+
+    use {
+      'rcarriga/nvim-notify',
+      config = function()
+        vim.notify = require'notify'
       end
     }
 
