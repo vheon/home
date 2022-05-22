@@ -132,6 +132,13 @@ vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', { link = 'DiagnosticWarn' })
 vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { link = 'DiagnosticInfo' })
 vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { link = 'DiagnosticHint' })
 
+-- XXX(andrea): this is probably not the best place to put this... even if I
+-- change the colorscheme this signs definition would still be valid...
+vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError', numhl = 'DiagnosticSignError' })
+vim.fn.sign_define('DiagnosticSignWarn',  { text = ' ', texthl = 'DiagnosticSignWarn', numhl = 'DiagnosticSignWarn' })
+vim.fn.sign_define('DiagnosticSignInfo',  { text = ' ', texthl = 'DiagnosticSignInfo', numhl = 'DiagnosticSignInfo' })
+vim.fn.sign_define('DiagnosticSignHint',  { text = ' ', texthl = 'DiagnosticSignHint', numhl = 'DiagnosticSignHint' })
+
 vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextError', { fg = colors.error, bg = colors.none, italic = true })
 vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextWarn', { fg = colors.warn, bg = colors.none, italic = true })
 vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextInfo', { fg = colors.info, bg = colors.none, italic = true })
