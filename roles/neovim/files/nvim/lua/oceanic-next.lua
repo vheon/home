@@ -307,6 +307,22 @@ vim.api.nvim_set_hl(0, 'DiffRemoved', { link = 'DiffDelete' })
 vim.api.nvim_set_hl(0, 'NeogitDiffAddHighlight', { link = 'DiffAdd' })
 vim.api.nvim_set_hl(0, 'NeogitDiffDeleteHighlight', { link = 'DiffDelete' })
 
+vim.api.nvim_set_hl(0, 'NotifyERRORBorder', { link = 'DiagnosticError' })
+vim.api.nvim_set_hl(0, 'NotifyERRORIcon', { link = 'DiagnosticError' })
+vim.api.nvim_set_hl(0, 'NotifyERRORTitle', { link = 'DiagnosticError' })
+
+vim.api.nvim_set_hl(0, 'NotifyWARNBorder', { link = 'DiagnosticWarn' })
+vim.api.nvim_set_hl(0, 'NotifyWARNIcon', { link = 'DiagnosticWarn' })
+vim.api.nvim_set_hl(0, 'NotifyWARNTitle', { link = 'DiagnosticWarn' })
+
+vim.api.nvim_set_hl(0, 'NotifyINFOBorder', { link = 'DiagnosticInfo' })
+vim.api.nvim_set_hl(0, 'NotifyINFOIcon', { link = 'DiagnosticInfo' })
+vim.api.nvim_set_hl(0, 'NotifyINFOTitle', { link = 'DiagnosticInfo' })
+
+vim.api.nvim_set_hl(0, 'NotifyTRACEBorder', { link = 'DiagnosticHint' })
+vim.api.nvim_set_hl(0, 'NotifyTRACEIcon', { link = 'DiagnosticHint' })
+vim.api.nvim_set_hl(0, 'NotifyTRACETitle', { link = 'DiagnosticHint' })
+
 vim.g.terminal_color_0 = colors.base00
 vim.g.terminal_color_8 = colors.base03
 
