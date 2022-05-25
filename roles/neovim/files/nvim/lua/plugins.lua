@@ -251,6 +251,7 @@ return require'packer'.startup {
 
     use {
       'akinsho/nvim-toggleterm.lua',
+      branch = 'main',
       config = function()
         require("toggleterm").setup {
           direction = 'float',
