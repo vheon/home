@@ -167,6 +167,7 @@ return require'packer'.startup {
     use 'bakpakin/fennel.vim'
 
     use 'pprovost/vim-ps1'
+    use 'pearofducks/ansible-vim'
 
     use {
       'nvim-treesitter/nvim-treesitter',
