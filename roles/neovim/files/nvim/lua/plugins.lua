@@ -217,9 +217,14 @@ return require'packer'.startup {
         }
         end
     }
+    use {
+      'nvim-treesitter/nvim-treesitter-context',
+      config = function()
+        require'treesitter-context'.setup { enable = false }
+      end
+    }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-treesitter/playground'
-
     use {
       'williamboman/nvim-lsp-installer',
       {
