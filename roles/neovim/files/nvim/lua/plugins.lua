@@ -1,4 +1,5 @@
 vim.cmd [[packadd packer.nvim]]
+
 return require'packer'.startup {
   function(use)
     local function local_use(package)
@@ -23,7 +24,7 @@ return require'packer'.startup {
     use {
       'tpope/vim-fugitive',
       config = function()
-        vim.keymap.set('n', '<leader>gh', ':Gtabedit @<cr>')
+        vim.keymap.set('n', '<Leader>gh', ':Gtabedit @<cr>')
       end
     }
 
@@ -33,7 +34,7 @@ return require'packer'.startup {
       'junegunn/gv.vim',
       config = function()
         vim.keymap.set('n', '<leader>gl', ':GV<cr>')
-        vim.keymap.set('n', '<leader>gr', ':GV -20<cr>')
+        vim.keymap.set('n', '<Leader>gr', ':GV -20<cr>')
       end
     }
 
@@ -60,7 +61,7 @@ return require'packer'.startup {
             hunk = {'', '▾'},
           }
         }
-        vim.keymap.set('n', '<leader>gs', function() neogit.open() end)
+        vim.keymap.set('n', '<Leader>gs', function() neogit.open() end)
       end
     }
 
