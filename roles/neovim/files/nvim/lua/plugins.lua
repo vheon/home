@@ -166,7 +166,6 @@ return require'packer'.startup {
 
     use 'bakpakin/fennel.vim'
 
-    use 'jvirtanen/vim-hcl'
     use 'pprovost/vim-ps1'
 
     use {
