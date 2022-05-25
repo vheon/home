@@ -220,29 +220,66 @@ return require'packer'.startup {
     use 'nvim-treesitter/playground'
 
     use {
-      'neovim/nvim-lspconfig',
-      config = function()
-        local on_attach = function(_, bufnr)
-          vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      'williamboman/nvim-lsp-installer',
+      {
+        'neovim/nvim-lspconfig',
+        config = function()
 
-          -- Mappings
-          local opts = { buffer = bufnr }
-          vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, opts)
-          vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
-          vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
-          vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
-          -- vim.keymap.set('n', '<C-k>', function() vim.lsp.buf.signature_help() end, opts)
-          -- vim.keymap.set('n', '<leader>D', function () vim.lsp.buf.type_definition() end, opts)
-          -- vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end, opts)
-          -- vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
-          -- vim.keymap.set('n', '<leader>e', function() vim.lsp.util.show_line_diagnostics() end, opts)
+          require("nvim-lsp-installer").setup { automatic_installation = true }
+
+          vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+          vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+          vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+          -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+          local on_attach = function(_, bufnr)
+            -- Enable completion triggered by <c-x><c-o>
+            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+            -- Mappings
+            local opts = { buffer = bufnr }
+            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+            vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+            vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+            vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
+            vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+            vim.keymap.set({'n', 'v'}, 'gq', vim.lsp.buf.formatting, opts)
+          end
+
+          local servers = { 'gopls', 'ansiblels', 'yamlls' }
+          for _, lsp in pairs(servers) do
+            require('lspconfig')[lsp].setup { on_attach = on_attach }
+          end
+
+          require'lspconfig'.sumneko_lua.setup {
+            on_attach = on_attach,
+            settings = {
+              Lua = {
+                runtime = {
+                  -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                  version = 'LuaJIT',
+                },
+                diagnostics = {
+                  -- Get the language server to recognize the `vim` global
+                  globals = {'vim'},
+                },
+                workspace = {
+                  -- Make the server aware of Neovim runtime files
+                  library = vim.api.nvim_get_runtime_file("", true),
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = {
+                  enable = false,
+                },
+              },
+            },
+          }
         end
-        local lspconfig = require'lspconfig'
-        lspconfig.gopls.setup {
-          on_attach = on_attach
-        }
-        lspconfig.yamlls.setup{}
-      end
+      }
     }
 
     use 'khaveesh/vim-fish-syntax'

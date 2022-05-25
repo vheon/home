@@ -13,6 +13,13 @@
     path: "~/.config/nvim"
     state: link
 
+- name: Install LSP Servers dependency
+  community.general.homebrew:
+    name:
+      - go
+      - npm
+    path: "{{ brew_bin_location }}"
+
 # XXX(andrea): should we use XDG_DATA_HOME instead of hardcoding ~/.local/share?
 - name: Clone package manager packer.nvim
   git:
