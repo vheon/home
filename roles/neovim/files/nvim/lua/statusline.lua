@@ -64,6 +64,14 @@ local function setup()
   define_highlight_groups()
 end
 
+local function padding(el, n)
+  if el ~= nil and #el > 0 then
+    n = n or 1
+    return (' '):rep(n)
+  end
+  return ''
+end
+
 local function git_branch()
   local branch = vim.fn.FugitiveHead(7)
   if branch ~= nil and branch:len() > 0 then
@@ -78,7 +86,7 @@ end
 
 local function modified()
   if vim.bo.modified then
-    return ' ✘' -- HEAVY BALLOT X - Unicode: U+2718, UTF-8: E2 9C 98
+    return ' ●'
   end
   return ''
 end
@@ -97,10 +105,9 @@ local function ycm_status()
   return ''
 end
 
-local function padding(el, n)
-  if el ~= nil and #el > 0 then
-    n = n or 1
-    return (' '):rep(n)
+local function is_lsp_available()
+  if next(vim.lsp.buf_get_clients(0)) ~= nil then
+    return 'LSP '
   end
   return ''
 end
@@ -109,15 +116,19 @@ local function filetype()
   local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':t')
   local extension = string.match(filename, '%a+$')
 
+  local icon = devicons.get_icon(filename, extension)
+  if icon then
+    return table.concat({
+      icon,
+      padding(icon),
+    }, '')
+  end
+
   local ft = vim.bo.filetype
   if #ft > 0 then
     ft = '['..ft..']'
   end
-
-  local icon = devicons.get_icon(filename, extension) or ''
   return table.concat({
-    icon,
-    padding(icon),
     '%3*',
     ft,
     padding(ft),
@@ -127,9 +138,9 @@ end
 
 -- Returns the 'fileencoding', if it's not UTF-8.
 local function fileencoding()
-  local fileencoding = vim.bo.fileencoding
-  if #fileencoding > 0 and fileencoding ~= 'utf-8' then
-    return '['..fileencoding..']'
+  local fe = vim.bo.fileencoding
+  if #fe > 0 and fe ~= 'utf-8' then
+    return '['..fe..']'
   end
   return ''
 end
@@ -142,14 +153,17 @@ local function status_line()
   end
 
   return table.concat({
-    -- line = line .. '%4*' -- Switch to User4 highlight group.
-    -- line = line .. ''
-    -- line = line .. '%*'
+    '%5*',
+    git_branch(),
+    '%4*',
+    '',
+    '%*',
 
     -- [Help] or [Preview] depending on the buffery.
     -- These has been in my status line for a long time, but I'm not sure I
     -- really want/use them.
     '%h%w ',
+
 
     -- Where to truncate the line in case of status line too long... Again this
     -- has been here forever and I'm pretty sure that I do not want to only see
@@ -157,10 +171,9 @@ local function status_line()
     '%<',
 
     '%2*',
+    filetype(),
     '%f', -- path of the file
     '%*',
-    git_branch(),
-    ferret_search_status(),
     '%-4(',
     modified(),
     ro(),
@@ -169,8 +182,9 @@ local function status_line()
     '%*', -- Reset highlight group.
     '%=',
 
+    ferret_search_status(),
     ycm_status(),
-    filetype(),
+    is_lsp_available(),
 
     '%4*', -- Switch to User4 highlight group.
     '',
