@@ -75,9 +75,25 @@ end
 local function git_branch()
   local branch = vim.fn.FugitiveHead(7)
   if branch ~= nil and branch:len() > 0 then
-    return ' '..branch
+    return branch
   end
-  return ''
+  return nil
+end
+
+local function git_branch_component()
+  local branch = git_branch()
+  if branch == nil then
+    return ''
+  end
+
+  return table.concat({
+    '%5*',
+    ' ',
+    branch,
+    ' ',
+    '%4*',
+    ''
+  }, '')
 end
 
 local function ferret_search_status()
@@ -149,14 +165,18 @@ end
 local function status_line()
   -- If we're rendering a non focused window just put the file path
   if vim.g.statusline_winid ~= vim.fn.win_getid() then
-    return '%f%*'..git_branch()
+    local components = {'%f', '%*'}
+    local branch = git_branch()
+    if branch ~= nil then
+      table.insert(components, ' ')
+      table.insert(components, branch)
+      table.insert(components, ' ')
+    end
+    return table.concat(components, '')
   end
 
   return table.concat({
-    '%5*',
-    git_branch(),
-    '%4*',
-    '',
+    git_branch_component(),
     '%*',
 
     -- [Help] or [Preview] depending on the buffery.
