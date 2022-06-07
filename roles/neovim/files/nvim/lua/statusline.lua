@@ -64,10 +64,10 @@ local function setup()
   define_highlight_groups()
 end
 
-local function padding(el, n)
+local function padded(el, n)
   if el ~= nil and #el > 0 then
     n = n or 1
-    return (' '):rep(n)
+    return el .. (' '):rep(n)
   end
   return ''
 end
@@ -133,24 +133,22 @@ local function filetype()
   local extension = string.match(filename, '%a+$')
 
   local icon = devicons.get_icon(filename, extension)
-  if icon then
-    return table.concat({
-      icon,
-      padding(icon),
-    }, '')
-  end
 
   local ft = vim.bo.filetype
   if #ft > 0 then
     ft = '['..ft..']'
+  else
+    ft = nil
   end
+
   return table.concat({
     '%3*',
-    ft,
-    padding(ft),
+    padded(ft),
+    padded(icon),
     '%*'
   }, '')
 end
+
 
 -- Returns the 'fileencoding', if it's not UTF-8.
 local function fileencoding()
