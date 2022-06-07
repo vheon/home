@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# If we already have the password store in a variable for the current session
+# just print that and exit so that we don't hit the keychain every time.
+
+if [[ ! -z $ANSIBLE_VAULT_PASSWORD ]]; then
+  echo $ANSIBLE_VAULT_PASSWORD
+  exit 0
+fi
+
+/usr/bin/security find-generic-password -w -a "vheon" -l "ansible-vault-dotfiles"

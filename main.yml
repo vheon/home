@@ -76,6 +76,8 @@
     - role: fish
     - role: git
     - role: ssh
+      tags:
+        - ssh
     - role: go
     - role: neovim
       tags:

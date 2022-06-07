@@ -4,11 +4,21 @@
     path: "~/.ssh"
     state: directory
 
-# XXX(andrea): right now I'm using this only for a simple configuration but as
-# soon as I start adding stuff there I should encrypt the file.
 - name: Link ssh config file
   file:
     src: "{{ role_path }}/files/config"
     path: ~/.ssh/config
     state: link
   when: on_work_machine
+
+- name: Ensure ~/.ssh/config.d directory exists.
+  file:
+    path: "~/.ssh/config.d"
+    state: directory
+  when: on_work_machine
+
+- name: Copy remote hosts information
+  copy:
+    src: remote_machines.encrypted
+    dest: "~/.ssh/config.d/remote_machines"
+  when: on_work_machine and is_macOS
