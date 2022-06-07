@@ -12,7 +12,7 @@ if ! command -v /usr/bin/security &> /dev/null
 then
   # if /usr/bin/security is not present it means that we do not actually need
   # any password so print nothing and exit
-  echo ""
+  echo "thisisnotapassword"
   exit 0
 fi
 
