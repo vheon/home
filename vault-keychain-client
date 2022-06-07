@@ -8,4 +8,12 @@ if [[ ! -z $ANSIBLE_VAULT_PASSWORD ]]; then
   exit 0
 fi
 
+if ! command -v /usr/bin/security &> /dev/null
+then
+  # if /usr/bin/security is not present it means that we do not actually need
+  # any password so print nothing and exit
+  echo ""
+  exit 0
+fi
+
 /usr/bin/security find-generic-password -w -a "vheon" -l "ansible-vault-dotfiles"
