@@ -1,4 +1,9 @@
 ---
+- name: Ensure git is installed through brew to get an up to date version
+  community.general.homebrew:
+    name: git
+    path: "{{ brew_bin_location }}"
+
 - name: Create global .gitconfig
   template:
     src: gitconfig.j2

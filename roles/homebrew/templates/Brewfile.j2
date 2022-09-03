@@ -17,14 +17,10 @@ brew "cmake"
 {% if is_macOS %}
 brew "clang-format"
 {% endif %}
-brew "fish"
-brew "git"
 brew "curl"
 brew "go"
-brew "neovim-nightly", args: ["HEAD"]
 brew "conan"
 brew "packer"
-brew "tmux"
 brew "ripgrep"
 # XXX(andrea): we might give https://github.com/ogham/exa a try. If it is worth
 # it it might be also a replacement for `tree`.
@@ -32,15 +28,11 @@ brew "tree"
 
 {% if is_macOS %}
 cask "bettertouchtool"
-cask "font-jetbrains-mono-nerd-font"
 cask "firefox"
 cask "google-chrome"
-cask "iterm2"
-cask "karabiner-elements"
 cask "logitech-options"
 
 mas "Adblock Plus", id: 1432731683
 mas "The Unarchiver", id: 425424353
-mas "Turn Off the Lights for Safari", id: 1273998507
 mas "WhatsApp", id: 1147396723
 {% endif %}

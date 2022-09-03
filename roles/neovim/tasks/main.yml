@@ -1,4 +1,10 @@
 ---
+- name: Ensure neovim is install
+  community.general.homebrew:
+    name: neovim-nightly
+    install_options: HEAD
+    path: "{{ brew_bin_location }}"
+
 # XXX(andrea): should we use XDG_CONFIG_HOME instead of hardcoding ~/.config?
 # XXX(andrea): what if the XDG_CONFIG_HOME variable is not set? does ansible see it?
 # XXX(andrea): these considerations are the same as for fish

@@ -1,4 +1,9 @@
 ---
+- name: Ensure fish is installed
+  community.general.homebrew:
+    name: fish
+    path: "{{ brew_bin_location }}"
+
 - name: Backup default bash files and .profile
   include_tasks: backup_file.yml
   loop:

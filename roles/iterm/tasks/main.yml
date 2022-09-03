@@ -1,4 +1,11 @@
 ---
+- name: Ensure iTerm2 and the configured font are installed
+  community.general.homebrew_cask:
+    name:
+      - iterm2
+      - font-jetbrains-mono-nerd-font
+    path: "{{ brew_bin_location }}"
+
 - name: Ensure iTerm2 DynamicProfiles directory exists.
   file:
     path: ~/Library/Application Support/iTerm2/DynamicProfiles
