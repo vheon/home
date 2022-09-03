@@ -82,22 +82,6 @@
     - role: neovim
       tags:
         - neovim
-    - role: geerlingguy.docker
-      vars:
-        docker_install_compose: false # We might want to install docker-compose through brew
-        docker_users:
-          - "{{ lookup('env', 'USER') }}"
-      become: yes
-      when: not is_macOS
-      tags:
-        - docker
-    - role: libvirt
-      when: not is_macOS
-      tags:
-        - libvirt
-    # XXX(andrea): right now this will contains only vagrant for Linux but we
-    # should move `libvirt` and `docker` to this role since they are all
-    # related to the same use case for me.
     - role: virtualization
       when: not is_macOS
       tags:

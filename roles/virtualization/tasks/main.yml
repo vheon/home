@@ -2,36 +2,47 @@
 - name: Add hashicorp apt GPG key
   apt_key:
     url: https://apt.releases.hashicorp.com/gpg
-  become: yes
+  become: true
 
 - name: Add hashicorp repository
   apt_repository:
     repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ansible_distribution_release}} main
     state: present
-  become: yes
+  become: true
 
-- name: Install Vagrant and requirements for vagrant-libvirt
+# XXX(andrea): I don't remember why these are not pulled from brew :/
+- name: Install Vagrant and virtualization dependencies
   apt:
     name:
       - vagrant
-      - ruby-libvirt
       - qemu
-      - libvirt-daemon-system
+      - qemu-kvm
+      - libvirt-daemon
       - libvirt-clients
-      - ebtables
-      - dnsmasq-base
-      - libxslt-dev
-      - libxml2-dev
-      - libvirt-dev
-      - zlib1g-dev
-      - ruby-dev
-      - libguestfs-tools
+      - bridge-utils
+      - virt-manager
     state: present
-  become: yes
+  become: true
 
-- name: Install vagrant plugin
-  command: >
-    vagrant plugin install vagrant-libvirt
-  environment:
-    CFLAGS: '-I/opt/vagrant/embedded/include/ruby-3.0.0/ruby'
+- name: Enable libvirtd service
+  service:
+    name: libvirtd
+    enabled: yes
+    state: restarted
+  become: true
 
+- name: Pull the vagrant-libvirt image
+  community.docker.docker_image:
+    name: vagrantlibvirt/vagrant-libvirt:edge
+    source: pull
+
+- name: Link vagrant wrapper for the fish shell
+  file:
+    src: vagrant.fish
+    path: "~/.local/share/fish/vagrant.fish"
+    state: link
+
+- name: Install Hashicorp Packer in order to create various images
+  community.general.homebrew:
+    name: packer
+    path: "{{ brew_bin_location }}"
