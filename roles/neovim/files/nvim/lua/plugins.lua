@@ -100,17 +100,17 @@ return require'packer'.startup {
     use 'chikamichi/mediawiki.vim'
     use 'elixir-editors/vim-elixir'
 
-    -- XXX(andrea): I'm still not sure about this one :/
     use {
-      'romainl/vim-qf',
+      "kevinhwang91/nvim-bqf",
       config = function()
-        vim.g.qf_window_bottom = 0
-        vim.g.qf_loclist_window_bottom = 0
-        vim.g.qf_auto_open_quickfix = 0
-        vim.g.qf_auto_open_loclist = 0
-        vim.keymap.set('n', '<Leader>q', '<Plug>(qf_qf_toggle_stay)')
-        vim.keymap.set('n', '<Leader>l', '<Plug>(qf_loc_toggle_stay)')
-      end
+        vim.keymap.set("n", "<Leader>q", function()
+          local nr = #vim.api.nvim_list_wins()
+          vim.cmd "cwindow"
+          if nr == #vim.api.nvim_list_wins() then
+            vim.cmd "cclose"
+          end
+        end)
+      end,
     }
 
     use {
