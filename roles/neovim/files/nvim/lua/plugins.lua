@@ -220,19 +220,38 @@ return require'packer'.startup {
     }
 
     use {
-      'williamboman/nvim-lsp-installer',
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
       {
-        'neovim/nvim-lspconfig',
+        "neovim/nvim-lspconfig",
+        requires = {
+          "nvim-lua/plenary.nvim",
+        },
         config = function()
-
-          require("nvim-lsp-installer").setup { automatic_installation = true }
+          require("lspconfig.ui.windows").default_options.border = "rounded"
+          require("mason").setup {
+            max_concurrent_installers = 10,
+            ui = {
+              border = "rounded",
+              icons = {
+                package_installed = "",
+                package_pending = "",
+                package_uninstalled = "",
+              },
+            },
+            keymaps = {
+              toggle_package_expand = "<Tab>",
+            },
+          }
+          require("mason-lspconfig").setup { automatic_installation = true }
 
           vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
           vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
           vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
           -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-          local on_attach = function(_, bufnr)
+          local on_attach = function(client, bufnr)
             -- Enable completion triggered by <c-x><c-o>
             vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -248,6 +267,14 @@ return require'packer'.startup {
             vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
             vim.keymap.set({'n', 'v'}, 'gq', vim.lsp.buf.formatting, opts)
+            if client.supports_method "textDocument/formatting" then
+              vim.keymap.set("n", "gq", function()
+                vim.lsp.buf.format(opts)
+              end, opts)
+            end
+            if client.supports_method "textDocument/rangeFormatting" then
+              vim.keymap.set("v", "gq", "<esc><cmd>lua vim.lsp.buf.range_formatting()<cr>", opts)
+            end
           end
 
           local servers = { 'gopls', 'ansiblels', 'yamlls' }
@@ -278,8 +305,17 @@ return require'packer'.startup {
               },
             },
           }
-        end
-      }
+          local null_ls = require "null-ls"
+          null_ls.setup {
+            sources = {
+              -- require('clang-format-range')
+              null_ls.builtins.formatting.clang_format,
+              null_ls.builtins.formatting.stylua,
+            },
+            on_attach = on_attach,
+          }
+        end,
+      },
     }
 
     use 'khaveesh/vim-fish-syntax'
