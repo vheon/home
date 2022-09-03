@@ -1,6 +1,6 @@
 vim.cmd [[packadd packer.nvim]]
 
-return require'packer'.startup {
+return require("packer").startup {
   function(use)
     local function prefer_local_use(package)
       if type(package) == "string" then
@@ -14,69 +14,71 @@ return require'packer'.startup {
       use(package)
     end
 
-    use {'wbthomason/packer.nvim', opt = true}
+    use { "wbthomason/packer.nvim", opt = true }
 
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-repeat'
-    use 'tpope/vim-eunuch'
+    use "tpope/vim-commentary"
+    use "tpope/vim-surround"
+    use "tpope/vim-repeat"
+    use "tpope/vim-eunuch"
 
     use {
-      'tpope/vim-fugitive',
+      "tpope/vim-fugitive",
       config = function()
-        vim.keymap.set('n', '<Leader>gh', ':Gtabedit @<cr>')
-      end
+        vim.keymap.set("n", "<Leader>gh", ":Gtabedit @<cr>")
+      end,
     }
 
     -- XXX(vheon): try to remap the quit button to `gq` to be consistent with
     -- fugitive and dirfish
     use {
-      'junegunn/gv.vim',
+      "junegunn/gv.vim",
       config = function()
-        vim.keymap.set('n', '<leader>gl', ':GV<cr>')
-        vim.keymap.set('n', '<Leader>gr', ':GV -20<cr>')
-      end
+        vim.keymap.set("n", "<leader>gl", ":GV<cr>")
+        vim.keymap.set("n", "<Leader>gr", ":GV -20<cr>")
+      end,
     }
 
     use {
-      'TimUntersberger/neogit',
+      "TimUntersberger/neogit",
       requires = {
-        'nvim-lua/plenary.nvim',
-        'sindrets/diffview.nvim'
+        "nvim-lua/plenary.nvim",
+        "sindrets/diffview.nvim",
       },
       config = function()
-        local neogit = require'neogit'
+        local neogit = require "neogit"
         neogit.setup {
           disable_builtin_notifications = true,
           disable_commit_confirmation = true,
           integrations = { diffview = true },
           mappings = {
             status = {
-              gq = "Close"
-            }
+              gq = "Close",
+            },
           },
           signs = {
-            section = {'', ''},
-            item = {'', ''},
-            hunk = {'', '▾'},
-          }
+            section = { "", "" },
+            item = { "", "" },
+            hunk = { "", "▾" },
+          },
         }
-        vim.keymap.set('n', '<Leader>gs', function() neogit.open() end)
-      end
+        vim.keymap.set("n", "<Leader>gs", function()
+          neogit.open()
+        end)
+      end,
     }
 
     use {
-      'rcarriga/nvim-notify',
+      "rcarriga/nvim-notify",
       config = function()
-        vim.notify = require'notify'
-      end
+        vim.notify = require "notify"
+      end,
     }
 
-    use 'justinmk/vim-dirvish'
+    use "justinmk/vim-dirvish"
 
-    use 'tpope/vim-unimpaired'
-    use 'tpope/vim-abolish'
-    use 'tpope/vim-rsi'
+    use "tpope/vim-unimpaired"
+    use "tpope/vim-abolish"
+    use "tpope/vim-rsi"
 
     -- XXX(andrea): this need a post-update hook to build the (or download a pre-built) binary!
     prefer_local_use "vheon/ycm.nvim"
@@ -94,11 +96,11 @@ return require'packer'.startup {
     --   run = './install.py'
     -- }
 
-    use 'tpope/vim-scriptease'
+    use "tpope/vim-scriptease"
 
-    use 'pboettch/vim-cmake-syntax'
-    use 'chikamichi/mediawiki.vim'
-    use 'elixir-editors/vim-elixir'
+    use "pboettch/vim-cmake-syntax"
+    use "chikamichi/mediawiki.vim"
+    use "elixir-editors/vim-elixir"
 
     use {
       "kevinhwang91/nvim-bqf",
@@ -114,39 +116,39 @@ return require'packer'.startup {
     }
 
     use {
-      'wincent/ferret',
+      "wincent/ferret",
       config = function()
         vim.g.FerretMap = 0
         vim.g.FerretAutojump = 0
-        vim.keymap.set('n', '<Leader>sw', ':Ack! -w <C-r><C-w><cr>')
-      end
+        vim.keymap.set("n", "<Leader>sw", ":Ack! -w <C-r><C-w><cr>")
+      end,
     }
 
-    use { 'junegunn/fzf', run = './install --xdg --no-update-rc --no-key-bindings --no-completion' }
+    use { "junegunn/fzf", run = "./install --xdg --no-update-rc --no-key-bindings --no-completion" }
     use {
-      'ibhagwan/fzf-lua',
+      "ibhagwan/fzf-lua",
       config = function()
-        local fzf = require'fzf-lua'
+        local fzf = require "fzf-lua"
         fzf.setup {
           winopts = {
             height = 0.9,
             width = 0.95,
             preview = {
-              horizontal = 'right:50%',
+              horizontal = "right:50%",
             },
           },
           fzf_opts = {
-            ['--layout'] = false,
+            ["--layout"] = false,
           },
           fzf_colors = {
-            gutter = {'bg', 'Normal'},
-            ['bg+'] = {'bg', 'CursorLine'},
-            hl = {'fg', 'PreProc'},
-            ['hl+'] = {'fg', 'PreProc'},
-            prompt =  {'fg', 'Conditional'},
-            pointer = {'fg', 'Exception'},
-            info =    {'fg', 'String'},
-          }
+            gutter = { "bg", "Normal" },
+            ["bg+"] = { "bg", "CursorLine" },
+            hl = { "fg", "PreProc" },
+            ["hl+"] = { "fg", "PreProc" },
+            prompt = { "fg", "Conditional" },
+            pointer = { "fg", "Exception" },
+            info = { "fg", "String" },
+          },
         }
         fzf.register_ui_select()
         -- vim.keymap.set("n", "<Leader>fg", function()
@@ -178,10 +180,10 @@ return require'packer'.startup {
       end,
     }
 
-    use 'bakpakin/fennel.vim'
+    use "bakpakin/fennel.vim"
 
-    use 'pprovost/vim-ps1'
-    use 'pearofducks/ansible-vim'
+    use "pprovost/vim-ps1"
+    use "pearofducks/ansible-vim"
 
     use {
       "nvim-treesitter/nvim-treesitter-context",
@@ -269,27 +271,26 @@ return require'packer'.startup {
           }
           require("mason-lspconfig").setup { automatic_installation = true }
 
-          vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-          vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-          vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+          vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+          vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
           -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
           local on_attach = function(client, bufnr)
             -- Enable completion triggered by <c-x><c-o>
-            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+            vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
             -- Mappings
             local opts = { buffer = bufnr }
-            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-            vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-            vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-            vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
-            vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-            vim.keymap.set({'n', 'v'}, 'gq', vim.lsp.buf.formatting, opts)
+            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+            vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+            vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+            vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+            vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
+            vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
             if client.supports_method "textDocument/formatting" then
               vim.keymap.set("n", "gq", function()
                 vim.lsp.buf.format(opts)
@@ -300,22 +301,22 @@ return require'packer'.startup {
             end
           end
 
-          local servers = { 'gopls', 'ansiblels', 'yamlls' }
+          local servers = { "gopls", "ansiblels", "yamlls" }
           for _, lsp in pairs(servers) do
-            require('lspconfig')[lsp].setup { on_attach = on_attach }
+            require("lspconfig")[lsp].setup { on_attach = on_attach }
           end
 
-          require'lspconfig'.sumneko_lua.setup {
+          require("lspconfig").sumneko_lua.setup {
             on_attach = on_attach,
             settings = {
               Lua = {
                 runtime = {
                   -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                  version = 'LuaJIT',
+                  version = "LuaJIT",
                 },
                 diagnostics = {
                   -- Get the language server to recognize the `vim` global
-                  globals = {'vim'},
+                  globals = { "vim" },
                 },
                 workspace = {
                   -- Make the server aware of Neovim runtime files
@@ -341,23 +342,23 @@ return require'packer'.startup {
       },
     }
 
-    use 'khaveesh/vim-fish-syntax'
+    use "khaveesh/vim-fish-syntax"
 
-    use 'kyazdani42/nvim-web-devicons'
+    use "kyazdani42/nvim-web-devicons"
 
     use {
-      'akinsho/nvim-toggleterm.lua',
-      branch = 'main',
+      "akinsho/nvim-toggleterm.lua",
+      branch = "main",
       config = function()
         require("toggleterm").setup {
-          direction = 'float',
+          direction = "float",
           open_mapping = [[<C-\><C-\>]],
           insert_mappings = false,
           float_opts = {
-            border = 'single'
-          }
+            border = "rounded",
+          },
         }
-      end
+      end,
     }
 
     -- plugin to bundle all nvim settings for work
@@ -367,11 +368,10 @@ return require'packer'.startup {
     disable_commands = true,
     display = {
       non_interactive = #vim.api.nvim_list_uis() == 0,
-      open_cmd = 'tabnew',
+      open_cmd = "tabnew",
       keybindings = {
-        quit = 'gq'
-      }
-    }
-  }
+        quit = "gq",
+      },
+    },
+  },
 }
-
