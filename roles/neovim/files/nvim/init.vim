@@ -112,6 +112,7 @@ Autocmd BufWinEnter *.txt if &buftype == 'help' | wincmd T | endif
 Autocmd FileType help nnoremap <silent><buffer> gq :q!<cr>
 
 Autocmd TermOpen term://* startinsert
+tnoremap <C-\>b <C-\><C-N>? <cr>
 
 function! SwitchSourceHeader()
   if (expand ("%:e") == "cpp")
