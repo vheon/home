@@ -11,12 +11,6 @@
     - ~/.bashrc
     - ~/.bash_login
 
-- name: Link .profile
-  file:
-    src: "{{ role_path }}/files/.profile"
-    path: ~/.profile
-    state: link
-
 # XXX(andrea): should we use XDG_CONFIG_HOME instead of hardcoding ~/.config?
 # XXX(andrea): what if the XDG_CONFIG_HOME variable is not set? does ansible see it?
 - name: Ensure ~/.config directory exists.
@@ -30,11 +24,16 @@
     path: "~/.config/fish"
     state: link
 
-# XXX(andrea): right now we're hardcoding the path for the M1 mac. We should
-# make the brew variable global so that we can reuse it here also.
+- name: Link .profile
+  file:
+    src: "{{ role_path }}/files/.profile"
+    path: ~/.profile
+    state: link
+  when: not is_macOS
+
 - name: Change default shell to fish-shell
   user:
     name: "{{ ansible_user_id }}"
     shell: "{{ brew_bin_location }}/fish"
-  become: yes
+  become: true
   when: is_macOS
