@@ -74,15 +74,6 @@ return require'packer'.startup {
 
     use 'justinmk/vim-dirvish'
 
-    -- XXX(vheon): I really like the abbreviation but it always gets in the way
-    -- when I'm writing comments
-    use {
-      'tpope/vim-endwise',
-      config = function()
-        vim.g.endwise_abbreviations = 1
-      end
-    }
-
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-abolish'
     use 'tpope/vim-rsi'
@@ -170,61 +161,64 @@ return require'packer'.startup {
     use 'pearofducks/ansible-vim'
 
     use {
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate', -- XXX(andrea): we need to :TSInstall maintained on first install
-      config = function()
-        require'nvim-treesitter.configs'.setup {
-          highlight = {
-            enable = true
-          },
-          textobjects = {
-            move = {
+      "nvim-treesitter/nvim-treesitter-context",
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/playground",
+      "RRethy/nvim-treesitter-endwise",
+      {
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate", -- XXX(andrea): we need to :TSInstall maintained on first install
+        config = function()
+          require("treesitter-context").setup { enable = false }
+          require("nvim-treesitter.configs").setup {
+            highlight = {
               enable = true,
-              goto_next_start = {
-                ["]m"] = "@function.outer",
-                ["]]"] = "@class.outer",
+            },
+            textobjects = {
+              move = {
+                enable = true,
+                goto_next_start = {
+                  ["]m"] = "@function.outer",
+                  ["]]"] = "@class.outer",
+                },
+                goto_next_end = {
+                  ["]M"] = "@function.outer",
+                  ["]["] = "@class.outer",
+                },
+                goto_previous_start = {
+                  ["[m"] = "@function.outer",
+                  ["[["] = "@class.outer",
+                },
+                goto_previous_end = {
+                  ["[M"] = "@function.outer",
+                  ["[]"] = "@class.outer",
+                },
               },
-              goto_next_end = {
-                ["]M"] = "@function.outer",
-                ["]["] = "@class.outer",
+              select = {
+                enable = true,
+                keymaps = {
+                  ["i,"] = "@parameter.inner",
+                  ["a,"] = "@parameter.outer",
+                },
               },
-              goto_previous_start = {
-                ["[m"] = "@function.outer",
-                ["[["] = "@class.outer",
-              },
-              goto_previous_end = {
-                ["[M"] = "@function.outer",
-                ["[]"] = "@class.outer",
+              swap = {
+                enable = true,
+                swap_next = {
+                  [">,"] = "@parameter.inner",
+                },
+                swap_previous = {
+                  ["<,"] = "@parameter.inner",
+                },
               },
             },
-            select = {
+            endwise = {
               enable = true,
-              keymaps = {
-                ["i,"] = "@parameter.inner",
-                ["a,"] = "@parameter.outer",
-              }
             },
-            swap = {
-              enable = true,
-              swap_next = {
-                [">,"] = "@parameter.inner",
-              },
-              swap_previous = {
-                ["<,"] = "@parameter.inner",
-              },
-            }
           }
-        }
-        end
+        end,
+      },
     }
-    use {
-      'nvim-treesitter/nvim-treesitter-context',
-      config = function()
-        require'treesitter-context'.setup { enable = false }
-      end
-    }
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use 'nvim-treesitter/playground'
+
     use {
       'williamboman/nvim-lsp-installer',
       {
