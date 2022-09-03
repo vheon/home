@@ -2,16 +2,16 @@ vim.cmd [[packadd packer.nvim]]
 
 return require'packer'.startup {
   function(use)
-    local function local_use(package)
-      if type(package) == 'string' then
-        package = {package}
+    local function prefer_local_use(package)
+      if type(package) == "string" then
+        package = { package }
       end
       local _, path = next(package)
-      path = "~/code/"..path
-      if vim.fn.isdirectory(vim.fn.expand(path)) == 1 then
+      path = "~/code/" .. path:match "[^/]*$"
+      if vim.loop.fs_stat(vim.fn.expand(path)) ~= nil then
         package[1] = path
-        use(package)
       end
+      use(package)
     end
 
     use {'wbthomason/packer.nvim', opt = true}
@@ -79,7 +79,7 @@ return require'packer'.startup {
     use 'tpope/vim-rsi'
 
     -- XXX(andrea): this need a post-update hook to build the (or download a pre-built) binary!
-    local_use 'ycm.nvim'
+    prefer_local_use "vheon/ycm.nvim"
     -- use {
     --   'Valloric/YouCompleteMe',
     --   config = function()
