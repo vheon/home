@@ -149,10 +149,33 @@ return require'packer'.startup {
           }
         }
         fzf.register_ui_select()
-        vim.keymap.set('n', '<Leader>fg', function() fzf.git_files() end)
-        vim.keymap.set('n', '<Leader>ff', function() fzf.files() end)
-        vim.keymap.set('n', '<Leader>fb', function() fzf.buffers() end)
-      end
+        -- vim.keymap.set("n", "<Leader>fg", function()
+        --   fzf.git_files()
+        -- end)
+        -- vim.keymap.set("n", "<Leader>ff", function()
+        --   fzf.files()
+        -- end)
+        -- vim.keymap.set("n", "<Leader>fb", function()
+        --   fzf.buffers()
+        -- end)
+      end,
+    }
+    use {
+      'wincent/command-t',
+      run = 'cd lua/wincent/commandt/lib && make',
+      setup = function ()
+        vim.g.CommandTPreferredImplementation = 'lua'
+      end,
+      config = function()
+        local commandt = require('wincent.commandt')
+        commandt.setup({
+          height = 30
+        })
+        vim.keymap.set("n", "<Leader>fg", "<Plug>(CommandTGit)")
+        vim.keymap.set("n", "<Leader>ff", "<Plug>(CommandTFind)")
+        vim.keymap.set("n", "<Leader>fb", "<Plug>(CommandTBuffer)")
+        vim.keymap.set("n", "<Leader>fh", "<Plug>(CommandTHelp)")
+      end,
     }
 
     use 'bakpakin/fennel.vim'
