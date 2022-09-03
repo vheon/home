@@ -292,7 +292,7 @@ return require'packer'.startup {
       config = function()
         require("toggleterm").setup {
           direction = 'float',
-          open_mapping = '<leader>t',
+          open_mapping = [[<C-\><C-\>]],
           insert_mappings = false,
           float_opts = {
             border = 'single'
