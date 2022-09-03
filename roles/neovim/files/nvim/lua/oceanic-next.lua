@@ -329,6 +329,8 @@ vim.api.nvim_set_hl(0, "NotifyTRACEBorder", { link = "DiagnosticHint" })
 vim.api.nvim_set_hl(0, "NotifyTRACEIcon", { link = "DiagnosticHint" })
 vim.api.nvim_set_hl(0, "NotifyTRACETitle", { link = "DiagnosticHint" })
 
+vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+
 vim.g.terminal_color_0 = colors.base00
 vim.g.terminal_color_8 = colors.base03
 
