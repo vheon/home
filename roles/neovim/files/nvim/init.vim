@@ -136,6 +136,9 @@ endfunction
 
 nmap <Leader>af :call SwitchSourceHeader()<CR>
 
+
+map <leader>gq :py3f /usr/share/clang/clang-format-12/clang-format.py<cr>
+
 lua << EOF
 vim.g.clipboard = {
   name = 'clipper',
