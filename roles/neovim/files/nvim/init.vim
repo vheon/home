@@ -140,11 +140,21 @@ nmap <Leader>af :call SwitchSourceHeader()<CR>
 map <leader>gq :py3f /usr/share/clang/clang-format-12/clang-format.py<cr>
 
 lua << EOF
+-- XXX(andrea): I don't actually like this... revisit later
+local function nc_command()
+  local cmd = { "nc" }
+  if vim.loop.os_uname().sysname ~= "Darwin" then
+      table.insert(cmd, "-N")
+  end
+  table.insert(cmd, "localhost")
+  table.insert(cmd, "8377")
+  return cmd
+end
 vim.g.clipboard = {
   name = 'clipper',
   copy = {
-    ['+'] = {'nc', 'localhost', '8377'},
-    ['*'] = {'nc', 'localhost', '8377'}
+    ['+'] = nc_command(),
+    ['*'] = nc_command(),
   },
   paste = { ['+'] = {}, ['*'] = {} },
   cache_enabled = 1
