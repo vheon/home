@@ -42,7 +42,7 @@
 
 - name: Link vagrant wrapper for the fish shell
   file:
-    src: vagrant.fish
+    src: "{{ role_path }}/files/vagrant.fish"
     path: "~/.local/share/fish/vagrant.fish"
     state: link
 
