@@ -31,6 +31,10 @@
     state: restarted
   become: true
 
+- name: Install docker python package
+  ansible.builtin.pip:
+    name: docker
+
 - name: Pull the vagrant-libvirt image
   community.docker.docker_image:
     name: vagrantlibvirt/vagrant-libvirt:edge
