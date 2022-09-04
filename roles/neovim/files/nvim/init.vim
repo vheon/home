@@ -90,6 +90,7 @@ nnoremap <silent> <C-L> :nohlsearch<cr>:MarkClearAll<cr><C-L>
 " CTRL-U and CTRL-W in insert mode cannot be undone.  Use CTRL-G u to first
 " break undo, so that we can undo those changes after inserting a line break.
 " For more info, see: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
+" XXX(andrea): these are default in neovim
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
 
