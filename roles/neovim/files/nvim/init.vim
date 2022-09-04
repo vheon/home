@@ -94,8 +94,19 @@ nnoremap <silent> <C-L> :nohlsearch<cr>:MarkClearAll<cr><C-L>
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
 
-Autocmd BufEnter,WinEnter,InsertLeave * set cursorline
-Autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
+lua << EOF
+local augroup = vim.api.nvim_create_augroup('init.lua', { clear = true })
+vim.api.nvim_create_autocmd({"BufEnter", "WinEnter", "InsertLeave"}, {
+          command = "set cursorline",
+          group = augroup
+})
+vim.api.nvim_create_autocmd({"BufLeave", "WinLeave", "InsertEnter"}, {
+          command = "set nocursorline",
+          group = augroup
+})
+EOF
+" Autocmd BufEnter,WinEnter,InsertLeave * set cursorline
+" Autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
 
 Autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 1 && line("'\"") <= line("$")
                    \|   execute 'normal! g`"'
