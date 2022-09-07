@@ -200,10 +200,10 @@ vim.api.nvim_set_hl(0, "TSTextReference", { fg = colors.yellow }) -- FIXME
 vim.api.nvim_set_hl(0, "TSEmphasis", { fg = "#FF0000" }) -- For text to be represented with emphasis.
 vim.api.nvim_set_hl(0, "TSUnderline", { fg = colors.text, bg = colors.none, underline = true }) -- For text to be represented with an underline.
 
-vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true })
-vim.api.nvim_set_hl(0, "SpellLocal", { undercurl = true })
-vim.api.nvim_set_hl(0, "SpellCap", { undercurl = true })
-vim.api.nvim_set_hl(0, "SpellRare", { undercurl = true })
+vim.api.nvim_set_hl(0, 'SpellBad', { sp = colors.error, undercurl = true })
+vim.api.nvim_set_hl(0, 'SpellCap', { sp = colors.warn, undercurl = true })
+vim.api.nvim_set_hl(0, 'SpellLocal', { sp = colors.info, undercurl = true })
+vim.api.nvim_set_hl(0, 'SpellRare', { sp = colors.hint, undercurl = true })
 
 vim.api.nvim_set_hl(0, "csClass", { fg = colors.yellow })
 vim.api.nvim_set_hl(0, "csAttribute", { fg = colors.yellow })
