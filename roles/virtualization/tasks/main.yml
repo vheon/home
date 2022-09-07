@@ -40,11 +40,18 @@
     name: vagrantlibvirt/vagrant-libvirt:latest
     source: pull
 
-- name: Link vagrant wrapper for the fish shell
-  file:
-    src: "{{ role_path }}/files/vagrant.fish"
-    path: "~/.local/share/fish/vagrant.fish"
-    state: link
+- name: Install vagrant fish wrapper
+  block:
+  - name: Ensure XDG_DATA_HOME/fish/vendor_functions.d directory exists.
+    file:
+      path: "~/.local/share/fish/vendor_functions.d"
+      state: directory
+
+  - name: Link vagrant wrapper for the fish shell
+    file:
+      src: "{{ role_path }}/files/vagrant.fish"
+      path: "~/.local/share/fish/vendor_functions.d/vagrant.fish"
+      state: link
 
 - name: Install Hashicorp Packer in order to create various images
   community.general.homebrew:
