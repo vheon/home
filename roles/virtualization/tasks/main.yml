@@ -37,7 +37,7 @@
 
 - name: Pull the vagrant-libvirt image
   community.docker.docker_image:
-    name: vagrantlibvirt/vagrant-libvirt:edge
+    name: vagrantlibvirt/vagrant-libvirt:latest
     source: pull
 
 - name: Link vagrant wrapper for the fish shell
