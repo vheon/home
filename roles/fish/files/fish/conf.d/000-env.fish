@@ -24,8 +24,6 @@ end
 fish_add_path $BREW_PREFIX/bin
 fish_add_path $BREW_PREFIX/sbin
 
-# XXX(andrea): this should be only on linux when snap is installed
-fish_add_path /snap/bin
 
 # XXX(andrea): this is work-related and should be set in a specific role
 fish_add_path $HOME/code/bigfix-builders-images
