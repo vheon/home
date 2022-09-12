@@ -57,3 +57,12 @@
   community.general.homebrew:
     name: packer
     path: "{{ brew_bin_location }}"
+
+- name: Install LXD
+  community.general.snap:
+    name:
+      - lxd
+    channel: latest/stable
+
+# XXX(andrea): the whole lxd init is missing still
+# XXX(andrea): also a lot of the settings in https://github.com/lxc/lxd/blob/master/doc/production-setup.md should be applied
