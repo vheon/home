@@ -171,7 +171,13 @@ return require("packer").startup {
       config = function()
         local commandt = require('wincent.commandt')
         commandt.setup({
-          height = 30
+          height = 30,
+          scanners = {
+            git = {
+              submodules = false,
+              untracked = true,
+            },
+          }
         })
         vim.keymap.set("n", "<Leader>fg", "<Plug>(CommandTGit)")
         vim.keymap.set("n", "<Leader>ff", "<Plug>(CommandTFind)")
