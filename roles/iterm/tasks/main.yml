@@ -21,3 +21,15 @@
     src: "{{ role_path }}/files/DynamicProfiles/20-Local-Retina.json"
     path: "~/Library/Application Support/iTerm2/DynamicProfiles/20-Local.json"
     state: link
+
+- name: Ensure iTerm2 Scripts directory exists.
+  file:
+    path: "~/Library/Application Support/iTerm2/Scripts"
+    state: directory
+
+- name: Link scripts
+  file:
+    src: "{{ role_path }}/files/Scripts/adjust_font_size.py"
+    path: "~/Library/Application Support/iTerm2/Scripts/adjust_font_size.py"
+    state: link
+
