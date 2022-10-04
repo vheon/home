@@ -2,7 +2,7 @@
 - name: Ensure iTerm2 and the configured font are installed
   community.general.homebrew_cask:
     name:
-      - iterm2
+      - iterm2-beta
       - font-jetbrains-mono-nerd-font
     path: "{{ brew_bin_location }}"
 
