@@ -10,6 +10,9 @@ return require("packer").startup {
       path = "~/code/" .. path:match "[^/]*$"
       if vim.loop.fs_stat(vim.fn.expand(path)) ~= nil then
         package[1] = path
+      elseif package.upstream ~= nil then
+        package[1] = package.upstream
+        package.upstream = nil
       end
       use(package)
     end
@@ -39,7 +42,9 @@ return require("packer").startup {
     }
 
     use {
-      "TimUntersberger/neogit",
+    prefer_local_use {
+      "neogit",
+      upstream = "TimUntersberger/neogit",
       requires = {
         "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",
