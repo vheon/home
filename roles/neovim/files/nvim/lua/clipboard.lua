@@ -53,7 +53,7 @@ local function ocs52clipboard()
   end
 end
 vim.g.clipboard = {
-  name = 'clipper',
+  name = 'ocs52',
   copy = {
     ['+'] = ocs52clipboard(),
     ['*'] = ocs52clipboard(),
