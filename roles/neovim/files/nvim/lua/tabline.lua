@@ -65,8 +65,24 @@ local function getname(tabpage)
   return filename .. prepadded(icon)
 end
 
+local function git_branch_component()
+  local branch = vim.fn.FugitiveHead(7)
+  if branch == nil or branch:len() == 0 then
+    return ''
+  end
+  return table.concat({
+    '%5*',
+    ' ',
+    branch,
+    ' ',
+    '%4*',
+    powerline_extra.up_left_triangle,
+  }, '')
+end
+
 local function tabline()
   local tl = {}
+  table.insert(tl, git_branch_component())
   local current = vim.api.nvim_get_current_tabpage()
   for i, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
     table.insert(tl, highlight(current, tabpage))

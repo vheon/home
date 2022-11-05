@@ -107,13 +107,13 @@ local function filetype()
   if #ft > 0 then
     ft = '['..ft..']'
   else
-    ft = nil
+    ft = ''
   end
 
   return table.concat({
     '%3*',
-    padded(ft),
     padded(icon),
+    padded(ft),
     '%*'
   }, '')
 end
@@ -128,24 +128,33 @@ local function fileencoding()
   return ''
 end
 
+local function bufname()
+  local name = vim.api.nvim_eval_statusline('%f', {}).str -- path of the file
+  -- if vim.startswith(name, 'fugitive://') then
+  --   local _, _, commit, relpath = name:find([[^fugitive://.*/%.git.-/(.-)/(%x*)]])
+  --   name = relpath..'@'..commit:sub(1, 7)
+  -- end
+  return name
+end
+
 -- XXX(andrea): we should create special statusline for the Quickfix/Location list windows
 local function status_line()
+  if vim.bo.filetype == "DiffviewFiles" then
+    return table.concat({
+      '%5*',
+      "DiffviewFiles",
+      ' ',
+      '%4*',
+      ''
+    }, '')
+  end
+
   -- If we're rendering a non focused window just put the file path
   if vim.g.statusline_winid ~= vim.fn.win_getid() then
-    local components = {'%f', '%*'}
-    local branch = git_branch()
-    if branch ~= nil then
-      table.insert(components, ' ')
-      table.insert(components, branch)
-      table.insert(components, ' ')
-    end
-    return table.concat(components, '')
+    return '%f%*'
   end
 
   return table.concat({
-    git_branch_component(),
-    '%*',
-
     -- [Help] or [Preview] depending on the buffery.
     -- These has been in my status line for a long time, but I'm not sure I
     -- really want/use them.
@@ -157,9 +166,8 @@ local function status_line()
     -- the Help/Prevew string (if available)
     '%<',
 
-    '%2*',
+    padded(bufname()),
     filetype(),
-    '%f', -- path of the file
     '%*',
     '%-4(',
     modified(),

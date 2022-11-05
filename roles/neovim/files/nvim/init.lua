@@ -42,6 +42,7 @@ vim.api.nvim_create_user_command('PackerClean', function() always_require'plugin
 vim.api.nvim_create_user_command('PackerCompile', function() always_require'plugins'.compile() end, {})
 
 _G.statusline = require'statusline'.line
+vim.opt.showtabline = 2
 _G.tabline = require'tabline'.line
 
 vim.opt.statusline = "%!v:lua.statusline()"
