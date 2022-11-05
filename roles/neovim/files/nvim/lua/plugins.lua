@@ -41,7 +41,6 @@ return require("packer").startup {
       end,
     }
 
-    use {
     prefer_local_use {
       "neogit",
       upstream = "TimUntersberger/neogit",

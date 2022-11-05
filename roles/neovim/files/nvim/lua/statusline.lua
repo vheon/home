@@ -3,10 +3,6 @@ local mocha = require("catppuccin.palettes").get_palette "mocha"
 
 
 local function define_highlight_groups()
-  --  catppuccin
-  -- vim.api.nvim_set_hl(0, "User1", { bg = mocha.mantle, fg = mocha.surface1,  bold = true })
-  -- vim.api.nvim_set_hl(0, "User2", { bg = mocha.base, fg = mocha.green,  bold = true })
-
   vim.api.nvim_set_hl(0, "User3", { bg = mocha.mantle, fg = mocha.peach,  italic = true })
   vim.api.nvim_set_hl(0, "User4", { bg = mocha.mantle, fg = mocha.teal })
   vim.api.nvim_set_hl(0, "User5", { bg = mocha.teal, fg = mocha.base,  bold = true })

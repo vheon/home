@@ -1,4 +1,5 @@
 local devicons = require'nvim-web-devicons'
+local mocha = require("catppuccin.palettes").get_palette "mocha"
 
 -- HACK(andrea): as of right now iTerm2 has limited powerline extra support.
 -- In https://gitlab.com/gnachman/iterm2/-/commit/c65295f8d7c2866485cf8336fa4afe0a145870b9
@@ -139,5 +140,23 @@ local function tabline()
   table.insert(tl, "%T") -- Ends mouse click target region(s).
   return table.concat(tl, '')
 end
+
+local function define_highlight_groups()
+  vim.api.nvim_set_hl(0, "User1", { bg = mocha.mantle, fg = mocha.surface1,  bold = true })
+  vim.api.nvim_set_hl(0, "User2", { bg = mocha.base, fg = mocha.green,  bold = true })
+end
+
+local function setup()
+  local tabline_group = vim.api.nvim_create_augroup('vim_statusline', { clear = true })
+
+  vim.api.nvim_create_autocmd( 'ColorScheme', {
+    callback = define_highlight_groups,
+    group = tabline_group
+  })
+
+  define_highlight_groups()
+end
+
+setup()
 
 return { line = tabline }
