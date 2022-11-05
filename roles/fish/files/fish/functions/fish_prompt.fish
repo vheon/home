@@ -1,35 +1,42 @@
-# OceanicNext colors
-set base00 1b2b34
-set base01 343d46
-set base02 4f5b66
-set base03 65737e
-set base04 a7adba
-set base05 c0c5ce
-set base06 cdd3de
-set base07 d8dee9
-set red ec5f67
-set orange f99157
-set yellow fac863
-set green 99c794
-set cyan 62b3b2
-set blue 6699cc
-set purple c594c5
-set brown ab7967
-set white ffffff
+# catppuccin colors
+set selection ff0000
+set comment 00ff00
 
-set -g fish_color_normal $white
-set -g fish_color_command $white --bold
-set -g fish_color_quote $green
-set -g fish_color_redirection $cyan
-set -g fish_color_end $purple
-set -g fish_color_error $red --underline
-set -g fish_color_param $base06
-set -g fish_color_comment $base03 --italics
-set -g fish_color_match $purple
-set -g fish_color_selection $orange --inverse
-set -g fish_color_search_match --background=$cyan
-set -g fish_color_operator $blue
-set -g fish_color_autosuggestion $base03
+set foreground cdd6f4
+set red f38ba8
+set orange fab387
+set yellow f9e2af
+set green a6e3a1
+set purple b4befe
+set pink f5c2e7
+set blue 89b4fa
+set cyan 94e2d5
+
+# Syntax Highlighting Colors
+set -g fish_color_normal cdd6f4
+set -g fish_color_command 89b4fa
+set -g fish_color_param f2cdcd
+set -g fish_color_keyword f38ba8
+set -g fish_color_quote a6e3a1
+set -g fish_color_redirection f5c2e7
+set -g fish_color_end fab387
+set -g fish_color_error f38ba8
+set -g fish_color_gray 6c7086
+set -g fish_color_selection --background=313244
+set -g fish_color_search_match --background=313244
+set -g fish_color_operator f5c2e7
+set -g fish_color_escape f2cdcd
+set -g fish_color_autosuggestion 6c7086
+set -g fish_color_cancel f38ba8
+set -g fish_color_cwd f9e2af
+set -g fish_color_user 94e2d5
+set -g fish_color_host 89b4fa
+
+# # Completion Pager Colors
+set -g fish_pager_color_progress 6c7086
+set -g fish_pager_color_prefix f5c2e7
+set -g fish_pager_color_completion cdd6f4
+set -g fish_pager_color_description 6c7086
 
 set -g __fish_git_prompt_showdirtystate 1
 set -g __fish_git_prompt_showuntrackedfiles 1
