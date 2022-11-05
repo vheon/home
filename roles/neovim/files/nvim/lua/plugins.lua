@@ -58,6 +58,8 @@ return require("packer").startup {
           mappings = {
             status = {
               gq = "Close",
+              b = "",
+              B = "BranchPopup",
             },
           },
           signs = {
