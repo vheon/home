@@ -87,21 +87,76 @@ return require("packer").startup {
     use "tpope/vim-abolish"
     use "tpope/vim-rsi"
 
-    -- XXX(andrea): this need a post-update hook to build the (or download a pre-built) binary!
-    prefer_local_use "vheon/ycm.nvim"
-    -- use {
-    --   'Valloric/YouCompleteMe',
-    --   config = function()
-    --     vim.g.ycm_confirm_extra_conf    = 0
-    --     vim.g.ycm_complete_in_comments  = 1
-    --     -- let g:ycm_global_ycm_extra_conf = g:dotvim.'/ycm_extra_conf.py'
-    --     -- let g:ycm_extra_conf_vim_data   = [ '&filetype' ]
-    --     -- let g:ycm_seed_identifiers_with_syntax = 1
-    --     -- let g:ycm_filetype_blacklist = { 'help': 1 }
-    --     vim.g.ycm_key_list_stop_completion = {''}
-    --   end,
-    --   run = './install.py'
-    -- }
+    use {
+      "hrsh7th/nvim-cmp",
+      requires = {
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        -- "hrsh7th/cmp-cmdline",
+      },
+      config = function()
+        local cmp = require "cmp"
+        if cmp == nil then
+          return
+        end
+        cmp.setup {
+          window = {
+            -- completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered()
+          },
+          sources = {
+            { name = "nvim_lsp" },
+            -- { name = 'luasnip' }, -- For luasnip users.
+            {
+              name = "buffer",
+              option = {
+                get_bufnrs = function()
+                  return vim.api.nvim_list_bufs()
+                end,
+              },
+            },
+          },
+          mapping = cmp.mapping.preset.insert {
+            ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+            ["<C-f>"] = cmp.mapping.scroll_docs(4),
+            ["<C-Space>"] = cmp.mapping.complete(),
+          },
+          experimental = {
+            ghost_text = true,
+          },
+        }
+      end,
+    }
+
+    use {
+      "lewis6991/gitsigns.nvim",
+      config = function()
+        require("gitsigns").setup {
+          on_attach = function(bufnr)
+            local gs = package.loaded.gitsigns
+
+            vim.keymap.set('n', ']c', function()
+              if vim.wo.diff then
+                return ']c'
+              end
+              vim.schedule(function() gs.next_hunk() end)
+              return '<Ignore>'
+            end, { buffer = bufnr, expr= true })
+
+            vim.keymap.set('n', '[c', function()
+              if vim.wo.diff then
+                return '[c'
+              end
+              vim.schedule(function() gs.prev_hunk() end)
+              return '<Ignore>'
+            end, { buffer = bufnr, expr= true })
+
+            vim.keymap.set("n", "<Leader>gp", gs.preview_hunk, { buffer = bufnr })
+          end,
+        }
+      end
+    }
 
     use "tpope/vim-scriptease"
 

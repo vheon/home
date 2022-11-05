@@ -90,7 +90,14 @@ command! -nargs=+ Expandtab call functions#Expandtab(<f-args>)
 ]]
 
 -- possible mnemonic? let say is for YELL
-vim.keymap.set("i", "<C-y>", "<esc>gUiw`]a")
+vim.keymap.set("i", "<C-y>", function()
+    local cmp = require "cmp"
+    if cmp.visible() then
+        cmp.mapping.confirm({ select = false })
+        return "<Ignore>"
+    end
+    return "<esc>gUiw`]a"
+end, { expr = true })
 
 -- Practical Vim tip #34
 vim.keymap.set( "c", "<C-n>", "<Down>")

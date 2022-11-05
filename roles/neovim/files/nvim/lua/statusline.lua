@@ -170,7 +170,6 @@ local function status_line()
     '%=',
 
     ferret_search_status(),
-    ycm_status(),
     is_lsp_available(),
 
     '%4*', -- Switch to User4 highlight group.
