@@ -75,6 +75,8 @@
     - role: tmux
     - role: fish
     - role: git
+      tags:
+        - git
     - role: ssh
       tags:
         - ssh
