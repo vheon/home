@@ -1,3 +1,4 @@
 ---
+brew_prefix: /home/linuxbrew/.linuxbrew
 brew_bin_location: /home/linuxbrew/.linuxbrew/bin
 brew_binary: /home/linuxbrew/.linuxbrew/bin/brew

@@ -2,7 +2,7 @@
 - name: Ensure iTerm2 and the configured font are installed
   community.general.homebrew_cask:
     name:
-      - iterm2-beta
+      - iterm2-nightly
       - font-jetbrains-mono-nerd-font
     path: "{{ brew_bin_location }}"
 
@@ -21,6 +21,28 @@
     src: "{{ role_path }}/files/DynamicProfiles/20-Local-Retina.json"
     path: "~/Library/Application Support/iTerm2/DynamicProfiles/20-Local.json"
     state: link
+
+# HACK(andrea): as of right now iTerm2 has limited powerline extra support.
+# In https://gitlab.com/gnachman/iterm2/-/commit/c65295f8d7c2866485cf8336fa4afe0a145870b9
+# was added support for only the characters that in the original repo had an eps file.
+# Not all of the one I wanted were there so I extracted all glyphs from the sfd file to eps from
+# the fontforge cli with:
+# fontforge -lang=ff -c 'Open($1); SelectWorthOutputting(); foreach Export("U+%U.eps"); endloop;' PowerlineExtraSymbols.sfd
+# and copy the eps file I wanted in the (brew --prefix)/Caskroom/iterm2-nightly/latest/iTerm.app/Contents/Resources/
+# renamed as the powerline extra symbols that were thre but that I do not use (like the flame one)
+- name: Replace Powerline Extra Glyphs
+  copy:
+    src: "powerline_extra_glyphs/{{ item.src }}"
+    dest: "{{ brew_prefix }}/Caskroom/iterm2-nightly/latest/iTerm.app/Contents/Resources/{{ item.dest }}"
+    backup: yes
+  loop:
+    - { src: "U+E0BC.eps", dest: "uniE0C0_flame-thick.eps" }
+    - { src: "U+E0BE.eps", dest: "uniE0C1_flame-thin.eps" }
+    - { src: "U+E0BA.eps", dest: "uniE0CE_lego_separator.eps" }
+    - { src: "U+E0B8.eps", dest: "uniE0CF_lego_separator_thin.eps" }
+    - { src: "U+E0B9.eps", dest: "uniE0D0_lego_block_facing_WIP.eps" }
+    - { src: "U+E0BB.eps", dest: "uniE0D1_lego_block_sideways.eps" }
+
 
 - name: Ensure iTerm2 Scripts directory exists.
   file:

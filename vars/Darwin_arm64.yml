@@ -1,3 +1,4 @@
 ---
+brew_prefix: /opt/homebrew
 brew_bin_location: /opt/homebrew/bin
 brew_binary: /opt/homebrew/bin/brew
