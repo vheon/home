@@ -59,12 +59,13 @@ vim.opt.pumheight = 30
 vim.opt.timeoutlen = 500
 vim.opt.updatetime = 750
 
-vim.opt.lazyredraw = true
+vim.opt.lazyredraw = false
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
 vim.opt.hlsearch = false
 
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 0
+
 vim.opt.showmode = false
 vim.opt.wildmode = "list:longest"
 

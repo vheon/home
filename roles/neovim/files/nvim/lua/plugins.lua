@@ -27,7 +27,7 @@ return require("packer").startup {
     use {
       "tpope/vim-fugitive",
       config = function()
-        vim.keymap.set("n", "<Leader>gh", ":Gtabedit @<cr>")
+        vim.keymap.set("n", "<Leader>gh", ":Gtabedit @<cr>", { silent = true })
       end,
     }
 
@@ -182,7 +182,7 @@ return require("packer").startup {
       config = function()
         vim.g.FerretMap = 0
         vim.g.FerretAutojump = 0
-        vim.keymap.set("n", "<Leader>sw", ":Ack! -w <C-r><C-w><cr>")
+        vim.keymap.set("n", "<Leader>sw", ":Ack! -w <C-r><C-w><cr>", { silent = true })
       end,
     }
 
@@ -431,6 +431,27 @@ return require("packer").startup {
         }
       end
     }
+
+    use {
+      "folke/noice.nvim",
+      event = "VimEnter",
+      config = function()
+        require("noice").setup {
+          routes = {
+            {
+              filter = { event = "msg_show", kind = "", find = "written" },
+              opts = { skip = true }
+            }
+          }
+        }
+        require("telescope").load_extension("noice")
+      end,
+      requires = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+      }
+    }
+
     -- plugin to bundle all nvim settings for work
     -- local_use 'bigfixdev.nvim'
   end,
