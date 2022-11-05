@@ -372,6 +372,21 @@ return require("packer").startup {
       end,
     }
 
+    use {
+      "catppuccin/nvim",
+      as = "catppuccin",
+      config = function()
+        require("catppuccin").setup {
+          flavour = "mocha", -- mocha, macchiato, frappe, latte
+          term_colors = true,
+          integrations = {
+            mason = true,
+            neogit = true,
+            notify = true
+          }
+        }
+      end
+    }
     -- plugin to bundle all nvim settings for work
     -- local_use 'bigfixdev.nvim'
   end,

@@ -47,7 +47,8 @@ _G.tabline = require'tabline'.line
 vim.opt.statusline = "%!v:lua.statusline()"
 vim.opt.tabline = "%!v:lua.tabline()"
 
-vim.cmd [[colorscheme terafox]]
+vim.opt.termguicolors = true
+vim.cmd.colorscheme "catppuccin"
 
 vim.opt.guicursor = { "n-c-sm:block-Cursor", "v-ve:block-IncSearch", "i-ci-ve:block-WildMenu", "r-cr-o:hor20-Cursor" }
 

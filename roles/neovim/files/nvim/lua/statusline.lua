@@ -1,46 +1,15 @@
 local devicons = require'nvim-web-devicons'
-
-local function define_highlights(groups)
-  for group, spec in pairs(groups) do
-    local gui = spec.gui and 'gui='..spec.gui or ''
-    vim.cmd(table.concat({
-      'highlight',
-      tostring(group),
-      'guibg='..spec.guibg,
-      'guifg='..spec.guifg,
-      gui
-    }, ' '))
-  end
-end
+local mocha = require("catppuccin.palettes").get_palette "mocha"
 
 
 local function define_highlight_groups()
-  define_highlights {
-    StatusLine = {
-      guibg = '#343d46',
-      guifg = '#d8dee9',
-      gui = 'bold'
-    },
-    User2 = {
-      guibg = '#343d46',
-      guifg = '#ffffff',
-      gui = 'bold'
-    },
-    User3 = {
-      guibg = '#343d46',
-      guifg = '#d8dee9',
-      gui = 'italic'
-    },
-    User4 = {
-      guibg = '#343d46',
-      guifg = '#d8dee9'
-    },
-    User5 = {
-      guibg = '#d8dee9',
-      guifg = '#1b2b34',
-      gui = 'bold'
-    }
-  }
+  --  catppuccin
+  -- vim.api.nvim_set_hl(0, "User1", { bg = mocha.mantle, fg = mocha.surface1,  bold = true })
+  -- vim.api.nvim_set_hl(0, "User2", { bg = mocha.base, fg = mocha.green,  bold = true })
+
+  vim.api.nvim_set_hl(0, "User3", { bg = mocha.mantle, fg = mocha.peach,  italic = true })
+  vim.api.nvim_set_hl(0, "User4", { bg = mocha.mantle, fg = mocha.teal })
+  vim.api.nvim_set_hl(0, "User5", { bg = mocha.teal, fg = mocha.base,  bold = true })
 end
 
 local function setup()
