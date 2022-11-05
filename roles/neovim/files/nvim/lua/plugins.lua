@@ -186,65 +186,52 @@ return require("packer").startup {
       end,
     }
 
+    -- XXX(andrea): I use this mainly in the shell so I should just install it through ansible rather than in here
     use { "junegunn/fzf", run = "./install --xdg --no-update-rc --no-key-bindings --no-completion" }
+
     use {
-      "ibhagwan/fzf-lua",
+      "nvim-telescope/telescope.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope-fzy-native.nvim",
+        "nvim-telescope/telescope-ui-select.nvim"
+      },
       config = function()
-        local fzf = require "fzf-lua"
-        fzf.setup {
-          winopts = {
-            height = 0.9,
-            width = 0.95,
-            preview = {
-              horizontal = "right:50%",
-            },
+        local telescope = require "telescope"
+        local actions = require "telescope.actions"
+        telescope.setup {
+          defaults = {
+            -- color_devicons = false,
+            mappings = {
+              i = {
+                ["<c-c>"] = function()
+                  vim.cmd "stopinsert"
+                end,
+                ["<esc>"] = actions.close,
+              }
+            }
           },
-          fzf_opts = {
-            ["--layout"] = false,
+          pickers = {
+            git_files = {
+              show_untracked = true
+            }
           },
-          fzf_colors = {
-            gutter = { "bg", "Normal" },
-            ["bg+"] = { "bg", "CursorLine" },
-            hl = { "fg", "PreProc" },
-            ["hl+"] = { "fg", "PreProc" },
-            prompt = { "fg", "Conditional" },
-            pointer = { "fg", "Exception" },
-            info = { "fg", "String" },
-          },
-        }
-        fzf.register_ui_select()
-        -- vim.keymap.set("n", "<Leader>fg", function()
-        --   fzf.git_files()
-        -- end)
-        -- vim.keymap.set("n", "<Leader>ff", function()
-        --   fzf.files()
-        -- end)
-        -- vim.keymap.set("n", "<Leader>fb", function()
-        --   fzf.buffers()
-        -- end)
-      end,
-    }
-    use {
-      'wincent/command-t',
-      run = 'cd lua/wincent/commandt/lib && make',
-      setup = function ()
-        vim.g.CommandTPreferredImplementation = 'lua'
-      end,
-      config = function()
-        local commandt = require('wincent.commandt')
-        commandt.setup({
-          height = 30,
-          scanners = {
-            git = {
-              submodules = false,
-              untracked = true,
-            },
+          extensions = {
+            ["ui-select"] = {
+              require("telescope.themes").get_dropdown {}
+            }
           }
-        })
-        vim.keymap.set("n", "<Leader>fg", "<Plug>(CommandTGit)")
-        vim.keymap.set("n", "<Leader>ff", "<Plug>(CommandTFind)")
-        vim.keymap.set("n", "<Leader>fb", "<Plug>(CommandTBuffer)")
-        vim.keymap.set("n", "<Leader>fh", "<Plug>(CommandTHelp)")
+        }
+        telescope.load_extension "fzy_native"
+        telescope.load_extension "ui-select"
+        telescope.load_extension "notify"
+
+        local builtin = require "telescope.builtin"
+        vim.keymap.set("n", "<Leader>fg", builtin.git_files, {})
+        vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})
+        vim.keymap.set("n", "<Leader>fb", builtin.buffers, {})
+        vim.keymap.set("n", "<Leader>fh", builtin.help_tags, {})
+        vim.keymap.set("n", "<Leader>tb", builtin.builtin, {})
       end,
     }
 
