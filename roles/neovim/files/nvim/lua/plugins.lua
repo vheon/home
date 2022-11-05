@@ -167,6 +167,11 @@ return require("packer").startup {
     use {
       "kevinhwang91/nvim-bqf",
       config = function()
+        require("bqf").setup {
+          preview = {
+            auto_preview = false,
+          },
+        }
         vim.keymap.set("n", "<Leader>q", function()
           local nr = #vim.api.nvim_list_wins()
           vim.cmd "cwindow"
