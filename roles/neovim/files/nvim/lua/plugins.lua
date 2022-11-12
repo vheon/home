@@ -135,26 +135,30 @@ return require("packer").startup {
           on_attach = function(bufnr)
             local gs = package.loaded.gitsigns
 
-            vim.keymap.set('n', ']c', function()
+            vim.keymap.set("n", "]c", function()
               if vim.wo.diff then
-                return ']c'
+                return "]c"
               end
-              vim.schedule(function() gs.next_hunk() end)
-              return '<Ignore>'
-            end, { buffer = bufnr, expr= true })
+              vim.schedule(function()
+                gs.next_hunk()
+              end)
+              return "<Ignore>"
+            end, { buffer = bufnr, expr = true })
 
-            vim.keymap.set('n', '[c', function()
+            vim.keymap.set("n", "[c", function()
               if vim.wo.diff then
-                return '[c'
+                return "[c"
               end
-              vim.schedule(function() gs.prev_hunk() end)
-              return '<Ignore>'
-            end, { buffer = bufnr, expr= true })
+              vim.schedule(function()
+                gs.prev_hunk()
+              end)
+              return "<Ignore>"
+            end, { buffer = bufnr, expr = true })
 
             vim.keymap.set("n", "<Leader>gp", gs.preview_hunk, { buffer = bufnr })
           end,
         }
-      end
+      end,
     }
 
     use "tpope/vim-scriptease"
@@ -198,7 +202,7 @@ return require("packer").startup {
       requires = {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-fzy-native.nvim",
-        "nvim-telescope/telescope-ui-select.nvim"
+        "nvim-telescope/telescope-ui-select.nvim",
       },
       config = function()
         local telescope = require "telescope"
@@ -212,19 +216,19 @@ return require("packer").startup {
                   vim.cmd "stopinsert"
                 end,
                 ["<esc>"] = actions.close,
-              }
-            }
+              },
+            },
           },
           pickers = {
             git_files = {
-              show_untracked = true
-            }
+              show_untracked = true,
+            },
           },
           extensions = {
             ["ui-select"] = {
-              require("telescope.themes").get_dropdown {}
-            }
-          }
+              require("telescope.themes").get_dropdown {},
+            },
+          },
         }
         telescope.load_extension "fzy_native"
         telescope.load_extension "ui-select"
@@ -430,10 +434,10 @@ return require("packer").startup {
           integrations = {
             mason = true,
             neogit = true,
-            notify = true
-          }
+            notify = true,
+          },
         }
-      end
+      end,
     }
 
     use {
@@ -444,16 +448,16 @@ return require("packer").startup {
           routes = {
             {
               filter = { event = "msg_show", kind = "", find = "written" },
-              opts = { skip = true }
-            }
-          }
+              opts = { skip = true },
+            },
+          },
         }
-        require("telescope").load_extension("noice")
+        require("telescope").load_extension "noice"
       end,
       requires = {
         "MunifTanjim/nui.nvim",
         "rcarriga/nvim-notify",
-      }
+      },
     }
 
     -- plugin to bundle all nvim settings for work
