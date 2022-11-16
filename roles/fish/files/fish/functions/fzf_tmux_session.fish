@@ -6,18 +6,6 @@ function fzf_tmux_session
         return 0
     end
 
-    # oceanic-next colors to use in FZF
-    # XXX(andrea): I'm not sure why but in iTerm2 I actually have a darker base00
-    # than I have in neovim so use that. I'm not sure it is actually a bad idea
-    # since it helps recognize neovim floating windows from tmux popups
-    # XXX(andrea): If we start using fzf in the shell more we should just define
-    # its config in the environment variable and be done with it.
-    # set --local Normal "#152528"
-    # set --local CursorLine "#254147"
-    # set --local PreProc "#d38d97"
-    # set --local Conditional "#b97490"
-    # set --local Exception "#EC5F67"
-    # set --local String "#99c794"
     set --local Normal "#1E1E2E"
     set --local CursorLine "#313244"
     set --local PreProc "#f38ba8"
@@ -26,7 +14,7 @@ function fzf_tmux_session
     set --local String "#cba6f7"
 
     set --local results (tmux list-sessions -F "#{session_name}" | \
-            /home/bigfix/.local/share/nvim/site/pack/packer/start/fzf/bin/fzf \
+            ~/.local/share/nvim/site/pack/packer/start/fzf/bin/fzf \
             --prompt "Sessions❯ " \
             --exit-0 \
             --print-query \
