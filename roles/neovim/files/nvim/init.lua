@@ -31,15 +31,25 @@ vim.g.loaded_netrwSettings = 1
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", false, false, true)
 
 _G.always_require = function(module)
-  package.loaded[module] = nil
-  return require(module)
+    package.loaded[module] = nil
+    return require(module)
 end
 
-vim.api.nvim_create_user_command('PackerInstall', function() always_require'plugins'.install() end, {})
-vim.api.nvim_create_user_command('PackerUpdate', function() always_require'plugins'.update() end, {})
-vim.api.nvim_create_user_command('PackerSync', function() always_require'plugins'.sync() end, {})
-vim.api.nvim_create_user_command('PackerClean', function() always_require'plugins'.clean() end, {})
-vim.api.nvim_create_user_command('PackerCompile', function() always_require'plugins'.compile() end, {})
+vim.api.nvim_create_user_command("PackerInstall", function()
+    always_require("plugins").install()
+end, {})
+vim.api.nvim_create_user_command("PackerUpdate", function()
+    always_require("plugins").update()
+end, {})
+vim.api.nvim_create_user_command("PackerSync", function()
+    always_require("plugins").sync()
+end, {})
+vim.api.nvim_create_user_command("PackerClean", function()
+    always_require("plugins").clean()
+end, {})
+vim.api.nvim_create_user_command("PackerCompile", function()
+    always_require("plugins").compile()
+end, {})
 
 require "pde.options"
 require "pde.ui"
@@ -54,15 +64,15 @@ command! -nargs=+ Expandtab call functions#Expandtab(<f-args>)
 vim.keymap.set("i", "<C-y>", function()
     local cmp = require "cmp"
     if cmp.visible() then
-        cmp.mapping.confirm({ select = false })
+        cmp.mapping.confirm { select = false }
         return "<Ignore>"
     end
     return "<esc>gUiw`]a"
 end, { expr = true })
 
 -- Practical Vim tip #34
-vim.keymap.set( "c", "<C-n>", "<Down>")
-vim.keymap.set( "c", "<C-p>", "<Up>")
+vim.keymap.set("c", "<C-n>", "<Down>")
+vim.keymap.set("c", "<C-p>", "<Up>")
 
 -- XXX(andrea): these needs to be ported properly
 -- http://vimcasts.org/episodes/the-edit-command
