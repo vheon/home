@@ -33,7 +33,7 @@
 - name: Replace Powerline Extra Glyphs
   copy:
     src: "powerline_extra_glyphs/{{ item.src }}"
-    dest: "{{ brew_prefix }}/Caskroom/iterm2-nightly/latest/iTerm.app/Contents/Resources/{{ item.dest }}"
+    dest: "/Applications/iTerm.app/Contents/Resources/{{ item.dest }}"
     backup: yes
   loop:
     - { src: "U+E0BC.eps", dest: "uniE0C0_flame-thick.eps" }
