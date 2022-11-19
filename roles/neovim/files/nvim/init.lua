@@ -192,11 +192,23 @@ endfunction
 nmap <Leader>af :call SwitchSourceHeader()<CR>
 ]]
 
+vim.keymap.set({ "n", "v" }, "<leader>gq", function()
+    local clang_format = require "clang-format"
 
--- XXX(andrea): start using in-house lua implementation instead of shelling out to python
-vim.cmd [[
-map <leader>gq :py3f /usr/share/clang/clang-format-12/clang-format.py<cr>
-]]
+    local function get_range()
+        if vim.api.nvim_get_mode().mode:match "[vV]" ~= nil then
+            local bufnr = vim.api.nvim_get_current_buf()
+            return vim.api.nvim_buf_get_mark(bufnr, "<")[1], vim.api.nvim_buf_get_mark(bufnr, ">")[1]
+        end
+    end
+
+    local line_start, line_end = get_range()
+    vim.schedule(function()
+        clang_format.format(line_start, line_end)
+    end)
+
+    return "<Esc>"
+end, { expr = true })
 
 require "clipboard"
 
