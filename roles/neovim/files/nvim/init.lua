@@ -41,49 +41,8 @@ vim.api.nvim_create_user_command('PackerSync', function() always_require'plugins
 vim.api.nvim_create_user_command('PackerClean', function() always_require'plugins'.clean() end, {})
 vim.api.nvim_create_user_command('PackerCompile', function() always_require'plugins'.compile() end, {})
 
-_G.statusline = require'statusline'.line
-vim.opt.showtabline = 2
-_G.tabline = require'tabline'.line
-
-vim.opt.statusline = "%!v:lua.statusline()"
-vim.opt.tabline = "%!v:lua.tabline()"
-
-vim.opt.termguicolors = true
-vim.cmd.colorscheme "catppuccin"
-
-vim.opt.guicursor = { "n-c-sm:block-Cursor", "v-ve:block-IncSearch", "i-ci-ve:block-WildMenu", "r-cr-o:hor20-Cursor" }
-
-vim.opt.completeopt = vim.opt.completeopt - "preview"
-vim.opt.completeopt = vim.opt.completeopt + "menuone"
-vim.opt.pumheight = 30
-
-vim.opt.timeoutlen = 500
-vim.opt.updatetime = 750
-
-vim.opt.lazyredraw = false
-vim.opt.smartcase = true
-vim.opt.ignorecase = true
-vim.opt.hlsearch = false
-
-vim.opt.cmdheight = 0
-
-vim.opt.showmode = false
-vim.opt.wildmode = "list:longest"
-
-vim.opt.showcmd = false
-
-vim.opt.autochdir = false
-vim.opt.hidden = true
-vim.opt.cursorline = true
-vim.opt.colorcolumn = { 111 }
-
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.writebackup = false
-
-vim.opt.list = true
-vim.opt.fillchars = { vert = "│", diff = "╱" }
-vim.opt.listchars = { tab = "→ ", trail = "␣", extends = "⇉", precedes = "⇇", nbsp = "⚭" }
+require "pde.options"
+require "pde.ui"
 
 -- XXX(andrea): This could be a plugin on its own??
 vim.cmd [[
@@ -121,23 +80,6 @@ vim.keymap.set("n", "<C-n>", "<cmd>set invnumber<cr>")
 
 vim.keymap.set("n", "mw", "<Plug>(SimpleMark)")
 vim.keymap.set("n", "<C-l>", "<cmd>nohlsearch<cr>:MarkClearAll<cr><C-L>", { silent = true })
-
-
-local augroup = vim.api.nvim_create_augroup('init.lua', { clear = true })
-vim.api.nvim_create_autocmd({"BufEnter", "WinEnter", "InsertLeave"}, {
-          callback = function() vim.opt.cursorline = true end,
-          group = augroup,
-          desc = [[Set cursorline in normal mode]]
-})
-vim.api.nvim_create_autocmd({"BufLeave", "WinLeave", "InsertEnter"}, {
-          callback = function() vim.opt.cursorline = false end,
-          group = augroup,
-          desc = [[Do not render cursorline in insert mode]]
-})
-vim.cmd [[
-Autocmd BufEnter,WinEnter,InsertLeave * set cursorline
-Autocmd BufLeave,WinLeave,InsertEnter * set nocursorline
-]]
 
 -- XXX(andrea): are these really better than the vimscript counterpart?
 -- XXX(andrea): I should probably do nothing if the buffer is a command-t buffer or a prompt buffer in general
@@ -211,22 +153,3 @@ vim.keymap.set({ "n", "v" }, "<leader>gq", function()
 end, { expr = true })
 
 require "clipboard"
-
--- XXX(andrea): this is probably not the best place to put this... even if I
--- change the colorscheme this signs definition would still be valid...
-vim.fn.sign_define(
-  "DiagnosticSignError",
-  { text = " ", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" }
-)
-vim.fn.sign_define(
-  "DiagnosticSignWarn",
-  { text = " ", texthl = "DiagnosticSignWarn", numhl = "DiagnosticSignWarn" }
-)
-vim.fn.sign_define(
-  "DiagnosticSignInfo",
-  { text = " ", texthl = "DiagnosticSignInfo", numhl = "DiagnosticSignInfo" }
-)
-vim.fn.sign_define(
-  "DiagnosticSignHint",
-  { text = " ", texthl = "DiagnosticSignHint", numhl = "DiagnosticSignHint" }
-)
