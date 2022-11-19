@@ -15,19 +15,8 @@ local powerline_extra = {
   down_right_triangle = '', -- \ue0ce (left-lego) drawed as \ue0ba (down-right-triangle)
   down_left_triangle = '', -- \ue0cf (up-lego) drawed as \ue0b8 (down-left-triangle)
   thin_up_left_down_right = '', -- \ue0d0 (lego-facing) drawed as \ue0b9
-  thin_up_right_down_lft = '' -- \ue0d1 (lego-sideway) drawed as \ue0bb
+  thin_up_right_down_left = '' -- \ue0d1 (lego-sideway) drawed as \ue0bb
 }
-
-local function separator(current, tabpage)
-  local line
-    if current == tabpage then
-      line = "  "
-    else
-      line = "  "
-    end
-    return line .. tabpage .. "  "
-
-end
 
 local function extract_filename(win)
   local buf = vim.api.nvim_win_get_buf(win)
@@ -113,30 +102,18 @@ local function tabline()
   table.insert(tl, git_branch_component())
   local current = vim.api.nvim_get_current_tabpage()
   for i, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+    local hi = tabpage == current and "%#TabLineSel#" or "%#TabLine#"
     table.insert(tl, "%" .. i .. "T") -- Starts mouse click target region
-    if current == tabpage then
-      table.insert(tl, "%1*")
-      table.insert(tl, powerline_extra.down_right_triangle)
-      table.insert(tl, "%#TabLineSel#")
-      table.insert(tl, "  ")
-      table.insert(tl, tabpage)
-      table.insert(tl, "  ")
-      table.insert(tl, getname(tabpage))
-      table.insert(tl, " ")
-      table.insert(tl, "%1*")
-      table.insert(tl, powerline_extra.down_left_triangle)
-    else
-      table.insert(tl, "%#TabLine#")
-      table.insert(tl, powerline_extra.thin_up_right_down_lft)
-      table.insert(tl, "  ")
-      table.insert(tl, tabpage)
-      table.insert(tl, "  ")
-      table.insert(tl, getname(tabpage))
-      table.insert(tl, " ")
-      table.insert(tl, powerline_extra.thin_up_left_down_right)
-    end
+    table.insert(tl, hi)
+    table.insert(tl, powerline_extra.thin_up_right_down_left)
+    table.insert(tl, tabpage == current and "  " or "  ")
+    table.insert(tl, tabpage)
+    table.insert(tl, "  ")
+    table.insert(tl, getname(tabpage))
+    table.insert(tl, " ")
+    table.insert(tl, hi)
+    table.insert(tl, powerline_extra.thin_up_right_down_left)
   end
-  table.insert(tl, "%#TabLine#")
   table.insert(tl, "%T") -- Ends mouse click target region(s).
   return table.concat(tl, '')
 end
@@ -147,7 +124,7 @@ local function define_highlight_groups()
 end
 
 local function setup()
-  local tabline_group = vim.api.nvim_create_augroup('vim_statusline', { clear = true })
+  local tabline_group = vim.api.nvim_create_augroup('vim_tabline', { clear = true })
 
   vim.api.nvim_create_autocmd( 'ColorScheme', {
     callback = define_highlight_groups,
