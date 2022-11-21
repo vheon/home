@@ -435,6 +435,7 @@ return require("packer").startup {
             mason = true,
             neogit = true,
             notify = true,
+            noice = true,
           },
         }
       end,
