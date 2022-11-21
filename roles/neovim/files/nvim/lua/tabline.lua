@@ -34,7 +34,7 @@ local function prepadded(el, n)
   return ''
 end
 
-local noname_placeholder = "[No Name]"
+local noname_placeholder = "[Untitled]"
 
 local function get_best_window_filename(tabpage, window)
   local filename = extract_filename(window)
@@ -102,7 +102,7 @@ local function tabline()
   table.insert(tl, git_branch_component())
   local current = vim.api.nvim_get_current_tabpage()
   for i, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
-    local hi = tabpage == current and "%#TabLineSel#" or "%#TabLine#"
+    local hi = tabpage == current and "%#Error#" or "%#TabLine#"
     table.insert(tl, "%" .. i .. "T") -- Starts mouse click target region
     table.insert(tl, hi)
     table.insert(tl, powerline_extra.thin_up_right_down_left)
@@ -115,6 +115,7 @@ local function tabline()
     table.insert(tl, powerline_extra.thin_up_right_down_left)
   end
   table.insert(tl, "%T") -- Ends mouse click target region(s).
+  table.insert(tl, "%#TabLineFill#") -- Ends mouse click target region(s).
   return table.concat(tl, '')
 end
 
