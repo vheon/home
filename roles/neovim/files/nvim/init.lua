@@ -148,9 +148,15 @@ vim.keymap.set({ "n", "v" }, "<leader>gq", function()
     local clang_format = require "clang-format"
 
     local function get_range()
-        if vim.api.nvim_get_mode().mode:match "[vV]" ~= nil then
-            local bufnr = vim.api.nvim_get_current_buf()
-            return vim.api.nvim_buf_get_mark(bufnr, "<")[1], vim.api.nvim_buf_get_mark(bufnr, ">")[1]
+        local mode = vim.api.nvim_get_mode().mode
+        if mode == "v" or mode == "V" then
+            local start_row = vim.fn.getpos('v')[2]
+            local end_row = vim.fn.getpos('.')[2]
+
+            if end_row < start_row then
+                start_row, end_row = end_row, start_row
+            end
+            return start_row, end_row
         end
     end
 
