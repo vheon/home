@@ -11,16 +11,16 @@
     path: ~/Library/Application Support/iTerm2/DynamicProfiles
     state: directory
 
-- name: Create Base Dynamic Profile
-  template:
-    src: 00-Base.json.j2
-    dest: "~/Library/Application Support/iTerm2/DynamicProfiles/00-Base.json"
-
-- name: Link Local Dynamic Profile
+- name: Link Base Dynamic Profile
   file:
-    src: "{{ role_path }}/files/DynamicProfiles/20-Local-Retina.json"
-    path: "~/Library/Application Support/iTerm2/DynamicProfiles/20-Local.json"
+    src: "{{ role_path }}/files/DynamicProfiles/00-Base.json"
+    path: "~/Library/Application Support/iTerm2/DynamicProfiles/00-Base.json"
     state: link
+
+- name: Create Local Dynamic Profile
+  template:
+    src: 20-Local.json.j2
+    dest: "~/Library/Application Support/iTerm2/DynamicProfiles/20-Local.json"
 
 # HACK(andrea): as of right now iTerm2 has limited powerline extra support.
 # In https://gitlab.com/gnachman/iterm2/-/commit/c65295f8d7c2866485cf8336fa4afe0a145870b9

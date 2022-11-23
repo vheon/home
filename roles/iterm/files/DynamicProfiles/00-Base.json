@@ -77,7 +77,6 @@
         "Blue Component" : 0.76466912031173706,
         "Green Component" : 0.72239696979522705
       },
-      "Working Directory" : "{{ lookup( 'env', 'HOME' ) }}",
       "Blinking Cursor" : false,
       "Disable Window Resizing" : true,
       "Sync Title" : false,
@@ -103,7 +102,6 @@
       },
       "Custom Command" : "No",
       "ASCII Anti Aliased" : true,
-      "Non Ascii Font" : "SymbolsNerdFontComplete-2048-em 12",
       "Vertical Spacing" : 1.1000000000000001,
       "Use Bold Font" : true,
       "Option Key Sends" : 0,
