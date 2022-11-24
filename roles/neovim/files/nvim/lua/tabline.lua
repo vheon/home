@@ -115,7 +115,7 @@ local function tabline()
     table.insert(tl, powerline_extra.thin_up_right_down_left)
   end
   table.insert(tl, "%T") -- Ends mouse click target region(s).
-  table.insert(tl, "%#TabLineFill#") -- Ends mouse click target region(s).
+  table.insert(tl, "%#TabLineFill#")
   return table.concat(tl, '')
 end
 
