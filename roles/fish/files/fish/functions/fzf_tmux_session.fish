@@ -12,13 +12,21 @@ function fzf_tmux_session
     set --local Conditional "#cba6f7"
     set --local Exception "#f5e0dc"
     set --local String "#cba6f7"
+    set --local Error "#f38ba8"
 
     set --local results (tmux list-sessions -F "#{session_name}" | \
             ~/.local/share/nvim/site/pack/packer/start/fzf/bin/fzf \
             --prompt "Sessions❯ " \
             --exit-0 \
             --print-query \
-            --color "gutter:$Normal,bg+:$CursorLine,hl:$PreProc,hl+:$PreProc,prompt:$Conditional,pointer:$Exception,info:$String")
+            --color "separator:$Error" \
+            --color "gutter:$Normal" \
+            --color "bg+:$CursorLine" \
+            --color "hl:$PreProc" \
+            --color "hl+:$PreProc" \
+            --color "prompt:$Conditional" \
+            --color "pointer:$Exception" \
+            --color "info:$String")
     set --local retval $status
 
     set --local query $results[1]
