@@ -2,7 +2,7 @@ function fzf_tmux_session
     argparse 'n/new=' -- $argv
     if set -q _flag_new
         set --local query $_flag_new
-        tmux new -d -s $query; and tmux switch-client -t $query
+        tmux new -d -s $query -c "$HOME/code/$query"; and tmux switch-client -t $query
         return 0
     end
 
