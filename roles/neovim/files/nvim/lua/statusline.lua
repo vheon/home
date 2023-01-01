@@ -1,33 +1,10 @@
 local devicons = require'nvim-web-devicons'
 local mocha = require("catppuccin.palettes").get_palette "mocha"
+local api = vim.api
 
-
-local function define_highlight_groups()
-  vim.api.nvim_set_hl(0, "User3", { bg = mocha.mantle, fg = mocha.peach,  italic = true })
-  vim.api.nvim_set_hl(0, "User4", { bg = mocha.mantle, fg = mocha.teal })
-  vim.api.nvim_set_hl(0, "User5", { bg = mocha.teal, fg = mocha.base,  bold = true })
-end
-
-local function setup()
-  local statusline_group = vim.api.nvim_create_augroup('vim_statusline', { clear = true })
-  vim.api.nvim_create_autocmd( 'User', {
-    pattern = 'FerretAsyncStart',
-    callback = function() vim.g.ferret_search = '  ' end,
-    group = statusline_group
-  })
-  vim.api.nvim_create_autocmd( 'User', {
-    pattern = 'FerretAsyncFinish',
-    callback = function() vim.g.ferret_search = nil end,
-    group = statusline_group
-  })
-
-  vim.api.nvim_create_autocmd( 'ColorScheme', {
-    callback = define_highlight_groups,
-    group = statusline_group
-  })
-
-  define_highlight_groups()
-end
+local M = {
+    ferret_search = nil
+}
 
 local function padded(el, n)
   if el ~= nil and #el > 0 then
@@ -37,69 +14,52 @@ local function padded(el, n)
   return ''
 end
 
-local function git_branch()
-  local branch = vim.fn.FugitiveHead(7)
-  if branch ~= nil and branch:len() > 0 then
-    return branch
-  end
-  return nil
+function M.ferret_search_status()
+  return M.ferret_search or ''
 end
 
-local function git_branch_component()
-  local branch = git_branch()
-  if branch == nil then
-    return ''
-  end
-
-  return table.concat({
-    '%5*',
-    ' ',
-    branch,
-    ' ',
-    '%4*',
-    ''
-  }, '')
-end
-
-local function ferret_search_status()
-  return vim.g.ferret_search or ''
-end
-
-local function modified()
+function M.modified()
   if vim.bo.modified then
     return ' ●'
   end
   return ''
 end
 
-local function ro()
+function M.ro()
   if vim.bo.readonly then
     return ' '
   end
   return ''
 end
 
-local function ycm_status()
-  if not vim.b.ycm_enabled then
-    return ' '
-  end
-  return ''
-end
-
-local function is_lsp_available()
+function M.is_lsp_available()
   if next(vim.lsp.buf_get_clients(0)) ~= nil then
     return 'LSP '
   end
   return ''
 end
 
-local function filetype()
-  local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':t')
-  local extension = string.match(filename, '%a+$')
+local function have_treesitter()
+  local bufnr = api.nvim_get_current_buf()
+  return vim.treesitter.highlighter.active[bufnr] ~= nil
+end
 
-  local icon = devicons.get_icon(filename, extension)
+local extract_extension = function(filename)
+    local parts = vim.split(filename, "%.")
+    local start = #parts
+    if start > 2 then
+        start = start - 1
+    end
+    ---@diagnostic disable-next-line: missing-parameter
+    return table.concat(vim.list_slice(parts, start), ".")
+end
 
+function M.filetype()
   local ft = vim.bo.filetype
+  local filename = vim.fs.basename(api.nvim_buf_get_name(0))
+  local extension = extract_extension(filename)
+  local icon = devicons.get_icon(filename, extension, {default = true})
+
   if #ft > 0 then
     ft = '['..ft..']'
   else
@@ -107,16 +67,15 @@ local function filetype()
   end
 
   return table.concat({
-    '%3*',
     padded(icon),
     padded(ft),
-    '%*'
+    padded(have_treesitter() and '' or nil),
   }, '')
 end
 
 
 -- Returns the 'fileencoding', if it's not UTF-8.
-local function fileencoding()
+function M.fileencoding()
   local fe = vim.bo.fileencoding
   if #fe > 0 and fe ~= 'utf-8' then
     return '['..fe..']'
@@ -124,8 +83,8 @@ local function fileencoding()
   return ''
 end
 
-local function bufname()
-  local name = vim.api.nvim_eval_statusline('%f', {}).str -- path of the file
+function M.bufname()
+  local name = api.nvim_eval_statusline('%f', {}).str -- path of the file
   -- if vim.startswith(name, 'fugitive://') then
   --   local _, _, commit, relpath = name:find([[^fugitive://.*/%.git.-/(.-)/(%x*)]])
   --   name = relpath..'@'..commit:sub(1, 7)
@@ -133,8 +92,44 @@ local function bufname()
   return name
 end
 
--- XXX(andrea): we should create special statusline for the Quickfix/Location list windows
-local function status_line()
+local function funcref(ref)
+    return '%{v:lua.statusline.'..ref..'()}'
+end
+
+local function qf_label(is_qf)
+    if is_qf then
+        return "Quickfix List"
+    else
+        return "Location List"
+    end
+end
+
+local function qf_title(is_qf)
+    if is_qf then
+        return vim.fn.getqflist({ title = 0 }).title
+    else
+        return vim.fn.getloclist(0, { title = 0 }).title
+    end
+end
+
+local function status_line(active)
+  if vim.bo.filetype == "qf" then
+      local is_qflist = vim.fn.getloclist(0, { filewinid = 1 }).filewinid == 0
+      return table.concat({
+          '%5*',
+          qf_label(is_qflist),
+          ' ',
+          '%4*',
+          '',
+          '%*', -- Reset highlight group.
+          ' ',
+          qf_title(is_qflist),
+          '%=',
+          '%l/%L',
+      }, '')
+  end
+
+
   if vim.bo.filetype == "DiffviewFiles" then
     return table.concat({
       '%5*',
@@ -145,42 +140,41 @@ local function status_line()
     }, '')
   end
 
-  -- If we're rendering a non focused window just put the file path
-  if vim.g.statusline_winid ~= vim.fn.win_getid() then
+  if not active then
     return '%f%*'
   end
 
   return table.concat({
-    -- [Help] or [Preview] depending on the buffery.
+    -- [Help] or [Preview] depending on the buffer.
     -- These has been in my status line for a long time, but I'm not sure I
     -- really want/use them.
     '%h%w ',
-
 
     -- Where to truncate the line in case of status line too long... Again this
     -- has been here forever and I'm pretty sure that I do not want to only see
     -- the Help/Prevew string (if available)
     '%<',
 
-    padded(bufname()),
-    filetype(),
+    funcref('bufname'),
+    ' %3*',
+    funcref('filetype'),
     '%*',
     '%-4(',
-    modified(),
-    ro(),
+    funcref('modified'),
+    funcref('ro'),
     '%)',
 
     '%*', -- Reset highlight group.
     '%=',
 
-    ferret_search_status(),
-    is_lsp_available(),
+    funcref('ferret_search_status'),
+    funcref('is_lsp_available'),
 
     '%4*', -- Switch to User4 highlight group.
     '',
     '%5*', -- Switch to User5 highlight group.
     ' ',
-    fileencoding(),
+    funcref('fileencoding'),
     -- XXX(andrea): this is the position in the file
     '%-14(', -- start group (should be 14 char long?)
     '%P ', -- percentage in the file
@@ -192,6 +186,38 @@ local function status_line()
   }, '')
 end
 
-setup()
+-- XXX(andrea): we should create special statusline for the Quickfix/Location list windows
+local function set_status_line(active)
+  vim.wo.statusline = status_line(active)
+end
 
-return { line = status_line }
+local statusline_group = api.nvim_create_augroup('statusline', { clear = true })
+api.nvim_create_autocmd('User', {
+    pattern = 'FerretAsyncStart',
+    callback = function() M.ferret_search = '  ' end,
+    group = statusline_group
+})
+
+api.nvim_create_autocmd('User', {
+    pattern = 'FerretAsyncFinish',
+    callback = function() M.ferret_search = nil end,
+    group = statusline_group
+})
+
+api.nvim_create_autocmd({'WinLeave', 'FocusLost'}, {
+    group = statusline_group,
+    callback = function()
+        set_status_line(false)
+    end
+})
+
+api.nvim_create_autocmd({'BufWinEnter', 'WinEnter', 'FocusGained'}, {
+    group = statusline_group,
+    callback = function()
+        set_status_line(true)
+    end
+})
+
+_G.statusline = M
+
+return M
