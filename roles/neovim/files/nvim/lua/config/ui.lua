@@ -24,8 +24,6 @@ vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave", "InsertEnter" }, {
     desc = [[Do not render cursorline in insert mode]],
 })
 
--- XXX(andrea): this is probably not the best place to put this... even if I
--- change the colorscheme this signs definition would still be valid...
 vim.fn.sign_define(
     "DiagnosticSignError",
     { text = " ", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" }

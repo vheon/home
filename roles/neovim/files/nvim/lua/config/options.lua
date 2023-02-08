@@ -1,3 +1,5 @@
+vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", false, false, true)
+
 -- I miss the different colors for visual, visual line and visual block
 vim.opt.guicursor = {
   ["n-c-sm"] = "block-Cursor",
