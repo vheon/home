@@ -4,7 +4,6 @@ require "config.mappings"
 require "config.ui"
 require "config.clipboard"
 
-
 -- XXX(andrea): This could be a plugin on its own??
 vim.cmd [[
 command! -nargs=* SetIndent call functions#SetIndent(<f-args>)
@@ -72,3 +71,11 @@ function! SwitchSourceHeader()
 endfunction
 nmap <Leader>af :call SwitchSourceHeader()<CR>
 ]]
+
+vim.diagnostic.config {
+    float = { order = "rounded" },
+}
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})

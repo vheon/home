@@ -22,10 +22,46 @@ return {
     },
 
     {
+        "pwntester/octo.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+            "kyazdani42/nvim-web-devicons",
+        },
+        config = function()
+            require("octo").setup()
+        end,
+    },
+
+    -- XXX(andrea): this could be lazy loaded
+    {
+        "sindrets/diffview.nvim",
+        config = function()
+            require("diffview").setup {
+                enhanced_diff_hl = true,
+                view = {
+                    merge_tool = {
+                        layout = "diff1_plain",
+                    },
+                },
+                file_panel = {
+                    win_config = {
+                        width = 45,
+                    },
+                },
+                hooks = {
+                    diff_buf_read = function()
+                        vim.opt_local.wrap = false
+                    end,
+                },
+            }
+        end,
+    },
+
+    {
         "TimUntersberger/neogit",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "sindrets/diffview.nvim",
         },
         config = function()
             local neogit = require "neogit"
@@ -62,7 +98,14 @@ return {
         end,
     },
 
-    { "justinmk/vim-dirvish" },
+    {
+        "stevearc/oil.nvim",
+        config = function()
+            local oil = require "oil"
+            oil.setup()
+            vim.keymap.set("n", "-", oil.open, { desc = "Open parent directory" })
+        end,
+    },
 
     { "tpope/vim-unimpaired" },
     { "tpope/vim-abolish" },
@@ -75,7 +118,8 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
-            -- "hrsh7th/cmp-cmdline",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
+            "hrsh7th/cmp-cmdline",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
         },
@@ -89,11 +133,11 @@ return {
                     end,
                 },
                 window = {
-                    -- completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
                 },
                 sources = {
                     { name = "nvim_lsp" },
+                    { name = "nvim_lsp_signature_help" },
                     { name = "luasnip" },
                     {
                         name = "buffer",
@@ -113,6 +157,13 @@ return {
                     ghost_text = true,
                 },
             }
+            cmp.setup.cmdline(":", {
+                sources = {
+                    { name = "path" },
+                    { name = "cmdline" },
+                },
+                mapping = cmp.mapping.preset.cmdline(),
+            })
         end,
     },
 
@@ -364,10 +415,10 @@ return {
                 }
                 require("mason-lspconfig").setup { automatic_installation = true }
 
-                vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+                vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
                 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
                 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-                -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+                -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
                 local on_attach = function(client, bufnr)
                     -- Enable completion triggered by <c-x><c-o>
@@ -380,9 +431,9 @@ return {
                     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
                     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
                     vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-                    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-                    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-                    vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
+                    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+                    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
                     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
                     if client.supports_method "textDocument/formatting" then
                         vim.keymap.set("n", "gq", function()
@@ -390,7 +441,9 @@ return {
                         end, opts)
                     end
                     if client.supports_method "textDocument/rangeFormatting" then
-                        vim.keymap.set("v", "gq", "<esc><cmd>lua vim.lsp.buf.range_formatting()<cr>", opts)
+                        vim.keymap.set("v", "gq", function()
+                            vim.lsp.buf.format(opts)
+                        end, opts)
                     end
                 end
 

@@ -1,5 +1,4 @@
 local devicons = require'nvim-web-devicons'
-local mocha = require("catppuccin.palettes").get_palette "mocha"
 local api = vim.api
 
 local M = {
