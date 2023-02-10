@@ -9,12 +9,13 @@
 # XXX(andrea): what if the XDG_CONFIG_HOME variable is not set? does ansible see it?
 # XXX(andrea): these considerations are the same as for fish
 - name: Ensure ~/.config directory exists
-  file:
+  ansible.builtin.file:
     path: "~/.config"
     state: directory
+    mode: '0644'
 
 - name: Link configuration in XDG_CONFIG_HOME
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/files/nvim"
     path: "~/.config/nvim"
     state: link
@@ -27,53 +28,22 @@
     path: "{{ brew_bin_location }}"
 
 # XXX(andrea): should we use XDG_DATA_HOME instead of hardcoding ~/.local/share?
-- name: Clone package manager packer.nvim
-  git:
-    dest: ~/.local/share/nvim/site/pack/packer/opt/packer.nvim
-    repo: https://github.com/wbthomason/packer.nvim
-
-- name: Check if we are doing the setup for the first time.
-  stat:
-    path: ~/.local/share/nvim/site/pack/packer/start/
-  register: packer_start_dir
+# XXX(andrea): I would love to mimic the instruction from lazy.nvim and pass also `--filter=blob:none`
+- name: Clone package manager lazy.nvim
+  ansible.builtin.git:
+    dest: ~/.local/share/nvim/lazy/lazy.nvim
+    repo: https://github.com/folke/lazy.nvim.git
+    version: stable
+    update: false
 
 # XXX(andrea): maybe we should set the environment for the whole playbook and be done with it. We could put also XDG directories as well.
 - name: Install all plugins
-  shell: >
-    nvim
-    --headless
-    -u NONE
-    -c "autocmd User PackerComplete qa"
-    -c "lua require'plugins'.install()"
-  environment:
-    PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
-  when: not packer_start_dir.stat.exists
+  ansible.builtin.command: "{{ brew_bin_location }}/nvim --headless '+Lazy! sync' +qa"
+  args:
+    creates: ~/.local/share/nvim/lazy/catppuccin
 
 - name: Ensure ~/code directory exists
-  file:
+  ansible.builtin.file:
     path: "~/code"
     state: directory
-
-- name: Install local plugins
-  shell: >
-    nvim
-    --headless
-    -u NONE
-    -c "autocmd User PackerComplete qa"
-    -c "lua require'plugins'.install()"
-  environment:
-    PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
-
-- name: Remove packer_compiled.vim
-  file:
-    path: "~/.config/nvim/plugin/packer_compiled.vim"
-    state: absent
-
-- name: Update everything and Compile
-  shell: >
-    nvim
-    --headless
-    -c "autocmd User PackerCompileDone qa"
-    -c "lua require'plugins'.sync()"
-  environment:
-    PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
+    mode: '0644'
