@@ -26,36 +26,32 @@ return {
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
-            "kyazdani42/nvim-web-devicons",
+            "nvim-tree/nvim-web-devicons",
         },
-        config = function()
-            require("octo").setup()
-        end,
+        config = true
     },
 
     -- XXX(andrea): this could be lazy loaded
     {
         "sindrets/diffview.nvim",
-        config = function()
-            require("diffview").setup {
-                enhanced_diff_hl = true,
-                view = {
-                    merge_tool = {
-                        layout = "diff1_plain",
-                    },
+        opts = {
+            enhanced_diff_hl = true,
+            view = {
+                merge_tool = {
+                    layout = "diff1_plain",
                 },
-                file_panel = {
-                    win_config = {
-                        width = 45,
-                    },
+            },
+            file_panel = {
+                win_config = {
+                    width = 45,
                 },
-                hooks = {
-                    diff_buf_read = function()
-                        vim.opt_local.wrap = false
-                    end,
-                },
-            }
-        end,
+            },
+            hooks = {
+                diff_buf_read = function()
+                    vim.opt_local.wrap = false
+                end,
+            },
+        },
     },
 
     {
@@ -63,25 +59,26 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        config = function()
+        opts = {
+            disable_builtin_notifications = true,
+            disable_commit_confirmation = true,
+            integrations = { diffview = true },
+            mappings = {
+                status = {
+                    gq = "Close",
+                    b = "",
+                    B = "BranchPopup",
+                },
+            },
+            signs = {
+                section = { "", "" },
+                item = { "", "" },
+                hunk = { "", "▾" },
+            },
+        },
+        config = function(_, opts)
             local neogit = require "neogit"
-            neogit.setup {
-                disable_builtin_notifications = true,
-                disable_commit_confirmation = true,
-                integrations = { diffview = true },
-                mappings = {
-                    status = {
-                        gq = "Close",
-                        b = "",
-                        B = "BranchPopup",
-                    },
-                },
-                signs = {
-                    section = { "", "" },
-                    item = { "", "" },
-                    hunk = { "", "▾" },
-                },
-            }
+            neogit.setup(opts)
             vim.keymap.set("n", "<Leader>gs", function()
                 neogit.open()
             end)
@@ -100,9 +97,15 @@ return {
 
     {
         "stevearc/oil.nvim",
-        config = function()
+        opts = {
+            skip_confirm_for_simple_edits = true,
+            keymaps = {
+                ["gq"] = "actions.close",
+            },
+        },
+        config = function(_, opts)
             local oil = require "oil"
-            oil.setup()
+            oil.setup(opts)
             vim.keymap.set("n", "-", oil.open, { desc = "Open parent directory" })
         end,
     },
@@ -170,7 +173,7 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = "BufReadPre",
-        config = {
+        opts = {
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
 
@@ -207,12 +210,13 @@ return {
 
     {
         "kevinhwang91/nvim-bqf",
-        config = function()
-            require("bqf").setup {
-                preview = {
-                    auto_preview = false,
-                },
-            }
+        opts = {
+            preview = {
+                auto_preview = false,
+            },
+        },
+        config = function(_, opts)
+            require("bqf").setup(opts)
             vim.keymap.set("n", "<Leader>q", function()
                 local nr = #vim.api.nvim_list_wins()
                 vim.cmd "cwindow"
@@ -452,7 +456,7 @@ return {
                     require("lspconfig")[lsp].setup { on_attach = on_attach }
                 end
 
-                require("lspconfig").sumneko_lua.setup {
+                require("lspconfig").lua_ls.setup {
                     on_attach = on_attach,
                     settings = {
                         Lua = {
@@ -488,44 +492,74 @@ return {
 
     { "khaveesh/vim-fish-syntax" },
 
-    { "kyazdani42/nvim-web-devicons" },
-
     {
         "akinsho/nvim-toggleterm.lua",
         branch = "main",
-        config = function()
-            require("toggleterm").setup {
-                direction = "float",
-                open_mapping = [[<C-\><C-\>]],
-                insert_mappings = false,
-                float_opts = {
-                    border = "rounded",
-                },
-            }
-        end,
+        opts = {
+            direction = "float",
+            open_mapping = [[<C-\><C-\>]],
+            insert_mappings = false,
+            float_opts = {
+                border = "rounded",
+            },
+        },
     },
 
     {
         "catppuccin/nvim",
         name = "catppuccin",
+        opts = {
+            flavour = "mocha", -- mocha, macchiato, frappe, latte
+            term_colors = true,
+            integrations = {
+                mason = true,
+                neogit = true,
+                notify = true,
+                noice = true,
+            },
+            custom_highlights = function(colors)
+                return {
+                    User3 = { bg = colors.mantle, fg = colors.peach, italic = true },
+                    User4 = { bg = colors.mantle, fg = colors.teal },
+                    User5 = { bg = colors.teal, fg = colors.base, bold = true },
+                }
+            end,
+        },
+    },
+
+    {
+        "stevearc/overseer.nvim",
         config = function()
-            require("catppuccin").setup {
-                flavour = "mocha", -- mocha, macchiato, frappe, latte
-                term_colors = true,
-                integrations = {
-                    mason = true,
-                    neogit = true,
-                    notify = true,
-                    noice = true,
+            local overseer = require "overseer"
+            overseer.setup {
+                log = {
+                    {
+                        type = "echo",
+                        level = vim.log.levels.WARN,
+                    },
+                    {
+                        type = "file",
+                        filename = "overseer.log",
+                        level = vim.log.levels.TRACE,
+                    },
                 },
-                custom_highlights = function(colors)
-                    return {
-                        User3 = { bg = colors.mantle, fg = colors.peach, italic = true },
-                        User4 = { bg = colors.mantle, fg = colors.teal },
-                        User5 = { bg = colors.teal, fg = colors.base, bold = true },
-                    }
-                end,
+                -- strategy = {
+                --     "toggleterm",
+                --     use_shell = true,
+                --     direction = "float",
+                --     auto_scroll = true,
+                --     close_on_exit = true,
+                -- },
             }
+            vim.keymap.set("n", "<leader>ot", "<cmd>OverseerToggle<cr>")
+            vim.api.nvim_create_user_command("OverseerRestartLast", function()
+                local tasks = overseer.list_tasks { recent_first = true }
+                if vim.tbl_isempty(tasks) then
+                    vim.notify("No tasks found", vim.log.levels.WARN)
+                else
+                    overseer.run_action(tasks[1], "restart")
+                end
+            end, {})
         end,
     },
 
@@ -536,11 +570,20 @@ return {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
         },
-        config = {
+        opts = {
+            lsp = {
+                -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
+                },
+            },
             presets = {
                 bottom_search = true,
                 command_palette = true,
                 long_message_to_split = true,
+                lsp_doc_border = true,
             },
             routes = {
                 {
@@ -549,5 +592,11 @@ return {
                 },
             },
         },
+    },
+
+    {
+        "folke/trouble.nvim",
+        dependencies = "nvim-tree/nvim-web-devicons",
+        config = true,
     },
 }
