@@ -1,4 +1,5 @@
 set -gx XDG_CONFIG_HOME $HOME/.config
+set -gx XDG_DATA_HOME $HOME/.local
 set -gx GOKU_EDN_CONFIG_FILE $XDG_CONFIG_HOME/karabiner/karabiner.edn
 set -gx EDITOR nvim
 set -gx VISUAL $EDITOR
@@ -8,6 +9,7 @@ set -gx LANG "en_US.UTF-8"
 
 set -Ux fish_user_paths
 fish_add_path -a $HOME/bin
+fish_add_path -a $XDG_DATA_HOME/bin
 fish_add_path -a $XDG_CONFIG_HOME/fzf/bin
 
 # XXX(andrea): This should be set somehow by the go role :/ maybe the role could add a fish file
