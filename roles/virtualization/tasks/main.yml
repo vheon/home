@@ -1,18 +1,18 @@
 ---
 - name: Add hashicorp apt GPG key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://apt.releases.hashicorp.com/gpg
   become: true
 
 - name: Add hashicorp repository
-  apt_repository:
-    repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ansible_distribution_release}} main
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
     state: present
   become: true
 
 # XXX(andrea): I don't remember why these are not pulled from brew :/
 - name: Install Vagrant and virtualization dependencies
-  apt:
+  ansible.builtin.apt:
     name:
       - vagrant
       - qemu
@@ -25,9 +25,9 @@
   become: true
 
 - name: Enable libvirtd service
-  service:
+  ansible.builtin.service:
     name: libvirtd
-    enabled: yes
+    enabled: true
     state: restarted
   become: true
 
@@ -42,16 +42,17 @@
 
 - name: Install vagrant fish wrapper
   block:
-  - name: Ensure XDG_DATA_HOME/fish/vendor_functions.d directory exists.
-    file:
-      path: "~/.local/share/fish/vendor_functions.d"
-      state: directory
+    - name: Ensure XDG_DATA_HOME/fish/vendor_functions.d directory exists.
+      ansible.builtin.file:
+        path: "~/.local/share/fish/vendor_functions.d"
+        state: directory
+        mode: 0755
 
-  - name: Link vagrant wrapper for the fish shell
-    file:
-      src: "{{ role_path }}/files/vagrant.fish"
-      path: "~/.local/share/fish/vendor_functions.d/vagrant.fish"
-      state: link
+    - name: Link vagrant wrapper for the fish shell
+      ansible.builtin.file:
+        src: "{{ role_path }}/files/vagrant.fish"
+        path: "~/.local/share/fish/vendor_functions.d/vagrant.fish"
+        state: link
 
 - name: Install Hashicorp Packer in order to create various images
   community.general.homebrew:
