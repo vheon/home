@@ -12,7 +12,7 @@
   ansible.builtin.file:
     path: "~/.config"
     state: directory
-    mode: '0644'
+    mode: '0755'
 
 - name: Link configuration in XDG_CONFIG_HOME
   ansible.builtin.file:
@@ -46,4 +46,4 @@
   ansible.builtin.file:
     path: "~/code"
     state: directory
-    mode: '0644'
+    mode: '0755'
