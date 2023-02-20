@@ -31,7 +31,7 @@
 # XXX(andrea): I would love to mimic the instruction from lazy.nvim and pass also `--filter=blob:none`
 - name: Clone package manager lazy.nvim
   ansible.builtin.git:
-    dest: ~/.local/share/nvim/lazy/lazy.nvim
+    dest: ~/.local/nvim/lazy/lazy.nvim
     repo: https://github.com/folke/lazy.nvim.git
     version: stable
     update: false
