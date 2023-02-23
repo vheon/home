@@ -8,20 +8,22 @@
     path: "{{ brew_bin_location }}"
 
 - name: Ensure iTerm2 DynamicProfiles directory exists.
-  file:
+  ansible.builtin.file:
     path: ~/Library/Application Support/iTerm2/DynamicProfiles
     state: directory
+    mode: '0755'
 
 - name: Link Base Dynamic Profile
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/files/DynamicProfiles/00-Base.json"
     path: "~/Library/Application Support/iTerm2/DynamicProfiles/00-Base.json"
     state: link
 
 - name: Create Local Dynamic Profile
-  template:
+  ansible.builtin.template:
     src: 20-Local.json.j2
     dest: "~/Library/Application Support/iTerm2/DynamicProfiles/20-Local.json"
+    mode: '0644'
 
 # HACK(andrea): as of right now iTerm2 has limited powerline extra support.
 # In https://gitlab.com/gnachman/iterm2/-/commit/c65295f8d7c2866485cf8336fa4afe0a145870b9
@@ -32,10 +34,11 @@
 # and copy the eps file I wanted in the (brew --prefix)/Caskroom/iterm2-nightly/latest/iTerm.app/Contents/Resources/
 # renamed as the powerline extra symbols that were thre but that I do not use (like the flame one)
 - name: Replace Powerline Extra Glyphs
-  copy:
+  ansible.builtin.copy:
     src: "powerline_extra_glyphs/{{ item.src }}"
     dest: "/Applications/iTerm.app/Contents/Resources/{{ item.dest }}"
-    backup: yes
+    mode: '0644'
+    backup: true
   loop:
     - { src: "U+E0BC.eps", dest: "uniE0C0_flame-thick.eps" }
     - { src: "U+E0BE.eps", dest: "uniE0C1_flame-thin.eps" }
@@ -44,15 +47,14 @@
     - { src: "U+E0B9.eps", dest: "uniE0D0_lego_block_facing_WIP.eps" }
     - { src: "U+E0BB.eps", dest: "uniE0D1_lego_block_sideways.eps" }
 
-
 - name: Ensure iTerm2 Scripts directory exists.
-  file:
+  ansible.builtin.file:
     path: "~/Library/Application Support/iTerm2/Scripts"
     state: directory
+    mode: '0755'
 
 - name: Link scripts
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/files/Scripts/adjust_font_size.py"
     path: "~/Library/Application Support/iTerm2/Scripts/adjust_font_size.py"
     state: link
-
