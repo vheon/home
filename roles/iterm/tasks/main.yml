@@ -2,8 +2,9 @@
 - name: Ensure iTerm2 and the configured font are installed
   community.general.homebrew_cask:
     name:
-      - iterm2-nightly
+      - iterm2-beta
       - font-jetbrains-mono-nerd-font
+    install_options: no-quarantine # without this we cannot replace the PowerlineExtraSymbols without open iTerm2 first
     path: "{{ brew_bin_location }}"
 
 - name: Ensure iTerm2 DynamicProfiles directory exists.
