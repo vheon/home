@@ -96,6 +96,9 @@
       when: is_macOS
       tags:
         - iterm
+    - role: hammerspoon
+      when: is_macOS
+      tags:
+        - hammerspoon
     # XXX(andrea): next steps to implement
     # - role: macOS
-    # - role: hammerspoon??

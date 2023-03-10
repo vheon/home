@@ -5,4 +5,5 @@
 roles/fish/files/fish/fish_variables
 roles/neovim/files/nvim/plugin/packer_compiled.vim
 roles/neovim/files/nvim/plugin/packer_compiled.lua
+roles/hammerspoon/files/hammerspoon/Spoons/
 .vagrant/

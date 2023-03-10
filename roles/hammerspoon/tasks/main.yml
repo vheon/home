@@ -1,0 +1,40 @@
+---
+- name: Install hammerspoon
+  community.general.homebrew_cask:
+    name:
+      - hammerspoon
+    path: "{{ brew_bin_location }}"
+
+- name: Ensure ~/.config directory exists
+  ansible.builtin.file:
+    path: "~/.config"
+    state: directory
+    mode: '0755'
+
+- name: Link hammerspoon configuration
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/hammerspoon"
+    path: "~/.config/hammerspoon"
+    state: link
+
+- name: Configure Hammerspoon to look in XDG for its configuration
+  community.general.osx_defaults:
+    domain: org.hammerspoon.Hammerspoon
+    key: MJConfigFile
+    type: string
+    value: "~/.config/hammerspoon/init.lua"
+    state: present
+
+- name: Install SpoonInstall Spoon
+  block:
+    - name: Ensure Spoons directory exists
+      ansible.builtin.file:
+        path: "~/.config/hammerspoon/Spoons"
+        state: directory
+        mode: '0755'
+
+    - name: Download SpoonInstall
+      ansible.builtin.unarchive:
+        src: https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip
+        dest: "~/.config/hammerspoon/Spoons"
+        remote_src: true
