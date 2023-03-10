@@ -1,5 +1,6 @@
+set -gx XDG_DATA_HOME $HOME/.local/share
 set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx XDG_DATA_HOME $HOME/.local
+set -gx XDG_STATE_HOME $HOME/.local/state
 set -gx GOKU_EDN_CONFIG_FILE $XDG_CONFIG_HOME/karabiner/karabiner.edn
 set -gx EDITOR nvim
 set -gx VISUAL $EDITOR
