@@ -1,5 +1,7 @@
 local devicons = require'nvim-web-devicons'
 local api = vim.api
+local dap = require 'dap'
+local hydra = require 'hydra.statusline'
 
 local M = {
     ferret_search = nil
@@ -91,8 +93,56 @@ function M.bufname()
   return name
 end
 
+local hydra_colors = {
+    red = "HydraStatusRed",
+    blue = "HydraStatusBlue",
+    amaranth = "HydraStatusAmaranth",
+    teal = "HydraStatusTeal",
+    pink = "HydraStatusPink",
+}
+
+function M.hydra()
+    if not hydra.is_active() then
+        return ''
+    end
+    local name = hydra.get_name()
+    local color = hydra.get_color()
+    return table.concat({
+        '%#', hydra_colors[color], 'Inv', '#', -- set highlight
+        '',
+        '%#', hydra_colors[color], '#', -- set highlight
+        '● ',
+        name,
+        '%#', hydra_colors[color], 'Inv', '#', -- set highlight
+        '',
+        '%*', -- Reset highlight group.
+    }, '')
+end
+
+function M.dap()
+    local status = dap.status()
+    if status ~= '' then
+        return table.concat({
+            ' ',
+            '%#HydraStatusBlueInv#', -- set highlight
+            '',
+            '%#HydraStatusBlue#',
+            'ﮣ ',
+            status,
+            '%#HydraStatusBlueInv#', -- set highlight
+            '',
+            '%*', -- Reset highlight group.
+        }, '')
+    end
+    return status
+end
+
 local function funcref(ref)
     return '%{v:lua.statusline.'..ref..'()}'
+end
+
+local function hifuncref(ref)
+    return table.concat({'%{%v:lua.statusline.', ref, '()%}'}, '')
 end
 
 local function qf_label(is_qf)
@@ -164,6 +214,8 @@ local function status_line(active)
     '%)',
 
     '%*', -- Reset highlight group.
+    hifuncref('hydra'),
+    hifuncref('dap'),
     '%=',
 
     funcref('ferret_search_status'),

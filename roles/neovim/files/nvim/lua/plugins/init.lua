@@ -490,6 +490,108 @@ return {
         },
     },
 
+    {
+        "mfussenegger/nvim-dap",
+        config = function()
+            vim.fn.sign_define {
+                {
+                    name = "DapBreakpoint",
+                    text = "", --  'ﴫ'
+                    texthl = "DapBreakpoint",
+                    linehl = "",
+                    numhl = "",
+                },
+                {
+                    name = "DapBreakpointCondition",
+                    text = "",
+                    texthl = "DapBreakpointCondition",
+                    linehl = "",
+                    numhl = "",
+                },
+                {
+                    name = "DapBreakpointRejected",
+                    text = "ﰸ",
+                    texthl = "DiagnosticError",
+                    linehl = "",
+                    numhl = "",
+                },
+                {
+                    name = "DapLogPoint",
+                    text = '',
+                    texthl = "DapLogPoint",
+                    linehl = "",
+                    numhl = "",
+                },
+                {
+                    name = "DapStopped",
+                    text = '',
+                    texthl = "DapStopped",
+                    linehl = "",
+                    numhl = "",
+                },
+            }
+        end,
+    },
+    {
+        "leoluz/nvim-dap-go",
+        dependencies = { "mfussenegger/nvim-dap" },
+        config = true,
+    },
+    {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "mfussenegger/nvim-dap" },
+        config = true,
+    },
+    {
+        "anuvyklack/hydra.nvim",
+        config = function()
+            local Hydra = require('hydra')
+
+            -- XXX(andrea): this is wrong! either fix it or just use the generated one
+            local hint = [[
+ _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
+ _i_: step into   _U_: Toggle UI        ^ ^                 ^ ^
+ _o_: step out    _X_: Terminate        ^ ^
+ _c_: to cursor
+ ^
+ ^ ^              _q_: exit
+]]
+
+            Hydra({
+                -- hint = hint,
+                config = {
+                    color = 'pink',
+                    invoke_on_body = true,
+                    hint = {
+                        type = 'window',
+                        position = 'bottom',
+                        border = 'rounded'
+                    },
+                },
+                name = 'dap',
+                mode = { 'n', 'x' },
+                body = '<leader>dh',
+                heads = {
+                    { 'n', function() require('dap').step_over() end, { desc = "step over" } },
+                    { 'i', function() require('dap').step_into() end, { desc = "step into" } },
+                    { 'o', function() require('dap').step_out() end, { desc = "step out" } },
+                    { 'c', function() require('dap').run_to_cursor() end, { desc = "to cursor" } },
+                    { 's', function() require('dap').continue() end, { desc = "Continue/Start" } },
+                    { 'X', function() require('dap').terminate() end, { desc = "terminate" } },
+                    { 'U', function() require('dapui').toggle() end, { desc = "Toggle UI" } },
+                    { 'b', function() require('dap').toggle_breakpoint() end, { desc = "Breakpoint" } },
+                    { 'L', function()
+                        vim.ui.input({ prompt = 'Log point message: ' }, function(input)
+                            require('dap').set_breakpoint(nil, nil, input)
+                        end)
+                    end, { desc = "Add Log Point" } },
+                    { 'K', function() require('dap.ui.widgets').hover() end, { desc = "Eval" } },
+                    { 'q', nil, { exit = true, nowait = true } },
+                }
+            })
+        end
+    },
+
     { "khaveesh/vim-fish-syntax" },
 
     {
@@ -516,12 +618,30 @@ return {
                 neogit = true,
                 notify = true,
                 noice = true,
+                dap = true,
+                overseer = true,
             },
             custom_highlights = function(colors)
                 return {
                     User3 = { bg = colors.mantle, fg = colors.peach, italic = true },
                     User4 = { bg = colors.mantle, fg = colors.teal },
                     User5 = { bg = colors.teal, fg = colors.base, bold = true },
+                    HydraRed = { fg = colors.red },
+                    HydraBlue = { fg = colors.blue },
+                    HydraAmaranth = { fg = colors.maroon },
+                    HydraTeal = { fg = colors.teal },
+                    HydraPink = { fg = colors.pink },
+
+                    HydraStatusRed = { fg = colors.base, bg = colors.red, bold = true },
+                    HydraStatusRedInv = { bg = colors.base, fg = colors.red, bold = true },
+                    HydraStatusBlue = { fg = colors.base, bg = colors.blue, bold = true },
+                    HydraStatusBlueInv = { bg = colors.base, fg = colors.blue, bold = true },
+                    HydraStatusAmaranth = { fg = colors.base, bg = colors.maroon, bold = true },
+                    HydraStatusAmaranthInv = { bg = colors.base, fg = colors.maroon, bold = true },
+                    HydraStatusTeal = { fg = colors.base, bg = colors.teal, bold = true },
+                    HydraStatusTealInv = { bg = colors.base, fg = colors.teal, bold = true },
+                    HydraStatusPink = { fg = colors.base, bg = colors.pink, bold = true },
+                    HydraStatusPinkInv = { bg = colors.base, fg = colors.pink, bold = true },
                 }
             end,
         },
