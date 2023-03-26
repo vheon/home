@@ -33,6 +33,10 @@ vim.opt.hidden = true
 vim.opt.cursorline = true
 vim.opt.colorcolumn = { 111 }
 
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
+
 vim.opt.list = true
 vim.opt.fillchars = {
   vert = "│",
