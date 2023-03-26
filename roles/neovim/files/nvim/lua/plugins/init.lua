@@ -443,6 +443,17 @@ return {
                     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
                     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
                     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+                    vim.keymap.set({"i", "n", "s"}, "<c-u>", function()
+                        if not require("noice.lsp").scroll(-4) then
+                            return "<c-u>"
+                        end
+                        return ""
+                    end, { expr = true, buffer = bufnr })
+                    vim.keymap.set({"i", "n", "s"}, "<c-d>", function()
+                        if not require("noice.lsp").scroll(4) then
+                            return "<c-d>"
+                        end
+                    end, { expr = true, buffer = bufnr })
                     if client.supports_method "textDocument/formatting" then
                         vim.keymap.set("n", "gq", function()
                             vim.lsp.buf.format(opts)
