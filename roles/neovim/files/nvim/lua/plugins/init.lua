@@ -87,6 +87,10 @@ return {
 
     {
         "rcarriga/nvim-notify",
+        lazy = true,
+        opts = {
+            stages = "static",
+        },
         init = function()
             vim.notify = function(...)
                 vim.notify = require "notify"
