@@ -36,19 +36,13 @@ augroup VimrcAutocmds
   autocmd!
 augroup END
 command! -nargs=* Autocmd autocmd VimrcAutocmds <args>
-]]
 
-vim.cmd [[
 Autocmd BufLeave * let b:last_cwd = getcwd()
 Autocmd BufEnter * if exists('b:last_cwd')
                 \|   execute 'lcd' escape(b:last_cwd, ' ')
                 \| else
                 \|   silent! Glcd
                 \| endif
-
-Autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 1 && line("'\"") <= line("$")
-                   \|   execute 'normal! g`"'
-                   \| endif
 
 " XXX(andrea): should look if a help window is already open and use that instead.
 " XXX(andrea): might be worth it to open the doc in a temp floating window??
@@ -59,9 +53,7 @@ Autocmd FileType help nnoremap <silent><buffer> gq :q!<cr>
 
 Autocmd TermOpen term://* startinsert
 tnoremap <C-\>b <C-\><C-N>? <cr>
-]]
 
-vim.cmd [[
 function! SwitchSourceHeader()
   if (expand ("%:e") == "cpp")
     find %:t:r.h
