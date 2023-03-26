@@ -638,9 +638,12 @@ return {
             },
             custom_highlights = function(colors)
                 return {
+                    User1 = { bg = colors.mantle, fg = colors.surface1, bold = true },
+                    User2 = { bg = colors.base, fg = colors.green, bold = true },
                     User3 = { bg = colors.mantle, fg = colors.peach, italic = true },
                     User4 = { bg = colors.mantle, fg = colors.teal },
                     User5 = { bg = colors.teal, fg = colors.base, bold = true },
+
                     HydraRed = { fg = colors.red },
                     HydraBlue = { fg = colors.blue },
                     HydraAmaranth = { fg = colors.maroon },
