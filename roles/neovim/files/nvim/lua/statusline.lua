@@ -28,7 +28,7 @@ end
 
 function M.ro()
   if vim.bo.readonly then
-    return ' '
+    return ' ' -- ' '
   end
   return ''
 end
