@@ -44,7 +44,8 @@ vim.opt.fillchars = {
 }
 vim.opt.listchars = {
   tab = "→ ",
-  trail = "␣",
+  -- trail = "␣",
+  trail = '•', -- BULLET (U+2022, UTF-8: E2 80 A2)
   extends = "⇉",
   precedes = "⇇",
   nbsp = "⚭"
