@@ -614,6 +614,8 @@ return {
         end,
     },
 
+    { "AndrewRadev/linediff.vim", cmd = "Linediff" },
+
     { "khaveesh/vim-fish-syntax" },
 
     {
