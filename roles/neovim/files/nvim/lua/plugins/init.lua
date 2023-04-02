@@ -34,6 +34,7 @@ return {
     -- XXX(andrea): this could be lazy loaded
     {
         "sindrets/diffview.nvim",
+        cmd = { "DiffviewOpen", "DiffviewFileHistory" },
         opts = {
             enhanced_diff_hl = true,
             view = {
@@ -56,8 +57,10 @@ return {
 
     {
         "TimUntersberger/neogit",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = "Neogit",
+        keys = {
+            { "<Leader>gs", function() require("neogit").open() end, desc = "open status buffer" },
         },
         opts = {
             disable_builtin_notifications = true,
@@ -76,13 +79,6 @@ return {
                 hunk = { "", "▾" },
             },
         },
-        config = function(_, opts)
-            local neogit = require "neogit"
-            neogit.setup(opts)
-            vim.keymap.set("n", "<Leader>gs", function()
-                neogit.open()
-            end)
-        end,
     },
 
     {
@@ -176,7 +172,7 @@ return {
 
     {
         "lewis6991/gitsigns.nvim",
-        event = "BufReadPre",
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
@@ -397,111 +393,120 @@ return {
     },
 
     {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
+        {
+            "williamboman/mason.nvim",
+            cmd = "Mason",
+            opts = {
+                max_concurrent_installers = 10,
+                ui = {
+                    border = "rounded",
+                    icons = {
+                        package_installed = "",
+                        package_pending = "",
+                        package_uninstalled = "",
+                    },
+                },
+                keymaps = {
+                    toggle_package_expand = "<Tab>",
+                },
+            },
+        },
         "jose-elias-alvarez/null-ls.nvim",
         {
-            "neovim/nvim-lspconfig",
+            "williamboman/mason-lspconfig.nvim",
+            opts = { automatic_installation = true },
+            event = { "BufReadPre", "BufNewFile" },
             dependencies = {
-                "nvim-lua/plenary.nvim",
+                "mason.nvim",
+                {
+                    "neovim/nvim-lspconfig",
+                    dependencies = {
+                        "nvim-lua/plenary.nvim",
+                    },
+                    config = function()
+                        require("lspconfig.ui.windows").default_options.border = "rounded"
+
+                        vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+                        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+                        vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+                        -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+
+                        local on_attach = function(client, bufnr)
+                            -- Enable completion triggered by <c-x><c-o>
+                            vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+                            -- Mappings
+                            local opts = { buffer = bufnr }
+                            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+                            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+                            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+                            vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+                            vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+                            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+                            vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+                            vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+                            vim.keymap.set({ "i", "n", "s" }, "<c-u>", function()
+                                if not require("noice.lsp").scroll(-4) then
+                                    return "<c-u>"
+                                end
+                                return ""
+                            end, { expr = true, buffer = bufnr })
+                            vim.keymap.set({ "i", "n", "s" }, "<c-d>", function()
+                                if not require("noice.lsp").scroll(4) then
+                                    return "<c-d>"
+                                end
+                            end, { expr = true, buffer = bufnr })
+                            if client.supports_method "textDocument/formatting" then
+                                vim.keymap.set("n", "gq", function()
+                                    vim.lsp.buf.format(opts)
+                                end, opts)
+                            end
+                            if client.supports_method "textDocument/rangeFormatting" then
+                                vim.keymap.set("v", "gq", function()
+                                    vim.lsp.buf.format(opts)
+                                end, opts)
+                            end
+                        end
+
+                        local servers = { "gopls", "ansiblels", "yamlls" }
+                        for _, lsp in pairs(servers) do
+                            require("lspconfig")[lsp].setup { on_attach = on_attach }
+                        end
+
+                        require("lspconfig").lua_ls.setup {
+                            on_attach = on_attach,
+                            settings = {
+                                Lua = {
+                                    runtime = {
+                                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                                        version = "LuaJIT",
+                                    },
+                                    diagnostics = {
+                                        -- Get the language server to recognize the `vim` global
+                                        globals = { "vim" },
+                                    },
+                                    workspace = {
+                                        -- Make the server aware of Neovim runtime files
+                                        library = vim.api.nvim_get_runtime_file("", true),
+                                    },
+                                    -- Do not send telemetry data containing a randomized but unique identifier
+                                    telemetry = {
+                                        enable = false,
+                                    },
+                                },
+                            },
+                        }
+                        local null_ls = require "null-ls"
+                        null_ls.setup {
+                            sources = {
+                                null_ls.builtins.formatting.stylua,
+                            },
+                            on_attach = on_attach,
+                        }
+                    end,
+                },
             },
-            config = function()
-                require("lspconfig.ui.windows").default_options.border = "rounded"
-                require("mason").setup {
-                    max_concurrent_installers = 10,
-                    ui = {
-                        border = "rounded",
-                        icons = {
-                            package_installed = "",
-                            package_pending = "",
-                            package_uninstalled = "",
-                        },
-                    },
-                    keymaps = {
-                        toggle_package_expand = "<Tab>",
-                    },
-                }
-                require("mason-lspconfig").setup { automatic_installation = true }
-
-                vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-                vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-                vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-                -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-
-                local on_attach = function(client, bufnr)
-                    -- Enable completion triggered by <c-x><c-o>
-                    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-                    -- Mappings
-                    local opts = { buffer = bufnr }
-                    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-                    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-                    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
-                    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-                    vim.keymap.set({"i", "n", "s"}, "<c-u>", function()
-                        if not require("noice.lsp").scroll(-4) then
-                            return "<c-u>"
-                        end
-                        return ""
-                    end, { expr = true, buffer = bufnr })
-                    vim.keymap.set({"i", "n", "s"}, "<c-d>", function()
-                        if not require("noice.lsp").scroll(4) then
-                            return "<c-d>"
-                        end
-                    end, { expr = true, buffer = bufnr })
-                    if client.supports_method "textDocument/formatting" then
-                        vim.keymap.set("n", "gq", function()
-                            vim.lsp.buf.format(opts)
-                        end, opts)
-                    end
-                    if client.supports_method "textDocument/rangeFormatting" then
-                        vim.keymap.set("v", "gq", function()
-                            vim.lsp.buf.format(opts)
-                        end, opts)
-                    end
-                end
-
-                local servers = { "gopls", "ansiblels", "yamlls" }
-                for _, lsp in pairs(servers) do
-                    require("lspconfig")[lsp].setup { on_attach = on_attach }
-                end
-
-                require("lspconfig").lua_ls.setup {
-                    on_attach = on_attach,
-                    settings = {
-                        Lua = {
-                            runtime = {
-                                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                                version = "LuaJIT",
-                            },
-                            diagnostics = {
-                                -- Get the language server to recognize the `vim` global
-                                globals = { "vim" },
-                            },
-                            workspace = {
-                                -- Make the server aware of Neovim runtime files
-                                library = vim.api.nvim_get_runtime_file("", true),
-                            },
-                            -- Do not send telemetry data containing a randomized but unique identifier
-                            telemetry = {
-                                enable = false,
-                            },
-                        },
-                    },
-                }
-                local null_ls = require "null-ls"
-                null_ls.setup {
-                    sources = {
-                        null_ls.builtins.formatting.stylua,
-                    },
-                    on_attach = on_attach,
-                }
-            end,
         },
     },
 
@@ -532,14 +537,14 @@ return {
                 },
                 {
                     name = "DapLogPoint",
-                    text = '',
+                    text = "",
                     texthl = "DapLogPoint",
                     linehl = "",
                     numhl = "",
                 },
                 {
                     name = "DapStopped",
-                    text = '',
+                    text = "",
                     texthl = "DapStopped",
                     linehl = "",
                     numhl = "",
@@ -560,7 +565,7 @@ return {
     {
         "anuvyklack/hydra.nvim",
         config = function()
-            local Hydra = require('hydra')
+            local Hydra = require "hydra"
 
             -- XXX(andrea): this is wrong! either fix it or just use the generated one
             local hint = [[
@@ -572,39 +577,39 @@ return {
  ^ ^              _q_: exit
 ]]
 
-            Hydra({
+            Hydra {
                 -- hint = hint,
                 config = {
-                    color = 'pink',
+                    color = "pink",
                     invoke_on_body = true,
                     hint = {
-                        type = 'window',
-                        position = 'bottom',
-                        border = 'rounded'
+                        type = "window",
+                        position = "bottom",
+                        border = "rounded",
                     },
                 },
-                name = 'dap',
-                mode = { 'n', 'x' },
-                body = '<leader>dh',
+                name = "dap",
+                mode = { "n", "x" },
+                body = "<leader>dh",
                 heads = {
-                    { 'n', function() require('dap').step_over() end, { desc = "step over" } },
-                    { 'i', function() require('dap').step_into() end, { desc = "step into" } },
-                    { 'o', function() require('dap').step_out() end, { desc = "step out" } },
-                    { 'c', function() require('dap').run_to_cursor() end, { desc = "to cursor" } },
-                    { 's', function() require('dap').continue() end, { desc = "Continue/Start" } },
-                    { 'X', function() require('dap').terminate() end, { desc = "terminate" } },
-                    { 'U', function() require('dapui').toggle() end, { desc = "Toggle UI" } },
-                    { 'b', function() require('dap').toggle_breakpoint() end, { desc = "Breakpoint" } },
-                    { 'L', function()
-                        vim.ui.input({ prompt = 'Log point message: ' }, function(input)
-                            require('dap').set_breakpoint(nil, nil, input)
+                    { "n", function() require("dap").step_over() end, { desc = "step over" } },
+                    { "i", function() require("dap").step_into() end, { desc = "step into" } },
+                    { "o", function() require("dap").step_out() end, { desc = "step out" } },
+                    { "c", function() require("dap").continue() end, { desc = "Continue/Start" } },
+                    { "C", function() require("dap").run_to_cursor() end, { desc = "to cursor" } },
+                    { "X", function() require("dap").terminate() end, { desc = "terminate" } },
+                    { "U", function() require("dapui").toggle() end, { desc = "Toggle UI" } },
+                    { "b", function() require("dap").toggle_breakpoint() end, { desc = "Breakpoint" } },
+                    { "L", function()
+                        vim.ui.input({ prompt = "Log point message: " }, function(input)
+                            require("dap").set_breakpoint(nil, nil, input)
                         end)
                     end, { desc = "Add Log Point" } },
-                    { 'K', function() require('dap.ui.widgets').hover() end, { desc = "Eval" } },
-                    { 'q', nil, { exit = true, nowait = true } },
-                }
-            })
-        end
+                    { "K", function() require("dap.ui.widgets").hover() end, { desc = "Eval" } },
+                    { "q", nil, { exit = true, nowait = true } },
+                },
+            }
+        end,
     },
 
     { "khaveesh/vim-fish-syntax" },
