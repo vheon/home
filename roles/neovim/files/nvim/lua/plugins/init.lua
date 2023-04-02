@@ -88,6 +88,7 @@ return {
             stages = "static",
         },
         init = function()
+            ---@diagnostic disable: duplicate-set-field
             vim.notify = function(...)
                 vim.notify = require "notify"
                 return vim.notify(...)
