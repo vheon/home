@@ -767,6 +767,44 @@ return {
     },
 
     {
+        "b0o/incline.nvim",
+        opts = {
+            hide = {
+                focused_win = true,
+            },
+            render = function(props)
+                local extract_extension = function(filename)
+                    local parts = vim.split(filename, "%.")
+                    local start = #parts
+                    if start > 2 then
+                        start = start - 1
+                    end
+                    ---@diagnostic disable-next-line: missing-parameter
+                    return table.concat(vim.list_slice(parts, start), ".")
+                end
+
+                local buf = props.buf
+                local filename = vim.fs.basename(vim.api.nvim_buf_get_name(buf))
+                local extension = extract_extension(filename)
+                local ft_icon, ft_color =
+                    require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+                local modified_icon = ""
+                if vim.bo[buf].modified then
+                    modified_icon = " ●"
+                end
+
+                local buffer = {
+                    { ft_icon, guifg = ft_color },
+                    { " " },
+                    { filename, gui = "bold,italic" },
+                    { modified_icon },
+                }
+                return buffer
+            end,
+        },
+    },
+
+    {
         "folke/trouble.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
         config = true,
