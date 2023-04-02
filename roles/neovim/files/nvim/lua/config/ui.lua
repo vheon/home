@@ -9,7 +9,7 @@ vim.opt.tabline = "%!v:lua.tabline()"
 vim.opt.termguicolors = true
 vim.cmd.colorscheme "catppuccin"
 
-local augroup = vim.api.nvim_create_augroup("init.lua", { clear = true })
+local augroup = vim.api.nvim_create_augroup("config/ui.lua", { clear = true })
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "InsertLeave" }, {
     callback = function()
         vim.opt.cursorline = true
