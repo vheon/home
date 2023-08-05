@@ -672,6 +672,7 @@ return {
             },
         },
     },
+    { "nyoom-engineering/oxocarbon.nvim" },
 
     {
         "catppuccin/nvim",
