@@ -66,4 +66,10 @@ nmap <Leader>af :call SwitchSourceHeader()<CR>
 
 vim.diagnostic.config {
     float = { order = "rounded" },
+    virtual_text = {
+        format = function(diagnostic)
+            local newline, _ = diagnostic.message:find("\n", 1, true)
+            return string.sub(diagnostic.message, 1, newline)
+        end
+    }
 }
