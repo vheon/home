@@ -23,18 +23,19 @@ return {
 
     {
         "pwntester/octo.nvim",
+        cmd = "Octo",
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
             "nvim-tree/nvim-web-devicons",
         },
-        config = true
+        config = true,
     },
 
     -- XXX(andrea): this could be lazy loaded
     {
         "sindrets/diffview.nvim",
-        cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+        cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
         opts = {
             enhanced_diff_hl = true,
             view = {
@@ -98,6 +99,7 @@ return {
 
     {
         "stevearc/oil.nvim",
+        keys = "-",
         opts = {
             skip_confirm_for_simple_edits = true,
             keymaps = {
@@ -514,6 +516,7 @@ return {
 
     {
         "mfussenegger/nvim-dap",
+        lazy = true,
         config = function()
             vim.fn.sign_define {
                 {
@@ -556,16 +559,19 @@ return {
     },
     {
         "leoluz/nvim-dap-go",
+        lazy = true,
         dependencies = { "mfussenegger/nvim-dap" },
         config = true,
     },
     {
         "rcarriga/nvim-dap-ui",
+        lazy = true,
         dependencies = { "mfussenegger/nvim-dap" },
         config = true,
     },
     {
         "anuvyklack/hydra.nvim",
+        keys = "<leader>dh",
         config = function()
             local Hydra = require "hydra"
 
@@ -820,6 +826,10 @@ return {
 
     {
         "folke/trouble.nvim",
+        cmd = { "TroubleToggle", "Trouble" },
+        keys = {
+            { "<leader>tt", "<cmd>TroubleToggle<cr>", desc = "TroubleToggle" },
+        },
         dependencies = "nvim-tree/nvim-web-devicons",
         config = true,
     },
