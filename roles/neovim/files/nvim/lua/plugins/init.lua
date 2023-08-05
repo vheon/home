@@ -867,6 +867,9 @@ return {
             { "<leader>tt", "<cmd>TroubleToggle<cr>", desc = "TroubleToggle" },
         },
         dependencies = "nvim-tree/nvim-web-devicons",
-        config = true,
+        opts = {
+            auto_preview = false,
+            multiline = false,
+        }
     },
 }
