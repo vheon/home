@@ -253,11 +253,11 @@ return {
             "nvim-telescope/telescope-ui-select.nvim",
         },
         keys = {
-            { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Git Files" },
+            { "<leader>fg", "<cmd>Telescope git_files<cr>",  desc = "Find Git Files" },
             { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-            { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-            { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Find Helptags" },
-            { "<leader>tb", "<cmd>Telescope builtin<cr>", desc = "Telescope builtins" },
+            { "<leader>fb", "<cmd>Telescope buffers<cr>",    desc = "Buffers" },
+            { "<leader>fh", "<cmd>Telescope help_tags<cr>",  desc = "Find Helptags" },
+            { "<leader>tb", "<cmd>Telescope builtin<cr>",    desc = "Telescope builtins" },
         },
         config = function()
             local telescope = require "telescope"
@@ -297,19 +297,29 @@ return {
     { "pearofducks/ansible-vim" },
 
     {
+        "nvim-treesitter/playground",
+        cmd = "TSPlaygroundToggle",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = "BufReadPre",
+        opts = { enable = false },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+    },
+    {
         "nvim-treesitter/nvim-treesitter",
         event = "BufReadPost",
         build = ":TSUpdate", -- XXX(andrea): we need to :TSInstall maintained on first install
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-context",
             "JoosepAlviste/nvim-ts-context-commentstring",
             "nvim-treesitter/nvim-treesitter-textobjects",
-            "nvim-treesitter/playground",
             "RRethy/nvim-treesitter-endwise",
         },
         config = function()
-            require("treesitter-context").setup { enable = false }
             require("nvim-treesitter.configs").setup {
+                auto_install = false,
+                sync_install = false,
                 ensure_installed = {
                     "bash",
                     "c",
