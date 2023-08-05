@@ -1,5 +1,5 @@
 require "statusline"
-vim.opt.laststatus = 3
+vim.opt.laststatus = 2
 vim.opt.showtabline = 2
 _G.tabline = require("tabline").line
 
