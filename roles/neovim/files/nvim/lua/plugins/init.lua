@@ -349,6 +349,7 @@ return {
                     "markdown_inline",
                     "perl",
                     "python",
+                    "regex",
                     "ruby",
                     "rust",
                     "sql",
