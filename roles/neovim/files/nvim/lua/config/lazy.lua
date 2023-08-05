@@ -23,4 +23,7 @@ require("lazy").setup("plugins", {
             },
         },
     },
+    dev = {
+        path = "/home/bigfix/code/"
+    },
 })

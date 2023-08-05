@@ -852,4 +852,10 @@ return {
             "nvim-tree/nvim-web-devicons"
         },
     },
+
+    {
+        "/home/bigfix/code/bigfixdev.nvim",
+        dev = true,
+        config = true,
+    },
 }
