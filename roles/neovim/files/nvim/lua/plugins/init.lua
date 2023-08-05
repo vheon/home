@@ -690,6 +690,14 @@ return {
                         level = vim.log.levels.TRACE,
                     },
                 },
+                component_aliases = {
+                    default = {
+                        { "display_duration", detail_level = 2 },
+                        "on_output_summarize",
+                        "on_exit_set_status",
+                        "on_complete_notify",
+                    },
+                },
                 -- strategy = {
                 --     "toggleterm",
                 --     use_shell = true,
@@ -697,8 +705,14 @@ return {
                 --     auto_scroll = true,
                 --     close_on_exit = true,
                 -- },
+                task_list = {
+                    bindings = {
+                        ["r"] = "<CMD>OverseerQuickAction restart<CR>",
+                    },
+                },
             }
-            vim.keymap.set("n", "<leader>ot", "<cmd>OverseerToggle<cr>")
+            vim.keymap.set("n", "<leader>oo", "<cmd>OverseerToggle<cr>")
+            vim.keymap.set("n", "<leader>or", "<cmd>OverseerRun<cr>")
             vim.api.nvim_create_user_command("OverseerRestartLast", function()
                 local tasks = overseer.list_tasks { recent_first = true }
                 if vim.tbl_isempty(tasks) then

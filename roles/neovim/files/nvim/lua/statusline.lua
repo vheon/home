@@ -19,6 +19,46 @@ function M.ferret_search_status()
   return M.ferret_search or ''
 end
 
+local task_list = require("overseer.task_list")
+local util = require("overseer.util")
+local constants = require("overseer.constants")
+local STATUS = constants.STATUS
+
+
+local default_icons = {
+  [STATUS.FAILURE] = " ",
+  [STATUS.CANCELED] = " ",
+  [STATUS.SUCCESS] = " ",
+  [STATUS.RUNNING] = "省",
+}
+local highlight_groups = {
+  [STATUS.FAILURE] = "%#DiagnosticSignError#",
+  [STATUS.CANCELED] = "%#DiagnosticSignWarn#",
+  [STATUS.SUCCESS] = "%#DiagnosticSignInfo#",
+  [STATUS.RUNNING] = "%#DiagnosticSignHint#",
+}
+
+function M.overseer_status()
+    local options = {}
+    local tasks = task_list.list_tasks(options)
+    local tasks_by_status = util.tbl_group_by(tasks, "status")
+    local pieces = {}
+    for _, status in ipairs(STATUS.values) do
+        local status_tasks = tasks_by_status[status]
+        if status_tasks then
+            table.insert(pieces, table.concat({
+                -- highlight_groups[status],
+                default_icons[status],
+                #status_tasks
+            }, ''))
+        end
+    end
+    if #pieces > 0 then
+        return table.concat(pieces, " ")
+    end
+    return ""
+end
+
 function M.modified()
   if vim.bo.modified then
     return ' ●'
@@ -220,6 +260,7 @@ local function status_line(active)
 
     funcref('ferret_search_status'),
     funcref('is_lsp_available'),
+    funcref('overseer_status'),
 
     '%4*', -- Switch to User4 highlight group.
     '',
