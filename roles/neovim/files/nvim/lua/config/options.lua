@@ -51,5 +51,5 @@ vim.opt.listchars = {
   nbsp = "⚭"
 }
 
-vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+vim.opt.grepprg = "rg --vimgrep --no-heading --no-config --max-columns 4096"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
