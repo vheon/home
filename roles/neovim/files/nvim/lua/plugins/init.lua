@@ -772,7 +772,7 @@ return {
                 end
                 local task = overseer.new_task {
                     cmd = cmd,
-                    name = "grep " .. args,
+                    name = cmd,
                     components = {
                         {
                             "on_output_quickfix",
