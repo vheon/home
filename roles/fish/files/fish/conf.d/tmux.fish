@@ -36,6 +36,8 @@ function fzf_tmux_session2
     end
 end
 
-if not set -q TESTING_FOR_PROPERLY_RUNNING_FISH && not set -q TMUX
+if not set -q TMUX
+   and not set -q TESTING_FOR_PROPERLY_RUNNING_FISH
+   and not set -q GOING_SSH_INTO_REMOTE_TMUX_SESSION
   tmux new -A -s main
 end

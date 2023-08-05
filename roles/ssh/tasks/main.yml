@@ -1,24 +1,32 @@
 ---
 - name: Ensure ~/.ssh directory exists.
-  file:
+  ansible.builtin.file:
     path: "~/.ssh"
     state: directory
+    mode: '0755'
 
-- name: Link ssh config file
-  file:
-    src: "{{ role_path }}/files/config"
-    path: ~/.ssh/config
-    state: link
-  when: on_work_machine
+- name: Create ssh config file
+  ansible.builtin.template:
+    src: config.j2
+    dest: ~/.ssh/config
+    mode: '0444'
 
 - name: Ensure ~/.ssh/config.d directory exists.
-  file:
+  ansible.builtin.file:
     path: "~/.ssh/config.d"
     state: directory
-  when: on_work_machine
+    mode: '0755'
 
-- name: Copy remote hosts information
-  copy:
-    src: remote_machines.encrypted
+- name: Copy remote work hosts information
+  ansible.builtin.copy:
+    src: work_remote_machines.encrypted
     dest: "~/.ssh/config.d/remote_machines"
+    mode: '0644'
   when: on_work_machine and is_macOS
+
+- name: Copy remote home hosts information
+  ansible.builtin.copy:
+    src: home_remote_machines.encrypted
+    dest: "~/.ssh/config.d/remote_machines"
+    mode: '0644'
+  when: not on_work_machine and is_macOS

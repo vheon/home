@@ -1,0 +1,11 @@
+# This file is generate from an ansible template.
+# DO NOT MODIFY THIS DIRECTLY!
+# Go change the template and run the playbook again!
+
+Include config.d/*
+
+{% if on_work_machine %}
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+{% endif %}

@@ -55,6 +55,9 @@
 
 - name: Link scripts
   ansible.builtin.file:
-    src: "{{ role_path }}/files/Scripts/adjust_font_size.py"
-    path: "~/Library/Application Support/iTerm2/Scripts/adjust_font_size.py"
+    src: "{{ role_path }}/files/Scripts/{{ item }}"
+    path: "~/Library/Application Support/iTerm2/Scripts/{{ item }}"
     state: link
+  loop:
+    - adjust_font_size.py
+    - open_new_window_no_tmux.py
