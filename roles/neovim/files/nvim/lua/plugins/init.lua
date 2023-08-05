@@ -57,7 +57,7 @@ return {
     },
 
     {
-        "TimUntersberger/neogit",
+        "NeogitOrg/neogit",
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = "Neogit",
         keys = {
@@ -66,12 +66,10 @@ return {
         opts = {
             disable_builtin_notifications = true,
             disable_commit_confirmation = true,
-            integrations = { diffview = true },
             mappings = {
                 status = {
+                    q = false,
                     gq = "Close",
-                    b = "",
-                    B = "BranchPopup",
                 },
             },
             signs = {
