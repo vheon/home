@@ -834,4 +834,21 @@ return {
             multiline = false,
         }
     },
+
+    {
+        'stevearc/aerial.nvim',
+        keys = {
+            { "<leader>ot", "<cmd>AerialToggle<cr>", desc = "AerialToggle" },
+        },
+        opts = {
+            layout = {
+                default_direction = 'float'
+            },
+            close_on_select = true,
+        },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+    },
 }
