@@ -1,4 +1,5 @@
 return {
+    { "folke/neodev.nvim" },
     { "tpope/vim-commentary" },
     { "tpope/vim-surround" },
     { "tpope/vim-repeat" },
@@ -317,6 +318,7 @@ return {
             "RRethy/nvim-treesitter-endwise",
         },
         config = function()
+            ---@diagnostic disable-next-line: missing-fields
             require("nvim-treesitter.configs").setup {
                 auto_install = false,
                 sync_install = false,
@@ -338,7 +340,6 @@ return {
                     "go",
                     "gomod",
                     "hcl",
-                    "help",
                     "html",
                     "http",
                     "javascript",
@@ -356,6 +357,7 @@ return {
                     "teal",
                     "terraform",
                     "vim",
+                    "vimdoc",
                     "yaml",
                 },
                 highlight = {
