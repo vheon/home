@@ -25,6 +25,14 @@ vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave", "InsertEnter" }, {
     desc = [[Do not render cursorline in insert mode]],
 })
 
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  callback = function()
+    vim.cmd "tabdo wincmd ="
+  end,
+  group = augroup,
+  desc = [[resize splits if window got resized]],
+})
+
 vim.fn.sign_define(
     "DiagnosticSignError",
     { text = " ", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" }
