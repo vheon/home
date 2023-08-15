@@ -1,14 +1,96 @@
 local mason_registry = require "mason-registry"
 local Job = require "plenary.job"
+local fmt = string.format
+
+local properties = {}
+
+function properties.use_tab(bufnr, val)
+    vim.bo[bufnr].expandtab = (val == "Never")
+end
+
+function properties.indent_width(bufnr, val)
+    local n = tonumber(val) or error("IndentWidth: must be a number", 0)
+    vim.bo[bufnr].shiftwidth = n
+    vim.bo[bufnr].softtabstop = n
+    vim.bo[bufnr].tabstop = n
+end
+
+local function parse_line(line)
+    if line:match "^%s*//" then
+        return
+    end
+    if line:match "^%s*/%*" then
+        return
+    end
+    local value = line:match "^%s*UseTab:%s*(.*)%s*$"
+    if value then
+        return 'use_tab', value
+    end
+    value = line:match "^%s*IndentWidth:%s*(.*)%s*$"
+    if value then
+        return 'indent_width', value
+    end
+end
+
+local function parse(file)
+    local opts = {}
+    local f = io.open(file)
+    if f then
+        for line in f:lines() do
+            local key, value = parse_line(line)
+            if key ~= nil and value ~= nil then
+                opts[key] = value
+            end
+        end
+        f:close()
+    end
+    return opts
+end
+
+
+local function config(bufnr)
+    if not vim.api.nvim_buf_is_valid(bufnr) then
+        return
+    end
+
+    local path = vim.fs.normalize(vim.api.nvim_buf_get_name(bufnr))
+    if vim.bo[bufnr].buftype ~= "" or not vim.bo[bufnr].modifiable or path == "" then
+        return
+    end
+
+    local dot_clang_format = vim.fs.find(".clang-format", {
+        upward = true,
+        stop = vim.uv.cwd(),
+        path = vim.fs.dirname(path),
+    })
+    if vim.tbl_isempty(dot_clang_format) then
+        return
+    end
+
+    local applied = {}
+    for opt, val in pairs(parse(dot_clang_format[1])) do
+        local func = properties[opt]
+        if func then
+            local ok, err = pcall(func, bufnr, val)
+            if ok then
+                applied[opt] = val
+            else
+                vim.notify(fmt("clang-format: invalid value for option %s: %s. %s", opt, val, err),
+                    vim.log.levels.WARN, {
+                    title = 'clang-format',
+                })
+            end
+        end
+    end
+    vim.b[bufnr].clang_format = applied
+end
 
 local function get_clang_format_bin()
     local pkg = mason_registry.get_package "clang-format"
     return pkg:get_install_path() .. "/venv/bin/clang-format"
 end
 
-local M = {}
-
-function M.format(line_start, line_end)
+local function format(line_start, line_end)
     local buffer_text = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
     local arguments = {}
@@ -111,4 +193,7 @@ function M.format(line_start, line_end)
     vim.api.nvim_win_set_cursor(0, { row + 1, col })
 end
 
-return M
+return {
+    format = format,
+    config = config,
+}
