@@ -33,7 +33,6 @@ return {
         config = true,
     },
 
-    -- XXX(andrea): this could be lazy loaded
     {
         "sindrets/diffview.nvim",
         cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
