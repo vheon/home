@@ -60,7 +60,13 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = "Neogit",
         keys = {
-            { "<Leader>gs", function() require("neogit").open() end, desc = "open status buffer" },
+            {
+                "<Leader>gs",
+                function()
+                    require("neogit").open {}
+                end,
+                desc = "open status buffer",
+            },
         },
         opts = {
             disable_builtin_notifications = true,
@@ -477,7 +483,7 @@ return {
                             end)
                             return args
                         end
-                    end
+                    end,
                 },
             },
         },
@@ -519,20 +525,78 @@ return {
                 mode = { "n", "x" },
                 body = "<leader>dh",
                 heads = {
-                    { "n", function() require("dap").step_over() end, { desc = "step over" } },
-                    { "i", function() require("dap").step_into() end, { desc = "step into" } },
-                    { "o", function() require("dap").step_out() end, { desc = "step out" } },
-                    { "c", function() require("dap").continue() end, { desc = "Continue/Start" } },
-                    { "C", function() require("dap").run_to_cursor() end, { desc = "to cursor" } },
-                    { "X", function() require("dap").terminate() end, { desc = "terminate" } },
-                    { "U", function() require("dapui").toggle() end, { desc = "Toggle UI" } },
-                    { "b", function() require("dap").toggle_breakpoint() end, { desc = "Breakpoint" } },
-                    { "L", function()
-                        vim.ui.input({ prompt = "Log point message: " }, function(input)
-                            require("dap").set_breakpoint(nil, nil, input)
-                        end)
-                    end, { desc = "Add Log Point" } },
-                    { "K", function() require("dap.ui.widgets").hover() end, { desc = "Eval" } },
+                    {
+                        "n",
+                        function()
+                            require("dap").step_over()
+                        end,
+                        { desc = "step over" },
+                    },
+                    {
+                        "i",
+                        function()
+                            require("dap").step_into()
+                        end,
+                        { desc = "step into" },
+                    },
+                    {
+                        "o",
+                        function()
+                            require("dap").step_out()
+                        end,
+                        { desc = "step out" },
+                    },
+                    {
+                        "c",
+                        function()
+                            require("dap").continue()
+                        end,
+                        { desc = "Continue/Start" },
+                    },
+                    {
+                        "C",
+                        function()
+                            require("dap").run_to_cursor()
+                        end,
+                        { desc = "to cursor" },
+                    },
+                    {
+                        "X",
+                        function()
+                            require("dap").terminate()
+                        end,
+                        { desc = "terminate" },
+                    },
+                    {
+                        "U",
+                        function()
+                            require("dapui").toggle()
+                        end,
+                        { desc = "Toggle UI" },
+                    },
+                    {
+                        "b",
+                        function()
+                            require("dap").toggle_breakpoint()
+                        end,
+                        { desc = "Breakpoint" },
+                    },
+                    {
+                        "L",
+                        function()
+                            vim.ui.input({ prompt = "Log point message: " }, function(input)
+                                require("dap").set_breakpoint(nil, nil, input)
+                            end)
+                        end,
+                        { desc = "Add Log Point" },
+                    },
+                    {
+                        "K",
+                        function()
+                            require("dap.ui.widgets").hover()
+                        end,
+                        { desc = "Eval" },
+                    },
                     { "q", nil, { exit = true, nowait = true } },
                 },
             }
@@ -716,23 +780,23 @@ return {
         opts = {
             auto_preview = false,
             multiline = false,
-        }
+        },
     },
 
     {
-        'stevearc/aerial.nvim',
+        "stevearc/aerial.nvim",
         keys = {
             { "<leader>ot", "<cmd>AerialToggle<cr>", desc = "AerialToggle" },
         },
         opts = {
             layout = {
-                default_direction = 'float'
+                default_direction = "float",
             },
             close_on_select = true,
         },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons"
+            "nvim-tree/nvim-web-devicons",
         },
     },
 
