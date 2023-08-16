@@ -763,10 +763,17 @@ return {
             },
             routes = {
                 {
-                    filter = { event = "msg_show", kind = "", find = "written" },
-                    opts = { skip = true },
+                    filter = {
+                        event = "msg_show",
+                        any = {
+                            { find = "%d+L, %d+B" },
+                            { find = "; after #%d+" },
+                            { find = "; before #%d+" },
+                        },
+                    },
+                    view = "mini",
                 },
-            },
+            }
         },
     },
 
