@@ -60,7 +60,7 @@ local function config(bufnr)
 
     local dot_clang_format = vim.fs.find(".clang-format", {
         upward = true,
-        stop = vim.uv.cwd(),
+        stop = vim.fs.dirname(vim.uv.cwd()),
         path = vim.fs.dirname(path),
     })
     if vim.tbl_isempty(dot_clang_format) then
