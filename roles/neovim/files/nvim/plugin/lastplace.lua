@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd({'BufWinEnter', 'FileType'}, {
         local buff_last_line = vim.api.nvim_buf_line_count(buf)
 
         -- If the last line is set and the less than the last line in the buffer
-        if last_line > 0 and last_line <= buff_last_line then
+        if last_line > 1 and last_line <= buff_last_line then
             local win_last_line = vim.fn.line("w$")
             local win_first_line = vim.fn.line("w0")
             -- Check if the last line of the buffer is the same as the win
