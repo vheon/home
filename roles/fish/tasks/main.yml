@@ -5,7 +5,7 @@
     path: "{{ brew_bin_location }}"
 
 - name: Backup default bash files and .profile
-  include_tasks: backup_file.yml
+  ansible.builtin.include_tasks: backup_file.yml
   loop:
     - ~/.profile
     - ~/.bashrc
@@ -14,25 +14,26 @@
 # XXX(andrea): should we use XDG_CONFIG_HOME instead of hardcoding ~/.config?
 # XXX(andrea): what if the XDG_CONFIG_HOME variable is not set? does ansible see it?
 - name: Ensure ~/.config directory exists.
-  file:
+  ansible.builtin.file:
     path: "~/.config"
     state: directory
+    mode: '0755'
 
 - name: Link fish configuration.
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/files/fish"
     path: "~/.config/fish"
     state: link
 
 - name: Link .profile
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/files/.profile"
     path: ~/.profile
     state: link
   when: not is_macOS
 
 - name: Change default shell to fish-shell
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_user_id }}"
     shell: "{{ brew_bin_location }}/fish"
   become: true

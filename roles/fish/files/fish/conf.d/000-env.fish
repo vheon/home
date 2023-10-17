@@ -10,6 +10,7 @@ set -gx LANG "en_US.UTF-8"
 
 set -Ux fish_user_paths
 fish_add_path -a $HOME/bin
+fish_add_path -a $HOME/.local/bin
 fish_add_path -a $XDG_DATA_HOME/bin
 fish_add_path -a $XDG_CONFIG_HOME/fzf/bin
 
