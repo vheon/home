@@ -5,7 +5,7 @@
 
   pre_tasks:
     - name: Check if ~/.provision_profile exists.
-      stat:
+      ansible.builtin.stat:
         path: "~/.provision_profile"
       register: provision_profile_file_stat
       tags:
@@ -13,11 +13,11 @@
 
     - block:
       - name: Detect if the work profile for this machine was already chosen
-        lineinfile:
+        ansible.builtin.lineinfile:
           path: "~/.provision_profile"
           line: 'work'
           state: present
-        check_mode: yes
+        check_mode: true
         register: provision_profile
 
       - set_fact:
@@ -39,7 +39,7 @@
           path: "~/.provision_profile"
           line: "{{ on_work_machine | ternary('work', 'nonwork') }}"
           state: present
-          create: yes
+          create: true
 
       when: not provision_profile_file_stat.stat.exists
       tags:
@@ -48,7 +48,7 @@
     - name: Detect if on macOS
       set_fact:
         # XXX(andrea): I hate this name... maybe just "macOS" or simply "macbook"
-        is_macOS: "{{ansible_os_family | lower == 'darwin'}}"
+        is_macOS: "{{ ansible_os_family | lower == 'darwin' }}"
       tags:
         - always
 
