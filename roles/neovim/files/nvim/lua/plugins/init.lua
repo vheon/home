@@ -1,4 +1,5 @@
 return {
+    { "nvim-tree/nvim-web-devicons", lazy = true },
     { "tpope/vim-commentary" },
     { "tpope/vim-surround" },
     { "tpope/vim-repeat" },
@@ -26,8 +27,10 @@ return {
         cmd = "Octo",
         requires = {
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
             "nvim-tree/nvim-web-devicons",
+        },
+        opts = {
+            picker = "fzf-lua",
         },
         config = true,
     },
@@ -92,10 +95,27 @@ return {
             stages = "static",
         },
         init = function()
-            ---@diagnostic disable: duplicate-set-field
+            ---@diagnostic disable-next-line: duplicate-set-field
             vim.notify = function(...)
                 vim.notify = require "notify"
                 return vim.notify(...)
+            end
+        end,
+    },
+
+    {
+        "stevearc/dressing.nvim",
+        lazy = true,
+        init = function()
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.select = function(...)
+                require("lazy").load({ plugins = { "dressing.nvim" } })
+                return vim.ui.select(...)
+            end
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.input = function(...)
+                require("lazy").load({ plugins = { "dressing.nvim" } })
+                return vim.ui.input(...)
             end
         end,
     },
@@ -250,50 +270,24 @@ return {
     },
 
     {
-        "nvim-telescope/telescope.nvim",
-        cmd = "Telescope",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-fzy-native.nvim",
-            "nvim-telescope/telescope-ui-select.nvim",
-        },
+        "ibhagwan/fzf-lua",
+        cmd = "FzfLua",
         keys = {
-            { "<leader>fg", "<cmd>Telescope git_files<cr>",  desc = "Find Git Files" },
-            { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-            { "<leader>fb", "<cmd>Telescope buffers<cr>",    desc = "Buffers" },
-            { "<leader>fh", "<cmd>Telescope help_tags<cr>",  desc = "Find Helptags" },
-            { "<leader>tb", "<cmd>Telescope builtin<cr>",    desc = "Telescope builtins" },
+            { "<leader>fg", "<cmd>FzfLua git_files<cr>",  desc = "Find Git Files" },
+            { "<leader>ff", "<cmd>FzfLua files<cr>",      desc = "Find Files" },
+            { "<leader>fb", "<cmd>FzfLua buffers<cr>",    desc = "Buffers" },
+            { "<leader>fh", "<cmd>FzfLua help_tags<cr>",  desc = "Find Helptags" },
         },
-        config = function()
-            local telescope = require "telescope"
-            local actions = require "telescope.actions"
-            telescope.setup {
-                defaults = {
-                    -- color_devicons = false,
-                    mappings = {
-                        i = {
-                            ["<c-c>"] = function()
-                                vim.cmd "stopinsert"
-                            end,
-                            ["<esc>"] = actions.close,
-                        },
-                    },
-                },
-                pickers = {
-                    git_files = {
-                        show_untracked = true,
-                    },
-                },
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown {},
-                    },
-                },
+        opts = {
+            "telescope",
+            fzf_opts = { ['--info'] = 'default' },
+            git = {
+                files = {
+                    fzf_opts = { ['--scheme'] = 'path' },
+                    cmd = "git ls-files --exclude-standard --cached --others"
+                }
             }
-            telescope.load_extension "fzy_native"
-            telescope.load_extension "ui-select"
-            telescope.load_extension "notify"
-        end,
+        },
     },
 
     { "bakpakin/fennel.vim" },

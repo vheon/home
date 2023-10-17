@@ -1,11 +1,13 @@
 return {
     {
         "neovim/nvim-lspconfig",
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "nvim-lua/plenary.nvim",
             { "folke/neodev.nvim", opts = {} },
-            "mason.nvim",
+            "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
             vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
@@ -14,6 +16,10 @@ return {
             -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
             require("lspconfig.ui.windows").default_options.border = "rounded"
+
+            require("mason-lspconfig").setup {
+                automatic_installation = true
+            }
 
             local lspconfig = require("lspconfig")
             local lsp_defaults = lspconfig.util.default_config
@@ -104,9 +110,5 @@ return {
                 toggle_package_expand = "<Tab>",
             },
         },
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        opts = { automatic_installation = true },
     },
 }
