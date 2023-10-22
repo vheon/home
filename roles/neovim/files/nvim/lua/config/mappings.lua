@@ -53,3 +53,9 @@ vim.keymap.set({ "n", "v" }, "<leader>gq", function()
     return "<Esc>"
 end, { expr = true })
 
+local toggle_term_key = "<C-\\><C-\\>"
+vim.keymap.set("n", toggle_term_key, function()
+    require("config.float_term").float_term(nil, { cwd = ".", toggle_key = toggle_term_key, border = "rounded" })
+end, { desc = "Terminal (root dir)" })
+
+

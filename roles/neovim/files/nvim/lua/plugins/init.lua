@@ -601,18 +601,6 @@ return {
 
     { "khaveesh/vim-fish-syntax" },
 
-    {
-        "akinsho/nvim-toggleterm.lua",
-        branch = "main",
-        opts = {
-            direction = "float",
-            open_mapping = [[<C-\><C-\>]],
-            insert_mappings = false,
-            float_opts = {
-                border = "rounded",
-            },
-        },
-    },
     { "nyoom-engineering/oxocarbon.nvim" },
 
     {
@@ -682,13 +670,6 @@ return {
                         "on_complete_notify",
                     },
                 },
-                -- strategy = {
-                --     "toggleterm",
-                --     use_shell = true,
-                --     direction = "float",
-                --     auto_scroll = true,
-                --     close_on_exit = true,
-                -- },
                 task_list = {
                     bindings = {
                         ["r"] = "<CMD>OverseerQuickAction restart<CR>",
