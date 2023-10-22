@@ -19,6 +19,6 @@ jobs:
         run: ./bootstrap.sh
 
       - name: Run ansible
-        run: ansible-playbook main.yml
+        run: ansible-playbook -vvv main.yml
         env:
           ANSIBLE_FORCE_COLOR: '1'
