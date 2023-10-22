@@ -59,11 +59,16 @@
     name: packer
     path: "{{ brew_bin_location }}"
 
+- name: Install Snapd (should be pre-installed)
+  ansible.builtin.apt:
+    name: snapd
+    update_cache: true
+  become: true
+
 - name: Install LXD
   community.general.snap:
-    name:
-      - lxd
-    channel: latest/edge
+    name: lxd
+  become: true
 
 # XXX(andrea): the whole lxd init is missing still
 # XXX(andrea): also a lot of the settings in https://github.com/lxc/lxd/blob/master/doc/production-setup.md should be applied
