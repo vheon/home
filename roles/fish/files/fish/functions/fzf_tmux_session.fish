@@ -15,7 +15,7 @@ function fzf_tmux_session
     set --local Error "#f38ba8"
 
     set --local results (tmux list-sessions -F "#{session_name}" | \
-            ~/.local/share/nvim/site/pack/packer/start/fzf/bin/fzf \
+            ~/.local/share/nvim/lazy/fzf/bin/fzf \
             --prompt "Sessions❯ " \
             --exit-0 \
             --print-query \
@@ -38,7 +38,8 @@ function fzf_tmux_session
         end
         tmux switch-client -t $session
     else if test $retval -eq 1
-        tmux command \
+        tmux command-prompt \
+        -b \
         -p "Press enter to create and go to [$query] session" \
         "run 'fish -c \"fzf_tmux_session --new $query\"'"
     end
