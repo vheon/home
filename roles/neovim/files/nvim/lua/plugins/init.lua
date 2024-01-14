@@ -61,6 +61,7 @@ return {
     {
         "NeogitOrg/neogit",
         dependencies = { "nvim-lua/plenary.nvim" },
+        branch = "nightly",
         cmd = "Neogit",
         keys = {
             {
