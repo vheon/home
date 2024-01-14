@@ -490,7 +490,7 @@ return {
         config = true,
     },
     {
-        "anuvyklack/hydra.nvim",
+        "nvimtools/hydra.nvim",
         keys = "<leader>dh",
         config = function()
             local Hydra = require "hydra"
