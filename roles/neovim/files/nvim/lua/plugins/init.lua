@@ -310,6 +310,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         event = "BufReadPost",
+        cmd = { "TSUpdate" },
         build = ":TSUpdate", -- XXX(andrea): we need to :TSInstall maintained on first install
         dependencies = {
             "JoosepAlviste/nvim-ts-context-commentstring",
