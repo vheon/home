@@ -1,12 +1,14 @@
 ---
 - name: Set sysctl File Limits
-  copy:
+  ansible.builtin.copy:
     src: 50-fs.conf
     dest: /etc/sysctl.d
-  become: yes
+    mode: '0644'
+  become: true
 
 - name: Set Shell File Limits
-  copy:
+  ansible.builtin.copy:
     src: 91-nofiles.conf
     dest: /etc/security/limits.d
-  become: yes
+    mode: '0644'
+  become: true
