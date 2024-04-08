@@ -1,16 +1,20 @@
 ---
-- name: Ensure git is installed through brew to get an up to date version
-  community.general.homebrew:
-    name: git
-    path: "{{ brew_bin_location }}"
+- name: Ensure latest git is installed
+  ansible.builtin.include_tasks: "install_git_{{ ansible_os_family }}.yml"
 
 - name: Create global .gitconfig
-  template:
+  ansible.builtin.template:
     src: gitconfig.j2
     dest: ~/.gitconfig
+    mode: '0644'
 
 - name: Link .cvsignore file
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/files/.cvsignore"
     path: "~/.cvsignore"
+    mode: '0644'
     state: link
+
+- name: Install git-daemon service for local multi-machine development
+  ansible.builtin.include_tasks: git-daemon.yml
+  when: on_work_machine and not is_macOS

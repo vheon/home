@@ -1,0 +1,15 @@
+[Unit]
+Description=Git Repositories Server Daemon
+Documentation=man:git-daemon(1)
+Wants=git-daemon.socket
+Requires=network.target
+After=syslog.target network.target
+
+[Service]
+ExecStart=-/usr/lib/git-core/git-daemon --verbose --export-all --base-path="{{ lookup('env', 'HOME') }}/code/" --inetd --syslog --reuseaddr --enable=receive-pack
+StandardInput=socket
+StandardOutput=inherit
+StandardError=journal
+
+[Install]
+WantedBy=default.target

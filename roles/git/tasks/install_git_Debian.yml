@@ -1,0 +1,14 @@
+---
+- name: Ensure git is installed through brew to get an up to date version
+  become: true
+  block:
+    - name: Add git-core repository from PPA and install its signing key on Ubuntu target
+      ansible.builtin.apt_repository:
+        repo: ppa:git-core/ppa
+
+    - name: Ensure latest git is installed
+      ansible.builtin.apt:
+        name:
+          - git
+        state: latest
+

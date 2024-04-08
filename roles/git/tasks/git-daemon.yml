@@ -1,0 +1,22 @@
+---
+- name: Create a git-daemon service
+  become: true
+  block:
+    - name: Create Socket file
+      ansible.builtin.copy:
+        src: git-daemon.socket
+        dest: /usr/lib/systemd/system/git-daemon.socket
+        mode: '0644'
+
+    - name: Create Unit file
+      ansible.builtin.template:
+        src: git-daemon@.service.j2
+        dest: /usr/lib/systemd/system/git-daemon@.service
+        mode: '0644'
+
+    - name: Start Git Daemon
+      ansible.builtin.systemd_service:
+        name: git-daemon.socket
+        state: started
+        enabled: true
+        daemon_reexec: true
