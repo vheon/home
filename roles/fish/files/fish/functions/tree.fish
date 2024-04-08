@@ -1,3 +1,3 @@
-function tree --wraps='exa --color=always --icons --tree' --description 'alias tree exa --color=always --icons --tree'
-  exa --color=always --icons --tree $argv; 
+function tree --wraps='eza --color=always --icons --tree' --description 'alias tree eza --color=always --icons --tree'
+  eza --color=always --icons --tree $argv; 
 end
