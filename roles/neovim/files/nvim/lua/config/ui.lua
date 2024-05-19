@@ -1,10 +1,5 @@
-require "statusline"
 vim.opt.laststatus = 2
 vim.opt.showtabline = 2
-_G.tabline = require("tabline").line
-
--- vim.opt.statusline = "%!v:lua.statusline()"
-vim.opt.tabline = "%!v:lua.tabline()"
 
 vim.opt.termguicolors = true
 vim.cmd.colorscheme "catppuccin"
