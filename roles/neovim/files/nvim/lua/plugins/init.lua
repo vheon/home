@@ -304,7 +304,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter-context",
         event = "BufReadPre",
-        opts = { enable = false },
+        config = true,
         dependencies = { "nvim-treesitter/nvim-treesitter" },
     },
     {
