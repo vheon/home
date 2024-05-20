@@ -1,14 +1,21 @@
 ---
-- name: Set sysctl File Limits
-  ansible.builtin.copy:
-    src: 50-fs.conf
-    dest: /etc/sysctl.d
-    mode: '0644'
+- name: Change machine configuration
   become: true
+  block:
+    - name: Set sysctl File Limits
+      ansible.posix.sysctl:
+        name: fs.file-max
+        value: '262144'
+        state: present
 
-- name: Set Shell File Limits
-  ansible.builtin.copy:
-    src: 91-nofiles.conf
-    dest: /etc/security/limits.d
-    mode: '0644'
-  become: true
+    - name: Set kernel option for perf events
+      ansible.posix.sysctl:
+        name: kernel.perf_event_paranoid
+        value: '-1'
+        state: present
+
+    - name: Set Shell File Limits
+      ansible.builtin.copy:
+        src: 91-nofiles.conf
+        dest: /etc/security/limits.d
+        mode: '0644'
