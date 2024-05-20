@@ -4,7 +4,7 @@
     path: "{{ brew_bin_location }}"
 
 - name: Link tmux configuration.
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/files/.tmux.conf"
     path: "~/.tmux.conf"
     state: link
