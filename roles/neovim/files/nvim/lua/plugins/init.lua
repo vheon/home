@@ -210,7 +210,6 @@ return {
         "lewis6991/gitsigns.nvim",
         event = { "BufReadPre", "BufNewFile" },
         opts = {
-            _signs_staged_enable = true,
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
 
