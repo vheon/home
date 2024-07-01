@@ -20,22 +20,24 @@
         path: "{{ brew_bin_location }}"
 
 - name: Ensure ~/.config/karabiner directory exists.
-  file:
+  ansible.builtin.file:
     path: "~/.config/karabiner"
     state: directory
+    mode: '0755'
 
 - name: Copy base karabiner-elements configuration.
-  copy:
+  ansible.builtin.copy:
     src: "{{ role_path }}/files/karabiner.json"
     dest: "~/.config/karabiner"
+    mode: '0644'
 
 - name: Link karabiner-elements configuration.
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/files/karabiner.edn"
     path: "~/.config/karabiner/karabiner.edn"
     state: link
 
 - name: Run Goku
-  shell: GOKU_EDN_CONFIG_FILE=~/.config/karabiner/karabiner.edn goku
+  ansible.builtin.shell: GOKU_EDN_CONFIG_FILE=~/.config/karabiner/karabiner.edn goku
   environment:
     PATH: "{{ brew_bin_location }}:{{ ansible_env.PATH }}"
