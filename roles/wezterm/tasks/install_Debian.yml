@@ -1,0 +1,22 @@
+---
+- name: Ensure wezterm-mux-server is installed
+  become: true
+  block:
+    - name: Add Wezterm apt GPG key
+      ansible.builtin.get_url:
+        url: https://apt.fury.io/wez/gpg.key
+        dest: /etc/apt/trusted.gpg.d/wezterm-fury.asc
+        mode: '0644'
+
+    - name: Add Wezterm repository
+      ansible.builtin.apt_repository:
+        repo: deb https://apt.fury.io/wez * *
+        filename: wezterm
+        state: present
+
+    # I actually need only wezterm-mux-server but it doesn't seems to be available a package just for that.
+    - name: Ensure Wezterm is installed
+      ansible.builtin.apt:
+        name:
+          - wezterm-nightly
+        state: present

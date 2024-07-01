@@ -1,6 +1,7 @@
 #!/usr/bin/env ansible-playbook
 ---
-- hosts: all
+- name: Configure the machine.
+  hosts: all
   connection: local
 
   pre_tasks:
@@ -92,6 +93,9 @@
       when: is_macOS
       tags:
         - karabiner
+    - role: wezterm
+      tags:
+        - wezterm
     - role: iterm
       when: is_macOS
       tags:

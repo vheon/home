@@ -1,0 +1,5 @@
+---
+- name: Ensure Wezterm is installed through brew to get an up to date version
+  community.general.homebrew:
+    name: wezterm-nightly
+    path: "{{ brew_bin_location }}"
