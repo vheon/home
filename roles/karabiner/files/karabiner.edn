@@ -55,6 +55,7 @@
                                  "^com\\.2X\\.Client\\.Mac$"
                                  "^com\\.apple\\.Terminal$"
                                  "^com\\.googlecode\\.iterm2$"
+                                 "^com\\.github\\.wez\\.wezterm$"
                                  "^co\\.zeit\\.hyperterm$"
                                  "^co\\.zeit\\.hyper$"
                                  "^io\\.alacritty$"
