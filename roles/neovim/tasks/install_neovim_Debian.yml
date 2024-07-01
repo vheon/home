@@ -1,0 +1,13 @@
+---
+- name: Ensure neovim is install
+  become: true
+  block:
+    - name: Add neovim-ppa repository from PPA and install its signing key on Ubuntu target
+      ansible.builtin.apt_repository:
+        repo: ppa:neovim-ppa/unstable
+
+    - name: Install neovim
+      ansible.builtin.apt:
+        name:
+          - neovim
+        state: present

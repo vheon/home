@@ -1,9 +1,6 @@
 ---
-- name: Ensure neovim is install
-  community.general.homebrew:
-    name: neovim-nightly
-    install_options: HEAD
-    path: "{{ brew_bin_location }}"
+- name: Ensure neovim is installed
+  ansible.builtin.include_tasks: "install_neovim_{{ ansible_os_family }}.yml"
 
 # XXX(andrea): should we use XDG_CONFIG_HOME instead of hardcoding ~/.config?
 # XXX(andrea): what if the XDG_CONFIG_HOME variable is not set? does ansible see it?

@@ -1,0 +1,6 @@
+---
+- name: Ensure neovim is install
+  community.general.homebrew:
+    name: neovim-nightly
+    install_options: HEAD
+    path: "{{ brew_bin_location }}"
