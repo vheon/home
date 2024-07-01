@@ -24,7 +24,6 @@ local utils = require "heirline.utils"
 local devicons = require'nvim-web-devicons'
 
 local Space = { provider = " " }
-local Truncate = { provider = "%<" }
 local Align = { provider = "%=" }
 
 local MacroRec = {
@@ -126,30 +125,25 @@ local Diagnostics = {
 
     {
         provider = function(self)
-            -- 0 is just another output, we can decide to print it or not!
-            -- return self.errors > 0 and (self.icons.error .. self.errors .. " ")
-            return self.icons.error .. self.errors .. " "
+            return self.errors > 0 and (self.icons.error .. self.errors .. " ")
         end,
         hl = "DiagnosticError",
     },
     {
         provider = function(self)
-            -- return self.warnings > 0 and (self.icons.warn .. self.warnings .. " ")
-            return self.icons.warn .. self.warnings .. " "
+            return self.warnings > 0 and (self.icons.warn .. self.warnings .. " ")
         end,
         hl = "DiagnosticWarn",
     },
     {
         provider = function(self)
-            -- return self.info > 0 and (self.icons.info .. self.info .. " ")
-            return self.icons.info .. self.info .. " "
+            return self.info > 0 and (self.icons.info .. self.info .. " ")
         end,
         hl = "DiagnosticInfo",
     },
     {
         provider = function(self)
-            -- return self.hints > 0 and (self.icons.hint .. self.hints)
-            return self.icons.hint .. self.hints
+            return self.hints > 0 and (self.icons.hint .. self.hints)
         end,
         hl = "DiagnosticHint",
     },
@@ -291,24 +285,6 @@ local Hydra = {
     end
 }
 
-local Bufname = { provider = "%f" }
-
-local FileName = {
-    provider = function()
-        local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
-        if filename == "" then
-            return "[No Name]"
-        end
-
-        -- now, if the filename would occupy more than 90% of the available
-        -- space, we trim the file path to its initials
-        if not conditions.width_percent_below(#filename, 0.90) then
-            filename = vim.fn.pathshorten(filename)
-        end
-        return filename
-    end,
-}
-
 local ferret_search = false
 local ferret_group = vim.api.nvim_create_augroup('ferret', { clear = true })
 vim.api.nvim_create_autocmd('User', {
@@ -368,6 +344,8 @@ local InactiveStatusline = {
     -- FileName,
     Align
 }
+
+local Bufname = { provider = "%f" }
 
 local HelpStatusline = {
     condition = function()
