@@ -1,8 +1,0 @@
----
-dependencies:
-  - role: geerlingguy.docker
-    vars:
-      docker_install_compose: false
-      docker_users:
-        - "{{ lookup('env', 'USER') }}"
-    become: true

@@ -1,7 +1,20 @@
 ---
+- name: Be sure latest Docker in installed
+  ansible.builtin.include_role:
+    name: geerlingguy.docker
+    apply:
+      become: true
+  vars:
+    docker_packages_state: latest
+    docker_install_compose: false
+    docker_users:
+      - "{{ lookup('env', 'USER') }}"
+
 - name: Add hashicorp apt GPG key
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://apt.releases.hashicorp.com/gpg
+    dest: /etc/apt/trusted.gpg.d/hashicorp.asc
+    mode: '0644'
   become: true
 
 - name: Add hashicorp repository
@@ -10,65 +23,50 @@
     state: present
   become: true
 
+# - name: Add Hashicorp Stable APT repository
+#   ansible.builtin.deb822_repository:
+#     name: hashicorp
+#     types: deb
+#     uris: https://apt.releases.hashicorp.com
+#     signed_by: https://apt.releases.hashicorp.com/gpg
+#     suites: ["{{ ansible_distribution_release }}"]
+#     components: [main]
+#     enabled: true
+#   become: true
+
 # XXX(andrea): I don't remember why these are not pulled from brew :/
 - name: Install Vagrant and virtualization dependencies
   ansible.builtin.apt:
     name:
-      - vagrant
       - qemu
       - qemu-kvm
-      - libvirt-daemon
-      - libvirt-clients
-      - bridge-utils
-      - virt-manager
     state: present
-  become: true
-
-- name: Enable libvirtd service
-  ansible.builtin.service:
-    name: libvirtd
-    enabled: true
-    state: restarted
   become: true
 
 - name: Install docker python package
   ansible.builtin.pip:
     name: docker
 
-- name: Pull the vagrant-libvirt image
-  community.docker.docker_image:
-    name: vagrantlibvirt/vagrant-libvirt:latest
-    source: pull
-
-- name: Install vagrant fish wrapper
-  block:
-    - name: Ensure XDG_DATA_HOME/fish/vendor_functions.d directory exists.
-      ansible.builtin.file:
-        path: "~/.local/share/fish/vendor_functions.d"
-        state: directory
-        mode: '0755'
-
-    - name: Link vagrant wrapper for the fish shell
-      ansible.builtin.file:
-        src: "{{ role_path }}/files/vagrant.fish"
-        path: "~/.local/share/fish/vendor_functions.d/vagrant.fish"
-        state: link
-
 - name: Install Hashicorp Packer in order to create various images
   community.general.homebrew:
     name: packer
     path: "{{ brew_bin_location }}"
 
-- name: Install Snapd (should be pre-installed)
-  ansible.builtin.apt:
-    name: snapd
-    update_cache: true
-  become: true
+# Ubuntu 24.04 will come with the `incus` package availabe in main repository
+# - name: Install incus
+#   become: true
+#   block:
+#     - name: Add zabbly Apt signing key
+#       ansible.builtin.apt_key:
+#         id: 4EFC590696CB15B87C73A3AD82CC8797C838DCFD
+#         url: https://pkgs.zabbly.com/key.asc
+#         keyring: /etc/apt/keyrings/zabbly.asc
 
-- name: Install LXD
-  community.general.snap:
-    name: lxd
-  become: true
+#     - name: Add Zabbly repository
+#       ansible.builtin.apt_repository:
+#         filename: zabbly-incus-stable.sources
+#         repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/zabbly.asc] https://pkgs.zabbly.com/incus/stable {{ ansible_distribution_release }} main"
+#         state: present
 
-# XXX(andrea): the whole lxd init is missing still
+# XXX(andrea): the whole incus init is missing still
 # XXX(andrea): also a lot of the settings in https://github.com/lxc/lxd/blob/master/doc/production-setup.md should be applied
