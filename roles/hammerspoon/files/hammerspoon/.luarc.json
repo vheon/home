@@ -1,3 +1,10 @@
 {
-  "Lua.workspace.library": ["$HOME/.config/hammerspoon/Spoons/EmmyLua.spoon/annotations"]
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "Lua.workspace.library": ["$HOME/.config/hammerspoon/Spoons/EmmyLua.spoon/annotations"],
+    "diagnostics": {
+        "globals": [
+            "hs",
+            "spoon"
+        ],
+    }
 }
