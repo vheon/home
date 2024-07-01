@@ -61,7 +61,6 @@ return {
     {
         "NeogitOrg/neogit",
         dependencies = { "nvim-lua/plenary.nvim" },
-        branch = "nightly",
         cmd = "Neogit",
         keys = {
             {
@@ -106,19 +105,29 @@ return {
 
     {
         "stevearc/dressing.nvim",
-        lazy = true,
-        init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.select = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.select(...)
-            end
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.input = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.input(...)
-            end
-        end,
+        opts = {
+            select = {
+                get_config = function(opts)
+                    if opts.kind == 'overseer_template' then
+                        return {
+                            backend = 'fzf_lua',
+                            fzf_lua = {
+                                fzf_opts = {
+                                    ['--layout'] = 'reverse',
+                                    ["--info"] = "right",
+                                },
+                                winopts = {
+                                    row = 0.1,
+                                    col = 0.5,
+                                    height = 0.25,
+                                    width = 0.25,
+                                }
+                            }
+                        }
+                    end
+                end
+            }
+        }
     },
 
     {
@@ -229,6 +238,38 @@ return {
             end,
         },
     },
+    {
+        'linrongbin16/gitlinker.nvim',
+        cmd = "GitLink",
+        keys = {
+            {
+                "<leader>gl",
+                function ()
+                    require("gitlinker").link({ remote = "origin" })
+                end,
+                silent = true,
+                noremap = true,
+                desc = "GitLink",
+                mode = "v"
+            }
+        },
+        config = function()
+            local gitlinker = require("gitlinker")
+            gitlinker.setup {
+                router = {
+                    browse = {
+                        ["^github02.hclpnp.com"] = require('gitlinker.routers').github_browse,
+                    },
+                    blame = {
+                        ["^github02.hclpnp.com"] = require('gitlinker.routers').github_blame,
+                    },
+                },
+            }
+            vim.keymap.set( 'v', "<leader>gl", function ()
+                gitlinker.link({ remote = "origin" })
+            end, { silent = true, noremap = true, desc = "GitLink" } )
+        end,
+    },
 
     { "tpope/vim-scriptease" },
 
@@ -264,7 +305,6 @@ return {
         end,
     },
 
-    -- XXX(andrea): I use this mainly in the shell so I should just install it through ansible rather than in here
     {
         "junegunn/fzf",
         build = "./install --xdg --no-update-rc --no-key-bindings --no-completion",
@@ -281,7 +321,12 @@ return {
         },
         opts = {
             "telescope",
-            fzf_opts = { ['--info'] = 'default' },
+            fzf_opts = {
+                ['--info'] = 'default',
+                ['--marker'] = '▏',
+                ['--pointer'] = '▌',
+                ['--prompt'] = '▌ ',
+            },
             git = {
                 files = {
                     fzf_opts = { ['--scheme'] = 'path' },
@@ -294,7 +339,9 @@ return {
     { "bakpakin/fennel.vim" },
 
     { "pprovost/vim-ps1" },
-    { "pearofducks/ansible-vim" },
+    -- { "pearofducks/ansible-vim" },
+    { "mfussenegger/nvim-ansible" },
+
 
     {
         "nvim-treesitter/playground",
@@ -487,7 +534,10 @@ return {
     {
         "rcarriga/nvim-dap-ui",
         lazy = true,
-        dependencies = { "mfussenegger/nvim-dap" },
+        dependencies = {
+            "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio"
+        },
         config = true,
     },
     {
@@ -643,6 +693,13 @@ return {
                     HydraStatusTealInv = { bg = colors.base, fg = colors.teal, bold = true },
                     HydraStatusPink = { fg = colors.base, bg = colors.pink, bold = true },
                     HydraStatusPinkInv = { bg = colors.base, fg = colors.pink, bold = true },
+
+                    SimpleMarkWord1 = { fg = colors.base, bg = colors.teal },
+                    SimpleMarkWord2 = { fg = colors.base, bg = colors.red },
+                    SimpleMarkWord3 = { fg = colors.base, bg = colors.green },
+                    SimpleMarkWord4 = { fg = colors.base, bg = colors.yellow },
+                    SimpleMarkWord5 = { fg = colors.base, bg = colors.blue },
+                    SimpleMarkWord6 = { fg = colors.base, bg = colors.lavender },
                 }
             end,
         },
@@ -756,14 +813,20 @@ return {
 
     {
         "folke/trouble.nvim",
-        cmd = { "TroubleToggle", "Trouble" },
+        cmd = { "Trouble" },
         keys = {
-            { "<leader>tt", "<cmd>TroubleToggle<cr>", desc = "TroubleToggle" },
+            { "<leader>td", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+            { "<leader>tq", "<cmd>Trouble quickfix toggle<cr>", desc = "Quickfix (Trouble)" },
         },
         dependencies = "nvim-tree/nvim-web-devicons",
         opts = {
             auto_preview = false,
-            multiline = false,
+            follow = false,
+            modes = {
+                diagnostics = {
+                    sort = { "severity", "filename", "pos", "message" },
+                }
+            },
         },
     },
 

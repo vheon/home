@@ -75,7 +75,9 @@ g = vim.api.nvim_create_autocmd("User", {
 })
 
 local GitBranch = {
-    condition = conditions.is_git_repo,
+    -- condition = function()
+    --     return vim.g.gitsigns_head ~= nil
+    -- end,
     update = {
         "User",
         pattern = {"GitSignsUpdate", "GitSignsChanged"},
@@ -88,7 +90,12 @@ local GitBranch = {
 
     {   -- git branch name
         provider = function()
-            return table.concat({"  ", vim.g.gitsigns_head, " "}, "")
+            if vim.g.gitsigns_head ~= nil then
+                return table.concat({"  ", vim.g.gitsigns_head, " "}, "")
+            end
+            if vim.b.gitsigns_head ~= nil then
+                return table.concat({"  ", vim.b.gitsigns_head, " "}, "")
+            end
         end,
     },
     {
@@ -114,8 +121,6 @@ local TabNumber = {
         return self.tabnr
     end
 }
-
-local TabSeparator = { provider = "  " }
 
 local noname_placeholder = "[Untitled]"
 
@@ -199,7 +204,7 @@ local TabPage = utils.insert({
         end
     end,
     on_click = { callback = function() end, name = "click" },
-}, TabClick, { provider = "" }, TabIcon, TabNumber, TabSeparator, TabName, { provider = "" })
+}, TabClick, { provider = "" }, TabIcon, TabNumber, { provider = "  " }, TabName, { provider = "" })
 
 local TabPageFill = {
     provider = "",

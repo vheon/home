@@ -135,7 +135,7 @@ local function format(line_start, line_end)
     if not vim.tbl_isempty(stderr) then
         -- XXX(andrea): this should probably be better to print as a single string.
         -- XXX(andrea): should we use vim.notify?
-        vim.pretty_print(stderr)
+        vim.print(stderr)
     end
 
     if header == nil then

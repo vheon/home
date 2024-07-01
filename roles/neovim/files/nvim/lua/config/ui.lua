@@ -28,19 +28,15 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
   desc = [[resize splits if window got resized]],
 })
 
-vim.fn.sign_define(
-    "DiagnosticSignError",
-    { text = " ", texthl = "DiagnosticSignError", numhl = "DiagnosticSignError" }
-)
-vim.fn.sign_define(
-    "DiagnosticSignWarn",
-    { text = " ", texthl = "DiagnosticSignWarn", numhl = "DiagnosticSignWarn" }
-)
-vim.fn.sign_define(
-    "DiagnosticSignInfo",
-    { text = " ", texthl = "DiagnosticSignInfo", numhl = "DiagnosticSignInfo" }
-)
-vim.fn.sign_define(
-    "DiagnosticSignHint",
-    { text = " ", texthl = "DiagnosticSignHint", numhl = "DiagnosticSignHint" }
-)
+local icons = require "config.icons"
+
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
+      [vim.diagnostic.severity.WARN] = icons.diagnostics.warn,
+      [vim.diagnostic.severity.HINT] = icons.diagnostics.hint,
+      [vim.diagnostic.severity.INFO] = icons.diagnostics.info,
+    },
+  },
+})

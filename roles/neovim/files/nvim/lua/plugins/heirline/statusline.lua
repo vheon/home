@@ -112,10 +112,7 @@ local Diagnostics = {
     condition = conditions.has_diagnostics,
 
     static = {
-        error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
-        warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-        info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-        hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
+        icons = require "config.icons".diagnostics
     },
 
     init = function(self)
@@ -130,25 +127,29 @@ local Diagnostics = {
     {
         provider = function(self)
             -- 0 is just another output, we can decide to print it or not!
-            return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+            -- return self.errors > 0 and (self.icons.error .. self.errors .. " ")
+            return self.icons.error .. self.errors .. " "
         end,
         hl = "DiagnosticError",
     },
     {
         provider = function(self)
-            return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+            -- return self.warnings > 0 and (self.icons.warn .. self.warnings .. " ")
+            return self.icons.warn .. self.warnings .. " "
         end,
         hl = "DiagnosticWarn",
     },
     {
         provider = function(self)
-            return self.info > 0 and (self.info_icon .. self.info .. " ")
+            -- return self.info > 0 and (self.icons.info .. self.info .. " ")
+            return self.icons.info .. self.info .. " "
         end,
         hl = "DiagnosticInfo",
     },
     {
         provider = function(self)
-            return self.hints > 0 and (self.hint_icon .. self.hints)
+            -- return self.hints > 0 and (self.icons.hint .. self.hints)
+            return self.icons.hint .. self.hints
         end,
         hl = "DiagnosticHint",
     },
@@ -190,7 +191,7 @@ local FilePosition = {
         '%02c', -- 2 padded column XXX(andrea): would be better to handle the padding ourselves
         '𝚌 ', -- (Literal, \u1d68c "MATHEMATICAL MONOSPACE SMALL C").
         '%)' -- end group
-    }),
+    }, ''),
     hl = "User5"
 }
 
@@ -223,7 +224,7 @@ local Overseer = {
 
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.FAILURE, "")
+            return self.tasks_count(self, self.STATUS.FAILURE, " ")
         end,
         hl = { fg = "red", bg = "mantle" }
     },
@@ -235,7 +236,7 @@ local Overseer = {
     },
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.SUCCESS, "")
+            return self.tasks_count(self, self.STATUS.SUCCESS, " ")
         end,
         hl = { fg = "green", bg = "mantle" }
     },
@@ -342,7 +343,7 @@ local DefaultStatusline = {
     Space,
     FileType,
     FileFlags,
-    Space,
+    Align,
     Diagnostics,
 
     Align,
@@ -448,7 +449,7 @@ local QuickfixStatusline = {
             local count = vim.fn.line('$')
             return string.format('%3d/%-3d', line, count)
         end
-    }, {""}, "peach"),
+    }, {""}, "peach"),
 }
 
 local OilStatusline = {

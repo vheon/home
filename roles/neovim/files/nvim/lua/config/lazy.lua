@@ -1,4 +1,5 @@
-vim.opt.rtp:prepend(vim.fs.joinpath(vim.fn.stdpath("data"), "lazy", "lazy.nvim"))
+local datadir = vim.fn.stdpath("data") --[[@as string]]
+vim.opt.rtp:prepend(vim.fs.joinpath(datadir, "lazy", "lazy.nvim"))
 
 require("lazy").setup("plugins", {
     install = {

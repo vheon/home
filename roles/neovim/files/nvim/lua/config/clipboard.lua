@@ -16,6 +16,10 @@ local function copy(register)
   local clipboard = register == '+' and 'c' or 'p'
   return function(lines, _)
     local text = table.concat(lines, "\n")
+    if string.len(text) > 74994 then
+        vim.notify("Input is too long to be copied")
+        return
+    end
     local ocs52 = table.concat({
       tmux_prefix,
       string.char(0x1b),

@@ -4,7 +4,7 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "nvim-lua/plenary.nvim",
-            { "folke/neodev.nvim", opts = {} },
+            "folke/lazydev.nvim",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
@@ -29,15 +29,13 @@ return {
                 require("cmp_nvim_lsp").default_capabilities()
             )
 
+            lspconfig.bashls.setup {}
             lspconfig.gopls.setup {}
             lspconfig.ansiblels.setup {}
             lspconfig.yamlls.setup {}
             lspconfig.lua_ls.setup {
                 settings = {
                     Lua = {
-                        workspace = {
-                            checkThirdParty = false,
-                        },
                         completion = {
                             callSnippet = "Replace",
                         },
@@ -110,5 +108,10 @@ return {
                 toggle_package_expand = "<Tab>",
             },
         },
+    },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {},
     },
 }
