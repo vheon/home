@@ -14,5 +14,5 @@
     - name: Link configuration in XDG_CONFIG_HOME
       ansible.builtin.file:
         src: "{{ role_path }}/files/wezterm"
-        path: "~/.config/nvim"
+        path: "~/.config/wezterm"
         state: link
