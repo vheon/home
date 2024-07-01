@@ -1,6 +1,6 @@
 ---
 - name: Ensure GOPATH exists
-  ansible.builtin.includefile:
+  ansible.builtin.file:
     path: ~/go
     state: directory
     mode: '0644'
