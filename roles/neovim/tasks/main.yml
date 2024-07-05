@@ -35,7 +35,7 @@
 
 # XXX(andrea): maybe we should set the environment for the whole playbook and be done with it. We could put also XDG directories as well.
 - name: Install all plugins
-  ansible.builtin.command: "{{ brew_bin_location }}/nvim --headless '+Lazy! sync' +qa"
+  ansible.builtin.command: "nvim --headless '+Lazy! sync' +qa"
   args:
     creates: ~/.local/share/nvim/lazy/catppuccin
 
