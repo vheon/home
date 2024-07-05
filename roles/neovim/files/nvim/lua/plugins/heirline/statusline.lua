@@ -218,7 +218,7 @@ local Overseer = {
 
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.FAILURE, " ")
+            return self.tasks_count(self, self.STATUS.FAILURE, "󰅚 ")
         end,
         hl = { fg = "red", bg = "mantle" }
     },
@@ -230,13 +230,13 @@ local Overseer = {
     },
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.SUCCESS, " ")
+            return self.tasks_count(self, self.STATUS.SUCCESS, "󰄴 ")
         end,
         hl = { fg = "green", bg = "mantle" }
     },
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.RUNNING, "省")
+            return self.tasks_count(self, self.STATUS.RUNNING, "󰑮 ")
         end,
         hl = { fg = "teal", bg = "mantle" }
     },
