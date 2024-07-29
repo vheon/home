@@ -5,14 +5,20 @@
     - name: Create Socket file
       ansible.builtin.copy:
         src: git-daemon.socket
-        dest: /usr/lib/systemd/system/git-daemon.socket
+        dest: /etc/systemd/system/git-daemon.socket
         mode: '0644'
 
     - name: Create Unit file
       ansible.builtin.template:
         src: git-daemon@.service.j2
-        dest: /usr/lib/systemd/system/git-daemon@.service
+        dest: /lib/systemd/system/git-daemon@.service
         mode: '0644'
+
+    - name: Create symlink of Unit file
+      ansible.builtin.file:
+        src: /lib/systemd/system/git-daemon@.service
+        dest: /etc/systemd/system/git-daemon@.service
+        state: link
 
     - name: Start Git Daemon
       ansible.builtin.systemd_service:
