@@ -495,11 +495,32 @@ return {
                     numhl = "",
                 },
             }
+            require("overseer").enable_dap()
+            require("dap.ext.vscode").json_decode = require("overseer.json").decode
+            local dap = require("dap")
+            dap.set_log_level('TRACE')
+            dap.adapters.gdb = {
+                id = "gdb",
+                type = "executable",
+                command = "gdb",
+                args = { "--quiet", "--interpreter=dap" },
+            }
+
+            dap.configurations.cpp = {
+                {
+                    name = "Run executable (GDB Server)",
+                    type = "gdb",
+                    request = "attach",
+                    -- This requires special handling of 'run_last', see
+                    -- https://github.com/mfussenegger/nvim-dap/issues/1025#issuecomment-1695852355
+                    target = ":8080"
+                }
+            }
         end,
     },
     {
         "leoluz/nvim-dap-go",
-        lazy = true,
+        -- lazy = true,
         dependencies = { "mfussenegger/nvim-dap" },
         opts = {
             dap_configurations = {
@@ -547,6 +568,7 @@ return {
             local Hydra = require "hydra"
 
             -- XXX(andrea): this is wrong! either fix it or just use the generated one
+            --[[[
             local hint = [[
  _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
  _i_: step into   _U_: Toggle UI        ^ ^                 ^ ^
@@ -555,50 +577,33 @@ return {
  ^
  ^ ^              _q_: exit
 ]]
+            --]]]
 
             Hydra {
                 -- hint = hint,
                 config = {
                     color = "pink",
+                    on_enter = function()
+                        vim.bo.modifiable = false
+                    end,
                     invoke_on_body = true,
                     hint = {
                         type = "window",
                         position = "bottom",
-                        border = "rounded",
+                        float_opts = {
+                            border = "rounded",
+                        }
                     },
                 },
                 name = "dap",
                 mode = { "n", "x" },
                 body = "<leader>dh",
                 heads = {
-                    {
-                        "n",
-                        function()
-                            require("dap").step_over()
-                        end,
-                        { desc = "step over" },
-                    },
-                    {
-                        "i",
-                        function()
-                            require("dap").step_into()
-                        end,
-                        { desc = "step into" },
-                    },
-                    {
-                        "o",
-                        function()
-                            require("dap").step_out()
-                        end,
-                        { desc = "step out" },
-                    },
-                    {
-                        "c",
-                        function()
-                            require("dap").continue()
-                        end,
-                        { desc = "Continue/Start" },
-                    },
+                    { "<Down>",  function() require("dap").step_over() end, { desc = "step over" }, },
+                    { "<Up>",    function() require("dap").step_back() end, { desc = "step back" }, },
+                    { "<Right>", function() require("dap").step_into() end, { desc = "step into" }, },
+                    { "<Left>",  function() require("dap").step_out() end,  { desc = "step out" }, },
+                    { "c",       function() require("dap").continue() end,  { desc = "Continue/Start" }, },
                     {
                         "C",
                         function()
@@ -710,6 +715,8 @@ return {
         config = function()
             local overseer = require "overseer"
             overseer.setup {
+                dap = false, -- we will enable dap support manually when nvim-dap is loaded
+                default_template_prompt = "allow",
                 log = {
                     {
                         type = "echo",
