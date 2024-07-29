@@ -377,6 +377,7 @@ return {
                     "diff",
                     "dockerfile",
                     "elixir",
+                    "query",
                     "erlang",
                     "fennel",
                     "fish",
