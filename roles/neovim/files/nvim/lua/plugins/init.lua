@@ -848,8 +848,7 @@ return {
     },
 
     {
-        "/home/bigfix/code/bigfixdev.nvim",
-        dev = true,
-        config = true,
+        dir = "/home/bigfix/code/bigfixdev.nvim",
+        opts = {},
     },
 }
