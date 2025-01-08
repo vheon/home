@@ -1,0 +1,2 @@
+---
+fish_binary_location: "{{ brew_bin_location }}/fish"

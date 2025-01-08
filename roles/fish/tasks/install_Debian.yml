@@ -1,0 +1,14 @@
+---
+- name: Ensure fish shell is installed
+  become: true
+  block:
+    - name: Add fish-shell repository
+      ansible.builtin.apt_repository:
+        repo: ppa:fish-shell/release-3
+        state: present
+
+    - name: Ensure fish-shell is installed
+      ansible.builtin.apt:
+        name:
+          - fish
+        state: present

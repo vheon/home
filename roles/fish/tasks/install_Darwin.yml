@@ -1,0 +1,6 @@
+---
+- name: Ensure fish shell is installed through brew to get an up to date version
+  community.general.homebrew_cask:
+    name: fish
+    path: "{{ brew_bin_location }}"
+    state: present

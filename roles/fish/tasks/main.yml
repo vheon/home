@@ -1,8 +1,13 @@
 ---
-- name: Ensure fish is installed
-  community.general.homebrew:
-    name: fish
-    path: "{{ brew_bin_location }}"
+# Variable configuration.
+- name: Include OS-specific variables.
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}_{{ ansible_architecture }}.yml"
+    - "{{ ansible_os_family }}.yml"
+
+- name: Ensure fish is installed.
+  ansible.builtin.include_tasks: "install_{{ ansible_os_family }}.yml"
 
 - name: Backup default bash files and .profile
   ansible.builtin.include_tasks: backup_file.yml
@@ -25,16 +30,8 @@
     path: "~/.config/fish"
     state: link
 
-- name: Link .profile
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/.profile"
-    path: ~/.profile
-    state: link
-  when: not is_macOS
-
 - name: Change default shell to fish-shell
   ansible.builtin.user:
     name: "{{ ansible_user_id }}"
-    shell: "{{ brew_bin_location }}/fish"
+    shell: "{{ fish_binary_location }}"
   become: true
-  when: is_macOS
