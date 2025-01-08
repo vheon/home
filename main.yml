@@ -75,6 +75,8 @@
         - homebrew
     - role: tmux
     - role: fish
+      tags:
+        - fish
     - role: git
       tags:
         - git
