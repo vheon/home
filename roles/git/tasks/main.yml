@@ -1,6 +1,6 @@
 ---
 - name: Ensure latest git is installed
-  ansible.builtin.include_tasks: "install_git_{{ ansible_os_family }}.yml"
+  ansible.builtin.include_tasks: "install_{{ ansible_os_family }}.yml"
 
 - name: Create global .gitconfig
   ansible.builtin.template:
