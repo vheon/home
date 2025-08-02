@@ -8,7 +8,7 @@ local function decorate(component, decorators, color)
         },
         {
             hl = { fg = "mantle", bg = color },
-            component
+            component,
         },
     }
     if decorators[2] ~= nil then
@@ -21,7 +21,7 @@ local function decorate(component, decorators, color)
 end
 
 local utils = require "heirline.utils"
-local devicons = require'nvim-web-devicons'
+local devicons = require "nvim-web-devicons"
 
 local Space = { provider = " " }
 local Align = { provider = "%=" }
@@ -40,7 +40,7 @@ local MacroRec = {
     update = {
         "RecordingEnter",
         "RecordingLeave",
-     }
+    },
 }
 
 local FileIcon = {
@@ -56,39 +56,40 @@ local FileIcon = {
         end
 
         self.filename = vim.api.nvim_buf_get_name(0)
-        self.icon = devicons.get_icon(self.filename, extract_extension(self.filename), {default = true})
+        self.icon = devicons.get_icon(self.filename, extract_extension(self.filename), { default = true })
     end,
     provider = function(self)
         return self.icon and (self.icon .. " ")
-    end
+    end,
 }
 
 local FileTypeString = {
     provider = function()
         local ft = vim.bo.filetype
         if #ft > 0 then
-            return '['..ft..']'
+            return "[" .. ft .. "]"
         end
     end,
 }
 
 local TreesitterAvailable = {
-    provider = '',
+    provider = "",
     condition = function()
         -- XXX(andrea): is there an easier way?
         -- XXX(andrea): can we attach to some autocmd for Treesitter?
         return vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil
-    end
+    end,
 }
 
 local FileType = {
     contition = function()
         return vim.bo.filetype ~= ""
     end,
-    FileIcon, FileTypeString, TreesitterAvailable,
-    hl = { bg = "mantle", fg = "peach", italic = true }
+    FileIcon,
+    FileTypeString,
+    TreesitterAvailable,
+    hl = { bg = "mantle", fg = "peach", italic = true },
 }
-
 
 local FileFlags = {
     {
@@ -96,13 +97,13 @@ local FileFlags = {
             return vim.bo.modified
         end,
         provider = " ●",
-        update = "BufModifiedSet"
+        update = "BufModifiedSet",
     },
     {
         condition = function()
             return not vim.bo.modifiable or vim.bo.readonly
         end,
-        provider =  " ", -- ' '
+        provider = " ", -- ' '
     },
 }
 
@@ -111,7 +112,7 @@ local Diagnostics = {
     condition = conditions.has_diagnostics,
 
     static = {
-        icons = require "config.icons".diagnostics
+        icons = require("config.icons").diagnostics,
     },
 
     init = function(self)
@@ -156,10 +157,10 @@ local LspActive = {
         condition = conditions.lsp_attached,
         init = function(self)
             local names = {}
-            for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+            for _, server in pairs(vim.lsp.get_clients { bufnr = 0 }) do
                 table.insert(names, server.name)
             end
-            self.servers = " [" ..table.concat(names, " ") .. "] "
+            self.servers = " [" .. table.concat(names, " ") .. "] "
         end,
         provider = function(self)
             return self.servers
@@ -167,45 +168,43 @@ local LspActive = {
     },
     {
         condition = conditions.lsp_attached,
-        provider = " [LSP]"
+        provider = " [LSP]",
     },
     {
         condition = conditions.lsp_attached,
-        provider = " "
+        provider = " ",
     },
 }
 
-
 local FilePosition = {
     provider = table.concat({
-        '%-14(', -- start group (should be 14 char long?)
-        '%P ', -- percentage in the file
-        '%3l', -- 3 wide padded line (what if the file is longer?)
-        'ℓ ', -- (Literal, \u2113 "SCRIPT SMALL L").
-        '%02c', -- 2 padded column XXX(andrea): would be better to handle the padding ourselves
-        '𝚌 ', -- (Literal, \u1d68c "MATHEMATICAL MONOSPACE SMALL C").
-        '%)' -- end group
-    }, ''),
-    hl = "User5"
+        "%-14(", -- start group (should be 14 char long?)
+        "%P ", -- percentage in the file
+        "%3l", -- 3 wide padded line (what if the file is longer?)
+        "ℓ ", -- (Literal, \u2113 "SCRIPT SMALL L").
+        "%02c", -- 2 padded column XXX(andrea): would be better to handle the padding ourselves
+        "𝚌 ", -- (Literal, \u1d68c "MATHEMATICAL MONOSPACE SMALL C").
+        "%)", -- end group
+    }, ""),
+    hl = "User5",
 }
 
 local FileEncoding = {
     provider = function()
         local fe = vim.bo.fileencoding
-        if #fe > 0 and fe ~= 'utf-8' then
-            return '['..fe..']'
+        if #fe > 0 and fe ~= "utf-8" then
+            return "[" .. fe .. "]"
         end
-    end
+    end,
 }
-
 
 local Overseer = {
     static = {
-        STATUS = require("overseer.constants").STATUS,
+        constants = require "overseer.constants",
         tasks_count = function(self, status, icon)
             local tasks = self.tasks_by_status[status]
             if tasks then
-                return table.concat({icon, #tasks }, "")
+                return table.concat({ icon, #tasks }, "")
             end
         end,
     },
@@ -218,33 +217,33 @@ local Overseer = {
 
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.FAILURE, "󰅚 ")
+            return self.tasks_count(self, self.constants.STATUS.FAILURE, "󰅚 ")
         end,
-        hl = { fg = "red", bg = "mantle" }
+        hl = { fg = "red", bg = "mantle" },
     },
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.CANCELED, " ")
+            return self.tasks_count(self, self.constants.STATUS.CANCELED, " ")
         end,
-        hl = { fg = "yellow", bg = "mantle" }
+        hl = { fg = "yellow", bg = "mantle" },
     },
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.SUCCESS, "󰄴 ")
+            return self.tasks_count(self, self.constants.STATUS.SUCCESS, "󰄴 ")
         end,
-        hl = { fg = "green", bg = "mantle" }
+        hl = { fg = "green", bg = "mantle" },
     },
     {
         provider = function(self)
-            return self.tasks_count(self, self.STATUS.RUNNING, "󰑮 ")
+            return self.tasks_count(self, self.constants.STATUS.RUNNING, "󰑮 ")
         end,
-        hl = { fg = "teal", bg = "mantle" }
+        hl = { fg = "teal", bg = "mantle" },
     },
 }
 
 local Dap = {
     static = {
-        dap = require 'dap'
+        dap = require "dap",
     },
     condition = function(self)
         local session = self.dap.session()
@@ -252,66 +251,65 @@ local Dap = {
     end,
     init = function(self)
         self.decorated = self:new(decorate({
-            provider = 'ﮣ ' .. self.dap.status()
-        }, {"", ""}, "blue"))
+            provider = "ﮣ " .. self.dap.status(),
+        }, { "", "" }, "blue"))
     end,
     provider = function(self)
         return self.decorated:eval()
-    end
+    end,
 }
 
 local Hydra = {
     static = {
-        hydra = require 'hydra.statusline',
+        hydra = require "hydra.statusline",
         color = function(self)
             local color = self.hydra.get_color()
             if color == "amaranth" then
                 return "maroon"
             end
             return color
-        end
+        end,
     },
     condition = function(self)
         return self.hydra.is_active()
     end,
     init = function(self)
         self.decorated = self:new(decorate({
-            provider = '● ' .. self.hydra.get_name()
-        }, {"", ""}, self:color()))
+            provider = "● " .. self.hydra.get_name(),
+        }, { "", "" }, self:color()))
     end,
 
     provider = function(self)
         return self.decorated:eval()
-    end
+    end,
 }
 
 local ferret_search = false
-local ferret_group = vim.api.nvim_create_augroup('ferret', { clear = true })
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'FerretAsyncStart',
+local ferret_group = vim.api.nvim_create_augroup("ferret", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+    pattern = "FerretAsyncStart",
     callback = function()
         ferret_search = true
         vim.cmd.redrawstatus()
     end,
-    group = ferret_group
+    group = ferret_group,
 })
 
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'FerretAsyncFinish',
+vim.api.nvim_create_autocmd("User", {
+    pattern = "FerretAsyncFinish",
     callback = function()
         ferret_search = false
         vim.cmd.redrawstatus()
     end,
-    group = ferret_group
+    group = ferret_group,
 })
 
 local Ferret = {
     condition = function()
         return ferret_search
     end,
-    provider = '  '
+    provider = "  ",
 }
-
 
 local DefaultStatusline = {
     MacroRec,
@@ -323,7 +321,7 @@ local DefaultStatusline = {
     Diagnostics,
 
     Align,
-    Hydra,
+    -- Hydra,
     Dap,
     Align,
 
@@ -335,56 +333,56 @@ local DefaultStatusline = {
     decorate({
         Space,
         FileEncoding,
-        FilePosition
-    }, {""}, "teal"),
+        FilePosition,
+    }, { "" }, "teal"),
 }
 
 local InactiveStatusline = {
     condition = conditions.is_not_active,
     -- FileName,
-    Align
+    Align,
 }
 
 local Bufname = { provider = "%f" }
 
 local HelpStatusline = {
     condition = function()
-        return conditions.buffer_matches({
+        return conditions.buffer_matches {
             buftype = { "help" },
-        })
+        }
     end,
     decorate({
-        provider = "Help"
-    }, {"", ""}, "peach"),
+        provider = "Help",
+    }, { "", "" }, "peach"),
     Align,
     Bufname,
     Align,
     decorate({
         Space,
-        FilePosition
-    }, {""}, "teal"),
+        FilePosition,
+    }, { "" }, "teal"),
 }
 
 local ManStatusline = {
     condition = function()
-        return conditions.buffer_matches({
+        return conditions.buffer_matches {
             filetype = { "man" },
-        })
+        }
     end,
     decorate({
-        provider = "Man"
-    }, {"", ""}, "peach"),
+        provider = "Man",
+    }, { "", "" }, "peach"),
     Align,
     {
         provider = function()
-            return vim.fn.expand('%:t')
-        end
+            return vim.fn.expand "%:t"
+        end,
     },
     Align,
     decorate({
         Space,
-        FilePosition
-    }, {""}, "teal"),
+        FilePosition,
+    }, { "" }, "teal"),
 }
 
 local QuickfixStatusline = {
@@ -397,87 +395,118 @@ local QuickfixStatusline = {
                 return vim.fn.getloclist(0, { title = 0 }).title
             end
             return vim.fn.getqflist({ title = 0 }).title
-        end
+        end,
     },
     condition = function()
-        return conditions.buffer_matches({
+        return conditions.buffer_matches {
             buftype = { "quickfix" },
-        })
+        }
     end,
     init = function(self)
         local is_loclist = self.is_loclist()
-        self.label = is_loclist and 'Location List' or 'Quickfix List'
+        self.label = is_loclist and "Location List" or "Quickfix List"
         self.t = self.title(is_loclist)
     end,
     decorate({
         provider = function(self)
             return self.label
-        end
-    }, {"", ""}, "peach"),
+        end,
+    }, { "", "" }, "peach"),
     Align,
     {
         provider = function(self)
             return self.t
-        end
+        end,
     },
     Align,
     decorate({
         provider = function()
-            local line = vim.fn.line('.')
-            local count = vim.fn.line('$')
-            return string.format('%3d/%-3d', line, count)
-        end
-    }, {""}, "peach"),
+            local line = vim.fn.line "."
+            local count = vim.fn.line "$"
+            return string.format("%3d/%-3d", line, count)
+        end,
+    }, { "" }, "peach"),
 }
 
 local OilStatusline = {
     static = {
-        oil = require "oil"
+        oil = require "oil",
     },
     condition = function()
-        return conditions.buffer_matches({
+        return conditions.buffer_matches {
             filetype = { "oil" },
-        })
+        }
     end,
     {
         provider = function(self)
-            return vim.fn.fnamemodify(self.oil.get_current_dir(), ':~')
-        end
-    }
+            return vim.fn.fnamemodify(self.oil.get_current_dir(), ":~")
+        end,
+    },
 }
 
 local TroubleStatusline = {
     condition = function()
-        return conditions.buffer_matches({
+        return conditions.buffer_matches {
             filetype = { "Trouble" },
-        })
+        }
     end,
     static = {
-        opts = require('trouble.config').options
+        opts = require("trouble.config").options,
     },
-    decorate({ provider = "Trouble" }, {"", ""}, "peach"),
+    decorate({ provider = "Trouble" }, { "", "" }, "peach"),
     Align,
     {
         provider = function(self)
             return self.opts.mode
-        end
+        end,
     },
     Align,
 }
 
 local OverseerListStatusline = {
     condition = function()
-        return conditions.buffer_matches({
+        return conditions.buffer_matches {
             filetype = { "OverseerList" },
-        })
+        }
     end,
-    decorate({ provider = 'OverseerList ' }, { nil,"" }, "flamingo")
+    decorate({ provider = "OverseerList " }, { nil, "" }, "flamingo"),
 }
 
-return utils.insert({
+local DapUiStatusline = {
+    condition = function()
+        return conditions.buffer_matches {
+            filetype = {
+                "dap-repl",
+                "dapui_console",
+                "dapui_watches",
+                "dapui_stacks",
+                "dapui_breakpoints",
+                "dapui_scopes",
+            },
+        }
+    end,
+    decorate({
+        provider = function()
+            local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+            if filename == "" then
+                return "[No Name]"
+            end
+
+            -- now, if the filename would occupy more than 90% of the available
+            -- space, we trim the file path to its initials
+            if not conditions.width_percent_below(#filename, 0.90) then
+                filename = vim.fn.pathshorten(filename)
+            end
+            return filename
+        end,
+    }, { nil, "" }, "flamingo"),
+}
+
+return utils.insert(
+    {
         hl = {
             bg = utils.get_highlight("StatusLine").bg,
-            fg = utils.get_highlight("StatusLine").fg
+            fg = utils.get_highlight("StatusLine").fg,
         },
         -- the first statusline with no condition, or which condition returns true is used.
         -- think of it as a switch case with breaks to stop fallthrough.
@@ -489,6 +518,7 @@ return utils.insert({
     OilStatusline,
     OverseerListStatusline,
     TroubleStatusline,
+    DapUiStatusline,
     InactiveStatusline,
     DefaultStatusline
 )

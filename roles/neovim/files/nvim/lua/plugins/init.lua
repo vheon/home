@@ -80,12 +80,30 @@ return {
                     gq = "Close",
                 },
             },
+            graph_style = "kitty",
             signs = {
                 section = { "", "" },
                 item = { "", "" },
                 hunk = { "", "▾" },
             },
         },
+    },
+
+    {
+        "SuperBo/fugit2.nvim",
+        opts = {
+            external_diffview = true,
+        },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "nvim-lua/plenary.nvim",
+            {
+                "chrisgrieser/nvim-tinygit", -- optional: for Github PR view
+                dependencies = { "stevearc/dressing.nvim" },
+            },
+        },
+        cmd = { "Fugit2", "Fugit2Diff", "Fugit2Graph" },
     },
 
     {
@@ -108,12 +126,12 @@ return {
         opts = {
             select = {
                 get_config = function(opts)
-                    if opts.kind == 'overseer_template' then
+                    if opts.kind == "overseer_template" then
                         return {
-                            backend = 'fzf_lua',
+                            backend = "fzf_lua",
                             fzf_lua = {
                                 fzf_opts = {
-                                    ['--layout'] = 'reverse',
+                                    ["--layout"] = "reverse",
                                     ["--info"] = "right",
                                 },
                                 winopts = {
@@ -121,18 +139,63 @@ return {
                                     col = 0.5,
                                     height = 0.25,
                                     width = 0.25,
-                                }
-                            }
+                                },
+                            },
                         }
                     end
-                end
-            }
-        }
+                end,
+            },
+        },
+    },
+
+    {
+        "stevearc/conform.nvim",
+        event = { "BufWritePre" },
+        cmd = { "ConformInfo" },
+        keys = {
+            {
+                -- Customize or remove this keymap to your liking
+                "gq",
+                function()
+                    require("conform").format({ async = true }, function(err)
+                        if not err then
+                            local mode = vim.api.nvim_get_mode().mode
+                            if vim.startswith(string.lower(mode), "v") then
+                                vim.api.nvim_feedkeys(
+                                    vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+                                    "n",
+                                    true
+                                )
+                            end
+                        end
+                    end)
+                end,
+                mode = { "n", "v" },
+                desc = "Format buffer",
+            },
+        },
+        -- This will provide type hinting with LuaLS
+        ---@module "conform"
+        ---@type conform.setupOpts
+        opts = {
+            -- Define your formatters
+            formatters_by_ft = {
+                lua = { "stylua" },
+                cpp = { "clang-format" },
+            },
+            -- Set default options
+            default_format_opts = {
+                lsp_format = "fallback",
+            },
+        },
+        init = function()
+            -- If you want the formatexpr, here is the place to set it
+            vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+        end,
     },
 
     {
         "stevearc/oil.nvim",
-        keys = "-",
         opts = {
             skip_confirm_for_simple_edits = true,
             keymaps = {
@@ -144,6 +207,7 @@ return {
             oil.setup(opts)
             vim.keymap.set("n", "-", oil.open, { desc = "Open parent directory" })
         end,
+        lazy = false,
     },
 
     { "tpope/vim-unimpaired" },
@@ -151,60 +215,84 @@ return {
     { "tpope/vim-rsi" },
 
     {
-        "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
-            "hrsh7th/cmp-cmdline",
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
+        "saghen/blink.cmp",
+
+        -- use a release tag to download pre-built binaries
+        version = "*",
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            appearance = {
+                nerd_font_variant = "mono",
+            },
+
+            -- Default list of enabled providers defined so that you can extend it
+            -- elsewhere in your config, without redefining it, due to `opts_extend`
+            sources = {
+                default = { "lsp", "path", "buffer" },
+            },
+
+            fuzzy = { implementation = "rust" },
         },
-        config = function()
-            ---@diagnostic disable: need-check-nil
-            local cmp = require "cmp"
-            cmp.setup {
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
-                },
-                window = {
-                    documentation = cmp.config.window.bordered(),
-                },
-                sources = {
-                    { name = "nvim_lsp" },
-                    { name = "nvim_lsp_signature_help" },
-                    { name = "luasnip" },
-                    {
-                        name = "buffer",
-                        option = {
-                            get_bufnrs = function()
-                                return vim.api.nvim_list_bufs()
-                            end,
-                        },
-                    },
-                },
-                mapping = cmp.mapping.preset.insert {
-                    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete(),
-                },
-                experimental = {
-                    ghost_text = true,
-                },
-            }
-            cmp.setup.cmdline(":", {
-                sources = {
-                    { name = "path" },
-                    { name = "cmdline" },
-                },
-                mapping = cmp.mapping.preset.cmdline(),
-            })
-        end,
+        opts_extend = { "sources.default" },
     },
+
+    --{
+    --    "hrsh7th/nvim-cmp",
+    --    event = "InsertEnter",
+    --    dependencies = {
+    --        "hrsh7th/cmp-nvim-lsp",
+    --        "hrsh7th/cmp-buffer",
+    --        "hrsh7th/cmp-path",
+    --        "hrsh7th/cmp-nvim-lsp-signature-help",
+    --        "hrsh7th/cmp-cmdline",
+    --        "L3MON4D3/LuaSnip",
+    --        "saadparwaiz1/cmp_luasnip",
+    --    },
+    --    config = function()
+    --        ---@diagnostic disable: need-check-nil
+    --        local cmp = require "cmp"
+    --        cmp.setup {
+    --            snippet = {
+    --                expand = function(args)
+    --                    require("luasnip").lsp_expand(args.body)
+    --                end,
+    --            },
+    --            window = {
+    --                documentation = cmp.config.window.bordered(),
+    --            },
+    --            sources = {
+    --                { name = "nvim_lsp" },
+    --                { name = "nvim_lsp_signature_help" },
+    --                { name = "luasnip" },
+    --                {
+    --                    name = "buffer",
+    --                    option = {
+    --                        get_bufnrs = function()
+    --                            return vim.api.nvim_list_bufs()
+    --                        end,
+    --                    },
+    --                },
+    --            },
+    --            mapping = cmp.mapping.preset.insert {
+    --                ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    --                ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    --                ["<C-Space>"] = cmp.mapping.complete(),
+    --            },
+    --            experimental = {
+    --                ghost_text = true,
+    --            },
+    --        }
+    --        cmp.setup.cmdline(":", {
+    --            sources = {
+    --                { name = "path" },
+    --                { name = "cmdline" },
+    --            },
+    --            mapping = cmp.mapping.preset.cmdline(),
+    --        })
+    --    end,
+    --},
 
     {
         "lewis6991/gitsigns.nvim",
@@ -238,35 +326,35 @@ return {
         },
     },
     {
-        'linrongbin16/gitlinker.nvim',
+        "linrongbin16/gitlinker.nvim",
         cmd = "GitLink",
         keys = {
             {
                 "<leader>gl",
-                function ()
-                    require("gitlinker").link({ remote = "origin" })
+                function()
+                    require("gitlinker").link { remote = "origin" }
                 end,
                 silent = true,
                 noremap = true,
                 desc = "GitLink",
-                mode = "v"
-            }
+                mode = "v",
+            },
         },
         config = function()
-            local gitlinker = require("gitlinker")
+            local gitlinker = require "gitlinker"
             gitlinker.setup {
                 router = {
                     browse = {
-                        ["^github02.hclpnp.com"] = require('gitlinker.routers').github_browse,
+                        ["^github02.hclpnp.com"] = require("gitlinker.routers").github_browse,
                     },
                     blame = {
-                        ["^github02.hclpnp.com"] = require('gitlinker.routers').github_blame,
+                        ["^github02.hclpnp.com"] = require("gitlinker.routers").github_blame,
                     },
                 },
             }
-            vim.keymap.set( 'v', "<leader>gl", function ()
-                gitlinker.link({ remote = "origin" })
-            end, { silent = true, noremap = true, desc = "GitLink" } )
+            vim.keymap.set("v", "<leader>gl", function()
+                gitlinker.link { remote = "origin" }
+            end, { silent = true, noremap = true, desc = "GitLink" })
         end,
     },
 
@@ -283,24 +371,19 @@ return {
                 auto_preview = false,
             },
         },
-        config = function(_, opts)
-            require("bqf").setup(opts)
-            vim.keymap.set("n", "<Leader>q", function()
-                local nr = #vim.api.nvim_list_wins()
-                vim.cmd "cwindow"
-                if nr == #vim.api.nvim_list_wins() then
-                    vim.cmd "cclose"
-                end
-            end)
-        end,
+        -- config = function(_, opts)
+        --     require("bqf").setup(opts)
+        -- end,
     },
 
     {
         "wincent/ferret",
-        config = function()
+        init = function()
             vim.g.FerretMap = 0
             vim.g.FerretAutojump = 0
-            vim.keymap.set("n", "<Leader>sw", ":Ack! -w <C-r><C-w><cr>", { silent = true })
+        end,
+        config = function()
+            -- vim.keymap.set("n", "<Leader>sw", ":Ack! -w <C-r><C-w><cr>", { silent = true })
         end,
     },
 
@@ -310,28 +393,34 @@ return {
     },
 
     {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+    },
+    {
         "ibhagwan/fzf-lua",
         cmd = "FzfLua",
         keys = {
-            { "<leader>fg", "<cmd>FzfLua git_files<cr>",  desc = "Find Git Files" },
-            { "<leader>ff", "<cmd>FzfLua files<cr>",      desc = "Find Files" },
-            { "<leader>fb", "<cmd>FzfLua buffers<cr>",    desc = "Buffers" },
-            { "<leader>fh", "<cmd>FzfLua help_tags<cr>",  desc = "Find Helptags" },
+            { "<leader>fg", "<cmd>FzfLua git_files<cr>", desc = "Find Git Files" },
+            { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find Files" },
+            { "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
+            { "<leader>fh", "<cmd>FzfLua help_tags<cr>", desc = "Find Helptags" },
         },
         opts = {
             "telescope",
             fzf_opts = {
-                ['--info'] = 'default',
-                ['--marker'] = '▏',
-                ['--pointer'] = '▌',
-                ['--prompt'] = '▌ ',
+                ["--info"] = "default",
+                ["--marker"] = "▏",
+                ["--pointer"] = "▌",
+                ["--prompt"] = "▌ ",
             },
             git = {
                 files = {
-                    fzf_opts = { ['--scheme'] = 'path' },
-                    cmd = "git ls-files --exclude-standard --cached --others"
-                }
-            }
+                    fzf_opts = { ["--scheme"] = "path" },
+                    cmd = "git ls-files --exclude-standard --cached --others",
+                },
+            },
         },
     },
 
@@ -340,7 +429,6 @@ return {
     { "pprovost/vim-ps1" },
     -- { "pearofducks/ansible-vim" },
     { "mfussenegger/nvim-ansible" },
-
 
     {
         "nvim-treesitter/playground",
@@ -352,6 +440,16 @@ return {
         event = "BufReadPre",
         config = true,
         dependencies = { "nvim-treesitter/nvim-treesitter" },
+        keys = {
+            {
+                "yoC",
+                function()
+                    require("treesitter-context").toggle()
+                end,
+                mode = "n",
+                { desc = "Toggle Treesitter Context" },
+            },
+        },
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -457,6 +555,89 @@ return {
     {
         "mfussenegger/nvim-dap",
         lazy = true,
+        keys = {
+            {
+                "<A-j>",
+                function()
+                    require("dap").step_over()
+                end,
+                { desc = "step over" },
+            },
+            {
+                "<A-i>",
+                function()
+                    require("dap").step_into()
+                end,
+                { desc = "step into" },
+            },
+            {
+                "<A-I>",
+                function()
+                    require("dap").step_into {
+                        askForTargets = true,
+                    }
+                end,
+                { desc = "step into specific" },
+            },
+            {
+                "<A-o>",
+                function()
+                    require("dap").step_out()
+                end,
+                { desc = "step out" },
+            },
+            {
+                "<A-s>",
+                function()
+                    require("dap").continue()
+                end,
+                { desc = "Continue/Start" },
+            },
+            {
+                "<A-j>",
+                function()
+                    require("dap").run_to_cursor()
+                end,
+                { desc = "to cursor" },
+            },
+            {
+                "<A-S-s>",
+                function()
+                    require("dap").terminate()
+                end,
+                { desc = "terminate" },
+            },
+            {
+                "<A-U>",
+                function()
+                    require("dapui").toggle()
+                end,
+                { desc = "Toggle UI" },
+            },
+            {
+                "<A-b>",
+                function()
+                    require("dap").toggle_breakpoint()
+                end,
+                { desc = "Breakpoint" },
+            },
+            -- {
+            --     "L",
+            --     function()
+            --         vim.ui.input({ prompt = "Log point message: " }, function(input)
+            --             require("dap").set_breakpoint(nil, nil, input)
+            --         end)
+            --     end,
+            --     { desc = "Add Log Point" },
+            -- },
+            {
+                "<A-K>",
+                function()
+                    require("dap.ui.widgets").hover()
+                end,
+                { desc = "Eval" },
+            },
+        },
         config = function()
             vim.fn.sign_define {
                 {
@@ -497,24 +678,107 @@ return {
             }
             require("overseer").enable_dap()
             require("dap.ext.vscode").json_decode = require("overseer.json").decode
-            local dap = require("dap")
-            dap.set_log_level('TRACE')
+            local dap = require "dap"
+            dap.set_log_level "TRACE"
             dap.adapters.gdb = {
                 id = "gdb",
                 type = "executable",
                 command = "gdb",
-                args = { "--quiet", "--interpreter=dap" },
+                args = { "--quiet", "--interpreter=dap", "--eval-command", "set print pretty on" },
+            }
+            dap.adapters.codelldb = {
+                type = "executable",
+                command = "codelldb",
+            }
+            dap.adapters.lldb = {
+                type = "executable",
+                command = "lldb-vscode-14",
             }
 
+            local dap_utils = require "dap.utils"
+
+            local programFn = function()
+                return coroutine.create(function(dap_run_co)
+                    vim.ui.input({
+                        prompt = "Path to executable: ",
+                        default = vim.fn.getcwd() .. "/",
+                        completion = "file",
+                    }, function(path)
+                        coroutine.resume(dap_run_co, (path and path ~= "") and path or dap.ABORT)
+                    end)
+                end)
+            end
+
             dap.configurations.cpp = {
+                {
+                    name = "Launch",
+                    type = "gdb",
+                    request = "launch",
+                    program = programFn,
+                    cwd = "${workspaceFolder}",
+                    stopAtBeginningOfMainSubprogram = true,
+                },
+                {
+                    name = "Select and attach to process",
+                    type = "gdb",
+                    request = "attach",
+                    program = programFn,
+                    pid = function()
+                        return coroutine.create(function(dap_run_co)
+                            local process = require("dap.utils").pick_process()
+                            coroutine.resume(dap_run_co, process)
+                        end)
+                    end,
+                    cwd = "${workspaceFolder}",
+                },
+                {
+                    name = "Run executable with arguments (GDB)",
+                    type = "gdb",
+                    request = "launch",
+                    -- This requires special handling of 'run_last', see
+                    -- https://github.com/mfussenegger/nvim-dap/issues/1025#issuecomment-1695852355
+                    program = programFn,
+                    args = function()
+                        return coroutine.create(function(dap_run_co)
+                            vim.ui.input({
+                                prompt = "Arguments: ",
+                            }, function(args_str)
+                                local arguments = (args_str and args_str ~= "") and vim.split(args_str, " +")
+                                    or dap.ABORT
+                                coroutine.resume(dap_run_co, arguments)
+                            end)
+                        end)
+                    end,
+                    cwd = "${workspaceFolder}",
+                },
                 {
                     name = "Run executable (GDB Server)",
                     type = "gdb",
                     request = "attach",
                     -- This requires special handling of 'run_last', see
                     -- https://github.com/mfussenegger/nvim-dap/issues/1025#issuecomment-1695852355
-                    target = ":8080"
-                }
+                    target = function()
+                        return coroutine.create(function(dap_run_co)
+                            vim.ui.input({
+                                prompt = "Target: ",
+                            }, function(args_str)
+                                local arguments = args_str or dap.ABORT
+                                coroutine.resume(dap_run_co, arguments)
+                            end)
+                        end)
+                    end,
+                    program = function()
+                        return dap_utils.pick_file {
+                            path = string.format("%s/BES/ProjectFiles/Unix", vim.fn.getcwd()),
+                            executables = true,
+
+                            filter = function(exec)
+                                -- Filter out shared libraries
+                                return not exec:match "%.o"
+                            end,
+                        }
+                    end,
+                },
             }
         end,
     },
@@ -557,12 +821,14 @@ return {
         lazy = true,
         dependencies = {
             "mfussenegger/nvim-dap",
-            "nvim-neotest/nvim-nio"
+            "nvim-neotest/nvim-nio",
         },
         config = true,
     },
     {
-        "nvimtools/hydra.nvim",
+        -- Temporary fork with a fix for nightly
+        "Cathyprime/hydra.nvim",
+        -- "nvimtools/hydra.nvim",
         keys = "<leader>dh",
         config = function()
             local Hydra = require "hydra"
@@ -579,31 +845,61 @@ return {
 ]]
             --]]]
 
-            Hydra {
-                -- hint = hint,
+            local dh = Hydra {
                 config = {
                     color = "pink",
                     on_enter = function()
                         vim.bo.modifiable = false
                     end,
                     invoke_on_body = true,
+                    -- hint = hint,
                     hint = {
                         type = "window",
                         position = "bottom",
                         float_opts = {
                             border = "rounded",
-                        }
+                        },
                     },
                 },
                 name = "dap",
                 mode = { "n", "x" },
                 body = "<leader>dh",
                 heads = {
-                    { "<Down>",  function() require("dap").step_over() end, { desc = "step over" }, },
-                    { "<Up>",    function() require("dap").step_back() end, { desc = "step back" }, },
-                    { "<Right>", function() require("dap").step_into() end, { desc = "step into" }, },
-                    { "<Left>",  function() require("dap").step_out() end,  { desc = "step out" }, },
-                    { "c",       function() require("dap").continue() end,  { desc = "Continue/Start" }, },
+                    {
+                        "<Down>",
+                        function()
+                            require("dap").step_over()
+                        end,
+                        { desc = "step over" },
+                    },
+                    {
+                        "<Up>",
+                        function()
+                            require("dap").step_back()
+                        end,
+                        { desc = "step back" },
+                    },
+                    {
+                        "<Right>",
+                        function()
+                            require("dap").step_into()
+                        end,
+                        { desc = "step into" },
+                    },
+                    {
+                        "<Left>",
+                        function()
+                            require("dap").step_out()
+                        end,
+                        { desc = "step out" },
+                    },
+                    {
+                        "c",
+                        function()
+                            require("dap").continue()
+                        end,
+                        { desc = "Continue/Start" },
+                    },
                     {
                         "C",
                         function()
@@ -667,6 +963,7 @@ return {
             flavour = "mocha", -- mocha, macchiato, frappe, latte
             term_colors = true,
             integrations = {
+                blink_cmp = true,
                 mason = true,
                 neogit = true,
                 notify = true,
@@ -771,12 +1068,13 @@ return {
                             items_only = true,
                         },
                         -- We don't care to keep this around as long as most tasks
-                        { "on_complete_dispose", timeout = 30 },
+                        { "on_complete_dispose", timeout = 10 },
                         "default",
                     },
                 }
                 task:start()
             end, { nargs = "*", bang = true })
+            vim.keymap.set("n", "<Leader>sw", ":Grep -w <C-r><C-w><cr>", { silent = true })
         end,
     },
 
@@ -814,7 +1112,7 @@ return {
                     },
                     view = "mini",
                 },
-            }
+            },
         },
     },
 
@@ -832,10 +1130,22 @@ return {
             modes = {
                 diagnostics = {
                     sort = { "severity", "filename", "pos", "message" },
-                }
+                },
             },
         },
     },
+    --{
+    --    "stevearc/quicker.nvim",
+    --    event = "FileType qf",
+    --    ---@module "quicker"
+    --    ---@type quicker.SetupOptions
+    --    opts = {},
+    --    init = function()
+    --        vim.keymap.set("n", "<leader>q", function()
+    --            require("quicker").toggle()
+    --        end, { desc = "Toggle quickfix", })
+    --    end
+    --},
 
     {
         "folke/which-key.nvim",
@@ -845,7 +1155,7 @@ return {
             {
                 "<leader>?",
                 function()
-                    require("which-key").show({ global = false })
+                    require("which-key").show { global = false }
                 end,
                 desc = "Buffer Local Keymaps (which-key)",
             },
@@ -870,7 +1180,76 @@ return {
     },
 
     {
+        "OXY2DEV/markview.nvim",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
+        opts = {
+            preview = {
+                modes = { "n", "i", "no", "c" },
+                hybrid_modes = { "i" },
+                -- This is nice to have
+                callbacks = {
+                    on_enable = function(_, win)
+                        vim.wo[win].conceallevel = 2
+                        vim.wo[win].concealcursor = "nc"
+                    end,
+                },
+            },
+        },
+    },
+
+    {
+        "madskjeldgaard/cppman.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        config = true,
+    },
+
+    { "rafcamlet/nvim-luapad" },
+    { "stevearc/profile.nvim" },
+
+    {
         dir = "/home/bigfix/code/bigfixdev.nvim",
         opts = {},
+    },
+
+    {
+        "kndndrj/nvim-dbee",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        build = function()
+            -- Install tries to automatically detect the install method.
+            -- if it fails, try calling it with one of these parameters:
+            --    "curl", "wget", "bitsadmin", "go"
+            require("dbee").install()
+        end,
+        config = function()
+            require("dbee").setup()
+        end,
+    },
+    {
+        "mistweaverco/kulala.nvim",
+        ft = { "http", "rest" },
+        opts = {
+            -- your configuration comes here
+            global_keymaps = false,
+            additional_curl_options = { "--insecure" },
+        },
+    },
+    {
+        "rbong/vim-flog",
+        lazy = true,
+        cmd = { "Flog", "Flogsplit", "Floggit" },
+        dependencies = {
+            "tpope/vim-fugitive",
+        },
+        config = function()
+            vim.g.flog_enable_extended_chars = true
+            vim.g.flog_enable_dynamic_commit_hl = true
+        end
     },
 }

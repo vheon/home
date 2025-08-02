@@ -29,6 +29,7 @@ vim.keymap.set("n", "<C-n>", "<cmd>set invnumber<cr>")
 vim.keymap.set("n", "mw", "<Plug>(SimpleMark)")
 vim.keymap.set("n", "<C-l>", "<cmd>nohlsearch<cr>:MarkClearAll<cr><C-L>", { silent = true })
 
+--[[
 vim.keymap.set({ "n", "v" }, "<leader>gq", function()
     local clang_format = require "clang-format"
 
@@ -52,6 +53,7 @@ vim.keymap.set({ "n", "v" }, "<leader>gq", function()
 
     return "<Esc>"
 end, { expr = true })
+--]]
 
 local toggle_term_key = "<C-\\><C-\\>"
 vim.keymap.set("n", toggle_term_key, function()
@@ -59,3 +61,26 @@ vim.keymap.set("n", toggle_term_key, function()
 end, { desc = "Terminal (root dir)" })
 
 
+vim.keymap.set("n", "<Leader>q", function()
+    local nr = #vim.api.nvim_list_wins()
+    vim.cmd "cwindow"
+    if nr == #vim.api.nvim_list_wins() then
+        vim.cmd "cclose"
+    end
+end)
+
+local function toggle_profile()
+  local prof = require("profile")
+  if prof.is_recording() then
+    prof.stop()
+    vim.ui.input({ prompt = "Save profile to:", completion = "file", default = "profile.json" }, function(filename)
+      if filename then
+        prof.export(filename)
+        vim.notify(string.format("Wrote %s", filename))
+      end
+    end)
+  else
+    prof.start("*")
+  end
+end
+vim.keymap.set("", "<f1>", toggle_profile)

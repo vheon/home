@@ -1,14 +1,20 @@
 [user]
 	name = Andrea Cedraro
 {% if on_work_machine %}
-	email = andrea.cedraro@hcl.software
+	email = andrea.cedraro@hcl-software.com
 {% else %}
 	email = a.cedraro@gmail.com
 {% endif %}
 [core]
 	excludesfile = ~/.cvsignore
 	editor = nvim
-	pager = less -x1,5
+	pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[include]
+	path = ~/.config/delta/themes/catppuccin.gitconfig
+[delta]
+	features = catppuccin-mocha
 [color]
 	ui = auto
 [color "branch"]

@@ -76,7 +76,7 @@ local FileIcon = {
         self.icon = devicons.get_icon(self.filename, extract_extension(self.filename), {default = true})
     end,
     provider = function(self)
-        return self.icon and (self.icon .. " ")
+        return self.icon and (" " .. self.icon .. " ")
     end
 }
 
@@ -84,10 +84,27 @@ local utils = require "heirline.utils"
 
 local Space = { provider = " " }
 
+local FileFlags = {
+    {
+        condition = function()
+            return vim.bo.modified
+        end,
+        provider = " ●",
+        update = "BufModifiedSet"
+    },
+    {
+        condition = function()
+            return not vim.bo.modifiable or vim.bo.readonly
+        end,
+        provider =  " ", -- ' '
+    },
+}
+
 local DefaultWinbar = utils.surround({ nil, "" }, "peach", {
     hl = { fg = "mantle" },
     FileName,
     Space,
+    FileFlags,
     FileIcon,
 })
 
@@ -95,8 +112,10 @@ local InactiveWinbar = {
     condition = conditions.is_not_active,
     FileName,
     Space,
+    FileFlags,
     FileIcon,
 }
+
 
 return {
     fallthrough = false,
